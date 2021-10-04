@@ -14,7 +14,7 @@ public class Quiz {
     }
 
     public Quiz(String... questions) {
-        this.questions.addAll(Arrays.asList(questions));
+        this.questions.add(questions[0]);
     }
 
 
