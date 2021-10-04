@@ -28,4 +28,14 @@ public class QuizTest {
 
         assertThat(questions).containsOnly("Question 1");
     }
+
+    @Test
+    void new_quiz_hasManyQuestions() {
+        // Given / when
+        Quiz quiz = new Quiz("Question 1", "Question 2");
+
+        List<String> questions = quiz.questions();
+
+        assertThat(questions).containsOnly("Question 1", "Question 2");
+    }
 }
