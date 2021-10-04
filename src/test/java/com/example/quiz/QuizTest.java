@@ -18,4 +18,14 @@ public class QuizTest {
         assertThat(questions)
                 .isEmpty();
     }
+
+    @Test
+    void new_quiz_hasOneQuestion() {
+        // Given / when
+        Quiz quiz = new Quiz("Question 1");
+
+        List<String> questions = quiz.questions();
+
+        assertThat(questions).containsOnly("Question 1");
+    }
 }
