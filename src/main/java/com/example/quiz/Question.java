@@ -9,12 +9,23 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Question {
+    private final String correctAnswer;
     private String text;
     private List<String> answers = new ArrayList<>();
 
-    public Question(String text, String... answers) {
+    public Question(
+            String text,
+            String correctAnswer,
+            String... answers
+    ) {
         this.text = text;
+        this.correctAnswer = correctAnswer;
         this.answers.addAll(asList(answers));
+    }
+
+    public Question(String text) {
+        this.text = text;
+        this.correctAnswer = null;
     }
 
     @Override
@@ -34,5 +45,9 @@ public class Question {
 
     public List<String> answers() {
         return answers;
+    }
+
+    public String correctAnswer() {
+        return this.correctAnswer;
     }
 }

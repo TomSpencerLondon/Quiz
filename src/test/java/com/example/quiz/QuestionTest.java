@@ -22,7 +22,7 @@ public class QuestionTest {
     @Test
     void knows_OneAnswer() {
         // Given
-        Question question = new Question("Question 1", "Answer 1");
+        Question question = new Question("Question 1", "Answer 1", "Answer 1");
 
         // When
         List<String> answers = question.answers();
@@ -36,6 +36,7 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
+                "Answer 1",
                 "Answer 1",
                 "Answer 2",
                 "Answer 3",
@@ -53,5 +54,27 @@ public class QuestionTest {
                 "Answer 3",
                 "Answer 4"
         );
+    }
+
+    @Test
+    void knows_correctAnswer() {
+        // Given
+        Question question = new Question(
+                "Question 1",
+                "Answer 3",
+                "Answer 1",
+                "Answer 2",
+                "Answer 3",
+                "Answer 4"
+        );
+
+        // When
+        String correctAnswer = question.correctAnswer();
+
+        // Then
+        assertThat(correctAnswer)
+                .isEqualTo(
+                        "Answer 3"
+                );
     }
 }
