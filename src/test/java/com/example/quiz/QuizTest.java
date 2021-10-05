@@ -13,7 +13,7 @@ public class QuizTest {
         Quiz quiz = new Quiz();
 
         // Then
-        List<String> questions = quiz.questions();
+        List<Question> questions = quiz.questions();
 
         assertThat(questions)
                 .isEmpty();
@@ -22,20 +22,20 @@ public class QuizTest {
     @Test
     void new_quiz_hasOneQuestion() {
         // Given / when
-        Quiz quiz = new Quiz("Question 1");
+        Quiz quiz = new Quiz(new Question("Question 1"));
 
-        List<String> questions = quiz.questions();
+        List<Question> questions = quiz.questions();
 
-        assertThat(questions).containsOnly("Question 1");
+        assertThat(questions).containsOnly(new Question("Question 1"));
     }
 
     @Test
     void new_quiz_hasManyQuestions() {
         // Given / when
-        Quiz quiz = new Quiz("Question 1", "Question 2");
+        Quiz quiz = new Quiz(new Question("Question 1"), new Question("Question 2"));
 
-        List<String> questions = quiz.questions();
+        List<Question> questions = quiz.questions();
 
-        assertThat(questions).containsOnly("Question 1", "Question 2");
+        assertThat(questions).containsOnly(new Question("Question 1"), new Question("Question 2"));
     }
 }
