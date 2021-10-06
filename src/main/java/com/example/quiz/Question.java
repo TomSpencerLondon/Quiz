@@ -9,23 +9,20 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Question {
-    private final String correctAnswer;
+    private final MultipleChoice choice;
     private String text;
-    private List<String> answers = new ArrayList<>();
 
     public Question(
             String text,
-            String correctAnswer,
-            String... answers
+            MultipleChoice choice
     ) {
         this.text = text;
-        this.correctAnswer = correctAnswer;
-        this.answers.addAll(asList(answers));
+        this.choice = choice;
     }
 
     public Question(String text) {
         this.text = text;
-        this.correctAnswer = null;
+        this.choice = new MultipleChoice();
     }
 
     @Override
@@ -44,10 +41,18 @@ public class Question {
     }
 
     public List<String> answers() {
-        return answers;
+        if (choice.answers().isPresent()){
+            return choice.answers().get();
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     public String correctAnswer() {
-        return this.correctAnswer;
+        if (choice.correctAnswer().isPresent()){
+            return choice.correctAnswer().get();
+        } else {
+            return "";
+        }
     }
 }

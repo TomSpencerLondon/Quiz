@@ -22,7 +22,7 @@ public class QuestionTest {
     @Test
     void knows_OneAnswer() {
         // Given
-        Question question = new Question("Question 1", "Answer 1", "Answer 1");
+        Question question = new Question("Question 1", new MultipleChoice("Answer 1", "Answer 1"));
 
         // When
         List<String> answers = question.answers();
@@ -36,11 +36,12 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                "Answer 1",
-                "Answer 1",
-                "Answer 2",
-                "Answer 3",
-                "Answer 4"
+                new MultipleChoice("Answer 1",
+                        "Answer 1",
+                        "Answer 2",
+                        "Answer 3",
+                        "Answer 4"
+                        )
         );
 
         // When
@@ -61,11 +62,7 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                "Answer 3",
-                "Answer 1",
-                "Answer 2",
-                "Answer 3",
-                "Answer 4"
+                new MultipleChoice("Answer 3")
         );
 
         // When
