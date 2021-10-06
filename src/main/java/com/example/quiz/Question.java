@@ -3,6 +3,7 @@ package com.example.quiz;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
@@ -37,19 +38,26 @@ public class Question {
 
     @Override
     public String toString() {
-        return this.text;
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.text);
+        if (this.choice.answers().isEmpty()){
+            return sb.toString();
+        } else {
+            this.choice.answers().forEach((a) -> {
+                sb.append("\n");
+                sb.append(a);
+            });
+        }
+
+        return sb.toString();
     }
 
     public List<String> answers() {
-        if (choice.answers().isPresent()){
-            return choice.answers().get();
-        } else {
-            return Collections.emptyList();
-        }
+        return this.choice.answers();
     }
 
     public String correctAnswer() {
-        if (choice.correctAnswer().isPresent()){
+        if (choice.correctAnswer().isPresent()) {
             return choice.correctAnswer().get();
         } else {
             return "";

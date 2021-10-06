@@ -21,7 +21,7 @@ public class MultipleChoice {
         return Optional.of(this.correct);
     }
 
-    public Optional<List<String>> answers(){
-        return Optional.of(this.answers);
+    public List<String> answers(){
+        return this.answers;
     }
 }

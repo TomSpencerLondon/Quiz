@@ -13,12 +13,8 @@ class Questioner {
     public void start() {
         quiz.questions().forEach((q) -> {
             print(q);
-            waitForInput();
+            scanner.nextLine();
         });
-    }
-
-    private void waitForInput() {
-        scanner.nextLine();
     }
 
     private void print(Question q) {
