@@ -59,4 +59,12 @@ public class Question {
             return Optional.empty();
         }
     }
+
+    public String check(Answer answer) {
+        if(answer.equals(this.correctAnswer().get())){
+            return "Correct!";
+        } else {
+            return "Incorrect.";
+        }
+    }
 }

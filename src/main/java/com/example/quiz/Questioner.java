@@ -13,8 +13,12 @@ class Questioner {
     public void start() {
         quiz.questions().forEach((q) -> {
             print(q);
-            scanner.nextLine();
+            check(q, new Answer(scanner.nextLine()));
         });
+    }
+
+    private void check(Question question, Answer answer) {
+        System.out.println(question.check(answer));
     }
 
     private void print(Question q) {
