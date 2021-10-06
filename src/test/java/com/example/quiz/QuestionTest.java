@@ -2,6 +2,7 @@ package com.example.quiz;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +14,7 @@ public class QuestionTest {
         Question question = new Question("Question 1");
 
         // When
-        List<String> answers = question.answers();
+        List<Answer> answers = question.answers();
 
         // Then
         assertThat(answers).isEmpty();
@@ -22,39 +23,45 @@ public class QuestionTest {
     @Test
     void knows_OneAnswer() {
         // Given
-        Question question = new Question("Question 1", new MultipleChoice("Answer 1", "Answer 1"));
+        Question question = new Question("Question 1",
+                new MultipleChoice(
+                        new Answer("Answer 1"),
+                        Collections.singletonList(
+                                new Answer("Answer 1")
+                        )));
 
         // When
-        List<String> answers = question.answers();
+        List<Answer> answers = question.answers();
 
         // Then
-        assertThat(answers).containsExactly("Answer 1");
+        assertThat(answers).containsExactly(new Answer("Answer 1"));
     }
 
     @Test
     void knows_SeveralAnswers() {
+        List<Answer> answers = List.of(new Answer("Answer 1"),
+                new Answer("Answer 2"),
+                new Answer("Answer 3"),
+                new Answer("Answer 4"));
         // Given
         Question question = new Question(
                 "Question 1",
-                new MultipleChoice("Answer 1",
-                        "Answer 1",
-                        "Answer 2",
-                        "Answer 3",
-                        "Answer 4"
-                        )
+                new MultipleChoice(
+                        new Answer("Answer 1"),
+                        answers)
         );
 
         // When
-        List<String> answers = question.answers();
+        List<Answer> result = question.answers();
 
         // Then
-        assertThat(answers)
+        assertThat(result)
                 .containsExactly(
-                "Answer 1",
-                "Answer 2",
-                "Answer 3",
-                "Answer 4"
-        );
+                        new Answer("Answer 1"),
+                        new Answer("Answer 2"),
+                        new Answer("Answer 3"),
+                        new Answer("Answer 4")
+                );
     }
 
     @Test
@@ -62,16 +69,18 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                new MultipleChoice("Answer 3")
-        );
+                new MultipleChoice(
+                        new Answer("Answer 3"),
+                        Collections.emptyList()
+                ));
 
         // When
-        String correctAnswer = question.correctAnswer();
+        Answer correctAnswer = question.correctAnswer().get();
 
         // Then
         assertThat(correctAnswer)
                 .isEqualTo(
-                        "Answer 3"
+                        new Answer("Answer 3")
                 );
     }
 }

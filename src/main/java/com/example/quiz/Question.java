@@ -1,11 +1,7 @@
 package com.example.quiz;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
@@ -52,15 +48,15 @@ public class Question {
         return sb.toString();
     }
 
-    public List<String> answers() {
+    public List<Answer> answers() {
         return this.choice.answers();
     }
 
-    public String correctAnswer() {
+    public Optional<Answer> correctAnswer() {
         if (choice.correctAnswer().isPresent()) {
-            return choice.correctAnswer().get();
+            return choice.correctAnswer();
         } else {
-            return "";
+            return Optional.empty();
         }
     }
 }

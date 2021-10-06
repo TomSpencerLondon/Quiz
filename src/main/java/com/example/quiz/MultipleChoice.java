@@ -5,23 +5,36 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class MultipleChoice {
-    private String correct;
-    private List<String> answers = new ArrayList<>();
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
-    public MultipleChoice(String correct, String... answers) {
+public class MultipleChoice {
+    private Answer correct;
+    private List<Answer> answers = new ArrayList<>();
+
+    public MultipleChoice(Answer correct, List<Answer> answers) {
         this.correct = correct;
-        this.answers.addAll(Arrays.asList(answers));
+        this.answers = answers;
     }
 
     public MultipleChoice() {
     }
 
-    public Optional<String> correctAnswer(){
+    @Override
+    public boolean equals(Object other) {
+        return reflectionEquals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return reflectionHashCode(this);
+    }
+
+    public Optional<Answer> correctAnswer(){
         return Optional.of(this.correct);
     }
 
-    public List<String> answers(){
+    public List<Answer> answers(){
         return this.answers;
     }
 }
