@@ -7,19 +7,23 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 
 public class Question {
     private final MultipleChoice choice;
+    private final QuestionStatus status;
     private String text;
 
     public Question(
             String text,
-            MultipleChoice choice
+            MultipleChoice choice,
+            QuestionStatus status
     ) {
         this.text = text;
         this.choice = choice;
+        this.status = status;
     }
 
-    public Question(String text) {
+    public Question(String text, QuestionStatus status) {
         this.text = text;
         this.choice = new MultipleChoice();
+        this.status = status;
     }
 
     @Override

@@ -8,6 +8,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizTest {
+    private QuestionStatus status = QuestionStatus.PENDING;
+
     @Test
     void new_quiz_hasNoQuestions() {
         // Given / when
@@ -30,19 +32,19 @@ public class QuizTest {
                 new MultipleChoice(
                         new Answer("Answer 2"),
                         choices
-                )
+                ), status
         ));
 
         List<Question> questions = quiz.questions();
 
         assertThat(questions).containsOnly(
                 new Question("Question 1",
-                new MultipleChoice(
-                        new Answer("Answer 2"),
-                        List.of(
-                                new Answer("Answer 1"),
-                                new Answer("Answer 2")
-        ))));
+                        new MultipleChoice(
+                                new Answer("Answer 2"),
+                                List.of(
+                                        new Answer("Answer 1"),
+                                        new Answer("Answer 2")
+                                )), status));
     }
 
     @Test
@@ -53,12 +55,14 @@ public class QuizTest {
                         "Question 1",
                         new MultipleChoice(
                                 new Answer("Answer 1"),
-                                Collections.emptyList())
+                                Collections.emptyList()),
+                        status
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 2"),
                                 Collections.emptyList())
+                        , status
                 ));
 
         List<Question> questions = quiz.questions();
@@ -67,13 +71,14 @@ public class QuizTest {
                 new Question("Question 1",
                         new MultipleChoice(
                                 new Answer("Answer 1"),
-                                Collections.emptyList())
+                                Collections.emptyList()),
+                        status
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 2"),
                                 Collections.emptyList()
-                        )
+                        ), status
                 )
         );
     }
