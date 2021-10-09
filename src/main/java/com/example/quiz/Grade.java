@@ -9,7 +9,7 @@ public class Grade {
     private int correct;
     private int incorrect;
 
-    public Grade(int pending, int correct, int incorrect) {
+    public Grade(int totalQuestions, FinalMark finalMark) {
         this.pending = pending;
         this.correct = correct;
         this.incorrect = incorrect;
@@ -23,5 +23,14 @@ public class Grade {
     @Override
     public int hashCode() {
         return reflectionHashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Grade{" +
+                "pending=" + pending +
+                ", correct=" + correct +
+                ", incorrect=" + incorrect +
+                '}';
     }
 }

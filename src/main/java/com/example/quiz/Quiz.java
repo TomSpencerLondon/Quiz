@@ -42,6 +42,8 @@ public class Quiz {
             }
         });
 
-        return new Grade(pending.get(), correct.get(), incorrect.get());
+        FinalMark finalMark = new FinalMark(pending.get(), correct.get(), incorrect.get());
+
+        return new Grade(this.questions.size(), finalMark);
     }
 }
