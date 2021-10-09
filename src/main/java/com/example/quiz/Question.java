@@ -71,4 +71,8 @@ public class Question {
             return "Incorrect.";
         }
     }
+
+    public QuestionStatus status() {
+        return this.status;
+    }
 }

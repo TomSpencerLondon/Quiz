@@ -92,10 +92,12 @@ public class QuestionTest {
                 new Answer("Answer 2"),
                 new Answer("Answer 3"),
                 new Answer("Answer 4"));
-        new Question(
+        final Question question = new Question(
                 "Question 1",
                 new MultipleChoice(
                         new Answer("Answer 1"),
                         answers), status);
+
+        assertThat(question.status()).isEqualTo(QuestionStatus.PENDING);
     }
 }
