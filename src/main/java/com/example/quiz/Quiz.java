@@ -15,4 +15,11 @@ public class Quiz {
     public List<Question> questions() {
         return questions;
     }
+
+    public Question mark(Question question, Answer answer) {
+        int index = questions.indexOf(question);
+        final Question markedQuestion = question.mark(answer);
+        questions.set(index, markedQuestion);
+        return markedQuestion;
+    }
 }

@@ -18,7 +18,7 @@ class Questioner {
     }
 
     private void check(Question question, Answer answer) {
-        final Question markedQuestion = question.mark(answer);
+        Question markedQuestion = quiz.mark(question, answer);
         System.out.println(markedQuestion.status());
     }
 

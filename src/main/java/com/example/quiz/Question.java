@@ -66,7 +66,6 @@ public class Question {
 
     public Question mark(Answer answer) {
         if(answer.equals(this.correctAnswer().get())){
-
             return new Question(
                     this.text,
                     this.choice,
