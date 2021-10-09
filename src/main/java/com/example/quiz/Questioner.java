@@ -18,7 +18,8 @@ class Questioner {
     }
 
     private void check(Question question, Answer answer) {
-        System.out.println(question.mark(answer));
+        final Question markedQuestion = question.mark(answer);
+        System.out.println(markedQuestion.status());
     }
 
     private void print(Question q) {

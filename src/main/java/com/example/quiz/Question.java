@@ -64,11 +64,18 @@ public class Question {
         }
     }
 
-    public String mark(Answer answer) {
+    public Question mark(Answer answer) {
         if(answer.equals(this.correctAnswer().get())){
-            return "Correct!";
+
+            return new Question(
+                    this.text,
+                    this.choice,
+                    QuestionStatus.CORRECT);
         } else {
-            return "Incorrect.";
+            return new Question(
+                    this.text,
+                    this.choice,
+                    QuestionStatus.INCORRECT);
         }
     }
 
