@@ -82,4 +82,33 @@ public class QuizTest {
                 )
         );
     }
+
+    @Test
+    void knows_its_grade() {
+        // Given / when
+        Quiz quiz = new Quiz(
+                new Question(
+                        "Question 1",
+                        new MultipleChoice(
+                                new Answer("Answer 1"),
+                                Collections.emptyList()),
+                        status
+                ),
+                new Question("Question 2",
+                        new MultipleChoice(
+                                new Answer("Answer 2"),
+                                Collections.emptyList())
+                        , status
+                ),
+                new Question("Question 3",
+                        new MultipleChoice(
+                                new Answer("Answer 1"),
+                                Collections.emptyList())
+                        , status
+                )
+
+        );
+
+        assertThat(quiz.grade()).isEqualTo(new Grade(3, 0, 0));
+    }
 }
