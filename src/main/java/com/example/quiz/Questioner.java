@@ -15,6 +15,12 @@ class Questioner {
             print(q);
             check(q, new Answer(scanner.nextLine()));
         });
+
+        grade();
+    }
+
+    private void grade() {
+        System.out.println(quiz.grade());
     }
 
     private void check(Question question, Answer answer) {
