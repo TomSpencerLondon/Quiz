@@ -143,6 +143,6 @@ public class QuizTest {
             quiz.mark(q, new Answer("Answer 1"));
         });
 
-        assertThat(quiz.grade()).isEqualTo(new Grade(3, new FinalMark(0, 0, 3)));
+        assertThat(quiz.grade()).isEqualTo(new Grade(3, new FinalMark(0, 3, 0)));
     }
 }

@@ -4,15 +4,12 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Grade {
-
-    private int pending;
-    private int correct;
-    private int incorrect;
+    private int totalQuestions;
+    private FinalMark finalMark;
 
     public Grade(int totalQuestions, FinalMark finalMark) {
-        this.pending = pending;
-        this.correct = correct;
-        this.incorrect = incorrect;
+        this.totalQuestions = totalQuestions;
+        this.finalMark = finalMark;
     }
 
     @Override
@@ -27,10 +24,14 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" +
-                "pending=" + pending +
-                ", correct=" + correct +
-                ", incorrect=" + incorrect +
-                '}';
+        final int correct = finalMark.correct();
+        return String.format(
+                "Final mark: %s / %s \nPending: %s, Correct: %s, Incorrect: %s",
+                correct,
+                totalQuestions,
+                finalMark.pending(),
+                correct,
+                finalMark.incorrect()
+        );
     }
 }
