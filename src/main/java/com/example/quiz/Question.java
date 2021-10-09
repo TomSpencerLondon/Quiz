@@ -64,7 +64,7 @@ public class Question {
         }
     }
 
-    public String check(Answer answer) {
+    public String mark(Answer answer) {
         if(answer.equals(this.correctAnswer().get())){
             return "Correct!";
         } else {
