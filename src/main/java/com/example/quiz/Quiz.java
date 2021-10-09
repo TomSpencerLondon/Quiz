@@ -1,6 +1,7 @@
 package com.example.quiz;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.Arrays.asList;
 
@@ -24,6 +25,23 @@ public class Quiz {
     }
 
     public Grade grade() {
-        return new Grade(3, 0, 0);
+        AtomicInteger correct = new AtomicInteger();
+        AtomicInteger incorrect = new AtomicInteger();
+        AtomicInteger pending = new AtomicInteger();
+        this.questions.forEach((q) -> {
+            switch (q.status()) {
+                case CORRECT:
+                    correct.getAndIncrement();
+                    break;
+                case INCORRECT:
+                    incorrect.getAndIncrement();
+                    break;
+                default:
+                    pending.getAndIncrement();
+                    break;
+            }
+        });
+
+        return new Grade(pending.get(), correct.get(), incorrect.get());
     }
 }

@@ -84,7 +84,7 @@ public class QuizTest {
     }
 
     @Test
-    void knows_its_grade() {
+    void knows_its_grade_for_allPending() {
         // Given / when
         Quiz quiz = new Quiz(
                 new Question(
@@ -110,5 +110,39 @@ public class QuizTest {
         );
 
         assertThat(quiz.grade()).isEqualTo(new Grade(3, 0, 0));
+    }
+
+    @Test
+    void knows_grade_forAllCorrect() {
+        // Given / when
+        Quiz quiz = new Quiz(
+                new Question(
+                        "Question 1",
+                        new MultipleChoice(
+                                new Answer("Answer 1"),
+                                Collections.emptyList()),
+                        status
+                ),
+                new Question("Question 2",
+                        new MultipleChoice(
+                                new Answer("Answer 1"),
+                                Collections.emptyList())
+                        , status
+                ),
+                new Question("Question 3",
+                        new MultipleChoice(
+                                new Answer("Answer 1"),
+                                Collections.emptyList())
+                        , status
+                )
+
+        );
+
+        // when
+        quiz.questions().forEach((q) -> {
+            quiz.mark(q, new Answer("Answer 1"));
+        });
+
+        assertThat(quiz.grade()).isEqualTo(new Grade(0, 3, 0));
     }
 }
