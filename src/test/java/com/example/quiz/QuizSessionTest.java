@@ -49,16 +49,69 @@ public class QuizSessionTest {
     // when
     session.respondWith("Answer 1");
 
-    assertThat(session.isLastAnswerCorrect()).isTrue();
+    assertThat(session.isLastAnswerCorrect())
+        .isTrue();
   }
 
-  // After all questions
-  // set up quiz question start respond - done
-  // what query about session that could observe
-  // ask quiz are there more questions? - single question => answer => ask session are you done?
+  @Test
+  void testTakerCanCheckIfSessionWithOneQuestionIsFinished() {
+    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
+        Collections.singletonList(new Answer("Answer 1")));
 
-  // after test one question - several questions
-  // looping work
+    Quiz quiz = new Quiz(new Question("Question 1", choice, QuestionStatus.PENDING));
+    QuizSession session = quiz.start();
+
+    // when
+    session.respondWith("Answer 1");
+
+    assertThat(session.isFinished())
+        .isTrue();
+  }
+
+  @Test
+  void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterSecondQuestion() {
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+
+    Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question2 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question3 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Quiz quiz = new Quiz(question1, question2, question3);
+    QuizSession session = quiz.start();
+
+    // when
+    session.respondWith("Answer 1");
+    session.respondWith("Answer 2");
+
+    assertThat(session.isFinished())
+        .isFalse();
+  }
+
+  @Test
+  void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterThirdQuestion() {
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+
+    Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question2 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question3 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Quiz quiz = new Quiz(question1, question2, question3);
+    QuizSession session = quiz.start();
+
+    // when
+    session.respondWith("Answer 1");
+    session.respondWith("Answer 2");
+    session.respondWith("Answer 2");
+
+    assertThat(session.isFinished())
+        .isTrue();
+  }
 
   // Later test - ask grade
 }

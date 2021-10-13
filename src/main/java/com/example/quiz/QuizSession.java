@@ -28,4 +28,8 @@ public class QuizSession {
 
     return response.isCorrect();
   }
+
+  public boolean isFinished() {
+    return this.position == quiz.questions().size();
+  }
 }
