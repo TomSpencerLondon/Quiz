@@ -11,18 +11,6 @@ public class QuestionTest {
     private QuestionStatus status = QuestionStatus.PENDING;
 
     @Test
-    void knows_noAnswers() {
-        // Given
-        Question question = new Question("Question 1", status);
-
-        // When
-        List<Answer> answers = question.answers();
-
-        // Then
-        assertThat(answers).isEmpty();
-    }
-
-    @Test
     void knows_OneAnswer() {
         // Given
         Question question = new Question("Question 1",
@@ -77,7 +65,7 @@ public class QuestionTest {
                 ), status);
 
         // When
-        Answer correctAnswer = question.correctAnswer().get();
+        Answer correctAnswer = question.correctAnswer();
 
         // Then
         assertThat(correctAnswer)
