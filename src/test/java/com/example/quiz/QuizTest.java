@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizTest {
-    private QuestionStatus status = QuestionStatus.PENDING;
+    private QuestionStatus PENDING = QuestionStatus.PENDING;
 
     @Test
     void new_quiz_hasNoQuestions() {
@@ -32,7 +32,7 @@ public class QuizTest {
                 new MultipleChoice(
                         new Answer("Answer 2"),
                         choices
-                ), status
+                ), PENDING
         ));
 
         List<Question> questions = quiz.questions();
@@ -44,7 +44,7 @@ public class QuizTest {
                                 List.of(
                                         new Answer("Answer 1"),
                                         new Answer("Answer 2")
-                                )), status));
+                                )), PENDING));
     }
 
     @Test
@@ -56,13 +56,13 @@ public class QuizTest {
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList()),
-                        status
+                    PENDING
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 2"),
                                 Collections.emptyList())
-                        , status
+                        , PENDING
                 ));
 
         List<Question> questions = quiz.questions();
@@ -72,13 +72,13 @@ public class QuizTest {
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList()),
-                        status
+                    PENDING
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 2"),
                                 Collections.emptyList()
-                        ), status
+                        ), PENDING
                 )
         );
     }
@@ -92,19 +92,19 @@ public class QuizTest {
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList()),
-                        status
+                    PENDING
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 2"),
                                 Collections.emptyList())
-                        , status
+                        , PENDING
                 ),
                 new Question("Question 3",
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList())
-                        , status
+                        , PENDING
                 )
 
         );
@@ -121,19 +121,19 @@ public class QuizTest {
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList()),
-                        status
+                    PENDING
                 ),
                 new Question("Question 2",
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList())
-                        , status
+                        , PENDING
                 ),
                 new Question("Question 3",
                         new MultipleChoice(
                                 new Answer("Answer 1"),
                                 Collections.emptyList())
-                        , status
+                        , PENDING
                 )
 
         );

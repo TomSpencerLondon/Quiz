@@ -46,4 +46,8 @@ public class Quiz {
 
         return new Grade(this.questions.size(), finalMark);
     }
+
+  public QuizSession start() {
+      return new QuizSession(this);
+  }
 }
