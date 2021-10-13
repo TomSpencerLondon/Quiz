@@ -10,6 +10,10 @@ public class Answer {
         this.text = text;
     }
 
+    public String text() {
+      return this.text;
+    }
+
     @Override
     public String toString() {
         return this.text;

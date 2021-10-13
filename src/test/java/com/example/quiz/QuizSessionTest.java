@@ -37,18 +37,28 @@ public class QuizSessionTest {
         .isEqualTo(question);
   }
 
-//  @Test
-//  void testTakerCanAddResponseToQuestionFromTheSession() {
-//    // Given
-//    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
-//        Collections.singletonList(new Answer("Answer 1")));
-//
-//    Quiz quiz = new Quiz(new Question("Question 1", choice, QuestionStatus.PENDING));
-//
-//    // When
-//    QuizSession session = quiz.start();
-//
-//    session.respondWith("Answer 1");
-//
-//  }
+  @Test
+  void testTakerCanAddResponseToQuestionFromTheSession() {
+    // Given
+    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
+        Collections.singletonList(new Answer("Answer 1")));
+
+    Quiz quiz = new Quiz(new Question("Question 1", choice, QuestionStatus.PENDING));
+    QuizSession session = quiz.start();
+
+    // when
+    session.respondWith("Answer 1");
+
+    assertThat(session.isLastAnswerCorrect()).isTrue();
+  }
+
+  // After all questions
+  // set up quiz question start respond - done
+  // what query about session that could observe
+  // ask quiz are there more questions? - single question => answer => ask session are you done?
+
+  // after test one question - several questions
+  // looping work
+
+  // Later test - ask grade
 }
