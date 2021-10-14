@@ -17,10 +17,11 @@ public class QuizSession {
     return quiz.questions().get(position++);
   }
 
-  public void respondWith(String text) {
-    responses.add(new Response(text, question()));
+  public QuestionStatus respondWith(String text, Question question) {
+    final Response response = new Response(text, question);
+    responses.add(response);
+    return response.status();
   }
-
 
   public boolean isLastAnswerCorrect() {
     int earlier = --this.position;

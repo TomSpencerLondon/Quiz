@@ -47,7 +47,8 @@ public class QuizSessionTest {
     QuizSession session = quiz.start();
 
     // when
-    session.respondWith("Answer 1");
+    Question question = session.question();
+    session.respondWith("Answer 1", question);
 
     assertThat(session.isLastAnswerCorrect())
         .isTrue();
@@ -62,7 +63,8 @@ public class QuizSessionTest {
     QuizSession session = quiz.start();
 
     // when
-    session.respondWith("Answer 1");
+    Question question = session.question();
+    session.respondWith("Answer 1" , question);
 
     assertThat(session.isFinished())
         .isTrue();
@@ -77,14 +79,16 @@ public class QuizSessionTest {
     MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
 
     Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question2 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question3 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question2 = new Question("Question 2", choice, QuestionStatus.PENDING);
+    Question question3 = new Question("Question 3", choice, QuestionStatus.PENDING);
     Quiz quiz = new Quiz(question1, question2, question3);
     QuizSession session = quiz.start();
 
     // when
-    session.respondWith("Answer 1");
-    session.respondWith("Answer 2");
+    Question q1 = session.question();
+    session.respondWith("Answer 1", q1);
+    Question q2 = session.question();
+    session.respondWith("Answer 2", q2);
 
     assertThat(session.isFinished())
         .isFalse();
@@ -99,15 +103,18 @@ public class QuizSessionTest {
     MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
 
     Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question2 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question3 = new Question("Question 1", choice, QuestionStatus.PENDING);
+    Question question2 = new Question("Question 2", choice, QuestionStatus.PENDING);
+    Question question3 = new Question("Question 3", choice, QuestionStatus.PENDING);
     Quiz quiz = new Quiz(question1, question2, question3);
     QuizSession session = quiz.start();
 
     // when
-    session.respondWith("Answer 1");
-    session.respondWith("Answer 2");
-    session.respondWith("Answer 2");
+    Question q1 = session.question();
+    session.respondWith("Answer 1", q1);
+    Question q2 = session.question();
+    session.respondWith("Answer 2", q2);
+    Question q3 = session.question();
+    session.respondWith("Answer 2", q3);
 
     assertThat(session.isFinished())
         .isTrue();

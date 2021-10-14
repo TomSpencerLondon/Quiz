@@ -26,4 +26,12 @@ public class Response {
   public int hashCode() {
     return reflectionHashCode(this);
   }
+
+  public QuestionStatus status() {
+    if (isCorrect()) {
+      return QuestionStatus.CORRECT;
+    }
+
+    return QuestionStatus.INCORRECT;
+  }
 }
