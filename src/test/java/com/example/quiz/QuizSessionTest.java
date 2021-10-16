@@ -27,7 +27,7 @@ public class QuizSessionTest {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
 
-    final Question question = new Question("Question 1", choice, QuestionStatus.PENDING);
+    final Question question = new Question("Question 1", choice);
     Quiz quiz = new Quiz(question);
 
     // When
@@ -43,7 +43,7 @@ public class QuizSessionTest {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
 
-    Quiz quiz = new Quiz(new Question("Question 1", choice, QuestionStatus.PENDING));
+    Quiz quiz = new Quiz(new Question("Question 1", choice));
     QuizSession session = quiz.start();
 
     // when
@@ -59,12 +59,12 @@ public class QuizSessionTest {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
 
-    Quiz quiz = new Quiz(new Question("Question 1", choice, QuestionStatus.PENDING));
+    Quiz quiz = new Quiz(new Question("Question 1", choice));
     QuizSession session = quiz.start();
 
     // when
     Question question = session.question();
-    session.respondWith("Answer 1" , question);
+    session.respondWith("Answer 1", question);
 
     assertThat(session.isFinished())
         .isTrue();
@@ -78,9 +78,9 @@ public class QuizSessionTest {
 
     MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
 
-    Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question2 = new Question("Question 2", choice, QuestionStatus.PENDING);
-    Question question3 = new Question("Question 3", choice, QuestionStatus.PENDING);
+    Question question1 = new Question("Question 1", choice);
+    Question question2 = new Question("Question 2", choice);
+    Question question3 = new Question("Question 3", choice);
     Quiz quiz = new Quiz(question1, question2, question3);
     QuizSession session = quiz.start();
 
@@ -102,9 +102,9 @@ public class QuizSessionTest {
 
     MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
 
-    Question question1 = new Question("Question 1", choice, QuestionStatus.PENDING);
-    Question question2 = new Question("Question 2", choice, QuestionStatus.PENDING);
-    Question question3 = new Question("Question 3", choice, QuestionStatus.PENDING);
+    Question question1 = new Question("Question 1", choice);
+    Question question2 = new Question("Question 2", choice);
+    Question question3 = new Question("Question 3", choice);
     Quiz quiz = new Quiz(question1, question2, question3);
     QuizSession session = quiz.start();
 
@@ -121,4 +121,19 @@ public class QuizSessionTest {
   }
 
   // Later test - ask grade
+
+
+  @Test
+  void respondWith_givesCorrectStatusForAnswer() {
+    final MultipleChoice choice = new MultipleChoice(
+        new Answer("Answer 1"),
+        List.of(new Answer("Answer 1"))
+    );
+    Question question = new Question("Question", choice);
+
+    final QuizSession quizSession = new QuizSession(new Quiz(question));
+
+    assertThat(quizSession.respondWith("Answer 1", question))
+        .isEqualTo(QuestionStatus.CORRECT);
+  }
 }

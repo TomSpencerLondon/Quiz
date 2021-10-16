@@ -7,17 +7,14 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 
 public class Question {
   private final MultipleChoice choice;
-  private final QuestionStatus status;
   private String text;
 
   public Question(
       String text,
-      MultipleChoice choice,
-      QuestionStatus status
+      MultipleChoice choice
   ) {
     this.text = text;
     this.choice = choice;
-    this.status = status;
   }
 
   @Override
@@ -52,24 +49,6 @@ public class Question {
 
   public Answer correctAnswer() {
     return choice.correctAnswer();
-  }
-
-  public Question mark(Answer answer) {
-    if (answer.equals(this.correctAnswer())) {
-      return new Question(
-          this.text,
-          this.choice,
-          QuestionStatus.CORRECT);
-    } else {
-      return new Question(
-          this.text,
-          this.choice,
-          QuestionStatus.INCORRECT);
-    }
-  }
-
-  public QuestionStatus status() {
-    return this.status;
   }
 
 }

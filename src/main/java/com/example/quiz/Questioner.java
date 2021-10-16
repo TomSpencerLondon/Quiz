@@ -23,10 +23,6 @@ class Questioner {
     System.out.println(session.respondWith(scanner.nextLine(), question));
   }
 
-  private void grade() {
-    System.out.println(quiz.grade());
-  }
-
   private void print(Question q) {
     System.out.println(q);
   }
