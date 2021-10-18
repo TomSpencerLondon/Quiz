@@ -11,10 +11,14 @@ public class Response {
   public Response(String responseText, Question question) {
     this.responseText = responseText;
     this.question = question;
+    this.status = statusFor(responseText, question);
+  }
+
+  private ResponseStatus statusFor(String responseText, Question question) {
     if (question.isCorrectAnswer(responseText)) {
-      this.status = ResponseStatus.CORRECT;
+      return ResponseStatus.CORRECT;
     } else {
-      this.status = ResponseStatus.INCORRECT;
+      return ResponseStatus.INCORRECT;
     }
   }
 
