@@ -25,11 +25,11 @@ public class QuizSession {
     responses.add(lastResponse);
   }
 
-  public boolean isLastResponseCorrect() {
-    return this.lastResponse.isCorrect();
-  }
-
   public boolean isFinished() {
     return !iterator.hasNext();
+  }
+
+  public ResponseStatus lastResponseStatus() {
+    return lastResponse.status();
   }
 }

@@ -14,20 +14,16 @@ public class Response {
     this.status = statusFor(responseText, question);
   }
 
+  public ResponseStatus status() {
+    return this.status;
+  }
+
   private ResponseStatus statusFor(String responseText, Question question) {
     if (question.isCorrectAnswer(responseText)) {
       return ResponseStatus.CORRECT;
     } else {
       return ResponseStatus.INCORRECT;
     }
-  }
-
-  // TODO: delete this function - in favour
-  //  of querying question status
-  @Deprecated
-  public boolean isCorrect() {
-    Answer answer = this.question.correctAnswer();
-    return this.responseText.equals(answer.text());
   }
 
   @Override
@@ -38,9 +34,5 @@ public class Response {
   @Override
   public int hashCode() {
     return reflectionHashCode(this);
-  }
-
-  public ResponseStatus status() {
-    return this.status;
   }
 }

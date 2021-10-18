@@ -50,8 +50,8 @@ public class QuizSessionTest {
     Question question = session.question();
     session.respondWith("Answer 1", question);
 
-    assertThat(session.isLastResponseCorrect())
-        .isTrue();
+    assertThat(session.lastResponseStatus())
+        .isEqualTo(ResponseStatus.CORRECT);
   }
 
   @Test
@@ -131,8 +131,8 @@ public class QuizSessionTest {
 
     quizSession.respondWith("Answer 1", question);
 
-    assertThat(quizSession.isLastResponseCorrect())
-        .isTrue();
+    assertThat(quizSession.lastResponseStatus())
+        .isEqualByComparingTo(ResponseStatus.CORRECT);
   }
 
   // Ask Grade

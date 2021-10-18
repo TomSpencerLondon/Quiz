@@ -21,11 +21,7 @@ class Questioner {
 
   private void mark(QuizSession session, Question question) {
     session.respondWith(scanner.nextLine(), question);
-    if (session.isLastResponseCorrect()){
-      System.out.println(ResponseStatus.CORRECT);
-    }else {
-      System.out.println(ResponseStatus.INCORRECT);
-    }
+    System.out.println(session.lastResponseStatus());
   }
 
   private void print(Question q) {
