@@ -4,17 +4,23 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Response {
-  private final String text;
+  private final String responseText;
   private final Question question;
+  private final QuestionStatus status;
 
-  public Response(String text, Question question) {
-    this.text = text;
+  public Response(String responseText, Question question) {
+    this.responseText = responseText;
     this.question = question;
+    if (this.responseText.equals(this.question.correctAnswer().text())) {
+      this.status = QuestionStatus.CORRECT;
+    } else {
+      this.status = QuestionStatus.INCORRECT;
+    }
   }
 
   public boolean isCorrect() {
     Answer answer = this.question.correctAnswer();
-    return this.text.equals(answer.text());
+    return this.responseText.equals(answer.text());
   }
 
   @Override
@@ -28,10 +34,6 @@ public class Response {
   }
 
   public QuestionStatus status() {
-    if (isCorrect()) {
-      return QuestionStatus.CORRECT;
-    }
-
-    return QuestionStatus.INCORRECT;
+    return this.status;
   }
 }

@@ -3,7 +3,6 @@ import java.util.List;
 
 public class ConsoleQuiz {
     public static void main(String[] args) {
-        QuestionStatus status = QuestionStatus.PENDING;
         List<Answer> answers =
                 List.of(new Answer("Answer 1"),
                         new Answer("Answer 2"),
