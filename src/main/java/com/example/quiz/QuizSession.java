@@ -20,10 +20,9 @@ public class QuizSession {
     return iterator.next();
   }
 
-  public ResponseStatus respondWith(String text, Question question) {
+  public void respondWith(String text, Question question) {
     lastResponse = new Response(text, question);
     responses.add(lastResponse);
-    return lastResponse.status();
   }
 
   public boolean isLastResponseCorrect() {

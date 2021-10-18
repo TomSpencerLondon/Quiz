@@ -20,7 +20,12 @@ class Questioner {
   }
 
   private void mark(QuizSession session, Question question) {
-    System.out.println(session.respondWith(scanner.nextLine(), question));
+    session.respondWith(scanner.nextLine(), question);
+    if (session.isLastResponseCorrect()){
+      System.out.println(ResponseStatus.CORRECT);
+    }else {
+      System.out.println(ResponseStatus.INCORRECT);
+    }
   }
 
   private void print(Question q) {
