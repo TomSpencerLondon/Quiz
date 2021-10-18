@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuestionTest {
-    private QuestionStatus status = QuestionStatus.PENDING;
+    private ResponseStatus status = ResponseStatus.PENDING;
 
     @Test
     void knows_OneAnswer() {

@@ -6,18 +6,21 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 public class Response {
   private final String responseText;
   private final Question question;
-  private final QuestionStatus status;
+  private final ResponseStatus status;
 
   public Response(String responseText, Question question) {
     this.responseText = responseText;
     this.question = question;
     if (question.isCorrectAnswer(responseText)) {
-      this.status = QuestionStatus.CORRECT;
+      this.status = ResponseStatus.CORRECT;
     } else {
-      this.status = QuestionStatus.INCORRECT;
+      this.status = ResponseStatus.INCORRECT;
     }
   }
 
+  // TODO: delete this function - in favour
+  //  of querying question status
+  @Deprecated
   public boolean isCorrect() {
     Answer answer = this.question.correctAnswer();
     return this.responseText.equals(answer.text());
@@ -33,7 +36,7 @@ public class Response {
     return reflectionHashCode(this);
   }
 
-  public QuestionStatus status() {
+  public ResponseStatus status() {
     return this.status;
   }
 }

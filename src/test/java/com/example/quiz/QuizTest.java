@@ -7,7 +7,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizTest {
-    private QuestionStatus PENDING = QuestionStatus.PENDING;
+    private ResponseStatus PENDING = ResponseStatus.PENDING;
 
     @Test
     void new_quiz_hasNoQuestions() {

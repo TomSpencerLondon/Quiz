@@ -131,7 +131,7 @@ public class QuizSessionTest {
     final QuizSession quizSession = new QuizSession(new Quiz(question));
 
     assertThat(quizSession.respondWith("Answer 1", question))
-        .isEqualTo(QuestionStatus.CORRECT);
+        .isEqualTo(ResponseStatus.CORRECT);
   }
 
   // Ask Grade

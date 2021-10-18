@@ -20,7 +20,7 @@ public class QuizSession {
     return iterator.next();
   }
 
-  public QuestionStatus respondWith(String text, Question question) {
+  public ResponseStatus respondWith(String text, Question question) {
     lastResponse = new Response(text, question);
     responses.add(lastResponse);
     return lastResponse.status();
