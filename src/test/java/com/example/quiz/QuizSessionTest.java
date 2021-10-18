@@ -127,11 +127,12 @@ public class QuizSessionTest {
         List.of(new Answer("Answer 1"))
     );
     Question question = new Question("Question", choice);
-
     final QuizSession quizSession = new QuizSession(new Quiz(question));
 
-    assertThat(quizSession.respondWith("Answer 1", question))
-        .isEqualTo(ResponseStatus.CORRECT);
+    quizSession.respondWith("Answer 1", question);
+
+    assertThat(quizSession.isLastResponseCorrect())
+        .isTrue();
   }
 
   // Ask Grade
