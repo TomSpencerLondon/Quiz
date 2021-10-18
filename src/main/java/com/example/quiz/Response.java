@@ -11,7 +11,7 @@ public class Response {
   public Response(String responseText, Question question) {
     this.responseText = responseText;
     this.question = question;
-    if (this.responseText.equals(this.question.correctAnswer().text())) {
+    if (question.isCorrectAnswer(responseText)) {
       this.status = QuestionStatus.CORRECT;
     } else {
       this.status = QuestionStatus.INCORRECT;

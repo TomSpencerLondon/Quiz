@@ -51,4 +51,7 @@ public class Question {
     return choice.correctAnswer();
   }
 
+  boolean isCorrectAnswer(String responseText) {
+    return responseText.equals(correctAnswer().text());
+  }
 }
