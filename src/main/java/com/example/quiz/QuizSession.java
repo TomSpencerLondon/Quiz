@@ -8,6 +8,7 @@ public class QuizSession {
 
   private List<Response> responses = new ArrayList<>();
   private int position = 0;
+  private Response lastResponse;
 
   public QuizSession(Quiz quiz) {
     this.quiz = quiz;
@@ -18,16 +19,13 @@ public class QuizSession {
   }
 
   public QuestionStatus respondWith(String text, Question question) {
-    final Response response = new Response(text, question);
-    responses.add(response);
-    return response.status();
+    lastResponse = new Response(text, question);
+    responses.add(lastResponse);
+    return lastResponse.status();
   }
 
   public boolean isLastAnswerCorrect() {
-    int earlier = --this.position;
-    Response response = responses.get(earlier);
-
-    return response.isCorrect();
+    return this.lastResponse.isCorrect();
   }
 
   public boolean isFinished() {
