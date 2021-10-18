@@ -24,7 +24,7 @@ public class QuizSession {
     return lastResponse.status();
   }
 
-  public boolean isLastAnswerCorrect() {
+  public boolean isLastResponseCorrect() {
     return this.lastResponse.isCorrect();
   }
 

@@ -50,7 +50,7 @@ public class QuizSessionTest {
     Question question = session.question();
     session.respondWith("Answer 1", question);
 
-    assertThat(session.isLastAnswerCorrect())
+    assertThat(session.isLastResponseCorrect())
         .isTrue();
   }
 
