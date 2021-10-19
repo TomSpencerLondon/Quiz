@@ -24,12 +24,11 @@ public class Grade {
 
     @Override
     public String toString() {
-        final int correct = finalMark.correct();
+        final Long correct = finalMark.correct();
         return String.format(
-                "Final mark: %s / %s \nPending: %s, Correct: %s, Incorrect: %s",
+                "Final mark: %s / %s \nCorrect: %s, Incorrect: %s",
                 correct,
                 totalQuestions,
-                finalMark.pending(),
                 correct,
                 finalMark.incorrect()
         );

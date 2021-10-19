@@ -13,7 +13,7 @@ public class QuizSession {
 
   public QuizSession(Quiz quiz) {
     this.quiz = quiz;
-    iterator = quiz.questions().iterator();
+    iterator = this.quiz.questions().iterator();
   }
 
   public Question question() {
@@ -31,5 +31,23 @@ public class QuizSession {
 
   public ResponseStatus lastResponseStatus() {
     return lastResponse.status();
+  }
+
+  public long correctResponsesCount() {
+    return responseCountFor(ResponseStatus.CORRECT);
+  }
+
+  public long incorrectResponsesCount() {
+    return responseCountFor(ResponseStatus.INCORRECT);
+  }
+
+  private long responseCountFor(ResponseStatus status){
+    return responses.stream()
+        .filter(r -> r.status().equals(status))
+        .count();
+  }
+
+  public Grade grade() {
+    return new Grade(responses.size(), new FinalMark(correctResponsesCount(), incorrectResponsesCount()));
   }
 }

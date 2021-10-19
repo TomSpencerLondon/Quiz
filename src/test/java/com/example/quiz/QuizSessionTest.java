@@ -137,7 +137,7 @@ public class QuizSessionTest {
 
   // Ask Grade
   @Test
-  void grade_gives_grade_for_Session() {
+  void grade_gives_number_of_correct_responses_for_Session() {
     List<Answer> answers = List.of(
         new Answer("Answer 1")
     );
@@ -158,8 +158,61 @@ public class QuizSessionTest {
     Question q3 = session.question();
     session.respondWith("Answer 2", q3);
 
-//    new Grade(3, )
+    assertThat(session.correctResponsesCount())
+        .isEqualTo(1L);
+  }
 
-//    assertThat(session.grade()).is
+  @Test
+  void counts_incorrect_responses() {
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+
+    Question question1 = new Question("Question 1", choice);
+    Question question2 = new Question("Question 2", choice);
+    Question question3 = new Question("Question 3", choice);
+    Quiz quiz = new Quiz(question1, question2, question3);
+    QuizSession session = quiz.start();
+
+    // when
+    Question q1 = session.question();
+    session.respondWith("Answer 1", q1);
+    Question q2 = session.question();
+    session.respondWith("Answer 2", q2);
+    Question q3 = session.question();
+    session.respondWith("Answer 2", q3);
+
+    assertThat(session.incorrectResponsesCount())
+        .isEqualTo(2L);
+  }
+
+  @Test
+  void giveAGrade() {
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+
+    Question question1 = new Question("Question 1", choice);
+    Question question2 = new Question("Question 2", choice);
+    Question question3 = new Question("Question 3", choice);
+    Quiz quiz = new Quiz(question1, question2, question3);
+    QuizSession session = quiz.start();
+
+    // when
+    Question q1 = session.question();
+    session.respondWith("Answer 1", q1);
+    Question q2 = session.question();
+    session.respondWith("Answer 2", q2);
+    Question q3 = session.question();
+    session.respondWith("Answer 2", q3);
+
+    final Grade grade = new Grade(3, new FinalMark(1L, 2L));
+
+    assertThat(session.grade())
+        .isEqualTo(grade);
   }
 }

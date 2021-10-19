@@ -4,35 +4,29 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class FinalMark {
-    private int pending;
-    private int correct;
-    private int incorrect;
+  private Long correct;
+  private Long incorrect;
 
-    public FinalMark(int pending, int correct, int incorrect) {
-        this.pending = pending;
-        this.correct = correct;
-        this.incorrect = incorrect;
-    }
+  public FinalMark(Long correct, Long incorrect) {
+    this.correct = correct;
+    this.incorrect = incorrect;
+  }
 
-    @Override
-    public boolean equals(Object other) {
-        return reflectionEquals(this, other);
-    }
+  public Long correct() {
+    return correct;
+  }
 
-    @Override
-    public int hashCode() {
-        return reflectionHashCode(this);
-    }
+  public Long incorrect() {
+    return incorrect;
+  }
 
-    public int pending(){
-        return this.pending;
-    }
+  @Override
+  public boolean equals(Object other) {
+    return reflectionEquals(this, other);
+  }
 
-    public int correct() {
-        return this.correct;
-    }
-
-    public int incorrect(){
-        return this.incorrect;
-    }
+  @Override
+  public int hashCode() {
+    return reflectionHashCode(this);
+  }
 }

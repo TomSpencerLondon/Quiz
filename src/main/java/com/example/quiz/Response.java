@@ -4,13 +4,9 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Response {
-  private final String responseText;
-  private final Question question;
   private final ResponseStatus status;
 
   public Response(String responseText, Question question) {
-    this.responseText = responseText;
-    this.question = question;
     this.status = statusFor(responseText, question);
   }
 
