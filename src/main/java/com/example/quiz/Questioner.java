@@ -17,6 +17,8 @@ class Questioner {
       print(question);
       mark(session, question);
     }
+
+    System.out.println(session.grade());
   }
 
   private void mark(QuizSession session, Question question) {
