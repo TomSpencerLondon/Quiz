@@ -31,14 +31,11 @@ public class Question {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(this.text);
-    if (this.choice.answers().isEmpty()) {
-      return sb.toString();
-    } else {
-      this.choice.answers().forEach((a) -> {
-        sb.append("\n");
-        sb.append(a);
-      });
-    }
+
+    this.choice.answers().forEach((a) -> {
+      sb.append("\n");
+      sb.append(a);
+    });
 
     return sb.toString();
   }
