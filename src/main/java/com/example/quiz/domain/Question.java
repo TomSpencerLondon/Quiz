@@ -1,4 +1,4 @@
-package com.example.quiz;
+package com.example.quiz.domain;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 public class Question {
   private final MultipleChoice choice;
   private String text;
+  private Long id;
 
   public Question(
       String text,
@@ -50,5 +51,13 @@ public class Question {
 
   boolean isCorrectAnswer(String responseText) {
     return responseText.equals(correctAnswer().text());
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

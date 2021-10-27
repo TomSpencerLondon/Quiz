@@ -1,4 +1,8 @@
 package com.example.quiz;
+import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Quiz;
 import java.util.List;
 
 public class ConsoleQuiz {

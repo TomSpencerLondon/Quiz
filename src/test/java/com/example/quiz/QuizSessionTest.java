@@ -1,5 +1,12 @@
 package com.example.quiz;
 
+import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.FinalMark;
+import com.example.quiz.domain.Grade;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.ResponseStatus;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
