@@ -1,4 +1,4 @@
-package com.example.quiz;
+package com.example.quiz.domain;
 
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;

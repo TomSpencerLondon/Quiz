@@ -1,6 +1,5 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.QuizSession;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,6 @@
-package com.example.quiz;
+package com.example.quiz.adapter.in.console;
 
+import com.example.quiz.domain.QuizSession;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Quiz;
 import java.util.Scanner;
