@@ -10,7 +10,17 @@ import java.util.stream.Collectors;
 
 public class QuestionLoader {
 
-  public Question parse(String questionText) {
+  public List<Question> parse(String input) {
+    List<Question> result = new ArrayList<>();
+    List<String> list = Arrays.stream(input.split("---"))
+        .filter(value -> value != null && value.length() > 0).toList();
+    for (String questionText : list) {
+      result.add(question(questionText));
+    }
+    return result;
+  }
+
+  private Question question(String questionText) {
     List<String> list = Arrays.stream(questionText.split("\n"))
         .filter(value -> value != null && value.length() > 0).toList();
     return new Question(list.get(0), new MultipleChoice(new Answer(list.get(list.size() - 1)), List.of(
