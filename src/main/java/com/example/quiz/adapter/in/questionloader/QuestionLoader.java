@@ -13,6 +13,10 @@ public class QuestionLoader {
   public Question parse(String questionText) {
     List<String> list = Arrays.stream(questionText.split("\n"))
         .filter(value -> value != null && value.length() > 0).toList();
-    return new Question(list.get(0), new MultipleChoice(new Answer(list.get(list.size() - 1)), List.of(new Answer(""))));
+    return new Question(list.get(0), new MultipleChoice(new Answer(list.get(list.size() - 1)), List.of(
+        new Answer(list.get(1)),
+        new Answer(list.get(2)),
+        new Answer(list.get(3)),
+        new Answer(list.get(4)))));
   }
 }
