@@ -20,9 +20,7 @@ public class QuestionLoader {
   }
 
   private Question question(String questionText) {
-    List<String> list = Arrays.stream(linesFrom(questionText))
-        .filter(this::isNotEmpty)
-        .toList();
+    List<String> list = notEmptyLinesFrom(questionText);
 
     return new Question(list.get(0), new MultipleChoice(new Answer(list.get(list.size() - 1)), List.of(
         new Answer(list.get(1)),
@@ -31,8 +29,10 @@ public class QuestionLoader {
         new Answer(list.get(4)))));
   }
 
-  private String[] linesFrom(String questionText) {
-    return questionText.split("\n");
+  private List<String> notEmptyLinesFrom(String questionText) {
+    return questionText.lines()
+        .filter(this::isNotEmpty)
+        .toList();
   }
 
   private boolean isNotEmpty(String value) {
