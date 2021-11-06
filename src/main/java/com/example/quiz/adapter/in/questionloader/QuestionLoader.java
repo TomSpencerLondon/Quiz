@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
 
 public class QuestionLoader {
 
+  private final QuestionFactory questionFactory;
+
+  public QuestionLoader() {
+    this.questionFactory = new QuestionFactory();
+  }
+
   public List<Question> parse(String input) {
     List<Question> result = new ArrayList<>();
     List<String> list = Arrays.stream(input.split("---")).toList();
@@ -22,11 +28,9 @@ public class QuestionLoader {
   private Question question(String questionText) {
     List<String> list = notEmptyLinesFrom(questionText);
 
-    return new Question(list.get(0), new MultipleChoice(new Answer(list.get(list.size() - 1)), List.of(
-        new Answer(list.get(1)),
-        new Answer(list.get(2)),
-        new Answer(list.get(3)),
-        new Answer(list.get(4)))));
+    return questionFactory
+        .createQuestion(list.get(0), list.get(list.size() - 1), list.get(1),
+        list.get(2), list.get(3), list.get(4));
   }
 
   private List<String> notEmptyLinesFrom(String questionText) {
