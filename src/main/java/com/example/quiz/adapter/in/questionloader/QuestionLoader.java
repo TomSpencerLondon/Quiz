@@ -12,8 +12,7 @@ public class QuestionLoader {
 
   public List<Question> parse(String input) {
     List<Question> result = new ArrayList<>();
-    List<String> list = Arrays.stream(input.split("---"))
-        .filter(value -> value != null && value.length() > 0).toList();
+    List<String> list = Arrays.stream(input.split("---")).toList();
     for (String questionText : list) {
       result.add(question(questionText));
     }
