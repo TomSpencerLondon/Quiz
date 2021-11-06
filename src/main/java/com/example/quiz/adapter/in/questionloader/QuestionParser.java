@@ -4,11 +4,11 @@ import com.example.quiz.domain.Question;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuestionLoader {
+public class QuestionParser {
 
   private final QuestionFactory questionFactory;
 
-  public QuestionLoader() {
+  public QuestionParser() {
     this.questionFactory = new QuestionFactory();
   }
 

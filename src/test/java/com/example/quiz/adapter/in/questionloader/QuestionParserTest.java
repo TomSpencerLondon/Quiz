@@ -6,7 +6,7 @@ import com.example.quiz.domain.Question;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class QuestionLoaderTest {
+public class QuestionParserTest {
 
   private final QuestionFactory questionFactory = new QuestionFactory();
 
@@ -22,7 +22,7 @@ public class QuestionLoaderTest {
                 
         Q1A2
         """;
-    final QuestionLoader questionLoader = new QuestionLoader();
+    final QuestionParser questionLoader = new QuestionParser();
 
     List<Question> questions = questionLoader.parse(inputText);
 
@@ -57,7 +57,7 @@ public class QuestionLoaderTest {
         Q2A3
         """;
 
-    final QuestionLoader questionLoader = new QuestionLoader();
+    final QuestionParser questionLoader = new QuestionParser();
 
     List<Question> questions = questionLoader.parse(inputText);
 
@@ -106,7 +106,7 @@ public class QuestionLoaderTest {
 
         """;
 
-    final QuestionLoader questionLoader = new QuestionLoader();
+    final QuestionParser questionLoader = new QuestionParser();
 
     List<Question> questions = questionLoader.parse(inputText);
 
