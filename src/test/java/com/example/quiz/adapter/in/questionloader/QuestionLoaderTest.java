@@ -67,6 +67,54 @@ public class QuestionLoaderTest {
         .containsExactly(question1, question2);
   }
 
+  @Test
+  void parsesThreeQuestions() {
+    String inputText = """
+        Q1
+                
+        Q1A1
+        Q1A2
+        Q1A3
+        Q1A4
+                
+        Q1A2
+                
+        ---
+                
+        Q2
+                
+        Q2A1
+        Q2A2
+        Q2A3
+        Q2A4
+                
+        Q2A3
+        
+        ---
+                
+        Q3
+                
+        Q3A1
+        Q3A2
+        Q3A3
+        Q3A4
+                
+        Q3A4
+
+        """;
+
+    final QuestionLoader questionLoader = new QuestionLoader();
+
+    List<Question> questions = questionLoader.parse(inputText);
+
+    final Question question1 = createQuestion("Q1", "Q1A2", "Q1A1", "Q1A2", "Q1A3", "Q1A4");
+    final Question question2 = createQuestion("Q2", "Q2A3", "Q2A1", "Q2A2", "Q2A3", "Q2A4");
+    final Question question3 = createQuestion("Q3", "Q3A4", "Q3A1", "Q3A2", "Q3A3", "Q3A4");
+
+    assertThat(questions)
+        .containsExactly(question1, question2, question3);
+  }
+
   private Question createQuestion(String questionText, String correctAnswer, String answer1,
       String answer2, String answer3, String answer4) {
     return new Question(questionText,
