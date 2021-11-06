@@ -1,12 +1,8 @@
 package com.example.quiz.adapter.in.questionloader;
 
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class QuestionLoader {
 
@@ -16,16 +12,17 @@ public class QuestionLoader {
     this.questionFactory = new QuestionFactory();
   }
 
-  public List<Question> parse(String input) {
-    List<Question> result = new ArrayList<>();
-    List<String> list = Arrays.stream(input.split("---")).toList();
-    for (String questionText : list) {
-      result.add(question(questionText));
-    }
-    return result;
+  public List<Question> parse(String quizText) {
+    return splitToQuestions(quizText).stream()
+        .map(this::parseQuestion)
+        .toList();
   }
 
-  private Question question(String questionText) {
+  private List<String> splitToQuestions(String quizText) {
+    return Arrays.stream(quizText.split("---")).toList();
+  }
+
+  private Question parseQuestion(String questionText) {
     List<String> list = notEmptyLinesFrom(questionText);
 
     return questionFactory
