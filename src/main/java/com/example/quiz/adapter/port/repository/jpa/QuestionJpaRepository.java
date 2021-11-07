@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuestionRepository extends JpaRepository<QuestionDto, Long>
+public interface QuestionJpaRepository extends JpaRepository<QuestionDto, Long>
 {
   Optional<QuestionDto> findByText(String userName);
 }

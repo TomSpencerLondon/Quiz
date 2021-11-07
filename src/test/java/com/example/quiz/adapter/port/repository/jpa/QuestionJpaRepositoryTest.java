@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-public class QuestionRepositoryTest {
+public class QuestionJpaRepositoryTest {
 
   @Autowired
-  private QuestionRepository questionRepository;
+  private QuestionJpaRepository questionJpaRepository;
 
   @Test
   void stores_and_retrieves_Questions() {
@@ -23,13 +23,13 @@ public class QuestionRepositoryTest {
     questionDto.setText("Q1");
     questionDto.setMultipleChoiceDto(multipleChoiceDto);
 
-    final QuestionDto savedQuestion = questionRepository.save(questionDto);
+    final QuestionDto savedQuestion = questionJpaRepository.save(questionDto);
 
     assertThat(savedQuestion.getId())
         .isNotNull()
         .isGreaterThanOrEqualTo(0);
 
-    Optional<QuestionDto> foundQuestion = questionRepository
+    Optional<QuestionDto> foundQuestion = questionJpaRepository
         .findByText("Q1");
     assertThat(foundQuestion)
         .isPresent();
