@@ -10,8 +10,14 @@ public class QuestionFactory {
   public QuestionFactory() {
   }
 
-  Question createQuestion(String questionText, String correctAnswer, String answer1,
-      String answer2, String answer3, String answer4) {
+  Question createQuestion(List<String> lines) {
+    String questionText = lines.get(0);
+    String answer1 = lines.get(2);
+    String answer2 = lines.get(3);
+    String answer3 = lines.get(4);
+    String answer4 = lines.get(5);
+    String correctAnswer = lines.get(5);
+
     return new Question(questionText,
         new MultipleChoice(
             new Answer(correctAnswer),

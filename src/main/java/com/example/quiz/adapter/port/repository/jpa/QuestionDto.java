@@ -4,9 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class QuestionDto {
+
+  @OneToOne
+  private MultipleChoiceDto multipleChoiceDto;
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,5 +31,14 @@ public class QuestionDto {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  public MultipleChoiceDto getMultipleChoiceDto() {
+    return multipleChoiceDto;
+  }
+
+  public void setMultipleChoiceDto(
+      MultipleChoiceDto multipleChoiceDto) {
+    this.multipleChoiceDto = multipleChoiceDto;
   }
 }

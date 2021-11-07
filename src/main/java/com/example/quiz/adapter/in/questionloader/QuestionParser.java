@@ -26,8 +26,7 @@ public class QuestionParser {
     List<String> list = notEmptyLinesFrom(questionText);
 
     return questionFactory
-        .createQuestion(list.get(0), list.get(list.size() - 1), list.get(1),
-        list.get(2), list.get(3), list.get(4));
+        .createQuestion(list);
   }
 
   private List<String> notEmptyLinesFrom(String questionText) {
