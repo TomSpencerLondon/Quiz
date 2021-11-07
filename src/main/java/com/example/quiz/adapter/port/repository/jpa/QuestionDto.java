@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.port.repository.jpa;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class QuestionDto {
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private MultipleChoiceDto multipleChoiceDto;
 
   @Id
