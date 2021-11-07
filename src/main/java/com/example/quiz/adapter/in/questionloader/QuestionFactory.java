@@ -12,10 +12,10 @@ public class QuestionFactory {
 
   Question createQuestion(List<String> lines) {
     String questionText = lines.get(0);
-    String answer1 = lines.get(2);
-    String answer2 = lines.get(3);
-    String answer3 = lines.get(4);
-    String answer4 = lines.get(5);
+    String answer1 = lines.get(1);
+    String answer2 = lines.get(2);
+    String answer3 = lines.get(3);
+    String answer4 = lines.get(4);
     String correctAnswer = lines.get(5);
 
     return new Question(questionText,
