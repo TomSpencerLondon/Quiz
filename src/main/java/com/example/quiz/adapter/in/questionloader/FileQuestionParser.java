@@ -20,7 +20,7 @@ public class FileQuestionParser {
 
   public List<Question> read(String fileName) throws URISyntaxException, IOException {
     Path path = Paths.get(getClass().getClassLoader()
-        .getResource("questions.txt").toURI());
+        .getResource(fileName).toURI());
 
     Stream<String> lines = Files.lines(path);
     String data = lines.collect(Collectors.joining("\n"));
