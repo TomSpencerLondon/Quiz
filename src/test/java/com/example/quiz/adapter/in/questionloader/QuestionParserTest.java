@@ -26,8 +26,8 @@ public class QuestionParserTest {
 
     List<Question> questions = questionLoader.parse(inputText);
 
-    final Question question1 = questionFactory.createQuestion(List.of("Q1", "Q1A2", "Q1A1", "Q1A2", "Q1A3",
-        "Q1A4"));
+    final Question question1 = questionFactory.createQuestion(List.of("Q1", "Q1A1", "Q1A2", "Q1A3",
+        "Q1A4", "Q1A2"));
 
     assertThat(questions)
         .containsExactly(question1);
@@ -61,10 +61,10 @@ public class QuestionParserTest {
 
     List<Question> questions = questionLoader.parse(inputText);
 
-    final Question question1 = questionFactory.createQuestion(List.of("Q1", "Q1A2", "Q1A1", "Q1A2", "Q1A3",
-        "Q1A4"));
-    final Question question2 = questionFactory.createQuestion(List.of("Q2", "Q2A3", "Q2A1", "Q2A2", "Q2A3",
-        "Q2A4"));
+    final Question question1 = questionFactory.createQuestion(List.of("Q1", "Q1A1", "Q1A2", "Q1A3",
+        "Q1A4", "Q1A2"));
+    final Question question2 = questionFactory.createQuestion(List.of("Q2", "Q2A1", "Q2A2", "Q2A3",
+        "Q2A4", "Q2A3"));
 
     assertThat(questions)
         .containsExactly(question1, question2);
