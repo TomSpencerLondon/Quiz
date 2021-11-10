@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionDtoTransformer {
 
+  @Autowired
+  public QuestionDtoTransformer() {}
+
   Question toQuestion(QuestionDto questionDto) {
     final MultipleChoiceDto multipleChoiceDto = questionDto.getMultipleChoiceDto();
     final List<Answer> answers = multipleChoiceDto

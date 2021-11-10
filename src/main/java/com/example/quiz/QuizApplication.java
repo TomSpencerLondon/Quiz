@@ -19,7 +19,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories ("com.example.quiz.adapter.port.repository")
 public class QuizApplication {
 
   public static void main(String[] args) {

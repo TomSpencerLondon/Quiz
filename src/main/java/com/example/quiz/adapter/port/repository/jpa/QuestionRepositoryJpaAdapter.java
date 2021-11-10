@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class QuestionRepositoryJpaAdapter implements QuestionRepository {
 
   private final QuestionJpaRepository questionJpaRepository;
@@ -23,8 +23,8 @@ public class QuestionRepositoryJpaAdapter implements QuestionRepository {
 
   @Override
   public Question save(Question question) {
-    QuestionDto userDto = questionDtoTransformer.toQuestionDto(question);
-    return questionDtoTransformer.toQuestion(questionJpaRepository.save(userDto));
+    QuestionDto questionDto = questionDtoTransformer.toQuestionDto(question);
+    return questionDtoTransformer.toQuestion(questionJpaRepository.save(questionDto));
   }
 
   @Override

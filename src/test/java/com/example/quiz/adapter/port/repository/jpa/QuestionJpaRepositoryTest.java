@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @Tag("integration")
-@DataJpaTest
+@DataJpaTest(properties = {
+    "spring.jpa.hibernate.ddl-auto=create-drop"
+})
 public class QuestionJpaRepositoryTest {
 
   @Autowired
