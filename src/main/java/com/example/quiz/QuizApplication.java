@@ -24,12 +24,4 @@ public class QuizApplication {
   public static void main(String[] args) {
     SpringApplication.run(QuizApplication.class, args);
   }
-
-  @Bean
-  public Quiz quiz() throws URISyntaxException, IOException {
-    final FileQuestionParser fileQuestionParser = new FileQuestionParser(new QuestionParser());
-    final List<Question> questions = fileQuestionParser.read("questions.txt");
-    return new Quiz(questions);
-  }
-
 }

@@ -1,2 +1,5 @@
-package com.example.quiz;public class DemoApplicationTest {
+package com.example.quiz;
+
+public class DemoApplicationTest {
+
 }
