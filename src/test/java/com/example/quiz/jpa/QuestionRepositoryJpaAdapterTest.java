@@ -30,6 +30,10 @@ public class QuestionRepositoryJpaAdapterTest {
 
     final Question savedQuestion = questionRepositoryJpaAdapter.save(question);
 
-    assertThat(savedQuestion).isNotNull();
+    assertThat(savedQuestion)
+        .isNotNull();
+
+    assertThat(savedQuestion.getId())
+        .isNotNull();
   }
 }

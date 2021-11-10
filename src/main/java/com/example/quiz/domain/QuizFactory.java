@@ -1,6 +1,5 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
 

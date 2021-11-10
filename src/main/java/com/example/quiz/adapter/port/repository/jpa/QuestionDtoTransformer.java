@@ -3,7 +3,6 @@ package com.example.quiz.adapter.port.repository.jpa;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,17 @@ public class QuestionDtoTransformer {
         .stream()
         .map(Answer::new)
         .collect(Collectors.toList());
-    ;
 
-    return new Question(
+    final Question question = new Question(
         questionDto.getText(),
         new MultipleChoice(
             new Answer(multipleChoiceDto.getCorrect()),
             answers
         ));
+
+    question.setId(questionDto.getId());
+
+    return question;
   }
 
   QuestionDto toQuestionDto(Question question) {

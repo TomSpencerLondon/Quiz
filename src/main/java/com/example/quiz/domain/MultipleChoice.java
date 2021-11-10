@@ -1,6 +1,5 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.domain.Answer;
 import java.util.List;
 
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
