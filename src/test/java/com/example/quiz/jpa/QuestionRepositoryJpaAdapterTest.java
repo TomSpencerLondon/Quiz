@@ -1,23 +1,13 @@
 package com.example.quiz.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import com.example.quiz.adapter.port.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.port.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
-import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
-import org.springframework.test.context.BootstrapWith;
-import org.springframework.transaction.annotation.Transactional;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -41,8 +31,5 @@ public class QuestionRepositoryJpaAdapterTest {
     final Question savedQuestion = questionRepositoryJpaAdapter.save(question);
 
     assertThat(savedQuestion).isNotNull();
-
-    assertThat(savedQuestion.getId())
-        .isNotNull();
   }
 }
