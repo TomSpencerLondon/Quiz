@@ -2,14 +2,14 @@ package com.example.quiz.adapter.in.console;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Profile("!test")
-@Component
+//@Component
 public class ConsoleQuiz implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {

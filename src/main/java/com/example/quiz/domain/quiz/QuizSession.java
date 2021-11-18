@@ -1,9 +1,8 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.quiz;
 
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.Response;
 import com.example.quiz.domain.ResponseStatus;
 import java.util.ArrayList;

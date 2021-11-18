@@ -1,5 +1,6 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.quiz;
 
+import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
 

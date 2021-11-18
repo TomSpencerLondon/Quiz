@@ -1,10 +1,10 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.quiz;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.quiz.Quiz;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
