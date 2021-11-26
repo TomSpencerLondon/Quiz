@@ -21,9 +21,9 @@ public class AddQuestion {
   }
 
   @PostMapping
-  public ResponseEntity<Question> createEpic(@RequestBody EpicDto epicDto) {
+  public ResponseEntity<Question> addQuestion(@RequestBody Question question) {
 
-    Epic newEpic = epicService.createNewEpic(epicConverter.toEntity(epicDto));
+    Epic newEpic = questionService.createNewEpic(epicConverter.toEntity(epicDto));
 
     return new ResponseEntity(epicConverter.toDto(newEpic), HttpStatus.OK);
   }
