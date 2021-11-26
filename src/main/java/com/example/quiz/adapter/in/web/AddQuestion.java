@@ -1,7 +1,11 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +25,21 @@ public class AddQuestion {
   }
 
   @PostMapping
-  public ResponseEntity<Question> addQuestion(@RequestBody Question question) {
+  public ResponseEntity<Question> addQuestion(@RequestBody QuestionRequest questionRequest) {
 
-    Epic newEpic = questionService.createNewEpic(epicConverter.toEntity(epicDto));
+    final Question question = new Question(questionRequest.getText(),
+        new MultipleChoice(
+            new Answer(questionRequest.getAnswer()),
+            List.of(
+                new Answer(questionRequest.getChoices().get(0)),
+                new Answer(questionRequest.getChoices().get(1)),
+                new Answer(questionRequest.getChoices().get(2)),
+                new Answer(questionRequest.getChoices().get(3)))
+        )
+    );
 
-    return new ResponseEntity(epicConverter.toDto(newEpic), HttpStatus.OK);
+    Question response = questionService.add(question);
+
+    return new ResponseEntity(response, HttpStatus.OK);
   }
 }

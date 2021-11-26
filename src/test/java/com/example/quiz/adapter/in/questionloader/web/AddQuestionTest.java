@@ -2,9 +2,7 @@ package com.example.quiz.adapter.in.questionloader.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.adapter.port.repository.jpa.QuestionDto;
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.adapter.in.web.QuestionRequest;
 import com.example.quiz.domain.Question;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,7 +15,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 
 @Profile("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -37,16 +34,14 @@ public class AddQuestionTest {
 
   @Test
   void should_add_question_to_quiz() {
-    HttpEntity<Question> questionDtoHttpEntity = new HttpEntity<>(
-        new Question("Q1", new MultipleChoice(new Answer("Q1A1"),
-            List.of(new Answer("Q1A1"),
-            new Answer("Q1A2"))
-        ))
-    );
+    final QuestionRequest questionRequest = new QuestionRequest("Q1",
+        "Q1A1",
+        List.of("Q1A1", "Q1A2", "Q1A3", "Q1A4"));
+
+    HttpEntity<QuestionRequest> questionDtoHttpEntity = new HttpEntity<>(questionRequest);
 
     final Question addedQuestion = restTemplate.exchange(url, HttpMethod.POST,
         questionDtoHttpEntity, Question.class).getBody();
-
 
     assertThat(addedQuestion.getId())
         .isNotNull();
