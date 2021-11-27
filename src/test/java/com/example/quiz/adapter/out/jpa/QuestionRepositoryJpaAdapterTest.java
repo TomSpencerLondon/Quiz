@@ -1,20 +1,22 @@
-package com.example.quiz.jpa;
+package com.example.quiz.adapter.out.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.adapter.port.repository.jpa.QuestionJpaRepository;
-import com.example.quiz.adapter.port.repository.jpa.QuestionRepositoryJpaAdapter;
+import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
+import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
 import javax.transaction.Transactional;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 
+@Tag("integration")
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Transactional

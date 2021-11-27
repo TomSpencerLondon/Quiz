@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/quiz")
-public class AddQuestion {
+public class QuizController {
 
   private final QuestionService questionService;
 
   @Autowired
-  public AddQuestion(QuestionService questionService) {
+  public QuizController(QuestionService questionService) {
     this.questionService = questionService;
   }
 

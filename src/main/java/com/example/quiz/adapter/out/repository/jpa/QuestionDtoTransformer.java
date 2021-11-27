@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.port.repository.jpa;
+package com.example.quiz.adapter.out.repository.jpa;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;

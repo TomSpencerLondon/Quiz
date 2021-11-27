@@ -6,6 +6,7 @@ import com.example.quiz.adapter.in.web.QuestionRequest;
 import com.example.quiz.domain.Question;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +18,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 
 @Profile("test")
+@Tag("integration")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class AddQuestionTest {
+public class QuizIntegrationTest {
   @Autowired
   private TestRestTemplate restTemplate;
 

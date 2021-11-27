@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.port.repository.jpa;
+package com.example.quiz.adapter.out.repository.jpa;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
