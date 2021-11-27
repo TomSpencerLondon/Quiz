@@ -5,15 +5,12 @@ import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping(path = "/quiz")
 public class QuizController {
 
@@ -25,21 +22,21 @@ public class QuizController {
   }
 
   @PostMapping
-  public ResponseEntity<Question> addQuestion(@RequestBody QuestionRequest questionRequest) {
+  public String addQuestion(@RequestBody AddQuestionForm addQuestionForm) {
 
-    final Question question = new Question(questionRequest.getText(),
+    final Question question = new Question(addQuestionForm.getText(),
         new MultipleChoice(
-            new Answer(questionRequest.getAnswer()),
+            new Answer(addQuestionForm.getAnswer()),
             List.of(
-                new Answer(questionRequest.getChoices().get(0)),
-                new Answer(questionRequest.getChoices().get(1)),
-                new Answer(questionRequest.getChoices().get(2)),
-                new Answer(questionRequest.getChoices().get(3)))
+                new Answer(addQuestionForm.getChoice1()),
+                new Answer(addQuestionForm.getChoice2()),
+                new Answer(addQuestionForm.getChoice3()),
+                new Answer(addQuestionForm.getChoice4()))
         )
     );
 
-    Question response = questionService.add(question);
+    questionService.add(question);
 
-    return new ResponseEntity(response, HttpStatus.OK);
+    return "redirect:/quiz";
   }
 }
