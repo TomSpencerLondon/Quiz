@@ -22,7 +22,7 @@ public class QuizController {
   }
 
   @PostMapping
-  public String addQuestion(@RequestBody AddQuestionForm addQuestionForm) {
+  public String addQuestion(AddQuestionForm addQuestionForm) {
 
     final Question question = new Question(addQuestionForm.getText(),
         new MultipleChoice(
