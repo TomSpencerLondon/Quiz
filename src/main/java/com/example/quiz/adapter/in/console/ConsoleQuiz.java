@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Profile("!test")
-//@Component
+//@Component - commented out (otherwise it will halt the application)
 public class ConsoleQuiz implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
