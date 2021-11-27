@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import org.testcontainers.containers.PostgreSQLContainer;
 import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.domain.Answer;
@@ -16,13 +16,31 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Tag("integration")
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Transactional
-@AutoConfigureTestDatabase
+@Testcontainers(disabledWithoutDocker = true)
 public class QuestionRepositoryJpaAdapterTest {
+
+  @Container
+  static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:12.3")
+      .withDatabaseName("test")
+      .withUsername("duke")
+      .withPassword("s3cret");
+
+  @DynamicPropertySource
+  static void properties(DynamicPropertyRegistry registry) {
+    registry.add("spring.datasource.url", container::getJdbcUrl);
+    registry.add("spring.datasource.password", container::getPassword);
+    registry.add("spring.datasource.username", container::getUsername);
+  }
+
 
   @Autowired
   QuestionRepositoryJpaAdapter questionRepositoryJpaAdapter;
