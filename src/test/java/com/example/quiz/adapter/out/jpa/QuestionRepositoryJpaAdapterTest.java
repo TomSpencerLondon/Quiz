@@ -1,6 +1,8 @@
 package com.example.quiz.adapter.out.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import com.example.quiz.IntegrationConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
 import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
@@ -25,22 +27,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Transactional
-@Testcontainers(disabledWithoutDocker = true)
-public class QuestionRepositoryJpaAdapterTest {
-
-  @Container
-  static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:12.3")
-      .withDatabaseName("test")
-      .withUsername("duke")
-      .withPassword("s3cret");
-
-  @DynamicPropertySource
-  static void properties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", container::getJdbcUrl);
-    registry.add("spring.datasource.password", container::getPassword);
-    registry.add("spring.datasource.username", container::getUsername);
-  }
-
+public class QuestionRepositoryJpaAdapterTest implements IntegrationConfiguration {
 
   @Autowired
   QuestionRepositoryJpaAdapter questionRepositoryJpaAdapter;

@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.quiz.IntegrationConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,21 +19,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @WebMvcTest
-@Testcontainers(disabledWithoutDocker = true)
-class AddQuestionIntegrationTest {
-
-  @Container
-  static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:12.3")
-      .withDatabaseName("test")
-      .withUsername("duke")
-      .withPassword("s3cret");
-
-  @DynamicPropertySource
-  static void properties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", container::getJdbcUrl);
-    registry.add("spring.datasource.password", container::getPassword);
-    registry.add("spring.datasource.username", container::getUsername);
-  }
+class AddQuestionIntegrationTest implements IntegrationConfiguration {
 
   @Autowired
   MockMvc mockMvc;
