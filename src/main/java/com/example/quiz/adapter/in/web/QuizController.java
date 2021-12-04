@@ -42,7 +42,7 @@ public class QuizController {
 
   @GetMapping("/quiz")
   public String getQuiz(Model model) {
-    model.addAttribute("message", "Hello world!");
+    model.addAttribute("addQuestionForm", new AddQuestionForm());
     return "quiz";
   }
 }

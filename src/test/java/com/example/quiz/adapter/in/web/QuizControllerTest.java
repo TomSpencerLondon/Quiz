@@ -32,7 +32,7 @@ class QuizControllerTest {
 
   @Test
   void addQuestionRedirects() throws Exception {
-    mockMvc.perform(post("/quiz")
+    mockMvc.perform(post("/question")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("text", "Q1")
         .param("answer", "Q1A1")

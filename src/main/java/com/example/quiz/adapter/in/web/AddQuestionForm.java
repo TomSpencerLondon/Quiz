@@ -1,15 +1,16 @@
 package com.example.quiz.adapter.in.web;
 
-import java.util.List;
-
 public class AddQuestionForm {
 
-  private final String text;
-  private final String answer;
-  private final String choice1;
-  private final String choice2;
-  private final String choice3;
-  private final String choice4;
+  private String text;
+  private String answer;
+  private String choice1;
+  private String choice2;
+  private String choice3;
+  private String choice4;
+
+  public AddQuestionForm() {
+  }
 
   public AddQuestionForm(String text, String answer, String choice1, String choice2,
       String choice3, String choice4) {
@@ -43,5 +44,29 @@ public class AddQuestionForm {
 
   public String getChoice4() {
     return choice4;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
+
+  public void setChoice1(String choice1) {
+    this.choice1 = choice1;
+  }
+
+  public void setChoice2(String choice2) {
+    this.choice2 = choice2;
+  }
+
+  public void setChoice3(String choice3) {
+    this.choice3 = choice3;
+  }
+
+  public void setChoice4(String choice4) {
+    this.choice4 = choice4;
   }
 }
