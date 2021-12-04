@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Input Form</title>
+</head>
+<body>
+<h2>Create a Question</h2>
+<form action="#" th:action="@{/question}" th:object="${addQuestionForm}" method="post">
+
+    <div>
+        <label>
+            Question Text:
+            <input type="text" th:field="*{text}"/>
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Choice #1:
+            <input type="text" th:field="*{choice1}"/>
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Choice #2:
+            <input type="text" th:field="*{choice2}"/>
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Choice #3:
+            <input type="text" th:field="*{choice3}"/>
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Choice #4:
+            <input type="text" th:field="*{choice4}"/>
+        </label>
+    </div>
+
+    <label>
+        Answer:
+        <input type="text" th:field="*{answer}"/>
+    </label>
+
+    <br/>
+
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>
