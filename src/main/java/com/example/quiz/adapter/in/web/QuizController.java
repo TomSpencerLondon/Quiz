@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
@@ -43,5 +44,18 @@ public class QuizController {
   public String getQuiz(Model model) {
     model.addAttribute("addQuestionForm", new AddQuestionForm());
     return "quiz";
+  }
+
+  @GetMapping("/view-questions")
+  public String viewQuestions(Model model) {
+//    1. Get all Questions from the service
+//    2. Transform all question objects into QuestionView objects
+//      - do in controller
+//    3. Add QuestionView list to the model
+
+    final List<Question> questions = questionService.findAll();
+
+    model.addAttribute("questions", "");
+    return "view-questions";
   }
 }

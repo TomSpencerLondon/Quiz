@@ -7,7 +7,7 @@ import java.util.List;
 
 public class QuestionFactory {
 
-  Question createQuestion(List<String> lines) {
+  public Question createQuestion(List<String> lines) {
     String questionText = lines.get(0);
     String answer1 = lines.get(1);
     String answer2 = lines.get(2);

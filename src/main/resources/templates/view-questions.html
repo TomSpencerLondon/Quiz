@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Questions</title>
+</head>
+<body>
+<table>
+  <tr th:each="question : ${questions}">
+    <td th:text="${question.text}">Question Text</td>
+    <td th:text="${question.choice1}">Choice 1</td>
+    <td th:text="${question.choice2}">Choice 2</td>
+    <td th:text="${question.choice3}">Choice 3</td>
+    <td th:text="${question.choice4}">Choice 4</td>
+    <td th:text="${question.answer}">Answer</td>
+  </tr>
+</table>
+</body>
+</html>

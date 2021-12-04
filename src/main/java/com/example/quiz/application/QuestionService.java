@@ -1,7 +1,8 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.application;
 
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.QuestionRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,9 @@ public class QuestionService {
 
   public Question add(Question question) {
     return questionRepository.save(question);
+  }
+
+  public List<Question> findAll() {
+    return questionRepository.findAll();
   }
 }
