@@ -3,7 +3,10 @@ package com.example.quiz.adapter.in.web;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.example.quiz.IntegrationConfiguration;
 import org.junit.jupiter.api.Test;
@@ -19,7 +22,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @WebMvcTest
-class AddQuestionIntegrationTest implements IntegrationConfiguration {
+class QuizControllerTest {
 
   @Autowired
   MockMvc mockMvc;
@@ -38,5 +41,14 @@ class AddQuestionIntegrationTest implements IntegrationConfiguration {
         .param("choice3", "Q1A3")
         .param("choice4", "Q1A4")
     ).andExpect(status().is3xxRedirection());
+  }
+
+  @Test
+  void shouldReturnIndexViewForQuiz() throws Exception {
+    mockMvc.perform(
+        get("/quiz")
+    ).andExpect(view().name("quiz"))
+        .andExpect(model().attribute("message", "Hello world!"))
+        .andExpect(status().isOk());
   }
 }
