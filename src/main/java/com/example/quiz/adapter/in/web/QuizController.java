@@ -5,6 +5,7 @@ import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +56,11 @@ public class QuizController {
 
     final List<Question> questions = questionService.findAll();
 
-    model.addAttribute("questions", "");
+    final List<QuestionView> questionViews = questions.stream()
+        .map(QuestionView::of)
+        .toList();
+
+    model.addAttribute("questions", questionViews);
     return "view-questions";
   }
 }
