@@ -9,11 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/quiz")
 public class QuizController {
 
   private final QuestionService questionService;
@@ -23,7 +21,7 @@ public class QuizController {
     this.questionService = questionService;
   }
 
-  @PostMapping
+  @PostMapping("/question")
   public String addQuestion(AddQuestionForm addQuestionForm) {
 
     final Question question = new Question(addQuestionForm.getText(),
@@ -42,7 +40,7 @@ public class QuizController {
     return "redirect:/quiz";
   }
 
-  @GetMapping
+  @GetMapping("/quiz")
   public String getQuiz(Model model) {
     model.addAttribute("message", "Hello world!");
     return "quiz";

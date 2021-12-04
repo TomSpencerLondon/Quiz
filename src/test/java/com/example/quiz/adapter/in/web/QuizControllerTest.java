@@ -44,11 +44,11 @@ class QuizControllerTest {
   }
 
   @Test
-  void shouldReturnIndexViewForQuiz() throws Exception {
+  void shouldHaveFormObjectInModel() throws Exception {
     mockMvc.perform(
         get("/quiz")
     ).andExpect(view().name("quiz"))
-        .andExpect(model().attribute("message", "Hello world!"))
+        .andExpect(model().attributeExists("addQuestionForm"))
         .andExpect(status().isOk());
   }
 }
