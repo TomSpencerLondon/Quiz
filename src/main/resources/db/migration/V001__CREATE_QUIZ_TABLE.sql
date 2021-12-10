@@ -1,22 +1,22 @@
 create table multiple_choices
 (
-    id      bigserial not null
+    id serial not null
         primary key,
     correct varchar(255)
 );
 
 create table multiple_choice_dto_answers
 (
-    multiple_choice_dto_id bigserial not null
+    multiple_choice_dto_id int4 not null
         references multiple_choices,
     answers                varchar(255)
 );
 
 create table questions
 (
-    id                     bigint not null
+    id serial not null
         primary key,
     text                   varchar(255),
-    multiple_choice_dto_id bigint
+    multiple_choice_dto_id int4
         references multiple_choices
 );

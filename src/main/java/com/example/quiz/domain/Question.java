@@ -8,7 +8,7 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 public class Question {
   private final MultipleChoice choice;
   private String text;
-  private Long id;
+  private Integer id;
 
   public Question(
       String text,
@@ -53,11 +53,11 @@ public class Question {
     return responseText.equals(correctAnswer().text());
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

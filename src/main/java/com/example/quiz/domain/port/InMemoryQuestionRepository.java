@@ -4,13 +4,14 @@ import com.example.quiz.domain.Question;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryQuestionRepository implements
     QuestionRepository {
 
   private List<Question> questions;
-  private AtomicLong counter = new AtomicLong();
+  private AtomicInteger counter = new AtomicInteger();
 
   public InMemoryQuestionRepository() {
     questions = new ArrayList<>();
