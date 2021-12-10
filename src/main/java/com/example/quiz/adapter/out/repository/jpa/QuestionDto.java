@@ -16,7 +16,7 @@ public class QuestionDto {
   private MultipleChoiceDto multipleChoiceDto;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String text;
 
