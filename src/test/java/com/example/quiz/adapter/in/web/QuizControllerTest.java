@@ -7,8 +7,6 @@ import org.springframework.ui.ConcurrentModel;
 
 public class QuizControllerTest {
 
-
-
   @Test
   void viewQuestionsCreatesModelWithQuestions() {
     final QuizController quizController = new QuizController(null);
