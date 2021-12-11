@@ -5,9 +5,7 @@ import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,7 @@ public class QuizController {
     this.questionService = questionService;
   }
 
-  @PostMapping("/create-question")
+  @PostMapping("/add-question")
   public String addQuestion(AddQuestionForm addQuestionForm) {
 
     final Question question = new Question(addQuestionForm.getText(),
@@ -39,22 +37,17 @@ public class QuizController {
 
     questionService.add(question);
 
-    return "redirect:/create-question";
+    return "redirect:/add-question";
   }
 
-  @GetMapping("/create-question")
-  public String getQuiz(Model model) {
+  @GetMapping("/add-question")
+  public String showAddQuestion(Model model) {
     model.addAttribute("addQuestionForm", new AddQuestionForm());
-    return "quiz";
+    return "add-question";
   }
 
   @GetMapping("/view-questions")
   public String viewQuestions(Model model) {
-//    1. Get all Questions from the service
-//    2. Transform all question objects into QuestionView objects
-//      - do in controller
-//    3. Add QuestionView list to the model
-
     final List<Question> questions = questionService.findAll();
 
     final List<QuestionView> questionViews = questions.stream()
@@ -63,5 +56,10 @@ public class QuizController {
 
     model.addAttribute("questions", questionViews);
     return "view-questions";
+  }
+
+  @GetMapping("/quiz")
+  public String showAddQuestion() {
+    return "quiz";
   }
 }

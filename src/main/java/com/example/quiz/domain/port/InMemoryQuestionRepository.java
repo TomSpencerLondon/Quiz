@@ -11,7 +11,7 @@ public class InMemoryQuestionRepository implements
     QuestionRepository {
 
   private List<Question> questions;
-  private AtomicInteger counter = new AtomicInteger();
+  private AtomicLong counter = new AtomicLong();
 
   public InMemoryQuestionRepository() {
     questions = new ArrayList<>();

@@ -27,7 +27,7 @@ class QuizControllerWebMvcTest {
 
   @Test
   void addQuestionRedirects() throws Exception {
-    mockMvc.perform(post("/create-question")
+    mockMvc.perform(post("/add-question")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("text", "Q1")
         .param("answer", "Q1A1")
@@ -41,8 +41,8 @@ class QuizControllerWebMvcTest {
   @Test
   void shouldHaveFormObjectInModel() throws Exception {
     mockMvc.perform(
-        get("/create-question")
-    ).andExpect(view().name("quiz"))
+        get("/add-question")
+    ).andExpect(view().name("add-question"))
         .andExpect(model().attributeExists("addQuestionForm"))
         .andExpect(status().isOk());
   }
@@ -51,6 +51,13 @@ class QuizControllerWebMvcTest {
   void shouldShowAllQuestions() throws Exception {
     mockMvc.perform(
         get("/view-questions")
+    ).andExpect(status().isOk());
+  }
+
+  @Test
+  void questionEndpointExists() throws Exception {
+    mockMvc.perform(
+        get("/quiz")
     ).andExpect(status().isOk());
   }
 }

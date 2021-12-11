@@ -1,22 +1,24 @@
 create table multiple_choices
 (
-    id serial not null
+    id bigint not null
         primary key,
-    correct varchar(255)
+    correct text
 );
 
 create table multiple_choice_dto_answers
 (
-    multiple_choice_dto_id int4 not null
+    multiple_choice_dto_id bigint not null
         references multiple_choices,
-    answers                varchar(255)
+    answers                text
 );
 
 create table questions
 (
-    id serial not null
+    id bigint not null
         primary key,
-    text                   varchar(255),
-    multiple_choice_dto_id int4
+    text                   text,
+    multiple_choice_dto_id bigint
         references multiple_choices
 );
+
+create sequence hibernate_sequence;
