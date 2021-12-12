@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Text Input Form</title>
+  <meta charset="UTF-8">
+  <title>Text Input Form</title>
+  <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
 <body>
-<h2>Create a Question</h2>
-<form action="#" th:action="@{/create-question}" th:object="${addQuestionForm}" method="post">
+<div class="max-w-screen-md mx-auto p-5">
+  <div class="text-center mb-16">
+    <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
+      Quiz
+    </p>
+    <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
+      Add a <span class="text-indigo-600">Question</span>
+    </h3>
+  </div>
+  <form action="#" th:action="@{/add-question}" th:object="${addQuestionForm}" method="post"
+        class="w-full">
+    <div class="flex flex-wrap -mx-3 mb-6">
 
-    <div>
-        <label>
-            Question Text:
-            <input type="text" th:field="*{text}"/>
-        </label>
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Question Text
+      </label>
+      <textarea type="text" th:field="*{text}" rows="10"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      </textarea>
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Choice #1
+      </label>
+      <input type="text" th:field="*{choice1}"
+             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Choice #2
+      </label>
+      <input type="text" th:field="*{choice2}"
+             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Choice #3
+      </label>
+      <input type="text" th:field="*{choice3}"
+             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Choice #4
+      </label>
+      <input type="text" th:field="*{choice4}"
+             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        Answer
+      </label>
+      <input type="text" th:field="*{answer}"
+             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+
+      <button type="submit"
+              class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
+        Create
+      </button>
     </div>
-
-    <div>
-        <label>
-            Choice #1:
-            <input type="text" th:field="*{choice1}"/>
-        </label>
-    </div>
-
-    <div>
-        <label>
-            Choice #2:
-            <input type="text" th:field="*{choice2}"/>
-        </label>
-    </div>
-
-    <div>
-        <label>
-            Choice #3:
-            <input type="text" th:field="*{choice3}"/>
-        </label>
-    </div>
-
-    <div>
-        <label>
-            Choice #4:
-            <input type="text" th:field="*{choice4}"/>
-        </label>
-    </div>
-
-    <label>
-        Answer:
-        <input type="text" th:field="*{answer}"/>
-    </label>
-
-    <br/>
-
-    <button type="submit">Create</button>
-</form>
+  </form>
+</div>
 </body>
 </html>

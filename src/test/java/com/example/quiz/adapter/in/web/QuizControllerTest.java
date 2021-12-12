@@ -5,14 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 
 public class QuizControllerTest {
 
@@ -23,7 +19,7 @@ public class QuizControllerTest {
     QuestionService questionService = new QuestionService(questionRepository);
     QuizController quizController = new QuizController(questionService);
 
-    final ConcurrentModel model = new ConcurrentModel();
+    final Model model = new ConcurrentModel();
     final String viewName = quizController.viewQuestions(model);
     assertThat(viewName)
         .isEqualTo("view-questions");
@@ -47,5 +43,22 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/add-question");
     assertThat(questionRepository.findAll())
         .hasSize(1);
+  }
+
+  @Test
+  void asksOneQuestion() {
+    QuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
+    QuestionService questionService = new QuestionService(questionRepository);
+    QuizController quizController = new QuizController(questionService);
+
+    final Model model = new ConcurrentModel();
+
+    quizController.askQuestion(model);
+
+    final AskQuestionForm question = (AskQuestionForm) model.getAttribute("question");
+
+    assertThat(question.getQuestion())
+        .isEqualTo("Question 1");
   }
 }

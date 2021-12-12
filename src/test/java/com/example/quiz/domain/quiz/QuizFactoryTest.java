@@ -2,13 +2,8 @@ package com.example.quiz.domain.quiz;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizFactory;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QuizFactoryTest {
@@ -16,10 +11,7 @@ public class QuizFactoryTest {
   @Test
   void repository_with_one_question_then_quiz_is_created_with_one_question() {
     InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-    Question question = new Question(
-        "Question 1",
-        new MultipleChoice(new Answer("Answer 1"),
-            List.of(new Answer("Answer 1"), new Answer("Answer 2"))));
+    Question question = MultipleChoiceQuestionFactory.createMultipleChoiceQuestion();
     inMemoryQuestionRepository.save(question);
 
     final QuizFactory quizFactory = new QuizFactory(inMemoryQuestionRepository);
@@ -29,4 +21,5 @@ public class QuizFactoryTest {
     assertThat(quiz.questions())
         .hasSize(1);
   }
+
 }
