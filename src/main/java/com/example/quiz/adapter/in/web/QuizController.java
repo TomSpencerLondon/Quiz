@@ -66,7 +66,14 @@ public class QuizController {
     final Question question = questions.get(0);
     final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
-    model.addAttribute("question", askQuestionForm);
+    model.addAttribute("askQuestionForm", askQuestionForm);
     return "quiz";
+  }
+
+  @PostMapping("/quiz")
+  public String answerQuestion(AskQuestionForm askQuestionForm) {
+
+    System.out.println("hello");
+    return "redirect:/quiz";
   }
 }
