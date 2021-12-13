@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 
 public class QuizControllerTest {
 
-
   @Test
   void viewQuestionsCreatesModelWithQuestions() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
