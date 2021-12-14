@@ -1,19 +1,16 @@
-package com.example.quiz;
+package com.example.quiz.domain.quiz;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.ResponseStatus;
-import org.junit.jupiter.api.Test;
-
 import java.util.Collections;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 public class QuizSessionTest {
   @Test

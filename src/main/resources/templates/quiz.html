@@ -15,20 +15,17 @@
         <label class="block text-sm font-medium text-gray-700">
           Question
         </label>
-        <div>
-          <th:block th:each="choice,iter : ${askQuestionForm.getChoices()}">
-            <input type="radio"
-                   th:field="*{selectedChoice}"
-                   th:value="${choice}"
-                   class="mr-1 focus:ring-green-500 h-4 w-4 text-green-500 border-gray-300"
-                   th:classappend="${iter.index > 0 ?'ml-4':''}"
-            >
-            <label th:for="${'choice-'+choice}"
-                   th:text="${choice}"
-                   class="text-sm font-medium text-gray-700">
-            </label>
-
-          </th:block>
+        <div th:each="choice,iter : *{choices}">
+          <input type="radio"
+                 th:field="*{selectedChoice}"
+                 th:value="${choice}"
+                 class="mr-1 focus:ring-green-500 h-4 w-4 text-green-500 border-gray-300"
+                 th:classappend="${iter.index > 0 ?'ml-4':''}"
+          >
+          <label th:for="${'choice-'+choice}"
+                 th:text="${choice}"
+                 class="text-sm font-medium text-gray-700">
+          </label>
         </div>
       </div>
     </div>

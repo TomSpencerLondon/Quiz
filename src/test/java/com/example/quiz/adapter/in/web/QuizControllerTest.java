@@ -3,9 +3,15 @@ package com.example.quiz.adapter.in.web;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.application.QuestionService;
+import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
+import com.example.quiz.domain.quiz.QuizSession;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -59,5 +65,26 @@ public class QuizControllerTest {
 
     assertThat(question.getQuestion())
         .isEqualTo("Question 1");
+  }
+
+  @Test
+  void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
+    QuestionRepository questionRepository = new InMemoryQuestionRepository();
+    Question question = new Question(
+        "Question 1",
+        new MultipleChoice(new Answer("Correct Answer"),
+            List.of(new Answer("Correct Answer"), new Answer("Wrong Answer"))));
+    questionRepository.save(question);
+    QuestionService questionService = new QuestionService(questionRepository);
+
+    QuizController quizController = new QuizController(questionService);
+
+    AskQuestionForm askQuestionForm = new AskQuestionForm();
+    askQuestionForm.setSelectedChoice("Correct Answer");
+    quizController.answerQuestion(askQuestionForm);
+    final QuizSession quizSession = quizController.getQuizSession();
+
+    assertThat(quizSession.lastResponseStatus())
+        .isEqualTo(ResponseStatus.CORRECT);
   }
 }

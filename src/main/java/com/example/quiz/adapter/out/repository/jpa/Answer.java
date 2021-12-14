@@ -22,8 +22,6 @@ public class Answer {
   @ManyToOne(fetch = FetchType.LAZY)
   private Question question;
 
-
-
   public Question getQuestion() {
     return question;
   }
