@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -42,19 +41,19 @@ public class QuestionJpaRepositoryTest {
   @Test
   void stores_and_retrieves_Questions() {
     final MultipleChoiceDto multipleChoiceDto = new MultipleChoiceDto();
-    final QuestionDto questionDto = new QuestionDto();
+    final Question question = new Question();
     multipleChoiceDto.setCorrect("Q1A1");
     multipleChoiceDto.setAnswers(List.of("Q1A1", "Q1A2", "Q1A3", "Q1A4"));
-    questionDto.setText("Q1");
-    questionDto.setMultipleChoiceDto(multipleChoiceDto);
+    question.setText("Q1");
+    question.setMultipleChoiceDto(multipleChoiceDto);
 
-    final QuestionDto savedQuestion = questionJpaRepository.save(questionDto);
+    final Question savedQuestion = questionJpaRepository.save(question);
 
     assertThat(savedQuestion.getId())
         .isNotNull()
         .isGreaterThanOrEqualTo(0);
 
-    Optional<QuestionDto> foundQuestion = questionJpaRepository
+    Optional<Question> foundQuestion = questionJpaRepository
         .findByText("Q1");
     assertThat(foundQuestion)
         .isPresent();

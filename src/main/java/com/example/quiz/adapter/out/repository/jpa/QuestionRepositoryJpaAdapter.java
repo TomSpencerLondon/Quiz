@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,14 +20,14 @@ public class QuestionRepositoryJpaAdapter implements QuestionRepository {
   }
 
   @Override
-  public Question save(Question question) {
-    QuestionDto questionDto = questionDtoTransformer.toQuestionDto(question);
+  public com.example.quiz.domain.Question save(com.example.quiz.domain.Question question) {
+    Question questionDto = questionDtoTransformer.toQuestionDto(question);
     return questionDtoTransformer.toQuestion(questionJpaRepository.save(questionDto));
   }
 
   @Override
-  public List<Question> findAll() {
-    List<QuestionDto> questionDtos = questionJpaRepository.findAll();
-    return questionDtos.stream().map(questionDtoTransformer::toQuestion).collect(Collectors.toList());
+  public List<com.example.quiz.domain.Question> findAll() {
+    List<Question> questions = questionJpaRepository.findAll();
+    return questions.stream().map(questionDtoTransformer::toQuestion).collect(Collectors.toList());
   }
 }
