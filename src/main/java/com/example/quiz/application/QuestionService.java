@@ -3,6 +3,7 @@ package com.example.quiz.application;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ public class QuestionService {
     return questionRepository.save(question);
   }
 
+  @Transactional
   public List<Question> findAll() {
     return questionRepository.findAll();
   }
