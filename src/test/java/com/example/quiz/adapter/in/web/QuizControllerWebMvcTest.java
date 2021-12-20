@@ -34,6 +34,9 @@ class QuizControllerWebMvcTest {
   @MockBean
   QuestionService questionService;
 
+  @MockBean
+  QuizSessionWeb quizSessionWeb;
+
   @Test
   @WithMockUser(username = "tom")
   void addQuestionRedirects() throws Exception {
@@ -70,12 +73,12 @@ class QuizControllerWebMvcTest {
   @Test
   @WithMockUser(username = "tom")
   void questionEndpointExists() throws Exception {
-    final List<Question> questions = List.of(new Question(
+    final Question question = new Question(
         "Question 1",
         new MultipleChoice(new Answer("Answer 1"),
-            List.of(new Answer("Answer 1"), new Answer("Answer 2")))));
-    when(questionService.findAll())
-        .thenReturn(questions);
+            List.of(new Answer("Answer 1"), new Answer("Answer 2"))));
+    when(quizSessionWeb.question())
+        .thenReturn(question);
 
     mockMvc.perform(
         get("/quiz")

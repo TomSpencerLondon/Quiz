@@ -15,7 +15,7 @@ public class QuizFactoryTest {
     inMemoryQuestionRepository.save(question);
 
     final QuizFactory quizFactory = new QuizFactory(inMemoryQuestionRepository);
-    final Quiz quiz = quizFactory.createQuiz();
+    final InMemoryQuiz quiz = quizFactory.createQuiz();
 
 
     assertThat(quiz.questions())

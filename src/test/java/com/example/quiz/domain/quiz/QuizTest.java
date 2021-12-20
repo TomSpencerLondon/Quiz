@@ -4,7 +4,6 @@ import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
-import com.example.quiz.domain.quiz.Quiz;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class QuizTest {
     @Test
     void new_quiz_hasNoQuestions() {
         // Given / when
-        Quiz quiz = new Quiz();
+        InMemoryQuiz quiz = new InMemoryQuiz();
 
         // Then
         List<Question> questions = quiz.questions();
@@ -31,7 +30,7 @@ public class QuizTest {
         // Given / when
         List<Answer> choices = List.of(new Answer("Answer 1"), new Answer("Answer 2"));
 
-        Quiz quiz = new Quiz(new Question(
+        InMemoryQuiz quiz = new InMemoryQuiz(new Question(
                 "Question 1",
                 new MultipleChoice(
                         new Answer("Answer 2"),

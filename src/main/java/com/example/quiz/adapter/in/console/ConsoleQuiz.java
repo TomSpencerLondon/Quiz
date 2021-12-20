@@ -2,11 +2,10 @@ package com.example.quiz.adapter.in.console;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.domain.quiz.InMemoryQuiz;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 @Profile("!test")
 //@Component - commented out (otherwise it will halt the application)
@@ -34,7 +33,7 @@ public class ConsoleQuiz implements CommandLineRunner {
                 answers
             )
         );
-        Quiz quiz = new Quiz(question1, question2, question3);
+        InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
         new Questioner(quiz).start();
     }
 }

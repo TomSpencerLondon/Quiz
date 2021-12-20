@@ -16,10 +16,10 @@ public class QuizSessionTest {
   @Test
   void quizStartsASession() {
     // Given
-    Quiz quiz = new Quiz();
+    InMemoryQuiz quiz = new InMemoryQuiz();
 
     // When
-    QuizSession session = quiz.start();
+    InMemoryQuizSession session = quiz.start();
 
     // Then
     assertThat(session)
@@ -33,10 +33,10 @@ public class QuizSessionTest {
         Collections.singletonList(new Answer("Answer 1")));
 
     final Question question = new Question("Question 1", choice);
-    Quiz quiz = new Quiz(question);
+    InMemoryQuiz quiz = new InMemoryQuiz(question);
 
     // When
-    QuizSession session = quiz.start();
+    InMemoryQuizSession session = quiz.start();
 
     assertThat(session.question())
         .isEqualTo(question);
@@ -48,8 +48,8 @@ public class QuizSessionTest {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
 
-    Quiz quiz = new Quiz(new Question("Question 1", choice));
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question question = session.question();
@@ -64,8 +64,8 @@ public class QuizSessionTest {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
 
-    Quiz quiz = new Quiz(new Question("Question 1", choice));
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question question = session.question();
@@ -86,8 +86,8 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    Quiz quiz = new Quiz(question1, question2, question3);
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -110,8 +110,8 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    Quiz quiz = new Quiz(question1, question2, question3);
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -132,7 +132,7 @@ public class QuizSessionTest {
         List.of(new Answer("Answer 1"))
     );
     Question question = new Question("Question", choice);
-    final QuizSession quizSession = new QuizSession(new Quiz(question));
+    final InMemoryQuizSession quizSession = new InMemoryQuizSession(new InMemoryQuiz(question));
 
     quizSession.respondWith("Answer 1", question);
 
@@ -152,8 +152,8 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    Quiz quiz = new Quiz(question1, question2, question3);
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -178,8 +178,8 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    Quiz quiz = new Quiz(question1, question2, question3);
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -204,8 +204,8 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    Quiz quiz = new Quiz(question1, question2, question3);
-    QuizSession session = quiz.start();
+    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    InMemoryQuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();

@@ -4,8 +4,8 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizSession;
+import com.example.quiz.domain.quiz.InMemoryQuiz;
+import com.example.quiz.domain.quiz.InMemoryQuizSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class QuizController {
 
   private final QuestionService questionService;
-  private final QuizSession quizSession;
+  private QuizSessionWeb quizSessionWeb;
+  private Question question;
 
   @Autowired
-  public QuizController(QuestionService questionService) {
+  public QuizController(QuestionService questionService, QuizSessionWeb quizSessionWeb) {
     this.questionService = questionService;
-    Quiz quiz = new Quiz(questionService.findAll());
-    quizSession = new QuizSession(quiz);
-  }
-
-  public QuizSession getQuizSession() {
-    return quizSession;
+    this.quizSessionWeb = quizSessionWeb;
   }
 
   @PostMapping("/add-question")
@@ -69,9 +65,7 @@ public class QuizController {
 
   @GetMapping("/quiz")
   public String askQuestion(Model model) {
-
-    final List<Question> questions = questionService.findAll();
-    final Question question = questions.get(0);
+    question = quizSessionWeb.question();
     final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
     model.addAttribute("askQuestionForm", askQuestionForm);
@@ -80,10 +74,7 @@ public class QuizController {
 
   @PostMapping("/quiz")
   public String answerQuestion(AskQuestionForm askQuestionForm) {
-    final List<Question> questions = questionService.findAll();
-    final Question question = questions.get(0);
-
-    quizSession.respondWith(askQuestionForm.getSelectedChoice(), question);
+    quizSessionWeb.respondWith(askQuestionForm.getSelectedChoice(), question);
 
     return "redirect:/quiz";
   }
