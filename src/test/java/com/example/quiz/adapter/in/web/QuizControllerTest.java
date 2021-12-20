@@ -61,7 +61,7 @@ public class QuizControllerTest {
 
     quizController.askQuestion(model);
 
-    final AskQuestionForm question = (AskQuestionForm) model.getAttribute("question");
+    final AskQuestionForm question = (AskQuestionForm) model.getAttribute("askQuestionForm");
 
     assertThat(question.getQuestion())
         .isEqualTo("Question 1");
