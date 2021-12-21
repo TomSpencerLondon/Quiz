@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.in.web;
 
-import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.QuestionRepository;
 import com.example.quiz.domain.quiz.Quiz;
@@ -10,18 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuizWeb implements Quiz {
+public class WebQuiz implements Quiz {
 
-  private QuestionRepository questionRepositoryJpaAdapter;
+  private QuestionRepository questionRepository;
 
   @Autowired
-  public QuizWeb(QuestionRepository questionRepositoryJpaAdapter) {
-    this.questionRepositoryJpaAdapter = questionRepositoryJpaAdapter;
+  public WebQuiz(QuestionRepository questionRepository) {
+    this.questionRepository = questionRepository;
   }
 
   @Transactional
   @Override
   public List<Question> questions() {
-    return questionRepositoryJpaAdapter.findAll();
+    return questionRepository.findAll();
   }
 }

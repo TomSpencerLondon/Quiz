@@ -21,9 +21,9 @@ public class QuizControllerTest {
   void viewQuestionsCreatesModelWithQuestions() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    QuizWeb quizWeb = new QuizWeb(questionRepository);
-    QuizSessionWeb quizSessionWeb = new QuizSessionWeb(quizWeb);
-    QuizController quizController = new QuizController(questionService, quizSessionWeb);
+    WebQuiz webQuiz = new WebQuiz(questionRepository);
+    WebQuizSession webQuizSession = new WebQuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, webQuizSession);
 
     final Model model = new ConcurrentModel();
     final String viewName = quizController.viewQuestions(model);
@@ -38,9 +38,9 @@ public class QuizControllerTest {
   void addQuestionResultsInQuestionAddedAndRedirects() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    QuizWeb quizWeb = new QuizWeb(questionRepository);
-    QuizSessionWeb quizSessionWeb = new QuizSessionWeb(quizWeb);
-    QuizController quizController = new QuizController(questionService, quizSessionWeb);
+    WebQuiz webQuiz = new WebQuiz(questionRepository);
+    WebQuizSession webQuizSession = new WebQuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, webQuizSession);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
         "question", "a1", "a1", "a2", "a3", "a4");
@@ -58,9 +58,9 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     QuestionService questionService = new QuestionService(questionRepository);
-    QuizWeb quizWeb = new QuizWeb(questionRepository);
-    QuizSessionWeb quizSessionWeb = new QuizSessionWeb(quizWeb);
-    QuizController quizController = new QuizController(questionService, quizSessionWeb);
+    WebQuiz webQuiz = new WebQuiz(questionRepository);
+    WebQuizSession webQuizSession = new WebQuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, webQuizSession);
 
     final Model model = new ConcurrentModel();
 
@@ -82,9 +82,9 @@ public class QuizControllerTest {
     questionRepository.save(question);
     QuestionService questionService = new QuestionService(questionRepository);
 
-    QuizWeb quizWeb = new QuizWeb(questionRepository);
-    QuizSessionWeb quizSessionWeb = new QuizSessionWeb(quizWeb);
-    QuizController quizController = new QuizController(questionService, quizSessionWeb);
+    WebQuiz webQuiz = new WebQuiz(questionRepository);
+    WebQuizSession webQuizSession = new WebQuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, webQuizSession);
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -92,7 +92,7 @@ public class QuizControllerTest {
     askQuestionForm.setSelectedChoice("Correct Answer");
     quizController.answerQuestion(askQuestionForm);
 
-    assertThat(quizSessionWeb.lastResponseStatus())
+    assertThat(webQuizSession.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
   }
 }

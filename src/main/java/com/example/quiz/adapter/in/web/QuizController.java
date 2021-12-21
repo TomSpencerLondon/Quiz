@@ -4,8 +4,6 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.InMemoryQuiz;
-import com.example.quiz.domain.quiz.InMemoryQuizSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class QuizController {
 
   private final QuestionService questionService;
-  private QuizSessionWeb quizSessionWeb;
+  private WebQuizSession webQuizSession;
   private Question question;
 
   @Autowired
-  public QuizController(QuestionService questionService, QuizSessionWeb quizSessionWeb) {
+  public QuizController(QuestionService questionService, WebQuizSession webQuizSession) {
     this.questionService = questionService;
-    this.quizSessionWeb = quizSessionWeb;
+    this.webQuizSession = webQuizSession;
   }
 
   @PostMapping("/add-question")
@@ -65,7 +63,7 @@ public class QuizController {
 
   @GetMapping("/quiz")
   public String askQuestion(Model model) {
-    question = quizSessionWeb.question();
+    question = webQuizSession.question();
     final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
     model.addAttribute("askQuestionForm", askQuestionForm);
@@ -74,7 +72,7 @@ public class QuizController {
 
   @PostMapping("/quiz")
   public String answerQuestion(AskQuestionForm askQuestionForm) {
-    quizSessionWeb.respondWith(askQuestionForm.getSelectedChoice(), question);
+    webQuizSession.respondWith(askQuestionForm.getSelectedChoice(), question);
 
     return "redirect:/quiz";
   }

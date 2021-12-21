@@ -11,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuizSessionWeb implements QuizSession {
+public class WebQuizSession implements QuizSession {
 
-  private QuizWeb quizWeb;
+  private WebQuiz webQuiz;
   private final Iterator<Question> iterator;
   private List<Response> responses = new ArrayList<>();
   private Response lastResponse;
 
   @Autowired
-  public QuizSessionWeb(QuizWeb quizWeb) {
-    this.quizWeb = quizWeb;
-    this.iterator = this.quizWeb.questions().iterator();
+  public WebQuizSession(WebQuiz webQuiz) {
+    this.webQuiz = webQuiz;
+    this.iterator = this.webQuiz.questions().iterator();
   }
 
   @Override

@@ -8,12 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.example.quiz.adapter.in.questionloader.QuestionFactory;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -35,7 +33,7 @@ class QuizControllerWebMvcTest {
   QuestionService questionService;
 
   @MockBean
-  QuizSessionWeb quizSessionWeb;
+  WebQuizSession webQuizSession;
 
   @Test
   @WithMockUser(username = "tom")
@@ -77,7 +75,7 @@ class QuizControllerWebMvcTest {
         "Question 1",
         new MultipleChoice(new Answer("Answer 1"),
             List.of(new Answer("Answer 1"), new Answer("Answer 2"))));
-    when(quizSessionWeb.question())
+    when(webQuizSession.question())
         .thenReturn(question);
 
     mockMvc.perform(
