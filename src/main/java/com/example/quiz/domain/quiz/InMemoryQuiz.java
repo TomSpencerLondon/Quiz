@@ -22,7 +22,7 @@ public class InMemoryQuiz implements Quiz {
     return questions;
   }
 
-  public InMemoryQuizSession start() {
-    return new InMemoryQuizSession(this);
+  public QuizSession start() {
+    return new QuizSession(this);
   }
 }

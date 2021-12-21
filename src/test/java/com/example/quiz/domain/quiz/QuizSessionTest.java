@@ -19,7 +19,7 @@ public class QuizSessionTest {
     InMemoryQuiz quiz = new InMemoryQuiz();
 
     // When
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // Then
     assertThat(session)
@@ -36,7 +36,7 @@ public class QuizSessionTest {
     InMemoryQuiz quiz = new InMemoryQuiz(question);
 
     // When
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     assertThat(session.question())
         .isEqualTo(question);
@@ -49,7 +49,7 @@ public class QuizSessionTest {
         Collections.singletonList(new Answer("Answer 1")));
 
     InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question question = session.question();
@@ -65,7 +65,7 @@ public class QuizSessionTest {
         Collections.singletonList(new Answer("Answer 1")));
 
     InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question question = session.question();
@@ -87,7 +87,7 @@ public class QuizSessionTest {
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
     InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -111,7 +111,7 @@ public class QuizSessionTest {
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
     InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -132,7 +132,7 @@ public class QuizSessionTest {
         List.of(new Answer("Answer 1"))
     );
     Question question = new Question("Question", choice);
-    final InMemoryQuizSession quizSession = new InMemoryQuizSession(new InMemoryQuiz(question));
+    final QuizSession quizSession = new QuizSession(new InMemoryQuiz(question));
 
     quizSession.respondWith("Answer 1", question);
 
@@ -153,7 +153,7 @@ public class QuizSessionTest {
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
     InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -179,7 +179,7 @@ public class QuizSessionTest {
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
     InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();
@@ -205,7 +205,7 @@ public class QuizSessionTest {
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
     InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
 
     // when
     Question q1 = session.question();

@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.in.console;
 
-import com.example.quiz.domain.quiz.InMemoryQuizSession;
+import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.InMemoryQuiz;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ class Questioner {
   }
 
   public void start() {
-    InMemoryQuizSession session = quiz.start();
+    QuizSession session = quiz.start();
     while (!session.isFinished()) {
       Question question = session.question();
       print(question);
@@ -24,7 +24,7 @@ class Questioner {
     System.out.println(session.grade());
   }
 
-  private void mark(InMemoryQuizSession session, Question question) {
+  private void mark(QuizSession session, Question question) {
     session.respondWith(scanner.nextLine(), question);
     System.out.println(session.lastResponseStatus());
   }

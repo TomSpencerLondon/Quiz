@@ -9,10 +9,9 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
-import com.example.quiz.domain.quiz.InMemoryQuizSession;
+import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
 import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizSession;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
@@ -25,7 +24,7 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz webQuiz = new WebQuiz(questionRepository);
-    QuizSession inMemoryQuizSession = new InMemoryQuizSession(webQuiz);
+    QuizSession inMemoryQuizSession = new QuizSession(webQuiz);
     QuizController quizController = new QuizController(questionService, inMemoryQuizSession);
 
     final Model model = new ConcurrentModel();
@@ -42,8 +41,8 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
     WebQuiz webQuiz = new WebQuiz(questionRepository);
-    InMemoryQuizSession InMemoryQuizSession = new InMemoryQuizSession(webQuiz);
-    QuizController quizController = new QuizController(questionService, InMemoryQuizSession);
+    QuizSession QuizSession = new QuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, QuizSession);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
         "question", "a1", "a1", "a2", "a3", "a4");
@@ -62,8 +61,8 @@ public class QuizControllerTest {
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     QuestionService questionService = new QuestionService(questionRepository);
     WebQuiz webQuiz = new WebQuiz(questionRepository);
-    InMemoryQuizSession InMemoryQuizSession = new InMemoryQuizSession(webQuiz);
-    QuizController quizController = new QuizController(questionService, InMemoryQuizSession);
+    QuizSession QuizSession = new QuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, QuizSession);
 
     final Model model = new ConcurrentModel();
 
@@ -86,8 +85,8 @@ public class QuizControllerTest {
     QuestionService questionService = new QuestionService(questionRepository);
 
     WebQuiz webQuiz = new WebQuiz(questionRepository);
-    InMemoryQuizSession InMemoryQuizSession = new InMemoryQuizSession(webQuiz);
-    QuizController quizController = new QuizController(questionService, InMemoryQuizSession);
+    QuizSession QuizSession = new QuizSession(webQuiz);
+    QuizController quizController = new QuizController(questionService, QuizSession);
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -95,7 +94,7 @@ public class QuizControllerTest {
     askQuestionForm.setSelectedChoice("Correct Answer");
     quizController.answerQuestion(askQuestionForm);
 
-    assertThat(InMemoryQuizSession.lastResponseStatus())
+    assertThat(QuizSession.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
   }
 }
