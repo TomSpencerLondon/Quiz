@@ -6,7 +6,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class InMemoryQuiz {
+public class InMemoryQuiz implements Quiz {
 
   private List<Question> questions = new ArrayList<>();
 

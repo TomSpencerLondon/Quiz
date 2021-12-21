@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class InMemoryQuizSession {
-  private final InMemoryQuiz quiz;
+public class InMemoryQuizSession implements QuizSession {
+  private final Quiz quiz;
   private final Iterator<Question> iterator;
 
   private List<Response> responses = new ArrayList<>();
   private Response lastResponse;
 
-  public InMemoryQuizSession(InMemoryQuiz quiz) {
+  public InMemoryQuizSession(Quiz quiz) {
     this.quiz = quiz;
     iterator = this.quiz.questions().iterator();
   }

@@ -12,6 +12,7 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.quiz.QuizSession;
 import java.util.List;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ class QuizControllerWebMvcTest {
   QuestionService questionService;
 
   @MockBean
-  WebQuizSession webQuizSession;
+  QuizSession webQuizSession;
 
   @Test
   @WithMockUser(username = "tom")

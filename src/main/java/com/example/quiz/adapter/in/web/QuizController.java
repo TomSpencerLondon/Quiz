@@ -4,6 +4,7 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.quiz.QuizSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class QuizController {
 
   private final QuestionService questionService;
-  private WebQuizSession webQuizSession;
+  private QuizSession webQuizSession;
   private Question question;
 
   @Autowired
-  public QuizController(QuestionService questionService, WebQuizSession webQuizSession) {
+  public QuizController(QuestionService questionService, QuizSession webQuizSession) {
     this.questionService = questionService;
     this.webQuizSession = webQuizSession;
   }
