@@ -12,9 +12,7 @@ public class QuizFactory {
     this.questionRepository = questionRepository;
   }
 
-  public InMemoryQuiz createQuiz() {
-    final List<Question> questions = questionRepository.findAll();
-
-    return new InMemoryQuiz(questions);
+  public Quiz createQuiz() {
+    return new Quiz(questionRepository);
   }
 }

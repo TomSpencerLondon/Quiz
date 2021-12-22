@@ -23,8 +23,8 @@ public class QuizControllerTest {
   void viewQuestionsCreatesModelWithQuestions() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    Quiz webQuiz = new WebQuiz(questionRepository);
-    QuizSession inMemoryQuizSession = new QuizSession(webQuiz);
+    Quiz quiz = new Quiz(questionRepository);
+    QuizSession inMemoryQuizSession = new QuizSession(quiz);
     QuizController quizController = new QuizController(questionService, inMemoryQuizSession);
 
     final Model model = new ConcurrentModel();
@@ -40,8 +40,8 @@ public class QuizControllerTest {
   void addQuestionResultsInQuestionAddedAndRedirects() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    WebQuiz webQuiz = new WebQuiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(webQuiz);
+    Quiz quiz = new Quiz(questionRepository);
+    QuizSession QuizSession = new QuizSession(quiz);
     QuizController quizController = new QuizController(questionService, QuizSession);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
@@ -60,8 +60,8 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     QuestionService questionService = new QuestionService(questionRepository);
-    WebQuiz webQuiz = new WebQuiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(webQuiz);
+    Quiz quiz = new Quiz(questionRepository);
+    QuizSession QuizSession = new QuizSession(quiz);
     QuizController quizController = new QuizController(questionService, QuizSession);
 
     final Model model = new ConcurrentModel();
@@ -84,8 +84,8 @@ public class QuizControllerTest {
     questionRepository.save(question);
     QuestionService questionService = new QuestionService(questionRepository);
 
-    WebQuiz webQuiz = new WebQuiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(webQuiz);
+    Quiz quiz = new Quiz(questionRepository);
+    QuizSession QuizSession = new QuizSession(quiz);
     QuizController quizController = new QuizController(questionService, QuizSession);
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);

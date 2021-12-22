@@ -2,7 +2,8 @@ package com.example.quiz.adapter.in.console;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.InMemoryQuiz;
+import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -33,7 +34,11 @@ public class ConsoleQuiz implements CommandLineRunner {
                 answers
             )
         );
-        InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+        final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+        questionRepository.save(question1);
+        questionRepository.save(question2);
+        questionRepository.save(question3);
+        final Quiz quiz = new Quiz(questionRepository);
         new Questioner(quiz).start();
     }
 }

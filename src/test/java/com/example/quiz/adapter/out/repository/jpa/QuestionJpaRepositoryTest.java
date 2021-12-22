@@ -2,6 +2,7 @@ package com.example.quiz.adapter.out.repository.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.quiz.domain.quiz.Quiz;
 import com.example.quiz.domain.quiz.QuizSession;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +43,9 @@ public class QuestionJpaRepositoryTest {
 
   @MockBean
   QuizSession quizSession;
+
+  @MockBean
+  Quiz quiz;
 
   @Test
   void stores_and_retrieves_Questions() {

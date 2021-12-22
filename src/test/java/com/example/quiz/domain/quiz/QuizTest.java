@@ -4,6 +4,7 @@ import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,8 +16,9 @@ public class QuizTest {
 
     @Test
     void new_quiz_hasNoQuestions() {
+        final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
         // Given / when
-        InMemoryQuiz quiz = new InMemoryQuiz();
+        Quiz quiz = new Quiz(questionRepository);
 
         // Then
         List<Question> questions = quiz.questions();
@@ -29,24 +31,21 @@ public class QuizTest {
     void new_quiz_hasOneQuestion() {
         // Given / when
         List<Answer> choices = List.of(new Answer("Answer 1"), new Answer("Answer 2"));
+        final Question question = new Question(
+            "Question 1",
+            new MultipleChoice(
+                new Answer("Answer 2"),
+                choices
+            )
+        );
 
-        InMemoryQuiz quiz = new InMemoryQuiz(new Question(
-                "Question 1",
-                new MultipleChoice(
-                        new Answer("Answer 2"),
-                        choices
-                )
-        ));
+        final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+        questionRepository.save(question);
+
+        Quiz quiz = new Quiz(questionRepository);
 
         List<Question> questions = quiz.questions();
 
-        assertThat(questions).containsOnly(
-                new Question("Question 1",
-                        new MultipleChoice(
-                                new Answer("Answer 2"),
-                                List.of(
-                                        new Answer("Answer 1"),
-                                        new Answer("Answer 2")
-                                ))));
+        assertThat(questions).containsOnly(question);
     }
 }

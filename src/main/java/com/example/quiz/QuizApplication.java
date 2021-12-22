@@ -1,9 +1,8 @@
 package com.example.quiz;
 
-import com.example.quiz.adapter.in.web.WebQuiz;
 import com.example.quiz.domain.port.QuestionRepository;
-import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.domain.quiz.QuizSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,12 @@ public class QuizApplication {
   }
 
   @Bean
-  QuizSession createQuizSession(QuestionRepository questionRepository){
-    final Quiz quiz = new WebQuiz(questionRepository);
+  QuizSession createQuizSession(Quiz quiz){
     return new QuizSession(quiz);
+  }
+
+  @Bean
+  Quiz createQuiz(QuestionRepository questionRepository) {
+    return new Quiz(questionRepository);
   }
 }

@@ -2,14 +2,14 @@ package com.example.quiz.adapter.in.console;
 
 import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.InMemoryQuiz;
+import com.example.quiz.domain.quiz.Quiz;
 import java.util.Scanner;
 
 class Questioner {
-  private InMemoryQuiz quiz;
+  private Quiz quiz;
   private Scanner scanner = new Scanner(System.in);
 
-  public Questioner(InMemoryQuiz quiz) {
+  public Questioner(Quiz quiz) {
     this.quiz = quiz;
   }
 

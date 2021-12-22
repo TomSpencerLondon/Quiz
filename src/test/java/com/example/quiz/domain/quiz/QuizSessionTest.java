@@ -8,6 +8,8 @@ import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.domain.port.QuestionRepository;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -15,8 +17,9 @@ import org.junit.jupiter.api.Test;
 public class QuizSessionTest {
   @Test
   void quizStartsASession() {
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
     // Given
-    InMemoryQuiz quiz = new InMemoryQuiz();
+    Quiz quiz = new Quiz(questionRepository);
 
     // When
     QuizSession session = quiz.start();
@@ -33,7 +36,11 @@ public class QuizSessionTest {
         Collections.singletonList(new Answer("Answer 1")));
 
     final Question question = new Question("Question 1", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question);
+
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question);
+
+    Quiz quiz = new Quiz(questionRepository);
 
     // When
     QuizSession session = quiz.start();
@@ -47,8 +54,9 @@ public class QuizSessionTest {
     // Given
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
-
-    InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(new Question("Question 1", choice));
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -63,8 +71,9 @@ public class QuizSessionTest {
   void testTakerCanCheckIfSessionWithOneQuestionIsFinished() {
     final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
         Collections.singletonList(new Answer("Answer 1")));
-
-    InMemoryQuiz quiz = new InMemoryQuiz(new Question("Question 1", choice));
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(new Question("Question 1", choice));
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -86,7 +95,12 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+    questionRepository.save(question2);
+    questionRepository.save(question3);
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -110,7 +124,11 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+    questionRepository.save(question2);
+    questionRepository.save(question3);
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -132,7 +150,12 @@ public class QuizSessionTest {
         List.of(new Answer("Answer 1"))
     );
     Question question = new Question("Question", choice);
-    final QuizSession quizSession = new QuizSession(new InMemoryQuiz(question));
+
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question);
+    Quiz quiz = new Quiz(questionRepository);
+
+    final QuizSession quizSession = new QuizSession(quiz);
 
     quizSession.respondWith("Answer 1", question);
 
@@ -152,7 +175,12 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+    questionRepository.save(question2);
+    questionRepository.save(question3);
+
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -178,7 +206,12 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+    questionRepository.save(question2);
+    questionRepository.save(question3);
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when
@@ -204,7 +237,11 @@ public class QuizSessionTest {
     Question question1 = new Question("Question 1", choice);
     Question question2 = new Question("Question 2", choice);
     Question question3 = new Question("Question 3", choice);
-    InMemoryQuiz quiz = new InMemoryQuiz(question1, question2, question3);
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+    questionRepository.save(question2);
+    questionRepository.save(question3);
+    Quiz quiz = new Quiz(questionRepository);
     QuizSession session = quiz.start();
 
     // when

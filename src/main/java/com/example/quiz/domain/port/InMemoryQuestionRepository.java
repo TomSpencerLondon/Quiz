@@ -17,10 +17,6 @@ public class InMemoryQuestionRepository implements
     questions = new ArrayList<>();
   }
 
-  public InMemoryQuestionRepository(Question... questions) {
-    this.questions = Arrays.asList(questions);
-  }
-
   @Override
   public Question save(Question question) {
     if (question.getId() == null) {
