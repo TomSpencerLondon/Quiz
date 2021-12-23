@@ -13,7 +13,6 @@ public class Quiz {
     this.questionRepository = questionRepository;
   }
 
-  @Transactional
   public List<Question> questions() {
     return this.questionRepository.findAll();
   }

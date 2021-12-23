@@ -12,6 +12,8 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.domain.port.QuestionRepository;
 import com.example.quiz.domain.quiz.Quiz;
 import com.example.quiz.domain.quiz.QuizSession;
 import java.util.List;
@@ -19,13 +21,18 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Tag("integration")
-@WebMvcTest
+@WebMvcTest(QuizController.class)
+@Import(TestQuizConfiguration.class)
 class QuizControllerWebMvcTest {
 
   @Autowired
@@ -33,12 +40,6 @@ class QuizControllerWebMvcTest {
 
   @MockBean
   QuestionService questionService;
-
-  @MockBean
-  QuizSession webQuizSession;
-
-  @MockBean
-  Quiz quiz;
 
   @Test
   @WithMockUser(username = "tom")
@@ -76,15 +77,9 @@ class QuizControllerWebMvcTest {
   @Test
   @WithMockUser(username = "tom")
   void questionEndpointExists() throws Exception {
-    final Question question = new Question(
-        "Question 1",
-        new MultipleChoice(new Answer("Answer 1"),
-            List.of(new Answer("Answer 1"), new Answer("Answer 2"))));
-    when(webQuizSession.question())
-        .thenReturn(question);
-
     mockMvc.perform(
         get("/quiz")
     ).andExpect(status().isOk());
   }
+
 }

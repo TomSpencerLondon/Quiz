@@ -13,14 +13,4 @@ public class QuizApplication {
   public static void main(String[] args) {
     SpringApplication.run(QuizApplication.class, args);
   }
-
-  @Bean
-  QuizSession createQuizSession(Quiz quiz){
-    return new QuizSession(quiz);
-  }
-
-  @Bean
-  Quiz createQuiz(QuestionRepository questionRepository) {
-    return new Quiz(questionRepository);
-  }
 }

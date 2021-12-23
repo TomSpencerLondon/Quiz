@@ -24,8 +24,7 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
-    QuizSession inMemoryQuizSession = new QuizSession(quiz);
-    QuizController quizController = new QuizController(questionService, inMemoryQuizSession);
+    QuizController quizController = new QuizController(questionService, quiz);
 
     final Model model = new ConcurrentModel();
     final String viewName = quizController.viewQuestions(model);
@@ -41,8 +40,7 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(quiz);
-    QuizController quizController = new QuizController(questionService, QuizSession);
+    QuizController quizController = new QuizController(questionService, quiz);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
         "question", "a1", "a1", "a2", "a3", "a4");
@@ -61,8 +59,7 @@ public class QuizControllerTest {
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(quiz);
-    QuizController quizController = new QuizController(questionService, QuizSession);
+    QuizController quizController = new QuizController(questionService, quiz);
 
     final Model model = new ConcurrentModel();
 
@@ -85,8 +82,8 @@ public class QuizControllerTest {
     QuestionService questionService = new QuestionService(questionRepository);
 
     Quiz quiz = new Quiz(questionRepository);
-    QuizSession QuizSession = new QuizSession(quiz);
-    QuizController quizController = new QuizController(questionService, QuizSession);
+    QuizSession quizSession = new QuizSession(quiz);
+    QuizController quizController = new QuizController(questionService, quizSession);
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -94,7 +91,7 @@ public class QuizControllerTest {
     askQuestionForm.setSelectedChoice("Correct Answer");
     quizController.answerQuestion(askQuestionForm);
 
-    assertThat(QuizSession.lastResponseStatus())
+    assertThat(quizSession.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
   }
 }
