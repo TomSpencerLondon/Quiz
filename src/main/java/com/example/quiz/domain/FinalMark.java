@@ -4,19 +4,19 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class FinalMark {
-  private Long correct;
-  private Long incorrect;
+  private long correct;
+  private long incorrect;
 
-  public FinalMark(Long correct, Long incorrect) {
+  public FinalMark(long correct, long incorrect) {
     this.correct = correct;
     this.incorrect = incorrect;
   }
 
-  public Long correct() {
+  public long correct() {
     return correct;
   }
 
-  public Long incorrect() {
+  public long incorrect() {
     return incorrect;
   }
 

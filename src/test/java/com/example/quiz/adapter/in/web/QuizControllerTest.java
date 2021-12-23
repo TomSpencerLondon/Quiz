@@ -89,9 +89,48 @@ public class QuizControllerTest {
 
     AskQuestionForm askQuestionForm = new AskQuestionForm();
     askQuestionForm.setSelectedChoice("Correct Answer");
-    quizController.answerQuestion(askQuestionForm);
+    quizController.questionResponse(askQuestionForm);
 
     assertThat(quizSession.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
+  }
+
+  @Test
+  void afterRespondingToLastQuestionShowsResults() {
+    QuizController quizController = createQuizController();
+
+    final Model model = new ConcurrentModel();
+
+    quizController.askQuestion(model);
+    AskQuestionForm askQuestionForm = new AskQuestionForm();
+    askQuestionForm.setSelectedChoice("Correct Answer");
+    final String redirectPage = quizController.questionResponse(askQuestionForm);
+
+    assertThat(redirectPage)
+        .isEqualTo("redirect:/result");
+  }
+
+  @Test
+  void showsResultOnPage() {
+    final QuizController quizController = createQuizController();
+    final Model model = new ConcurrentModel();
+
+    quizController.showResult(model);
+
+    assertThat(model.containsAttribute("resultView")).isTrue();
+  }
+
+  private QuizController createQuizController() {
+    QuestionRepository questionRepository = new InMemoryQuestionRepository();
+    Question question1 = new Question(
+        "Question 1",
+        new MultipleChoice(new Answer("Correct Answer"),
+            List.of(new Answer("Correct Answer"), new Answer("Wrong Answer"))));
+
+    questionRepository.save(question1);
+    QuestionService questionService = new QuestionService(questionRepository);
+    Quiz quiz = new Quiz(questionRepository);
+    QuizController quizController = new QuizController(questionService, quiz);
+    return quizController;
   }
 }

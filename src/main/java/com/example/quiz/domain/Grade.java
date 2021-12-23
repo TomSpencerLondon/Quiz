@@ -12,6 +12,17 @@ public class Grade {
         this.finalMark = finalMark;
     }
 
+    public FinalMark finalMark() {
+        return finalMark;
+    }
+
+    public int percent() {
+        if (totalQuestions == 0){
+            return 0;
+        }
+        return (int) (100 * (finalMark.correct() / totalQuestions));
+    }
+
     @Override
     public boolean equals(Object other) {
         return reflectionEquals(this, other);

@@ -2,6 +2,7 @@ package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.Quiz;
@@ -78,9 +79,19 @@ public class QuizController {
   }
 
   @PostMapping("/quiz")
-  public String answerQuestion(AskQuestionForm askQuestionForm) {
+  public String questionResponse(AskQuestionForm askQuestionForm) {
     quizSession.respondWith(askQuestionForm.getSelectedChoice(), question);
 
+    if (quizSession.isFinished()) {
+      return "redirect:/result";
+    }
     return "redirect:/quiz";
+  }
+
+  @GetMapping("/result")
+  public String showResult(Model model) {
+    final Grade grade = quizSession.grade();
+    model.addAttribute("resultView", ResultView.from(grade));
+    return "result";
   }
 }

@@ -3,6 +3,7 @@ package com.example.quiz.adapter.out.repository.jpa;
 import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,7 @@ public class QuestionRepositoryJpaAdapter implements QuestionRepository {
     return questionDtoTransformer.toQuestion(questionJpaRepository.save(questionDto));
   }
 
+  @Transactional
   @Override
   public List<com.example.quiz.domain.Question> findAll() {
     List<Question> questions = questionJpaRepository.findAll();

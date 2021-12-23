@@ -82,4 +82,11 @@ class QuizControllerWebMvcTest {
     ).andExpect(status().isOk());
   }
 
+  @Test
+  @WithMockUser(username = "tom")
+  void resultEndPointExists() throws Exception {
+    mockMvc.perform(
+        get("/result")
+    ).andExpect(status().isOk());
+  }
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Questions</title>
+  <link rel="stylesheet" th:href="@{/css/application.css}">
+</head>
+<body>
+<div>
+  Final mark: <span th:text="${resultView.percent}">50</span>%
+</div>
+<div>
+  Correct: <span th:text="${resultView.correct}">1</span>, Incorrect: <span th:text="${resultView.incorrect}">1</span>
+</div>
+</body>
+</html>
