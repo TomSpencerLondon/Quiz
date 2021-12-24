@@ -71,9 +71,11 @@ public class QuizController {
 
   @GetMapping("/quiz")
   public String askQuestion(Model model) {
+    if (quizSession.isFinished()) {
+      return "redirect:/result";
+    }
     question = quizSession.question();
     final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
-
     model.addAttribute("askQuestionForm", askQuestionForm);
     return "quiz";
   }
@@ -81,7 +83,6 @@ public class QuizController {
   @PostMapping("/quiz")
   public String questionResponse(AskQuestionForm askQuestionForm) {
     quizSession.respondWith(askQuestionForm.getSelectedChoice(), question);
-
     if (quizSession.isFinished()) {
       return "redirect:/result";
     }

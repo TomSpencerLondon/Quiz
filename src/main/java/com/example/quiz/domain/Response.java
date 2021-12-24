@@ -5,9 +5,15 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 
 public class Response {
   private final ResponseStatus status;
+  private final Question question;
 
   public Response(String responseText, Question question) {
+    this.question = question;
     this.status = statusFor(responseText, question);
+  }
+
+  public Question question() {
+    return question;
   }
 
   public ResponseStatus status() {

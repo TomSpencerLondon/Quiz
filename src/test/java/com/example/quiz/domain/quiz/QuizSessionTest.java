@@ -1,6 +1,7 @@
 package com.example.quiz.domain.quiz;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.FinalMark;
@@ -257,4 +258,26 @@ public class QuizSessionTest {
     assertThat(session.grade())
         .isEqualTo(grade);
   }
+
+  @Test
+  void returnSameQuestionIfItHasntBeenAnswered() {
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+    Question question1 = new Question("Question 1", choice);
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    questionRepository.save(question1);
+
+    Quiz quiz = new Quiz(questionRepository);
+    QuizSession session = quiz.start();
+
+    Question q1 = session.question();
+    Question q2 = session.question();
+
+    assertThat(q1)
+        .isEqualTo(q2);
+  }
+
 }
