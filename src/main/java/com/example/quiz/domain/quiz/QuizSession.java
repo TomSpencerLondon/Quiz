@@ -11,6 +11,7 @@ import java.util.List;
 
 public class QuizSession {
   private final Iterator<Question> iterator;
+  private final List<Question> questions;
 
   private List<Response> responses = new ArrayList<>();
   private Response lastResponse;
@@ -20,29 +21,25 @@ public class QuizSession {
     if (quiz.questions().isEmpty()) {
       throw new IllegalArgumentException();
     }
-    iterator = quiz.questions().iterator();
+    questions = quiz.questions();
+    iterator = questions.iterator();
     question = iterator.next();
   }
 
   public Question question() {
-    if (lastResponse == null || !lastResponse.question().equals(question)){
-      return question;
-    }
-    question = iterator.next();
     return question;
   }
 
   public void respondWith(String text, Question question) {
     lastResponse = new Response(text, question);
     responses.add(lastResponse);
+    if (iterator.hasNext()) {
+      this.question = iterator.next();
+    }
   }
 
   public boolean isFinished() {
-    if (lastResponse == null || !lastResponse.question().equals(question)){
-      return false;
-    }
-
-    return !iterator.hasNext();
+    return responses.size() == questions.size();
   }
 
   public ResponseStatus lastResponseStatus() {

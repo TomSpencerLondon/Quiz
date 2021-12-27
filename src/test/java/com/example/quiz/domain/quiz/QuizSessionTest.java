@@ -3,6 +3,7 @@ package com.example.quiz.domain.quiz;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.FinalMark;
@@ -21,7 +22,7 @@ public class QuizSessionTest {
     // Given
     Quiz quiz = createQuizWithQuestions(0);
 
-    assertThatThrownBy(() -> quiz.start())
+    assertThatThrownBy(quiz::start)
         .isInstanceOf(IllegalArgumentException.class);
   }
 
@@ -196,7 +197,17 @@ public class QuizSessionTest {
 
   @Test
   void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
+    final Quiz quiz = createQuizWithQuestions(2);
 
+    final QuizSession session = quiz.start();
+
+    final Question q1 = session.question();
+    session.respondWith("text", q1);
+
+    final Question q2 = session.question();
+
+    assertThat(q1)
+        .isNotEqualTo(q2);
   }
 
   private Quiz createQuizWithQuestions(int count) {
