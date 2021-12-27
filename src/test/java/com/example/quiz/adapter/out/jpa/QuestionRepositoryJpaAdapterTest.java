@@ -3,6 +3,9 @@ package com.example.quiz.adapter.out.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.IntegrationConfiguration;
+import com.example.quiz.adapter.in.web.QuizController;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.testcontainers.containers.PostgreSQLContainer;
 import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
@@ -34,6 +37,9 @@ public class QuestionRepositoryJpaAdapterTest implements IntegrationConfiguratio
 
   @Autowired
   QuestionJpaRepository questionJpaRepository;
+
+  @MockBean
+  QuizController quizController;
 
   @Test
   void newlySavedQuestionHasId() throws Exception {

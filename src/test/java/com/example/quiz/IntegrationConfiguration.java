@@ -16,6 +16,7 @@ public interface IntegrationConfiguration {
 
   @DynamicPropertySource
   static void properties(DynamicPropertyRegistry registry) {
+    registry.add("spring.sql.init.platform", () -> "postgresql");
     registry.add("spring.datasource.url", container::getJdbcUrl);
     registry.add("spring.datasource.password", container::getPassword);
     registry.add("spring.datasource.username", container::getUsername);

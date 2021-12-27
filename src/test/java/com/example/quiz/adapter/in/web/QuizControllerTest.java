@@ -24,8 +24,7 @@ public class QuizControllerTest {
   void viewQuestionsCreatesModelWithQuestions() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    Quiz quiz = new Quiz(questionRepository);
-    QuizController quizController = new QuizController(questionService, quiz);
+    QuizEditController quizController = new QuizEditController(questionService);
 
     final Model model = new ConcurrentModel();
     final String viewName = quizController.viewQuestions(model);
@@ -40,8 +39,7 @@ public class QuizControllerTest {
   void addQuestionResultsInQuestionAddedAndRedirects() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     QuestionService questionService = new QuestionService(questionRepository);
-    Quiz quiz = new Quiz(questionRepository);
-    QuizController quizController = new QuizController(questionService, quiz);
+    QuizEditController quizController = new QuizEditController(questionService);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
         "question", "a1", "a1", "a2", "a3", "a4");
@@ -60,7 +58,7 @@ public class QuizControllerTest {
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
-    QuizController quizController = new QuizController(questionService, quiz);
+    QuizController quizController = new QuizController(quiz);
 
     final Model model = new ConcurrentModel();
 
@@ -84,7 +82,7 @@ public class QuizControllerTest {
 
     Quiz quiz = new Quiz(questionRepository);
     QuizSession quizSession = new QuizSession(quiz);
-    QuizController quizController = new QuizController(questionService, quizSession);
+    QuizController quizController = new QuizController(quizSession);
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -126,7 +124,7 @@ public class QuizControllerTest {
     final QuizController quizController = createQuizControllerWithOneQuestion();
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
-    
+
     // When
     final String page = quizController.askQuestion(model);
 
@@ -159,7 +157,7 @@ public class QuizControllerTest {
     questionRepository.save(question1);
     QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
-    QuizController quizController = new QuizController(questionService, quiz);
+    QuizController quizController = new QuizController(quiz);
     return quizController;
   }
 }

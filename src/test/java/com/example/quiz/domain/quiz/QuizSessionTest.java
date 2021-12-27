@@ -13,14 +13,13 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import java.util.Collections;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QuizSessionTest {
   @Test
   void emptyQuizThrowsException() {
     // Given
-    Quiz quiz = createQuizWithQuestions(0);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(0);
 
     assertThatThrownBy(quiz::start)
         .isInstanceOf(IllegalArgumentException.class);
@@ -49,7 +48,7 @@ public class QuizSessionTest {
   @Test
   void testTakerCanAddResponseToQuestionFromTheSession() {
     // Given
-    Quiz quiz = createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     QuizSession session = quiz.start();
 
     // when
@@ -64,7 +63,7 @@ public class QuizSessionTest {
 //  testTakerCanCheckIfSessionWithOneQuestionIsFinished
   void givenQuizWithOneQuestionWhenQuestionIsAnsweredSessionIsFinished() {
     // Given
-    Quiz quiz = createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     QuizSession session = quiz.start();
     Question question = session.question();
 
@@ -81,7 +80,7 @@ public class QuizSessionTest {
   void quizWithThreeQuestionsWhenAnsweringTwoQuestionsSessionIsNotFinished() {
 
     // Given
-    Quiz quiz = createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -96,7 +95,7 @@ public class QuizSessionTest {
 
   @Test
   void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterThirdQuestion() {
-    Quiz quiz = createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -115,7 +114,7 @@ public class QuizSessionTest {
   // respondWith_givesCorrectStatusForAnswer
   void quizWithOneQuestionWhenAnsweredCorrectlyThenReturnsCorrect() {
     // Given
-    Quiz quiz = createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     final QuizSession quizSession = quiz.start();
 
     // When
@@ -130,7 +129,7 @@ public class QuizSessionTest {
 
   @Test
   void grade_gives_number_of_correct_responses_for_Session() {
-    Quiz quiz = createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -146,7 +145,7 @@ public class QuizSessionTest {
   }
   @Test
   void counts_incorrect_responses() {
-    Quiz quiz = createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -163,7 +162,7 @@ public class QuizSessionTest {
 
   @Test
   void giveAGrade() {
-    Quiz quiz = createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -183,7 +182,7 @@ public class QuizSessionTest {
   @Test
   void returnSameQuestionIfItHasntBeenAnswered() {
     // Given
-    Quiz quiz = createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     QuizSession session = quiz.start();
 
     // When
@@ -197,7 +196,7 @@ public class QuizSessionTest {
 
   @Test
   void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
-    final Quiz quiz = createQuizWithQuestions(2);
+    final Quiz quiz = TestQuizFactory.createQuizWithQuestions(2);
 
     final QuizSession session = quiz.start();
 
@@ -210,17 +209,4 @@ public class QuizSessionTest {
         .isNotEqualTo(q2);
   }
 
-  private Quiz createQuizWithQuestions(int count) {
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    for (int i = 1; i <= count; i++) {
-      questionRepository.save(new Question("Question " + i, choice));
-    }
-
-    return new Quiz(questionRepository);
-  }
 }

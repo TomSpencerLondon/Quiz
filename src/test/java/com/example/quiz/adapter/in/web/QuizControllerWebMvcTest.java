@@ -31,7 +31,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Tag("integration")
-@WebMvcTest(QuizController.class)
+@WebMvcTest({QuizController.class, QuizEditController.class})
 @Import(TestQuizConfiguration.class)
 class QuizControllerWebMvcTest {
 
