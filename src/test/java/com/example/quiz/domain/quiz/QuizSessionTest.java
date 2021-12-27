@@ -1,6 +1,7 @@
 package com.example.quiz.domain.quiz;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 
 import com.example.quiz.domain.Answer;
@@ -10,24 +11,18 @@ import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.port.QuestionRepository;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QuizSessionTest {
   @Test
-  void quizStartsASession() {
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+  void emptyQuizThrowsException() {
     // Given
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(0);
 
-    // When
-    QuizSession session = quiz.start();
-
-    // Then
-    assertThat(session)
-        .isNotNull();
+    assertThatThrownBy(() -> quiz.start())
+        .isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test
@@ -53,11 +48,7 @@ public class QuizSessionTest {
   @Test
   void testTakerCanAddResponseToQuestionFromTheSession() {
     // Given
-    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
-        Collections.singletonList(new Answer("Answer 1")));
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(new Question("Question 1", choice));
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(1);
     QuizSession session = quiz.start();
 
     // when
@@ -69,39 +60,27 @@ public class QuizSessionTest {
   }
 
   @Test
-  void testTakerCanCheckIfSessionWithOneQuestionIsFinished() {
-    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
-        Collections.singletonList(new Answer("Answer 1")));
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(new Question("Question 1", choice));
-    Quiz quiz = new Quiz(questionRepository);
+//  testTakerCanCheckIfSessionWithOneQuestionIsFinished
+  void givenQuizWithOneQuestionWhenQuestionIsAnsweredSessionIsFinished() {
+    // Given
+    Quiz quiz = createQuizWithQuestions(1);
     QuizSession session = quiz.start();
+    Question question = session.question();
 
     // when
-    Question question = session.question();
     session.respondWith("Answer 1", question);
 
+    // Then
     assertThat(session.isFinished())
         .isTrue();
   }
 
   @Test
-  void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterSecondQuestion() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
+  // testTakerCanCheckIfSessionIsFinishedWithThreeQuestionsAfterSecondQuestion
+  void quizWithThreeQuestionsWhenAnsweringTwoQuestionsSessionIsNotFinished() {
 
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    Question question1 = new Question("Question 1", choice);
-    Question question2 = new Question("Question 2", choice);
-    Question question3 = new Question("Question 3", choice);
-
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-    questionRepository.save(question2);
-    questionRepository.save(question3);
-    Quiz quiz = new Quiz(questionRepository);
+    // Given
+    Quiz quiz = createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -116,20 +95,7 @@ public class QuizSessionTest {
 
   @Test
   void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterThirdQuestion() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    Question question1 = new Question("Question 1", choice);
-    Question question2 = new Question("Question 2", choice);
-    Question question3 = new Question("Question 3", choice);
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-    questionRepository.save(question2);
-    questionRepository.save(question3);
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -145,43 +111,25 @@ public class QuizSessionTest {
   }
 
   @Test
-  void respondWith_givesCorrectStatusForAnswer() {
-    final MultipleChoice choice = new MultipleChoice(
-        new Answer("Answer 1"),
-        List.of(new Answer("Answer 1"))
-    );
-    Question question = new Question("Question", choice);
+  // respondWith_givesCorrectStatusForAnswer
+  void quizWithOneQuestionWhenAnsweredCorrectlyThenReturnsCorrect() {
+    // Given
+    Quiz quiz = createQuizWithQuestions(1);
+    final QuizSession quizSession = quiz.start();
 
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question);
-    Quiz quiz = new Quiz(questionRepository);
+    // When
+    quizSession.respondWith("Answer 1", quizSession.question());
 
-    final QuizSession quizSession = new QuizSession(quiz);
-
-    quizSession.respondWith("Answer 1", question);
-
+    // then
     assertThat(quizSession.lastResponseStatus())
         .isEqualByComparingTo(ResponseStatus.CORRECT);
   }
 
   // Ask Grade
+
   @Test
   void grade_gives_number_of_correct_responses_for_Session() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    Question question1 = new Question("Question 1", choice);
-    Question question2 = new Question("Question 2", choice);
-    Question question3 = new Question("Question 3", choice);
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-    questionRepository.save(question2);
-    questionRepository.save(question3);
-
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -195,24 +143,9 @@ public class QuizSessionTest {
     assertThat(session.correctResponsesCount())
         .isEqualTo(1L);
   }
-
   @Test
   void counts_incorrect_responses() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    Question question1 = new Question("Question 1", choice);
-    Question question2 = new Question("Question 2", choice);
-    Question question3 = new Question("Question 3", choice);
-
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-    questionRepository.save(question2);
-    questionRepository.save(question3);
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -229,20 +162,7 @@ public class QuizSessionTest {
 
   @Test
   void giveAGrade() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-
-    Question question1 = new Question("Question 1", choice);
-    Question question2 = new Question("Question 2", choice);
-    Question question3 = new Question("Question 3", choice);
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-    questionRepository.save(question2);
-    questionRepository.save(question3);
-    Quiz quiz = new Quiz(questionRepository);
+    Quiz quiz = createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -261,23 +181,35 @@ public class QuizSessionTest {
 
   @Test
   void returnSameQuestionIfItHasntBeenAnswered() {
-    List<Answer> answers = List.of(
-        new Answer("Answer 1")
-    );
-
-    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
-    Question question1 = new Question("Question 1", choice);
-    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(question1);
-
-    Quiz quiz = new Quiz(questionRepository);
+    // Given
+    Quiz quiz = createQuizWithQuestions(1);
     QuizSession session = quiz.start();
 
+    // When
     Question q1 = session.question();
     Question q2 = session.question();
 
+    // Then
     assertThat(q1)
         .isEqualTo(q2);
   }
 
+  @Test
+  void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
+
+  }
+
+  private Quiz createQuizWithQuestions(int count) {
+    final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+    List<Answer> answers = List.of(
+        new Answer("Answer 1")
+    );
+    MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"), answers);
+
+    for (int i = 1; i <= count; i++) {
+      questionRepository.save(new Question("Question " + i, choice));
+    }
+
+    return new Quiz(questionRepository);
+  }
 }

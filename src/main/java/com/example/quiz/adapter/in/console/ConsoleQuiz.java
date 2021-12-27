@@ -6,10 +6,14 @@ import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
+
+@ConditionalOnProperty("console.quiz.enabled")
 @Profile("!test")
-//@Component - commented out (otherwise it will halt the application)
+@Component
 public class ConsoleQuiz implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {

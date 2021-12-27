@@ -1,9 +1,7 @@
 package com.example.quiz.domain.quiz;
 
-import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Response;
 import com.example.quiz.domain.ResponseStatus;
@@ -12,28 +10,26 @@ import java.util.Iterator;
 import java.util.List;
 
 public class QuizSession {
-
-  private final Quiz quiz;
   private final Iterator<Question> iterator;
 
   private List<Response> responses = new ArrayList<>();
   private Response lastResponse;
-  private Question lastQuestion;
+  private Question question;
 
   public QuizSession(Quiz quiz) {
-    this.quiz = quiz;
-    iterator = this.quiz.questions().iterator();
-    lastQuestion = iterator.hasNext() ?
-        iterator.next()
-        : null;
+    if (quiz.questions().isEmpty()) {
+      throw new IllegalArgumentException();
+    }
+    iterator = quiz.questions().iterator();
+    question = iterator.next();
   }
 
   public Question question() {
-    if (lastResponse == null || !lastResponse.question().equals(lastQuestion)){
-      return lastQuestion;
+    if (lastResponse == null || !lastResponse.question().equals(question)){
+      return question;
     }
-    lastQuestion = iterator.next();
-    return lastQuestion;
+    question = iterator.next();
+    return question;
   }
 
   public void respondWith(String text, Question question) {
@@ -42,7 +38,7 @@ public class QuizSession {
   }
 
   public boolean isFinished() {
-    if (lastResponse == null || !lastResponse.question().equals(lastQuestion)){
+    if (lastResponse == null || !lastResponse.question().equals(question)){
       return false;
     }
 

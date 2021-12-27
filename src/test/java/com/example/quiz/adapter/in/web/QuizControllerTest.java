@@ -1,7 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.example.quiz.application.QuestionService;
@@ -15,7 +14,6 @@ import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
 import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
-import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -100,7 +98,7 @@ public class QuizControllerTest {
 
   @Test
   void afterRespondingToLastQuestionShowsResults() {
-    QuizController quizController = createQuizController();
+    QuizController quizController = createQuizControllerWithOneQuestion();
 
     final Model model = new ConcurrentModel();
 
@@ -115,28 +113,31 @@ public class QuizControllerTest {
 
   @Test
   void showsResultOnPage() {
-    final QuizController quizController = createQuizController();
+    final QuizController quizController = createQuizControllerWithOneQuestion();
     final Model model = new ConcurrentModel();
     quizController.showResult(model);
 
     assertThat(model.containsAttribute("resultView")).isTrue();
   }
 
-
   @Test
   void askQuestionTwiceGoesToSamePage() {
-    final QuizController quizController = createQuizController();
+    // Given
+    final QuizController quizController = createQuizControllerWithOneQuestion();
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
+    
+    // When
     final String page = quizController.askQuestion(model);
 
+    // Then
     assertThat(page)
         .isEqualTo("quiz");
   }
 
   @Test
   void askingQuestionOnAFinishedQuizReturnsResult() {
-    final QuizController quizController = createQuizController();
+    final QuizController quizController = createQuizControllerWithOneQuestion();
     final ConcurrentModel model = new ConcurrentModel();
     quizController.askQuestion(model);
     AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -148,7 +149,7 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/result");
   }
 
-  private QuizController createQuizController() {
+  private QuizController createQuizControllerWithOneQuestion() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     Question question1 = new Question(
         "Question 1",
