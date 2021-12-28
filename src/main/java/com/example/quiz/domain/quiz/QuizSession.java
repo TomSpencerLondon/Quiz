@@ -46,18 +46,18 @@ public class QuizSession {
     return lastResponse.status();
   }
 
-  public long correctResponsesCount() {
+  public int correctResponsesCount() {
     return responseCountFor(ResponseStatus.CORRECT);
   }
 
-  public long incorrectResponsesCount() {
+  public int incorrectResponsesCount() {
     return responseCountFor(ResponseStatus.INCORRECT);
   }
 
-  private long responseCountFor(ResponseStatus status) {
-    return responses.stream()
+  private int responseCountFor(ResponseStatus status) {
+    return Math.toIntExact(responses.stream()
         .filter(r -> r.status().equals(status))
-        .count();
+        .count());
   }
 
   public Grade grade() {

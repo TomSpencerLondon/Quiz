@@ -4,10 +4,10 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class FinalMark {
-  private long correct;
-  private long incorrect;
+  private int correct;
+  private int incorrect;
 
-  public FinalMark(long correct, long incorrect) {
+  public FinalMark(int correct, int incorrect) {
     this.correct = correct;
     this.incorrect = incorrect;
   }

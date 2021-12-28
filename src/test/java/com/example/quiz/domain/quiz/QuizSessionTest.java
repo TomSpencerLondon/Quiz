@@ -173,7 +173,7 @@ public class QuizSessionTest {
     Question q3 = session.question();
     session.respondWith("Answer 2", q3);
 
-    final Grade grade = new Grade(3, new FinalMark(1L, 2L));
+    final Grade grade = new Grade(3, new FinalMark(1, 2));
 
     assertThat(session.grade())
         .isEqualTo(grade);
