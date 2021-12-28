@@ -35,7 +35,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        final Long correct = finalMark.correct();
+        final int correct = finalMark.correct();
         return String.format(
                 "Final mark: %s / %s \nCorrect: %s, Incorrect: %s",
                 correct,

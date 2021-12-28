@@ -12,11 +12,11 @@ public class FinalMark {
     this.incorrect = incorrect;
   }
 
-  public long correct() {
+  public int correct() {
     return correct;
   }
 
-  public long incorrect() {
+  public int incorrect() {
     return incorrect;
   }
 
