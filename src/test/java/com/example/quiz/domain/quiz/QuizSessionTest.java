@@ -209,4 +209,23 @@ public class QuizSessionTest {
         .isNotEqualTo(q2);
   }
 
+  @Test
+  void quizWithTwoQuestionsWhenCompletedThenRestartStartsNewSession() {
+    final Quiz quiz = TestQuizFactory.createQuizWithQuestions(2);
+
+    final QuizSession session = quiz.start();
+
+    final Question q1 = session.question();
+    session.respondWith("text", q1);
+
+    final Question q2 = session.question();
+
+    session.respondWith("text", q1);
+
+    session.restart();
+    final Question newQ1 = session.question();
+
+    assertThat(newQ1)
+        .isEqualTo(q1);
+  }
 }

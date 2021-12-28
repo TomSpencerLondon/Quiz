@@ -13,6 +13,7 @@ import com.example.quiz.domain.port.QuestionRepository;
 import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
 import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.domain.quiz.TestQuizFactory;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
@@ -21,42 +22,9 @@ import org.springframework.ui.Model;
 public class QuizControllerTest {
 
   @Test
-  void viewQuestionsCreatesModelWithQuestions() {
-    QuestionRepository questionRepository = new InMemoryQuestionRepository();
-    QuestionService questionService = new QuestionService(questionRepository);
-    QuizEditController quizController = new QuizEditController(questionService);
-
-    final Model model = new ConcurrentModel();
-    final String viewName = quizController.viewQuestions(model);
-    assertThat(viewName)
-        .isEqualTo("view-questions");
-
-    assertThat(model.containsAttribute("questions"))
-        .isTrue();
-  }
-
-  @Test
-  void addQuestionResultsInQuestionAddedAndRedirects() {
-    QuestionRepository questionRepository = new InMemoryQuestionRepository();
-    QuestionService questionService = new QuestionService(questionRepository);
-    QuizEditController quizController = new QuizEditController(questionService);
-
-    final AddQuestionForm addQuestionForm = new AddQuestionForm(
-        "question", "a1", "a1", "a2", "a3", "a4");
-
-    final String redirectPage = quizController.addQuestion(addQuestionForm);
-
-    assertThat(redirectPage)
-        .isEqualTo("redirect:/add-question");
-    assertThat(questionRepository.findAll())
-        .hasSize(1);
-  }
-
-  @Test
   void asksOneQuestion() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
-    QuestionService questionService = new QuestionService(questionRepository);
     Quiz quiz = new Quiz(questionRepository);
     QuizController quizController = new QuizController(quiz);
 
@@ -147,16 +115,27 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/result");
   }
 
-  private QuizController createQuizControllerWithOneQuestion() {
-    QuestionRepository questionRepository = new InMemoryQuestionRepository();
-    Question question1 = new Question(
-        "Question 1",
-        new MultipleChoice(new Answer("Correct Answer"),
-            List.of(new Answer("Correct Answer"), new Answer("Wrong Answer"))));
+  @Test
+  void afterQuizIsCompletedRestartRedirectsToQuiz() {
+    // Given
+    final QuizController quizController = createQuizControllerWithOneQuestion();
+    final ConcurrentModel model = new ConcurrentModel();
+    quizController.askQuestion(model);
+    AskQuestionForm askQuestionForm = new AskQuestionForm();
+    askQuestionForm.setSelectedChoice("Correct Answer");
+    quizController.questionResponse(askQuestionForm);
+    quizController.askQuestion(model);
 
-    questionRepository.save(question1);
-    QuestionService questionService = new QuestionService(questionRepository);
-    Quiz quiz = new Quiz(questionRepository);
+    // When
+    final String redirect = quizController.restart();
+
+    // Then
+    assertThat(redirect)
+        .isEqualTo("redirect:/quiz");
+  }
+
+  private QuizController createQuizControllerWithOneQuestion() {
+    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     QuizController quizController = new QuizController(quiz);
     return quizController;
   }

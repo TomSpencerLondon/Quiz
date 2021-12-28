@@ -41,4 +41,12 @@ class QuizControllerWebMvcTest {
         get("/result")
     ).andExpect(status().isOk());
   }
+
+  @Test
+  @WithMockUser(username = "tom")
+  void restartEndpointExists() throws Exception {
+    mockMvc.perform(
+        post("/restart")
+    ).andExpect(status().is3xxRedirection());
+  }
 }

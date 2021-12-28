@@ -10,8 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class QuizSession {
-  private final Iterator<Question> iterator;
-  private final List<Question> questions;
+
+  private final Quiz quiz;
+  private Iterator<Question> iterator;
+  private List<Question> questions;
 
   private List<Response> responses = new ArrayList<>();
   private Response lastResponse;
@@ -21,6 +23,7 @@ public class QuizSession {
     if (quiz.questions().isEmpty()) {
       throw new IllegalArgumentException();
     }
+    this.quiz = quiz;
     questions = quiz.questions();
     iterator = questions.iterator();
     question = iterator.next();
@@ -63,5 +66,13 @@ public class QuizSession {
   public Grade grade() {
     return new Grade(responses.size(),
         new FinalMark(correctResponsesCount(), incorrectResponsesCount()));
+  }
+
+
+  public void restart() {
+    responses = new ArrayList<>();
+    questions = this.quiz.questions();
+    iterator = questions.iterator();
+    question = iterator.next();
   }
 }
