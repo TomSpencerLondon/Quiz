@@ -13,32 +13,51 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Tag("integration")
-@WebMvcTest(QuizController.class)
-@Import(TestQuizConfiguration.class)
-class QuizControllerWebMvcTest {
+@WebMvcTest(QuizEditController.class)
+public class QuizEditControllerWebMvcTest {
 
   @Autowired
   MockMvc mockMvc;
 
+  @MockBean
+  QuestionService questionService;
+
   @Test
   @WithMockUser(username = "tom")
-  void questionEndpointExists() throws Exception {
-    mockMvc.perform(
-        get("/quiz")
-    ).andExpect(status().isOk());
+  void addQuestionRedirects() throws Exception {
+    mockMvc.perform(post("/add-question")
+        .with(csrf())
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .param("text", "Q1")
+        .param("answer", "Q1A1")
+        .param("choice1", "Q1A1")
+        .param("choice2", "Q1A2")
+        .param("choice3", "Q1A3")
+        .param("choice4", "Q1A4")
+    ).andExpect(status().is3xxRedirection());
   }
 
   @Test
   @WithMockUser(username = "tom")
-  void resultEndPointExists() throws Exception {
+  void shouldHaveFormObjectInModel() throws Exception {
     mockMvc.perform(
-        get("/result")
+            get("/add-question")
+        ).andExpect(view().name("add-question"))
+        .andExpect(model().attributeExists("addQuestionForm"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  @WithMockUser(username = "tom")
+  void shouldShowAllQuestions() throws Exception {
+    mockMvc.perform(
+        get("/view-questions")
     ).andExpect(status().isOk());
   }
+
 }
