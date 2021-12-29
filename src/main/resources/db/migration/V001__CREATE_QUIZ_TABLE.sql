@@ -5,9 +5,9 @@ create table multiple_choices
     correct text
 );
 
-create table multiple_choice_dto_answers
+create table multiple_choice_answers
 (
-    multiple_choice_dto_id bigint not null
+    multiple_choice_id bigint not null
         references multiple_choices,
     answers                text
 );
@@ -17,7 +17,7 @@ create table questions
     id bigint not null
         primary key,
     text                   text,
-    multiple_choice_dto_id bigint
+    multiple_choice_id bigint
         references multiple_choices
 );
 

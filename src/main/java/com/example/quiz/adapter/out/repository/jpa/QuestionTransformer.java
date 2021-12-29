@@ -1,21 +1,20 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
 import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionDtoTransformer {
+public class QuestionTransformer {
 
   @Autowired
-  public QuestionDtoTransformer() {}
+  public QuestionTransformer() {}
 
   com.example.quiz.domain.Question toQuestion(Question questionDto) {
-    final MultipleChoiceDto multipleChoiceDto = questionDto.getMultipleChoiceDto();
-    final List<Answer> answers = multipleChoiceDto
+    final MultipleChoice multipleChoice = questionDto.getMultipleChoice();
+    final List<Answer> answers = multipleChoice
         .getAnswers()
         .stream()
         .map(Answer::new)
@@ -23,8 +22,8 @@ public class QuestionDtoTransformer {
 
     final com.example.quiz.domain.Question question = new com.example.quiz.domain.Question(
         questionDto.getText(),
-        new MultipleChoice(
-            new Answer(multipleChoiceDto.getCorrect()),
+        new com.example.quiz.domain.MultipleChoice(
+            new Answer(multipleChoice.getCorrect()),
             answers
         ));
 
@@ -38,12 +37,12 @@ public class QuestionDtoTransformer {
     final Answer correctAnswer = question.correctAnswer();
     final String questionText = question.text();
 
-    final MultipleChoiceDto multipleChoiceDto = new MultipleChoiceDto();
+    final MultipleChoice multipleChoice = new MultipleChoice();
     final Question questionDto = new Question();
-    multipleChoiceDto.setCorrect(correctAnswer.text());
-    multipleChoiceDto.setAnswers(answers);
+    multipleChoice.setCorrect(correctAnswer.text());
+    multipleChoice.setAnswers(answers);
     questionDto.setText(questionText);
-    questionDto.setMultipleChoiceDto(multipleChoiceDto);
+    questionDto.setMultipleChoice(multipleChoice);
 
     for (String answerValue : answers) {
       final com.example.quiz.adapter.out.repository.jpa.Answer answer = new com.example.quiz.adapter.out.repository.jpa.Answer();

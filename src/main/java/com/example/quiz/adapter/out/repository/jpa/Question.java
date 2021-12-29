@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Question {
 
   @OneToOne(cascade = CascadeType.ALL)
-  private MultipleChoiceDto multipleChoiceDto;
+  private MultipleChoice multipleChoice;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -51,12 +51,12 @@ public class Question {
     this.text = text;
   }
 
-  public MultipleChoiceDto getMultipleChoiceDto() {
-    return multipleChoiceDto;
+  public MultipleChoice getMultipleChoice() {
+    return multipleChoice;
   }
 
-  public void setMultipleChoiceDto(
-      MultipleChoiceDto multipleChoiceDto) {
-    this.multipleChoiceDto = multipleChoiceDto;
+  public void setMultipleChoice(
+      MultipleChoice multipleChoice) {
+    this.multipleChoice = multipleChoice;
   }
 }

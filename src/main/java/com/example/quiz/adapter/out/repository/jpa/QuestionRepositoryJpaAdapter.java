@@ -11,25 +11,25 @@ import org.springframework.stereotype.Repository;
 public class QuestionRepositoryJpaAdapter implements QuestionRepository {
 
   private final QuestionJpaRepository questionJpaRepository;
-  private final QuestionDtoTransformer questionDtoTransformer;
+  private final QuestionTransformer questionTransformer;
 
   @Autowired
   public QuestionRepositoryJpaAdapter(QuestionJpaRepository questionJpaRepository,
-      QuestionDtoTransformer questionDtoTransformer) {
+      QuestionTransformer questionTransformer) {
     this.questionJpaRepository = questionJpaRepository;
-    this.questionDtoTransformer = questionDtoTransformer;
+    this.questionTransformer = questionTransformer;
   }
 
   @Override
   public com.example.quiz.domain.Question save(com.example.quiz.domain.Question question) {
-    Question questionDto = questionDtoTransformer.toQuestionDto(question);
-    return questionDtoTransformer.toQuestion(questionJpaRepository.save(questionDto));
+    Question questionDto = questionTransformer.toQuestionDto(question);
+    return questionTransformer.toQuestion(questionJpaRepository.save(questionDto));
   }
 
   @Transactional
   @Override
   public List<com.example.quiz.domain.Question> findAll() {
     List<Question> questions = questionJpaRepository.findAll();
-    return questions.stream().map(questionDtoTransformer::toQuestion).collect(Collectors.toList());
+    return questions.stream().map(questionTransformer::toQuestion).collect(Collectors.toList());
   }
 }

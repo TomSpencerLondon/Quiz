@@ -49,12 +49,12 @@ public class QuestionJpaRepositoryTest {
 
   @Test
   void stores_and_retrieves_Questions() {
-    final MultipleChoiceDto multipleChoiceDto = new MultipleChoiceDto();
+    final MultipleChoice multipleChoice = new MultipleChoice();
     final Question question = new Question();
-    multipleChoiceDto.setCorrect("Q1A1");
-    multipleChoiceDto.setAnswers(List.of("Q1A1", "Q1A2", "Q1A3", "Q1A4"));
+    multipleChoice.setCorrect("Q1A1");
+    multipleChoice.setAnswers(List.of("Q1A1", "Q1A2", "Q1A3", "Q1A4"));
     question.setText("Q1");
-    question.setMultipleChoiceDto(multipleChoiceDto);
+    question.setMultipleChoice(multipleChoice);
 
     final Question savedQuestion = questionJpaRepository.save(question);
 

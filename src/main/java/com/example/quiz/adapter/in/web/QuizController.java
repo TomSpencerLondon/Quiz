@@ -48,7 +48,7 @@ public class QuizController {
 
   @GetMapping("/result")
   public String showResult(Model model) {
-    final Grade grade = quizSession.grade();
+    Grade grade = quizSession.grade();
     model.addAttribute("resultView", ResultView.from(grade));
     return "result";
   }
