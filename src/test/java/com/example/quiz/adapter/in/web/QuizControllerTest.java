@@ -1,7 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Answer;
@@ -10,9 +9,9 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
-import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
 import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.quiz.TestQuizFactory;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -116,27 +115,19 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/result");
   }
 
+
   @Test
-  void afterQuizIsCompletedRestartRedirectsToQuiz() {
+  void afterStartCreateSessionAndRedirectToQuiz() {
     // Given
     final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
-    final ConcurrentModel model = new ConcurrentModel();
-    quizController.askQuestion(model);
-    AskQuestionForm askQuestionForm = new AskQuestionForm();
-    askQuestionForm.setSelectedChoice("Correct Answer");
-    quizController.questionResponse(askQuestionForm);
-    quizController.askQuestion(model);
 
     // When
-    final String redirect = quizController.restart();
+    final String redirect = quizController.start();
+
 
     // Then
     assertThat(redirect)
         .isEqualTo("redirect:/quiz");
-  }
-
-  @Test
-  void afterStartCreateSession() {
   }
 
   private QuizController createAndStartQuizControllerWithOneQuestion() {

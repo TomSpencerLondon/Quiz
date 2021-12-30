@@ -36,13 +36,6 @@ class QuizControllerWebMvcTest {
   }
 
   @Test
-  void restartEndpointExists() throws Exception {
-    mockMvc.perform(
-        post("/restart")
-    ).andExpect(status().is3xxRedirection());
-  }
-
-  @Test
   void getHomeEndpointExists() throws Exception {
     mockMvc.perform(
         get("/")

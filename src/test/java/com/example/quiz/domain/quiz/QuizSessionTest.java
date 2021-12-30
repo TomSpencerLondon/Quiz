@@ -2,8 +2,6 @@ package com.example.quiz.domain.quiz;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.FinalMark;
@@ -207,25 +205,5 @@ public class QuizSessionTest {
 
     assertThat(q1)
         .isNotEqualTo(q2);
-  }
-
-  @Test
-  void quizWithTwoQuestionsWhenCompletedThenRestartStartsNewSession() {
-    final Quiz quiz = TestQuizFactory.createQuizWithQuestions(2);
-
-    final QuizSession session = quiz.start();
-
-    final Question q1 = session.question();
-    session.respondWith("text", q1);
-
-    final Question q2 = session.question();
-
-    session.respondWith("text", q1);
-
-    session.restart();
-    final Question newQ1 = session.question();
-
-    assertThat(newQ1)
-        .isEqualTo(q1);
   }
 }

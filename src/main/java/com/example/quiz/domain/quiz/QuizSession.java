@@ -68,11 +68,4 @@ public class QuizSession {
         new FinalMark(correctResponsesCount(), incorrectResponsesCount()));
   }
 
-
-  public void restart() {
-    responses = new ArrayList<>();
-    questions = this.quiz.questions();
-    iterator = questions.iterator();
-    question = iterator.next();
-  }
 }

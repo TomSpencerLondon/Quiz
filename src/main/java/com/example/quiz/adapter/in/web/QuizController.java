@@ -5,7 +5,6 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.Quiz;
 import com.example.quiz.domain.quiz.QuizSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,15 +58,9 @@ public class QuizController {
     return "result";
   }
 
-  @PostMapping("/restart")
-  public String restart() {
-    quizSession.restart();
-    return "redirect:/quiz";
-  }
-
   @PostMapping("/start")
   public String start() {
     quizSession = quiz.start();
-    return "redirect:/";
+    return "redirect:/quiz";
   }
 }
