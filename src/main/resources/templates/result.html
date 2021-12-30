@@ -13,9 +13,8 @@
   Correct: <span th:text="${resultView.correct}">1</span>, Incorrect: <span th:text="${resultView.incorrect}">1</span>
 </div>
 
-<form action="#" th:action="@{'/restart'}" th:method="delete" >
-  <input type="hidden" name="_method" value="delete" />
-  <button type="submit" id="submitButton">Restart</button>
+<form action="#" th:action="@{/restart}" th:method="post" >
+  <button type="submit" id="restart">Restart</button>
 </form>
 </body>
 </html>

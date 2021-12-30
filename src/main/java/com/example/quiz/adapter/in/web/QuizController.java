@@ -16,6 +16,7 @@ public class QuizController {
 
   private QuizSession quizSession;
   private Question question;
+  private Quiz quiz;
 
   public QuizController(QuizSession quizSession) {
     this.quizSession = quizSession;
@@ -23,7 +24,12 @@ public class QuizController {
 
   @Autowired
   public QuizController(Quiz quiz) {
-    this.quizSession = quiz.start();
+    this.quiz = quiz;
+  }
+
+  @GetMapping("/")
+  public String home(){
+    return "start";
   }
 
   @GetMapping("/quiz")
@@ -57,5 +63,11 @@ public class QuizController {
   public String restart() {
     quizSession.restart();
     return "redirect:/quiz";
+  }
+
+  @PostMapping("/start")
+  public String start() {
+    quizSession = quiz.start();
+    return "redirect:/";
   }
 }

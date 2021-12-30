@@ -7,7 +7,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers(disabledWithoutDocker = true)
-public interface IntegrationConfiguration {
+public interface TestContainerConfiguration {
   @Container
   static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:12.3")
       .withDatabaseName("test")

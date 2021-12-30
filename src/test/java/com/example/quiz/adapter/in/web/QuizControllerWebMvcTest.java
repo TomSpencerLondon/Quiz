@@ -15,13 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 @Tag("integration")
 @WebMvcTest(QuizController.class)
 @Import(TestQuizConfiguration.class)
+@WithMockUser(username = "tom")
 class QuizControllerWebMvcTest {
 
   @Autowired
   MockMvc mockMvc;
 
   @Test
-  @WithMockUser(username = "tom")
   void questionEndpointExists() throws Exception {
     mockMvc.perform(
         get("/quiz")
@@ -29,7 +29,6 @@ class QuizControllerWebMvcTest {
   }
 
   @Test
-  @WithMockUser(username = "tom")
   void resultEndPointExists() throws Exception {
     mockMvc.perform(
         get("/result")
@@ -37,10 +36,23 @@ class QuizControllerWebMvcTest {
   }
 
   @Test
-  @WithMockUser(username = "tom")
   void restartEndpointExists() throws Exception {
     mockMvc.perform(
         post("/restart")
+    ).andExpect(status().is3xxRedirection());
+  }
+
+  @Test
+  void getHomeEndpointExists() throws Exception {
+    mockMvc.perform(
+        get("/")
+    ).andExpect(status().isOk());
+  }
+
+  @Test
+  void postStartExists() throws Exception {
+    mockMvc.perform(
+        post("/start")
     ).andExpect(status().is3xxRedirection());
   }
 }

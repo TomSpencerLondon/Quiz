@@ -22,11 +22,12 @@ import org.springframework.ui.Model;
 public class QuizControllerTest {
 
   @Test
-  void asksOneQuestion() {
+  void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
     Quiz quiz = new Quiz(questionRepository);
     QuizController quizController = new QuizController(quiz);
+    quizController.start();
 
     final Model model = new ConcurrentModel();
 
@@ -64,7 +65,7 @@ public class QuizControllerTest {
 
   @Test
   void afterRespondingToLastQuestionShowsResults() {
-    QuizController quizController = createQuizControllerWithOneQuestion();
+    QuizController quizController = createAndStartQuizControllerWithOneQuestion();
 
     final Model model = new ConcurrentModel();
 
@@ -79,7 +80,7 @@ public class QuizControllerTest {
 
   @Test
   void showsResultOnPage() {
-    final QuizController quizController = createQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
     final Model model = new ConcurrentModel();
     quizController.showResult(model);
 
@@ -89,7 +90,7 @@ public class QuizControllerTest {
   @Test
   void askQuestionTwiceGoesToSamePage() {
     // Given
-    final QuizController quizController = createQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -103,7 +104,7 @@ public class QuizControllerTest {
 
   @Test
   void askingQuestionOnAFinishedQuizReturnsResult() {
-    final QuizController quizController = createQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
     final ConcurrentModel model = new ConcurrentModel();
     quizController.askQuestion(model);
     AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -118,7 +119,7 @@ public class QuizControllerTest {
   @Test
   void afterQuizIsCompletedRestartRedirectsToQuiz() {
     // Given
-    final QuizController quizController = createQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
     final ConcurrentModel model = new ConcurrentModel();
     quizController.askQuestion(model);
     AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -134,9 +135,14 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/quiz");
   }
 
-  private QuizController createQuizControllerWithOneQuestion() {
+  @Test
+  void afterStartCreateSession() {
+  }
+
+  private QuizController createAndStartQuizControllerWithOneQuestion() {
     Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
     QuizController quizController = new QuizController(quiz);
+    quizController.start();
     return quizController;
   }
 }

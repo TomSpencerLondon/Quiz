@@ -1,13 +1,11 @@
 package com.example.quiz.adapter.in.questionloader;
 
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
 
 public class QuestionFactory {
 
-  public Question createQuestion(List<String> lines) {
+  public static Question createQuestion(List<String> lines) {
     String questionText = lines.get(0);
     String answer1 = lines.get(1);
     String answer2 = lines.get(2);
@@ -15,13 +13,7 @@ public class QuestionFactory {
     String answer4 = lines.get(4);
     String correctAnswer = lines.get(5);
 
-    return new Question(questionText,
-        new MultipleChoice(
-            new Answer(correctAnswer),
-            List.of(
-                new Answer(answer1),
-                new Answer(answer2), new Answer(answer3),
-                new Answer(answer4))
-        ));
+    return com.example.quiz.domain.quiz.QuestionFactory.create(questionText, answer1, answer2, answer3, answer4, correctAnswer);
   }
+
 }

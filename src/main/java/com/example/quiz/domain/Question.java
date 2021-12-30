@@ -7,7 +7,7 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 
 public class Question {
   private final MultipleChoice choice;
-  private String text;
+  private final String text;
   private Long id;
 
   public Question(

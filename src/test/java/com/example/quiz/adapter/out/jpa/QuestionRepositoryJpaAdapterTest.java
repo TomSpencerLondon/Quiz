@@ -2,7 +2,7 @@ package com.example.quiz.adapter.out.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.IntegrationConfiguration;
+import com.example.quiz.TestContainerConfiguration;
 import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.adapter.out.repository.jpa.QuestionTransformer;
@@ -11,22 +11,14 @@ import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
 import javax.transaction.Transactional;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Transactional
-public class QuestionRepositoryJpaAdapterTest implements IntegrationConfiguration {
+public class QuestionRepositoryJpaAdapterTest implements TestContainerConfiguration {
 
   @Autowired
   QuestionJpaRepository questionJpaRepository;
