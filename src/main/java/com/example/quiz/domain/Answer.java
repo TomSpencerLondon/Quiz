@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
 public class Answer {
+    private Long id;
     private String text;
 
     public Answer(String text) {
@@ -12,6 +13,14 @@ public class Answer {
 
     public String text() {
       return this.text;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
