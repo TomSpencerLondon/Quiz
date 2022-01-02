@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -32,10 +33,15 @@ public class QuizEditControllerTest {
     QuestionService questionService = new QuestionService(questionRepository);
     QuizEditController quizController = new QuizEditController(questionService);
 
+    final List<String> correctAnswers = List.of("1", "2");
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
-        "question", "a1", "a1", "a2", "a3", "a4");
+        "question", "a1", "a2", "a3", "a4");
 
-    final String redirectPage = quizController.addQuestion(addQuestionForm);
+    addQuestionForm.setChoice1("1");
+    addQuestionForm.setChoice1("2");
+
+
+    final String redirectPage = quizController.addQuestion(addQuestionForm, correctAnswers);
 
     assertThat(redirectPage)
         .isEqualTo("redirect:/add-question");

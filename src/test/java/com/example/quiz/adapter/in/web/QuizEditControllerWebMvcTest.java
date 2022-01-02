@@ -34,7 +34,7 @@ public class QuizEditControllerWebMvcTest {
         .with(csrf())
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("text", "Q1")
-        .param("answer", "Q1A1")
+        .param("correctAnswers", "1", "2")
         .param("choice1", "Q1A1")
         .param("choice2", "Q1A2")
         .param("choice3", "Q1A3")

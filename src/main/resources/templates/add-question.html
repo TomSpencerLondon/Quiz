@@ -30,6 +30,11 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Choice #1
       </label>
+      <input class="mx-2"
+          type="checkbox"
+          name="correctAnswers"
+          th:value="1"
+      />
       <input type="text" th:field="*{choice1}"
              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
@@ -37,6 +42,12 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Choice #2
       </label>
+      <input
+          class="mx-2"
+          type="checkbox"
+          name="correctAnswers"
+          th:value="2"
+      />
       <input type="text" th:field="*{choice2}"
              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
@@ -44,6 +55,12 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Choice #3
       </label>
+      <input
+          class="mx-2"
+          type="checkbox"
+          name="correctAnswers"
+          th:value="3"
+      />
       <input type="text" th:field="*{choice3}"
              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
@@ -51,16 +68,14 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Choice #4
       </label>
+      <input
+          class="mx-2"
+          type="checkbox"
+          name="correctAnswers"
+          th:value="4"
+      />
       <input type="text" th:field="*{choice4}"
              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
-
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Answer
-      </label>
-      <input type="text" th:field="*{answer}"
-             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
 
       <button type="submit"
               class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
