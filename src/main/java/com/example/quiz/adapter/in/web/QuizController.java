@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class QuizController {
 
   private QuizSession quizSession;
-  private Question question;
   private Quiz quiz;
 
   public QuizController(QuizSession quizSession) {
@@ -36,7 +35,7 @@ public class QuizController {
     if (quizSession.isFinished()) {
       return "redirect:/result";
     }
-    question = quizSession.question();
+    Question question = quizSession.question();
     final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
     model.addAttribute("askQuestionForm", askQuestionForm);
     return "quiz";
@@ -44,7 +43,7 @@ public class QuizController {
 
   @PostMapping("/quiz")
   public String questionResponse(AskQuestionForm askQuestionForm) {
-    quizSession.respondWith(askQuestionForm.getSelectedChoice(), question);
+    quizSession.respondWith(askQuestionForm.getSelectedChoice());
     if (quizSession.isFinished()) {
       return "redirect:/result";
     }

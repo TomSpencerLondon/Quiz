@@ -11,11 +11,10 @@ import java.util.List;
 
 public class QuizSession {
 
-  private final Quiz quiz;
-  private Iterator<Question> iterator;
-  private List<Question> questions;
+  private final Iterator<Question> iterator;
+  private final List<Question> questions;
 
-  private List<Response> responses = new ArrayList<>();
+  private final List<Response> responses = new ArrayList<>();
   private Response lastResponse;
   private Question question;
 
@@ -23,7 +22,6 @@ public class QuizSession {
     if (quiz.questions().isEmpty()) {
       throw new IllegalArgumentException();
     }
-    this.quiz = quiz;
     questions = quiz.questions();
     iterator = questions.iterator();
     question = iterator.next();
@@ -33,7 +31,7 @@ public class QuizSession {
     return question;
   }
 
-  public void respondWith(String text, Question question) {
+  public void respondWith(String text) {
     lastResponse = new Response(text, question);
     responses.add(lastResponse);
     if (iterator.hasNext()) {

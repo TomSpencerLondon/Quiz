@@ -51,7 +51,7 @@ public class QuizSessionTest {
 
     // when
     Question question = session.question();
-    session.respondWith("Answer 1", question);
+    session.respondWith("Answer 1");
 
     assertThat(session.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
@@ -66,7 +66,7 @@ public class QuizSessionTest {
     Question question = session.question();
 
     // when
-    session.respondWith("Answer 1", question);
+    session.respondWith("Answer 1");
 
     // Then
     assertThat(session.isFinished())
@@ -83,9 +83,9 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith("Answer 1", q1);
+    session.respondWith("Answer 1");
     Question q2 = session.question();
-    session.respondWith("Answer 2", q2);
+    session.respondWith("Answer 2");
 
     assertThat(session.isFinished())
         .isFalse();
@@ -98,11 +98,11 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith("Answer 1", q1);
+    session.respondWith("Answer 1");
     Question q2 = session.question();
-    session.respondWith("Answer 2", q2);
+    session.respondWith("Answer 2");
     Question q3 = session.question();
-    session.respondWith("Answer 2", q3);
+    session.respondWith("Answer 2");
 
     assertThat(session.isFinished())
         .isTrue();
@@ -116,7 +116,7 @@ public class QuizSessionTest {
     final QuizSession quizSession = quiz.start();
 
     // When
-    quizSession.respondWith("Answer 1", quizSession.question());
+    quizSession.respondWith("Answer 1");
 
     // then
     assertThat(quizSession.lastResponseStatus())
@@ -132,11 +132,11 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith("Answer 1", q1);
+    session.respondWith("Answer 1");
     Question q2 = session.question();
-    session.respondWith("Answer 2", q2);
+    session.respondWith("Answer 2");
     Question q3 = session.question();
-    session.respondWith("Answer 2", q3);
+    session.respondWith("Answer 2");
 
     assertThat(session.correctResponsesCount())
         .isEqualTo(1L);
@@ -148,11 +148,11 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith("Answer 1", q1);
+    session.respondWith("Answer 1");
     Question q2 = session.question();
-    session.respondWith("Answer 2", q2);
+    session.respondWith("Answer 2");
     Question q3 = session.question();
-    session.respondWith("Answer 2", q3);
+    session.respondWith("Answer 2");
 
     assertThat(session.incorrectResponsesCount())
         .isEqualTo(2L);
@@ -165,11 +165,11 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith("Answer 1", q1);
+    session.respondWith("Answer 1");
     Question q2 = session.question();
-    session.respondWith("Answer 2", q2);
+    session.respondWith("Answer 2");
     Question q3 = session.question();
-    session.respondWith("Answer 2", q3);
+    session.respondWith("Answer 2");
 
     final Grade grade = new Grade(3, new FinalMark(1, 2));
 
@@ -199,7 +199,7 @@ public class QuizSessionTest {
     final QuizSession session = quiz.start();
 
     final Question q1 = session.question();
-    session.respondWith("text", q1);
+    session.respondWith("text");
 
     final Question q2 = session.question();
 

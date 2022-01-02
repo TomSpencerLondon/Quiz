@@ -1,8 +1,8 @@
 package com.example.quiz.adapter.in.console;
 
-import com.example.quiz.domain.quiz.QuizSession;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.domain.quiz.QuizSession;
 import java.util.Scanner;
 
 class Questioner {
@@ -25,7 +25,7 @@ class Questioner {
   }
 
   private void mark(QuizSession session, Question question) {
-    session.respondWith(scanner.nextLine(), question);
+    session.respondWith(scanner.nextLine());
     System.out.println(session.lastResponseStatus());
   }
 
