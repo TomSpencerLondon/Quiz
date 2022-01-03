@@ -18,13 +18,13 @@ class Questioner {
     while (!session.isFinished()) {
       Question question = session.question();
       print(question);
-      mark(session, question);
+      mark(session);
     }
 
     System.out.println(session.grade());
   }
 
-  private void mark(QuizSession session, Question question) {
+  private void mark(QuizSession session) {
     session.respondWith(scanner.nextLine());
     System.out.println(session.lastResponseStatus());
   }
