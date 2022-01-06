@@ -10,20 +10,32 @@ import org.springframework.stereotype.Service;
 public class QuestionTransformer {
 
   @Autowired
-  public QuestionTransformer() {}
+  public QuestionTransformer() {
+  }
 
   com.example.quiz.domain.Question toQuestion(Question questionDto) {
-    final MultipleChoice multipleChoice = questionDto.getMultipleChoice();
-    final List<Answer> answers = multipleChoice
+    final List<Answer> answers = questionDto
         .getAnswers()
         .stream()
-        .map(Answer::new)
+        .map((com.example.quiz.adapter.out.repository.jpa.Answer answer) -> new Answer(
+            answer.getChoiceText()
+        ))
         .collect(Collectors.toList());
+
+    final Answer correctAnswer = questionDto
+        .getAnswers()
+        .stream()
+        .filter((com.example.quiz.adapter.out.repository.jpa.Answer::isCorrect))
+        .findFirst()
+        .map((com.example.quiz.adapter.out.repository.jpa.Answer answer) -> new Answer(
+            answer.getChoiceText()
+        ))
+        .get();
 
     final com.example.quiz.domain.Question question = new com.example.quiz.domain.Question(
         questionDto.getText(),
         new com.example.quiz.domain.MultipleChoice(
-            new Answer(multipleChoice.getCorrect()),
+            correctAnswer,
             answers
         ));
 
@@ -37,17 +49,15 @@ public class QuestionTransformer {
     final Answer correctAnswer = question.correctAnswer();
     final String questionText = question.text();
 
-    final MultipleChoice multipleChoice = new MultipleChoice();
     final Question questionDto = new Question();
-    multipleChoice.setCorrect(correctAnswer.text());
-    multipleChoice.setAnswers(answers);
     questionDto.setText(questionText);
-    questionDto.setMultipleChoice(multipleChoice);
+
 
     for (String answerValue : answers) {
       final com.example.quiz.adapter.out.repository.jpa.Answer answer = new com.example.quiz.adapter.out.repository.jpa.Answer();
       questionDto.addAnswer(answer);
-      answer.setText(answerValue);
+      answer.setChoiceText(answerValue);
+      answer.setCorrect(answerValue.equals(correctAnswer.text()));
     }
     return questionDto;
   }

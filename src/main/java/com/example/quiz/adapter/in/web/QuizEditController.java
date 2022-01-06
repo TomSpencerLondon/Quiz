@@ -25,7 +25,7 @@ public class QuizEditController {
     List<Answer> answers = correctAnswers.stream()
         .map(Integer::parseInt)
         .map(index -> addQuestionForm.getChoices().get(index - 1))
-        .map(Answer::new)
+        .map(text -> new Answer(text))
         .collect(Collectors.toList());
 
     final Question question = new Question(addQuestionForm.getText(),

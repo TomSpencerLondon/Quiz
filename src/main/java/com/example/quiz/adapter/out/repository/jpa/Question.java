@@ -8,15 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "questions")
 public class Question {
-
-  @OneToOne(cascade = CascadeType.ALL)
-  private MultipleChoice multipleChoice;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -49,14 +45,5 @@ public class Question {
 
   public void setText(String text) {
     this.text = text;
-  }
-
-  public MultipleChoice getMultipleChoice() {
-    return multipleChoice;
-  }
-
-  public void setMultipleChoice(
-      MultipleChoice multipleChoice) {
-    this.multipleChoice = multipleChoice;
   }
 }

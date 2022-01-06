@@ -1,15 +1,10 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.ResponseStatus;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 public class QuestionTest {
     private ResponseStatus status = ResponseStatus.PENDING;

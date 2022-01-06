@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.domain.quiz.Quiz;
 import com.example.quiz.domain.quiz.QuizSession;
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -49,12 +48,8 @@ public class QuestionJpaRepositoryTest {
 
   @Test
   void stores_and_retrieves_Questions() {
-    final MultipleChoice multipleChoice = new MultipleChoice();
     final Question question = new Question();
-    multipleChoice.setCorrect("Q1A1");
-    multipleChoice.setAnswers(List.of("Q1A1", "Q1A2", "Q1A3", "Q1A4"));
     question.setText("Q1");
-    question.setMultipleChoice(multipleChoice);
 
     final Question savedQuestion = questionJpaRepository.save(question);
 

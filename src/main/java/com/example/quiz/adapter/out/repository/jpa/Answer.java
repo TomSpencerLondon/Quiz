@@ -1,13 +1,12 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +16,10 @@ public class Answer {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
-  private String text;
+
+  @Column(nullable = false)
+  private String choiceText;
+  private boolean isCorrect;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Question question;
@@ -38,11 +40,19 @@ public class Answer {
     this.id = id;
   }
 
-  public String getText() {
-    return text;
+  public String getChoiceText() {
+    return choiceText;
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void setChoiceText(String choiceText) {
+    this.choiceText = choiceText;
+  }
+
+  public boolean isCorrect() {
+    return isCorrect;
+  }
+
+  public void setCorrect(boolean correct) {
+    isCorrect = correct;
   }
 }

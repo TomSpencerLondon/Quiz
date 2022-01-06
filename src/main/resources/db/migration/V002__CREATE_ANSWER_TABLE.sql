@@ -1,8 +1,9 @@
 create table answers
 (
-    id bigint not null
+    id          bigint not null
         primary key,
-    text                   text,
+    choice_text text not null,
     question_id bigint
-        references questions
+        references questions,
+    is_correct boolean
 );
