@@ -5,7 +5,6 @@ import com.example.quiz.domain.Answer;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,7 @@ public class QuizEditController {
     List<Answer> answers = correctAnswers.stream()
         .map(Integer::parseInt)
         .map(index -> addQuestionForm.getChoices().get(index - 1))
-        .map(text -> new Answer(text))
-        .collect(Collectors.toList());
+        .map(Answer::new).toList();
 
     final Question question = new Question(addQuestionForm.getText(),
         new MultipleChoice(
