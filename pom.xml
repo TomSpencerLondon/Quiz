@@ -135,6 +135,12 @@
               </configuration>
             </execution>
             <execution>
+              <id>npm install</id>
+              <goals>
+                <goal>npm</goal>
+              </goals>
+            </execution>
+            <execution>
               <id>run-gulp-build</id>
               <goals>
                 <goal>gulp</goal>
