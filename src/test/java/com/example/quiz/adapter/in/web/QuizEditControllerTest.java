@@ -41,7 +41,7 @@ public class QuizEditControllerTest {
     addQuestionForm.setChoice1("2");
 
 
-    final String redirectPage = quizController.addQuestion(addQuestionForm, correctAnswers);
+    final String redirectPage = quizController.addQuestion(addQuestionForm);
 
     assertThat(redirectPage)
         .isEqualTo("redirect:/add-question");

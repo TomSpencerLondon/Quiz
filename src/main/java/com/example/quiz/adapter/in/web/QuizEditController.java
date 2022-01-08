@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class QuizEditController {
@@ -20,15 +19,10 @@ public class QuizEditController {
   }
 
   @PostMapping("/add-question")
-  public String addQuestion(AddQuestionForm addQuestionForm, @RequestParam List<String> correctAnswers) {
-    List<Answer> answers = correctAnswers.stream()
-        .map(Integer::parseInt)
-        .map(index -> addQuestionForm.getChoices().get(index - 1))
-        .map(Answer::new).toList();
-
+  public String addQuestion(AddQuestionForm addQuestionForm) {
     final Question question = new Question(addQuestionForm.getText(),
         new MultipleChoice(
-            answers.get(0),
+            new Answer(addQuestionForm.getAnswer()),
             List.of(
                 new Answer(addQuestionForm.getChoice1()),
                 new Answer(addQuestionForm.getChoice2()),
