@@ -30,3 +30,11 @@ https://github.com/TomSpencerLondon/Quiz
 
 <img width="1002" alt="Screenshot 2021-10-20 at 13 33 44" src="https://user-images.githubusercontent.com/27693622/138093618-1148ab61-49c5-43f9-8bb6-a597f76b177b.png">
 
+
+#### Running Tailwind:
+Use:
+https://tailwindcss.com/blog/standalone-cli
+
+and run:
+./tailwindcss -o ./src/main/resources/static/css/application.css --watch 
+
