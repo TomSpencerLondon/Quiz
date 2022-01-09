@@ -49,8 +49,8 @@ public class Question {
     return choice.correctAnswer();
   }
 
-  boolean isCorrectAnswer(String responseText) {
-    return responseText.equals(correctAnswer().text());
+  boolean isCorrectAnswer(Choice responseText) {
+    return responseText.equals(correctAnswer());
   }
 
   public Long getId() {

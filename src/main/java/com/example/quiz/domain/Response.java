@@ -7,7 +7,7 @@ public class Response {
   private final ResponseStatus status;
   private final Question question;
 
-  public Response(String responseText, Question question) {
+  public Response(Choice responseText, Question question) {
     this.question = question;
     this.status = statusFor(responseText);
   }
@@ -16,8 +16,8 @@ public class Response {
     return this.status;
   }
 
-  private ResponseStatus statusFor(String responseText) {
-    if (question.isCorrectAnswer(responseText)) {
+  private ResponseStatus statusFor(Choice choice) {
+    if (question.isCorrectAnswer(choice)) {
       return ResponseStatus.CORRECT;
     } else {
       return ResponseStatus.INCORRECT;

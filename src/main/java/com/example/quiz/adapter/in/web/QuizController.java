@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.Quiz;
@@ -43,7 +44,8 @@ public class QuizController {
 
   @PostMapping("/quiz")
   public String questionResponse(AskQuestionForm askQuestionForm) {
-    quizSession.respondWith(askQuestionForm.getSelectedChoice());
+    final Choice selectedChoice = new Choice(askQuestionForm.getSelectedChoice());
+    quizSession.respondWith(selectedChoice);
     if (quizSession.isFinished()) {
       return "redirect:/result";
     }

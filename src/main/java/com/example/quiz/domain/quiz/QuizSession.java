@@ -1,5 +1,6 @@
 package com.example.quiz.domain.quiz;
 
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
@@ -31,8 +32,8 @@ public class QuizSession {
     return question;
   }
 
-  public void respondWith(String text) {
-    lastResponse = new Response(text, question);
+  public void respondWith(Choice choice) {
+    lastResponse = new Response(choice, question);
     responses.add(lastResponse);
     if (iterator.hasNext()) {
       this.question = iterator.next();

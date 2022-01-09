@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.console;
 
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.quiz.Quiz;
 import com.example.quiz.domain.quiz.QuizSession;
@@ -25,7 +26,7 @@ class Questioner {
   }
 
   private void mark(QuizSession session) {
-    session.respondWith(scanner.nextLine());
+    session.respondWith(new Choice(scanner.nextLine()));
     System.out.println(session.lastResponseStatus());
   }
 
