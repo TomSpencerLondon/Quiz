@@ -12,10 +12,6 @@ public class Response {
     this.status = statusFor(responseText);
   }
 
-  public Question question() {
-    return question;
-  }
-
   public ResponseStatus status() {
     return this.status;
   }
