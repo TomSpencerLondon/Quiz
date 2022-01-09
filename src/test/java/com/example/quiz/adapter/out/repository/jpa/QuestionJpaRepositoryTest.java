@@ -48,16 +48,16 @@ public class QuestionJpaRepositoryTest {
 
   @Test
   void stores_and_retrieves_Questions() {
-    final Question question = new Question();
+    final QuestionDbo question = new QuestionDbo();
     question.setText("Q1");
 
-    final Question savedQuestion = questionJpaRepository.save(question);
+    final QuestionDbo savedQuestion = questionJpaRepository.save(question);
 
     assertThat(savedQuestion.getId())
         .isNotNull()
         .isGreaterThanOrEqualTo(0);
 
-    Optional<Question> foundQuestion = questionJpaRepository
+    Optional<QuestionDbo> foundQuestion = questionJpaRepository
         .findByText("Q1");
     assertThat(foundQuestion)
         .isPresent();

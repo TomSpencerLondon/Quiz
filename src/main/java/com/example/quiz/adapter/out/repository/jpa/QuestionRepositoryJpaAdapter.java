@@ -22,14 +22,14 @@ public class QuestionRepositoryJpaAdapter implements QuestionRepository {
 
   @Override
   public com.example.quiz.domain.Question save(com.example.quiz.domain.Question question) {
-    Question questionDto = questionTransformer.toQuestionDto(question);
-    return questionTransformer.toQuestion(questionJpaRepository.save(questionDto));
+    QuestionDbo questionDbo = questionTransformer.toQuestionDbo(question);
+    return questionTransformer.toQuestion(questionJpaRepository.save(questionDbo));
   }
 
   @Transactional
   @Override
   public List<com.example.quiz.domain.Question> findAll() {
-    List<Question> questions = questionJpaRepository.findAll();
+    List<QuestionDbo> questions = questionJpaRepository.findAll();
     return questions.stream().map(questionTransformer::toQuestion).collect(Collectors.toList());
   }
 }

@@ -51,7 +51,7 @@ class QuizAPIControllerTest {
                 """
                     {
                       "text": "How do you create a form",
-                      "answer": "Use html knowledge",
+                      "answerDbo": "Use html knowledge",
                       "choice1": "Give up!",
                       "choice2": "Go to bed!",
                       "choice3": "Go for a walk",

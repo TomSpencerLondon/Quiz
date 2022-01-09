@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "questions")
-public class Question {
+public class QuestionDbo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,13 +20,13 @@ public class Question {
   private String text;
 
   @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Answer> answers = new ArrayList<>();
+  private List<AnswerDbo> answers = new ArrayList<>();
 
-  public List<Answer> getAnswers() {
+  public List<AnswerDbo> getAnswers() {
     return answers;
   }
 
-  public void addAnswer(Answer answer) {
+  public void addAnswer(AnswerDbo answer) {
     answer.setQuestion(this);
     answers.add(answer);
   }

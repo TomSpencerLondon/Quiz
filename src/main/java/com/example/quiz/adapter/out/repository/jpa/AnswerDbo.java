@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "answers")
-public class Answer {
+public class AnswerDbo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,13 +22,13 @@ public class Answer {
   private boolean isCorrect;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private Question question;
+  private QuestionDbo question;
 
-  public Question getQuestion() {
+  public QuestionDbo getQuestion() {
     return question;
   }
 
-  public void setQuestion(Question question) {
+  public void setQuestion(QuestionDbo question) {
     this.question = question;
   }
 

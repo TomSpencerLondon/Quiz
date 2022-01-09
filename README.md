@@ -14,11 +14,11 @@ https://github.com/TomSpencerLondon/Quiz
 
 # Question knows (add behavior to Question class)
 - all possible answers
-- the correct answer
+- the correct answerDbo
 
 # Add behavior to Questioner to
 - Display all answers
-- Accept an answer selection
+- Accept an answerDbo selection
 - Report is correct or not
 
 # Story: collect answers and grade overall exam
