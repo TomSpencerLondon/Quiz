@@ -16,7 +16,7 @@ class QuestionViewTest {
         .createQuestion(List.of("text", "choice1",
             "choice2",
             "choice3",
-            "choice4", "answer"));
+            "choice4", "choice1"));
 
     final QuestionView questionView = QuestionView.of(question);
 
@@ -25,7 +25,7 @@ class QuestionViewTest {
         .isEqualTo(
             new QuestionView(
                 "text",
-                "answer",
+                "choice1",
                 "choice1",
                 "choice2",
                 "choice3",

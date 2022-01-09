@@ -45,10 +45,6 @@ public class Question {
     return this.singleChoice.answers();
   }
 
-  public Choice correctAnswer() {
-    return singleChoice.correctAnswer();
-  }
-
   public boolean isCorrectAnswer(Choice choice) {
     return choice.equals(this.singleChoice.correctAnswer());
   }

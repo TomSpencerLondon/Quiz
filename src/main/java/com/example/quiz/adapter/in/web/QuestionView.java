@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 
 public class QuestionView {
@@ -22,9 +23,11 @@ public class QuestionView {
   }
 
   public static QuestionView of(Question question) {
+    final Choice correct = question.answers().stream()
+        .filter(question::isCorrectAnswer).findFirst().orElse(new Choice(""));
     return new QuestionView(
         question.text(),
-        question.correctAnswer().text(),
+        correct.text(),
         question.answers().get(0).text(),
         question.answers().get(1).text(),
         question.answers().get(2).text(),

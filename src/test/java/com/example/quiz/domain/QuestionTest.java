@@ -56,20 +56,19 @@ public class QuestionTest {
     @Test
     void knows_correctAnswer() {
         // Given
+        final Choice correct = new Choice("Answer 3");
         Question question = new Question(
                 "Question 1",
                 new SingleChoice(
-                        new Choice("Answer 3"),
-                        Collections.emptyList()
+                    correct,
+                    Collections.emptyList()
                 ));
 
         // When
-        Choice correctChoice = question.correctAnswer();
+        final boolean correctAnswer = question.isCorrectAnswer(correct);
 
         // Then
-        assertThat(correctChoice)
-                .isEqualTo(
-                        new Choice("Answer 3")
-                );
+        assertThat(correctAnswer)
+            .isTrue();
     }
 }
