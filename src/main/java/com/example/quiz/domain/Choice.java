@@ -3,11 +3,11 @@ package com.example.quiz.domain;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
-public class Answer {
+public class Choice {
     private Long id;
     private String text;
 
-    public Answer(String text) {
+    public Choice(String text) {
         this.text = text;
     }
 

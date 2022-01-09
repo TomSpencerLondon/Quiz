@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.quiz.application.QuestionService;
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
@@ -32,11 +32,11 @@ class QuizAPIControllerTest {
     when(questionService.findAll())
         .thenReturn(List.of(new Question("Q1",
             new MultipleChoice(
-                new Answer("Q1A1"),
-                List.of(new Answer("Q1A1"),
-                    new Answer("Q1A2"),
-                    new Answer("Q1A3"),
-                    new Answer("Q1A4"))))));
+                new Choice("Q1A1"),
+                List.of(new Choice("Q1A1"),
+                    new Choice("Q1A2"),
+                    new Choice("Q1A3"),
+                    new Choice("Q1A4"))))));
 
     this.mockMvc.perform(get("/api/questions"))
         .andExpect(status().isOk())

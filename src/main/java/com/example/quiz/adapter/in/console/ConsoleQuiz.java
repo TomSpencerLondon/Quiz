@@ -1,5 +1,5 @@
 package com.example.quiz.adapter.in.console;
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
@@ -17,25 +17,25 @@ import org.springframework.stereotype.Component;
 public class ConsoleQuiz implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
-        List<Answer> answers =
-            List.of(new Answer("Answer 1"),
-                new Answer("Answer 2"),
-                new Answer("Answer 3"),
-                new Answer("Answer 4"));
+        List<Choice> choices =
+            List.of(new Choice("Answer 1"),
+                new Choice("Answer 2"),
+                new Choice("Answer 3"),
+                new Choice("Answer 4"));
         Question question1 = new Question(
             "Question 1",
             new MultipleChoice(
-                new Answer("Answer 2"),
-                answers));
+                new Choice("Answer 2"),
+                choices));
         Question question2 = new Question(
             "Question 2",
-            new MultipleChoice(new Answer("Answer 3"),
-                answers)
+            new MultipleChoice(new Choice("Answer 3"),
+                choices)
         );
         Question question3 = new Question(
             "Question 3",
-            new MultipleChoice(new Answer("Answer 1"),
-                answers
+            new MultipleChoice(new Choice("Answer 1"),
+                choices
             )
         );
         final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();

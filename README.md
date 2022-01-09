@@ -13,19 +13,19 @@ https://github.com/TomSpencerLondon/Quiz
 - Create Question class (value object) -- NO NEW BEHAVIOR (“solves primitive obsession”)
 
 # Question knows (add behavior to Question class)
-- all possible answers
+- all possible choices
 - the correct answerDbo
 
 # Add behavior to Questioner to
-- Display all answers
+- Display all choices
 - Accept an answerDbo selection
 - Report is correct or not
 
-# Story: collect answers and grade overall exam
+# Story: collect choices and grade overall exam
 - Quiz knows (add behaviour to Quiz class) 
 - All questions
-- All correct answers
-- All incorrect answers
+- All correct choices
+- All incorrect choices
 - The Final Grade
 
 <img width="1002" alt="Screenshot 2021-10-20 at 13 33 44" src="https://user-images.githubusercontent.com/27693622/138093618-1148ab61-49c5-43f9-8bb6-a597f76b177b.png">

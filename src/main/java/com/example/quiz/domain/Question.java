@@ -1,9 +1,9 @@
 package com.example.quiz.domain;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+
+import java.util.List;
 
 public class Question {
   private final MultipleChoice choice;
@@ -41,11 +41,11 @@ public class Question {
     return sb.toString();
   }
 
-  public List<Answer> answers() {
+  public List<Choice> answers() {
     return this.choice.answers();
   }
 
-  public Answer correctAnswer() {
+  public Choice correctAnswer() {
     return choice.correctAnswer();
   }
 

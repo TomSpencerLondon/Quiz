@@ -1,15 +1,14 @@
 package com.example.quiz.domain.quiz;
 
-import com.example.quiz.domain.Answer;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 public class QuizTest {
     private ResponseStatus PENDING = ResponseStatus.PENDING;
@@ -30,11 +29,11 @@ public class QuizTest {
     @Test
     void new_quiz_hasOneQuestion() {
         // Given / when
-        List<Answer> choices = List.of(new Answer("Answer 1"), new Answer("Answer 2"));
+        List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
         final Question question = new Question(
             "Question 1",
             new MultipleChoice(
-                new Answer("Answer 2"),
+                new Choice("Answer 2"),
                 choices
             )
         );

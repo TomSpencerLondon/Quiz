@@ -3,7 +3,7 @@ package com.example.quiz.domain.quiz;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.MultipleChoice;
@@ -26,8 +26,8 @@ public class QuizSessionTest {
   @Test
   void sessionStartsWithTheFirstQuestion() {
     // Given
-    final MultipleChoice choice = new MultipleChoice(new Answer("Answer 1"),
-        Collections.singletonList(new Answer("Answer 1")));
+    final MultipleChoice choice = new MultipleChoice(new Choice("Answer 1"),
+        Collections.singletonList(new Choice("Answer 1")));
 
     final Question question = new Question("Question 1", choice);
 

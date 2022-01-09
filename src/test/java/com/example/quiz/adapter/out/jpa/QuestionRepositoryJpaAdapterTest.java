@@ -6,7 +6,7 @@ import com.example.quiz.TestContainerConfiguration;
 import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.adapter.out.repository.jpa.QuestionTransformer;
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
@@ -38,11 +38,11 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
 
     Question question = new Question("Q1",
         new MultipleChoice(
-            new Answer("Q1A1"),
-            List.of(new Answer("Q1A1"),
-            new Answer("Q1A2"),
-            new Answer("Q1A3"),
-            new Answer("Q1A4"))));
+            new Choice("Q1A1"),
+            List.of(new Choice("Q1A1"),
+            new Choice("Q1A2"),
+            new Choice("Q1A3"),
+            new Choice("Q1A4"))));
 
     final Question savedQuestion = questionRepositoryJpaAdapter.save(question);
 
@@ -60,19 +60,19 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
 
     Question question1 = new Question("Q1",
         new MultipleChoice(
-            new Answer("Q1A1"),
-            List.of(new Answer("Q1A1"),
-                new Answer("Q1A2"),
-                new Answer("Q1A3"),
-                new Answer("Q1A4"))));
+            new Choice("Q1A1"),
+            List.of(new Choice("Q1A1"),
+                new Choice("Q1A2"),
+                new Choice("Q1A3"),
+                new Choice("Q1A4"))));
 
     Question question2 = new Question("Q2",
         new MultipleChoice(
-            new Answer("Q2A1"),
-            List.of(new Answer("Q2A1"),
-                new Answer("Q2A2"),
-                new Answer("Q2A3"),
-                new Answer("Q2A4"))));
+            new Choice("Q2A1"),
+            List.of(new Choice("Q2A1"),
+                new Choice("Q2A2"),
+                new Choice("Q2A3"),
+                new Choice("Q2A4"))));
     questionRepositoryJpaAdapter.save(question1);
     questionRepositoryJpaAdapter.save(question2);
 

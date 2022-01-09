@@ -14,42 +14,42 @@ public class QuestionTest {
         // Given
         Question question = new Question("Question 1",
                 new MultipleChoice(
-                        new Answer("Answer 1"),
+                        new Choice("Answer 1"),
                         Collections.singletonList(
-                                new Answer("Answer 1")
+                                new Choice("Answer 1")
                         )));
 
         // When
-        List<Answer> answers = question.answers();
+        List<Choice> choices = question.answers();
 
         // Then
-        assertThat(answers).containsExactly(new Answer("Answer 1"));
+        assertThat(choices).containsExactly(new Choice("Answer 1"));
     }
 
     @Test
     void knows_SeveralAnswers() {
-        List<Answer> answers = List.of(new Answer("Answer 1"),
-                new Answer("Answer 2"),
-                new Answer("Answer 3"),
-                new Answer("Answer 4"));
+        List<Choice> choices = List.of(new Choice("Answer 1"),
+                new Choice("Answer 2"),
+                new Choice("Answer 3"),
+                new Choice("Answer 4"));
         // Given
         Question question = new Question(
                 "Question 1",
                 new MultipleChoice(
-                        new Answer("Answer 1"),
-                        answers)
+                        new Choice("Answer 1"),
+                    choices)
         );
 
         // When
-        List<Answer> result = question.answers();
+        List<Choice> result = question.answers();
 
         // Then
         assertThat(result)
                 .containsExactly(
-                        new Answer("Answer 1"),
-                        new Answer("Answer 2"),
-                        new Answer("Answer 3"),
-                        new Answer("Answer 4")
+                        new Choice("Answer 1"),
+                        new Choice("Answer 2"),
+                        new Choice("Answer 3"),
+                        new Choice("Answer 4")
                 );
     }
 
@@ -59,17 +59,17 @@ public class QuestionTest {
         Question question = new Question(
                 "Question 1",
                 new MultipleChoice(
-                        new Answer("Answer 3"),
+                        new Choice("Answer 3"),
                         Collections.emptyList()
                 ));
 
         // When
-        Answer correctAnswer = question.correctAnswer();
+        Choice correctChoice = question.correctAnswer();
 
         // Then
-        assertThat(correctAnswer)
+        assertThat(correctChoice)
                 .isEqualTo(
-                        new Answer("Answer 3")
+                        new Choice("Answer 3")
                 );
     }
 }

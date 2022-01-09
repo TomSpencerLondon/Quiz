@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
@@ -22,12 +22,12 @@ public class QuizEditController {
   public String addQuestion(AddQuestionForm addQuestionForm) {
     final Question question = new Question(addQuestionForm.getText(),
         new MultipleChoice(
-            new Answer(addQuestionForm.getAnswer()),
+            new Choice(addQuestionForm.getAnswer()),
             List.of(
-                new Answer(addQuestionForm.getChoice1()),
-                new Answer(addQuestionForm.getChoice2()),
-                new Answer(addQuestionForm.getChoice3()),
-                new Answer(addQuestionForm.getChoice4()))
+                new Choice(addQuestionForm.getChoice1()),
+                new Choice(addQuestionForm.getChoice2()),
+                new Choice(addQuestionForm.getChoice3()),
+                new Choice(addQuestionForm.getChoice4()))
         )
     );
 

@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +14,20 @@ public class QuestionTransformer {
   }
 
   com.example.quiz.domain.Question toQuestion(QuestionDbo questionDbo) {
-    final List<Answer> answers = questionDbo
+    final List<Choice> choices = questionDbo
         .getAnswers()
         .stream()
-        .map((AnswerDbo answerDbo) -> new Answer(
+        .map((AnswerDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
         ))
         .collect(Collectors.toList());
 
-    final Answer correctAnswer = questionDbo
+    final Choice correctChoice = questionDbo
         .getAnswers()
         .stream()
         .filter((AnswerDbo::isCorrect))
         .findFirst()
-        .map((AnswerDbo answerDbo) -> new Answer(
+        .map((AnswerDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
         ))
         .get();
@@ -35,8 +35,8 @@ public class QuestionTransformer {
     final com.example.quiz.domain.Question question = new com.example.quiz.domain.Question(
         questionDbo.getText(),
         new com.example.quiz.domain.MultipleChoice(
-            correctAnswer,
-            answers
+            correctChoice,
+            choices
         ));
 
     question.setId(questionDbo.getId());
@@ -45,8 +45,8 @@ public class QuestionTransformer {
   }
 
   QuestionDbo toQuestionDbo(com.example.quiz.domain.Question question) {
-    final List<String> answers = question.answers().stream().map(Answer::text).toList();
-    final Answer correctAnswer = question.correctAnswer();
+    final List<String> answers = question.answers().stream().map(Choice::text).toList();
+    final Choice correctChoice = question.correctAnswer();
     final String questionText = question.text();
 
     final QuestionDbo questionDbo = new QuestionDbo();
@@ -57,7 +57,7 @@ public class QuestionTransformer {
       final AnswerDbo answerDbo = new AnswerDbo();
       questionDbo.addAnswer(answerDbo);
       answerDbo.setChoiceText(answerValue);
-      answerDbo.setCorrect(answerValue.equals(correctAnswer.text()));
+      answerDbo.setCorrect(answerValue.equals(correctChoice.text()));
     }
     return questionDbo;
   }

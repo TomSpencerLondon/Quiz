@@ -1,9 +1,8 @@
 package com.example.quiz.adapter.in.web;
 
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AskQuestionForm {
   private String question;
@@ -15,7 +14,7 @@ public class AskQuestionForm {
     askQuestionForm.setQuestion(question.text());
     final List<String> choices = question.answers()
         .stream()
-        .map(Answer::text)
+        .map(Choice::text)
         .toList();
     askQuestionForm.setChoices(choices);
 

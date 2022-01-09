@@ -1,6 +1,6 @@
 package com.example.quiz.domain.quiz;
 
-import com.example.quiz.domain.Answer;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import java.util.List;
@@ -12,11 +12,11 @@ public class QuestionFactory {
       String answer4, String correctAnswer) {
     return new Question(questionText,
         new MultipleChoice(
-            new Answer(correctAnswer),
+            new Choice(correctAnswer),
             List.of(
-                new Answer(answer1),
-                new Answer(answer2), new Answer(answer3),
-                new Answer(answer4))
+                new Choice(answer1),
+                new Choice(answer2), new Choice(answer3),
+                new Choice(answer4))
         ));
   }
 }

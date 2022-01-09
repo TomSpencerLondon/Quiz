@@ -1,13 +1,9 @@
 package com.example.quiz.adapter.in.web;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.adapter.in.questionloader.QuestionFactory;
-import com.example.quiz.domain.Answer;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 

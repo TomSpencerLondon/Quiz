@@ -1,17 +1,17 @@
 package com.example.quiz.domain;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 
-public class MultipleChoice {
-  private Answer correct;
-  private List<Answer> answers;
+import java.util.List;
 
-  public MultipleChoice(Answer correct, List<Answer> answers) {
+public class MultipleChoice {
+  private Choice correct;
+  private List<Choice> choices;
+
+  public MultipleChoice(Choice correct, List<Choice> choices) {
     this.correct = correct;
-    this.answers = answers;
+    this.choices = choices;
   }
 
   @Override
@@ -24,11 +24,11 @@ public class MultipleChoice {
     return reflectionHashCode(this);
   }
 
-  public Answer correctAnswer() {
+  public Choice correctAnswer() {
     return this.correct;
   }
 
-  public List<Answer> answers() {
-    return this.answers;
+  public List<Choice> answers() {
+    return this.choices;
   }
 }
