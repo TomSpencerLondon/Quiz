@@ -6,16 +6,16 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 import java.util.List;
 
 public class Question {
-  private final SingleChoice choice;
+  private final SingleChoice singleChoice;
   private final String text;
   private Long id;
 
   public Question(
       String text,
-      SingleChoice choice
+      SingleChoice singleChoice
   ) {
     this.text = text;
-    this.choice = choice;
+    this.singleChoice = singleChoice;
   }
 
   @Override
@@ -33,7 +33,7 @@ public class Question {
     StringBuilder sb = new StringBuilder();
     sb.append(this.text);
 
-    this.choice.answers().forEach((a) -> {
+    this.singleChoice.answers().forEach((a) -> {
       sb.append("\n");
       sb.append(a);
     });
@@ -42,15 +42,15 @@ public class Question {
   }
 
   public List<Choice> answers() {
-    return this.choice.answers();
+    return this.singleChoice.answers();
   }
 
   public Choice correctAnswer() {
-    return choice.correctAnswer();
+    return singleChoice.correctAnswer();
   }
 
-  public boolean isCorrectAnswer(Choice answer) {
-    return answer.equals(this.choice.correctAnswer());
+  public boolean isCorrectAnswer(Choice choice) {
+    return choice.equals(this.singleChoice.correctAnswer());
   }
 
   public Long getId() {
