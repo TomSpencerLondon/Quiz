@@ -9,7 +9,7 @@ public class Response {
 
   public Response(String responseText, Question question) {
     this.question = question;
-    this.status = statusFor(responseText, question);
+    this.status = statusFor(responseText);
   }
 
   public Question question() {
@@ -20,7 +20,7 @@ public class Response {
     return this.status;
   }
 
-  private ResponseStatus statusFor(String responseText, Question question) {
+  private ResponseStatus statusFor(String responseText) {
     if (question.isCorrectAnswer(responseText)) {
       return ResponseStatus.CORRECT;
     } else {
