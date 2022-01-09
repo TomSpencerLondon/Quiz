@@ -49,7 +49,7 @@ public class Question {
     return choice.correctAnswer();
   }
 
-  boolean isCorrectAnswer(Choice answer) {
+  public boolean isCorrectAnswer(Choice answer) {
     return answer.equals(correctAnswer());
   }
 

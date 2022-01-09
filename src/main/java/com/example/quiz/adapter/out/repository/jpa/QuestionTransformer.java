@@ -45,20 +45,19 @@ public class QuestionTransformer {
   }
 
   QuestionDbo toQuestionDbo(com.example.quiz.domain.Question question) {
-    final List<String> answers = question.answers().stream().map(Choice::text).toList();
-    final Choice correctChoice = question.correctAnswer();
+    final List<Choice> choices = question.answers();
     final String questionText = question.text();
 
     final QuestionDbo questionDbo = new QuestionDbo();
     questionDbo.setText(questionText);
 
-
-    for (String answerValue : answers) {
+    choices.forEach(choice -> {
       final AnswerDbo answerDbo = new AnswerDbo();
       questionDbo.addAnswer(answerDbo);
-      answerDbo.setChoiceText(answerValue);
-      answerDbo.setCorrect(answerValue.equals(correctChoice.text()));
-    }
+      answerDbo.setChoiceText(choice.text());
+      answerDbo.setCorrect(question.isCorrectAnswer(choice));
+    });
+
     return questionDbo;
   }
 }
