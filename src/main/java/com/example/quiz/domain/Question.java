@@ -50,7 +50,7 @@ public class Question {
   }
 
   public boolean isCorrectAnswer(Choice answer) {
-    return answer.equals(correctAnswer());
+    return answer.equals(this.choice.correctAnswer());
   }
 
   public Long getId() {
