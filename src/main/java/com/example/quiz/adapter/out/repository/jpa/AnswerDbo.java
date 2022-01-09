@@ -1,5 +1,8 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,5 +57,15 @@ public class AnswerDbo {
 
   public void setCorrect(boolean correct) {
     isCorrect = correct;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return reflectionEquals(this, other);
+  }
+
+  @Override
+  public int hashCode() {
+    return reflectionHashCode(this);
   }
 }
