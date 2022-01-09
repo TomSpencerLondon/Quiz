@@ -1,8 +1,8 @@
 package com.example.quiz.domain.quiz;
 
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 
 public class QuestionFactory {
@@ -11,7 +11,7 @@ public class QuestionFactory {
       String answer3,
       String answer4, String correctAnswer) {
     return new Question(questionText,
-        new MultipleChoice(
+        new SingleChoice(
             new Choice(correctAnswer),
             List.of(
                 new Choice(answer1),

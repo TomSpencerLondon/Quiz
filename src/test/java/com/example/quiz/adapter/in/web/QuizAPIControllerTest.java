@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ class QuizAPIControllerTest {
   void shouldExposeQuizResourceWithoutAuthentication() throws Exception {
     when(questionService.findAll())
         .thenReturn(List.of(new Question("Q1",
-            new MultipleChoice(
+            new SingleChoice(
                 new Choice("Q1A1"),
                 List.of(new Choice("Q1A1"),
                     new Choice("Q1A2"),

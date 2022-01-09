@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.SingleChoice;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.port.QuestionRepository;
 import com.example.quiz.domain.quiz.MultipleChoiceQuestionFactory;
@@ -43,7 +43,7 @@ public class QuizControllerTest {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
     Question question = new Question(
         "Question 1",
-        new MultipleChoice(new Choice("Correct Answer"),
+        new SingleChoice(new Choice("Correct Answer"),
             List.of(new Choice("Correct Answer"), new Choice("Wrong Answer"))));
     questionRepository.save(question);
     QuestionService questionService = new QuestionService(questionRepository);

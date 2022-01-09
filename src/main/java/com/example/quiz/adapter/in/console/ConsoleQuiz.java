@@ -1,7 +1,8 @@
 package com.example.quiz.adapter.in.console;
+
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
@@ -24,17 +25,17 @@ public class ConsoleQuiz implements CommandLineRunner {
                 new Choice("Answer 4"));
         Question question1 = new Question(
             "Question 1",
-            new MultipleChoice(
+            new SingleChoice(
                 new Choice("Answer 2"),
                 choices));
         Question question2 = new Question(
             "Question 2",
-            new MultipleChoice(new Choice("Answer 3"),
+            new SingleChoice(new Choice("Answer 3"),
                 choices)
         );
         Question question3 = new Question(
             "Question 3",
-            new MultipleChoice(new Choice("Answer 1"),
+            new SingleChoice(new Choice("Answer 1"),
                 choices
             )
         );

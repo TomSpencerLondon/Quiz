@@ -1,8 +1,8 @@
 package com.example.quiz.domain.quiz;
 
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class TestQuizFactory {
     List<Choice> choices = List.of(
         new Choice("Answer 1")
     );
-    MultipleChoice choice = new MultipleChoice(new Choice("Answer 1"), choices);
+    SingleChoice choice = new SingleChoice(new Choice("Answer 1"), choices);
 
     for (int i = 1; i <= count; i++) {
       questionRepository.save(new Question("Question " + i, choice));

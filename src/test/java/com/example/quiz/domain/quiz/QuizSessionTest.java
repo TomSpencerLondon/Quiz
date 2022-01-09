@@ -6,9 +6,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.SingleChoice;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class QuizSessionTest {
   @Test
   void sessionStartsWithTheFirstQuestion() {
     // Given
-    final MultipleChoice choice = new MultipleChoice(new Choice("Answer 1"),
+    final SingleChoice choice = new SingleChoice(new Choice("Answer 1"),
         Collections.singletonList(new Choice("Answer 1")));
 
     final Question question = new Question("Question 1", choice);

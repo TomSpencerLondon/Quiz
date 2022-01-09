@@ -5,11 +5,11 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 
 import java.util.List;
 
-public class MultipleChoice {
+public class SingleChoice {
   private Choice correct;
   private List<Choice> choices;
 
-  public MultipleChoice(Choice correct, List<Choice> choices) {
+  public SingleChoice(Choice correct, List<Choice> choices) {
     this.correct = correct;
     this.choices = choices;
   }

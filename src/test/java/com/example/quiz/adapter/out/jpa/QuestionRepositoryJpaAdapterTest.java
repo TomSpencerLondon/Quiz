@@ -7,8 +7,8 @@ import com.example.quiz.adapter.out.repository.jpa.QuestionJpaRepository;
 import com.example.quiz.adapter.out.repository.jpa.QuestionRepositoryJpaAdapter;
 import com.example.quiz.adapter.out.repository.jpa.QuestionTransformer;
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
         new QuestionRepositoryJpaAdapter(questionJpaRepository, questionTransformer);
 
     Question question = new Question("Q1",
-        new MultipleChoice(
+        new SingleChoice(
             new Choice("Q1A1"),
             List.of(new Choice("Q1A1"),
             new Choice("Q1A2"),
@@ -59,7 +59,7 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
         new QuestionRepositoryJpaAdapter(questionJpaRepository, questionTransformer);
 
     Question question1 = new Question("Q1",
-        new MultipleChoice(
+        new SingleChoice(
             new Choice("Q1A1"),
             List.of(new Choice("Q1A1"),
                 new Choice("Q1A2"),
@@ -67,7 +67,7 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
                 new Choice("Q1A4"))));
 
     Question question2 = new Question("Q2",
-        new MultipleChoice(
+        new SingleChoice(
             new Choice("Q2A1"),
             List.of(new Choice("Q2A1"),
                 new Choice("Q2A2"),

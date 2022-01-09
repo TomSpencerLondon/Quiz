@@ -3,9 +3,9 @@ package com.example.quiz.domain.quiz;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
+import com.example.quiz.domain.SingleChoice;
 import com.example.quiz.domain.port.InMemoryQuestionRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ public class QuizTest {
         List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
         final Question question = new Question(
             "Question 1",
-            new MultipleChoice(
+            new SingleChoice(
                 new Choice("Answer 2"),
                 choices
             )

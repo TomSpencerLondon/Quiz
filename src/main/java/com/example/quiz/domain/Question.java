@@ -6,13 +6,13 @@ import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCod
 import java.util.List;
 
 public class Question {
-  private final MultipleChoice choice;
+  private final SingleChoice choice;
   private final String text;
   private Long id;
 
   public Question(
       String text,
-      MultipleChoice choice
+      SingleChoice choice
   ) {
     this.text = text;
     this.choice = choice;

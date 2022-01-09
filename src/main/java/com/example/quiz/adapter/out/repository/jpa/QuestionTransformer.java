@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
 import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class QuestionTransformer {
 
     final com.example.quiz.domain.Question question = new com.example.quiz.domain.Question(
         questionDbo.getText(),
-        new com.example.quiz.domain.MultipleChoice(
+        new SingleChoice(
             correctChoice,
             choices
         ));

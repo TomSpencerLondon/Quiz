@@ -13,7 +13,7 @@ public class QuestionTest {
     void knows_OneAnswer() {
         // Given
         Question question = new Question("Question 1",
-                new MultipleChoice(
+                new SingleChoice(
                         new Choice("Answer 1"),
                         Collections.singletonList(
                                 new Choice("Answer 1")
@@ -35,7 +35,7 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                new MultipleChoice(
+                new SingleChoice(
                         new Choice("Answer 1"),
                     choices)
         );
@@ -58,7 +58,7 @@ public class QuestionTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                new MultipleChoice(
+                new SingleChoice(
                         new Choice("Answer 3"),
                         Collections.emptyList()
                 ));

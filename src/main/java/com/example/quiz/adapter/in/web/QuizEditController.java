@@ -2,8 +2,8 @@ package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ public class QuizEditController {
   @PostMapping("/add-question")
   public String addQuestion(AddQuestionForm addQuestionForm) {
     final Question question = new Question(addQuestionForm.getText(),
-        new MultipleChoice(
+        new SingleChoice(
             new Choice(addQuestionForm.getAnswer()),
             List.of(
                 new Choice(addQuestionForm.getChoice1()),
