@@ -21,9 +21,9 @@ class QuestionTransformerTest {
         "Answer 4",
         "Answer 1"
     );
-    final long id = 1L;
-    expected.setId(id);
-    final QuestionDbo questionDbo = createQuestionDbo(Optional.of(id), expected);
+    expected.setId(1L);
+
+    final QuestionDbo questionDbo = createQuestionDbo(expected);
 
 
     // When
@@ -46,7 +46,7 @@ class QuestionTransformerTest {
         "Answer 1"
         );
 
-    final QuestionDbo questionDbo = createQuestionDbo(Optional.empty(), question);
+    final QuestionDbo questionDbo = createQuestionDbo(question);
 
     // When
     final QuestionDbo result = questionTransformer.toQuestionDbo(question);
@@ -56,8 +56,9 @@ class QuestionTransformerTest {
 
   }
 
-  private QuestionDbo createQuestionDbo(Optional<Long> id, Question question) {
+  private QuestionDbo createQuestionDbo(Question question) {
     final QuestionDbo questionDbo = new QuestionDbo();
+    final Optional<Long> id = Optional.ofNullable(question.getId());
     id.ifPresent(questionDbo::setId);
     questionDbo.setText("Question 1");
     question.answers().forEach((a) -> {
