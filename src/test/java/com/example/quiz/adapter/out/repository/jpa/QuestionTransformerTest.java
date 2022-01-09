@@ -2,10 +2,9 @@ package com.example.quiz.adapter.out.repository.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
-import java.util.List;
+import com.example.quiz.domain.quiz.QuestionFactory;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 class QuestionTransformerTest {
@@ -14,30 +13,18 @@ class QuestionTransformerTest {
   @Test
   void questionDboToQuestion() {
     // Given
-    final QuestionDbo questionDbo = new QuestionDbo();
-    questionDbo.setId(1L);
-    questionDbo.setText("Question 1");
-
-    final AnswerDbo answerDbo1 = new AnswerDbo();
-    answerDbo1.setQuestion(questionDbo);
-    answerDbo1.setChoiceText("Answer 1");
-    answerDbo1.setCorrect(true);
-
-    final AnswerDbo answerDbo2 = new AnswerDbo();
-    answerDbo2.setQuestion(questionDbo);
-    answerDbo2.setChoiceText("Answer 2");
-    answerDbo2.setCorrect(false);
-    questionDbo.addAnswer(answerDbo1);
-    questionDbo.addAnswer(answerDbo2);
-
-    final Question expected = new Question(
+    final Question expected = QuestionFactory.create(
         "Question 1",
-        new MultipleChoice(
-            new Choice("Answer 1"),
-            List.of(new Choice("Answer 1"), new Choice("Answer 2"))
-        )
+        "Answer 1",
+        "Answer 2",
+        "Answer 3",
+        "Answer 4",
+        "Answer 1"
     );
-    expected.setId(1L);
+    final long id = 1L;
+    expected.setId(id);
+    final QuestionDbo questionDbo = createQuestionDbo(Optional.of(id), expected);
+
 
     // When
     final Question question = questionTransformer.toQuestion(questionDbo);
@@ -50,26 +37,16 @@ class QuestionTransformerTest {
   @Test
   void questionToQuestionDbo() {
     // Given
-    final Question question = new Question("Question 1",
-        new MultipleChoice(
-            new Choice("Answer 1"),
-            List.of(new Choice("Answer 1"), new Choice("Answer 2"))
-        ));
+    final Question question = QuestionFactory.create(
+        "Question 1",
+        "Answer 1",
+        "Answer 2",
+        "Answer 3",
+        "Answer 4",
+        "Answer 1"
+        );
 
-    final QuestionDbo questionDbo = new QuestionDbo();
-    questionDbo.setText("Question 1");
-
-    final AnswerDbo answerDbo1 = new AnswerDbo();
-    answerDbo1.setQuestion(questionDbo);
-    answerDbo1.setChoiceText("Answer 1");
-    answerDbo1.setCorrect(true);
-
-    final AnswerDbo answerDbo2 = new AnswerDbo();
-    answerDbo2.setQuestion(questionDbo);
-    answerDbo2.setChoiceText("Answer 2");
-    answerDbo2.setCorrect(false);
-    questionDbo.addAnswer(answerDbo1);
-    questionDbo.addAnswer(answerDbo2);
+    final QuestionDbo questionDbo = createQuestionDbo(Optional.empty(), question);
 
     // When
     final QuestionDbo result = questionTransformer.toQuestionDbo(question);
@@ -77,5 +54,21 @@ class QuestionTransformerTest {
     assertThat(result)
         .isEqualTo(questionDbo);
 
+  }
+
+  private QuestionDbo createQuestionDbo(Optional<Long> id, Question question) {
+    final QuestionDbo questionDbo = new QuestionDbo();
+    id.ifPresent(questionDbo::setId);
+    questionDbo.setText("Question 1");
+    question.answers().forEach((a) -> {
+      final AnswerDbo answerDbo = new AnswerDbo();
+      answerDbo.setQuestion(questionDbo);
+      answerDbo.setChoiceText(a.text());
+      answerDbo.setCorrect(question.isCorrectAnswer(a));
+      questionDbo.addAnswer(answerDbo);
+    });
+
+
+    return questionDbo;
   }
 }
