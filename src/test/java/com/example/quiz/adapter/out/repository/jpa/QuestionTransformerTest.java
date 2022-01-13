@@ -61,7 +61,7 @@ class QuestionTransformerTest {
     final Optional<Long> id = Optional.ofNullable(question.getId());
     id.ifPresent(questionDbo::setId);
     questionDbo.setText("Question 1");
-    question.answers().forEach((a) -> {
+    question.choices().forEach((a) -> {
       final AnswerDbo answerDbo = new AnswerDbo();
       answerDbo.setQuestion(questionDbo);
       answerDbo.setChoiceText(a.text());

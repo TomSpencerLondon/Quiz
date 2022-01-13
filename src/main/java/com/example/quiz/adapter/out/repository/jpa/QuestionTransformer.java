@@ -46,7 +46,7 @@ public class QuestionTransformer {
   }
 
   QuestionDbo toQuestionDbo(com.example.quiz.domain.Question question) {
-    final List<Choice> choices = question.answers();
+    final List<Choice> choices = question.choices();
     final String questionText = question.text();
 
     final QuestionDbo questionDbo = new QuestionDbo();

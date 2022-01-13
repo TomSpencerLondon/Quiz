@@ -20,7 +20,7 @@ public class QuestionTest {
                         )));
 
         // When
-        List<Choice> choices = question.answers();
+        List<Choice> choices = question.choices();
 
         // Then
         assertThat(choices).containsExactly(new Choice("Answer 1"));
@@ -41,7 +41,7 @@ public class QuestionTest {
         );
 
         // When
-        List<Choice> result = question.answers();
+        List<Choice> result = question.choices();
 
         // Then
         assertThat(result)

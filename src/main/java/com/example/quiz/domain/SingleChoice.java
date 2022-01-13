@@ -24,11 +24,11 @@ public class SingleChoice {
     return reflectionHashCode(this);
   }
 
-  public Choice correctAnswer() {
-    return this.correct;
-  }
-
   public List<Choice> answers() {
     return this.choices;
+  }
+
+  public boolean isCorrect(Choice choice) {
+    return correct.equals(choice);
   }
 }

@@ -12,7 +12,7 @@ public class AskQuestionForm {
   public static AskQuestionForm from(Question question) {
     final AskQuestionForm askQuestionForm = new AskQuestionForm();
     askQuestionForm.setQuestion(question.text());
-    final List<String> choices = question.answers()
+    final List<String> choices = question.choices()
         .stream()
         .map(Choice::text)
         .toList();

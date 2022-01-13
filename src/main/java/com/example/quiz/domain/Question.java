@@ -41,12 +41,12 @@ public class Question {
     return sb.toString();
   }
 
-  public List<Choice> answers() {
+  public List<Choice> choices() {
     return this.singleChoice.answers();
   }
 
   public boolean isCorrectAnswer(Choice choice) {
-    return choice.equals(this.singleChoice.correctAnswer());
+    return singleChoice.isCorrect(choice);
   }
 
   public Long getId() {

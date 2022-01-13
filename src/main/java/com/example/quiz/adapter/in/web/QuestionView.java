@@ -23,15 +23,15 @@ public class QuestionView {
   }
 
   public static QuestionView of(Question question) {
-    final Choice correct = question.answers().stream()
+    final Choice correct = question.choices().stream()
         .filter(question::isCorrectAnswer).findFirst().orElseThrow();
     return new QuestionView(
         question.text(),
         correct.text(),
-        question.answers().get(0).text(),
-        question.answers().get(1).text(),
-        question.answers().get(2).text(),
-        question.answers().get(3).text()
+        question.choices().get(0).text(),
+        question.choices().get(1).text(),
+        question.choices().get(2).text(),
+        question.choices().get(3).text()
         );
   }
 
