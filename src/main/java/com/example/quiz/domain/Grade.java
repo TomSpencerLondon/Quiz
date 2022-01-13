@@ -20,7 +20,12 @@ public class Grade {
         if (totalQuestions == 0){
             return 0;
         }
-        return (int) (100 * (finalMark.correct() / totalQuestions));
+        return calculatePercent(finalMark.correct(), totalQuestions);
+    }
+
+    private int calculatePercent(int correct, int total) {
+        final int percent = (int) (100 * ((double) correct / total));
+        return percent;
     }
 
     @Override

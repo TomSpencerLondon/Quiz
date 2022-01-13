@@ -159,7 +159,7 @@ public class QuizSessionTest {
   }
 
   @Test
-  void giveAGrade() {
+  void calculatesGradeForFinishedTest() {
     Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
     QuizSession session = quiz.start();
 
@@ -173,7 +173,8 @@ public class QuizSessionTest {
 
     final Grade grade = new Grade(3, new FinalMark(1, 2));
 
-    assertThat(session.grade())
+    final Grade result = session.grade();
+    assertThat(result)
         .isEqualTo(grade);
   }
 

@@ -12,6 +12,7 @@ import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;
 import java.util.List;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(QuizAPIController.class)
+@Tag("integration")
 class QuizAPIControllerTest {
 
   @Autowired

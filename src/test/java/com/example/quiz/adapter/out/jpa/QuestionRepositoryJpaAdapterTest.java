@@ -12,12 +12,14 @@ import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Transactional
+@Tag("integration")
 public class QuestionRepositoryJpaAdapterTest implements TestContainerConfiguration {
 
   @Autowired

@@ -24,7 +24,7 @@ public class QuestionView {
 
   public static QuestionView of(Question question) {
     final Choice correct = question.answers().stream()
-        .filter(question::isCorrectAnswer).findFirst().orElse(new Choice(""));
+        .filter(question::isCorrectAnswer).findFirst().orElseThrow();
     return new QuestionView(
         question.text(),
         correct.text(),
