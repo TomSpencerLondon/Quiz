@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
@@ -171,7 +170,7 @@ public class QuizSessionTest {
     Question q3 = session.question();
     session.respondWith(new Choice("Answer 2"));
 
-    final Grade grade = new Grade(3, new FinalMark(1, 2));
+    final Grade grade = new Grade(3,1, 2);
 
     final Grade result = session.grade();
     assertThat(result)

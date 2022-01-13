@@ -15,8 +15,8 @@ public class ResultView {
   }
 
   public static ResultView from(Grade grade) {
-    final int correct = (int) grade.finalMark().correct();
-    final int incorrect = (int) grade.finalMark().incorrect();
+    final int correct = grade.correct();
+    final int incorrect = grade.incorrect();
     final int percent = grade.percent();
     return new ResultView(percent, correct, incorrect);
   }

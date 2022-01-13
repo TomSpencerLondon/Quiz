@@ -8,8 +8,20 @@ class GradeTest {
 
   @Test
   void gradePercentCalculatedCorrectly() {
-    final Grade grade = new Grade(3, new FinalMark(1, 2));
+    final Grade grade = new Grade(3, 1, 2);
     assertThat(grade.percent())
         .isEqualTo(33);
   }
+
+  @Test
+  void returnsCorrectAndIncorrectValues() {
+    final Grade grade = new Grade(3, 1, 2);
+
+    assertThat(grade.correct())
+        .isEqualTo(1);
+
+    assertThat(grade.incorrect())
+        .isEqualTo(2);
+  }
+
 }

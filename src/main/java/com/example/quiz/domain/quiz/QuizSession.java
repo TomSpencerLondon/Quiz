@@ -1,7 +1,6 @@
 package com.example.quiz.domain.quiz;
 
 import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.FinalMark;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Response;
@@ -63,8 +62,7 @@ public class QuizSession {
   }
 
   public Grade grade() {
-    return new Grade(responses.size(),
-        new FinalMark(correctResponsesCount(), incorrectResponsesCount()));
+    return new Grade(responses.size(), correctResponsesCount(), incorrectResponsesCount());
   }
 
 }
