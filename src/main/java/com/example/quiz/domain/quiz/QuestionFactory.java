@@ -7,16 +7,16 @@ import java.util.List;
 
 public class QuestionFactory {
 
-  public static Question create(String questionText, String answer1, String answer2,
-      String answer3,
-      String answer4, String correctAnswer) {
+  public static Question create(String questionText, String choice1, String choice2,
+      String choice3,
+      String choice4, String answer) {
     return new Question(questionText,
         new SingleChoice(
-            new Choice(correctAnswer),
+            new Choice(answer),
             List.of(
-                new Choice(answer1),
-                new Choice(answer2), new Choice(answer3),
-                new Choice(answer4))
+                new Choice(choice1),
+                new Choice(choice2), new Choice(choice3),
+                new Choice(choice4))
         ));
   }
 }
