@@ -1,8 +1,5 @@
 package com.example.quiz.domain;
 
-import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
-
 public class Response {
   private final ResponseStatus status;
   private final Question question;
@@ -25,12 +22,26 @@ public class Response {
   }
 
   @Override
-  public boolean equals(Object other) {
-    return reflectionEquals(this, other);
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Response response = (Response) o;
+
+    if (status != response.status) {
+      return false;
+    }
+    return question.equals(response.question);
   }
 
   @Override
   public int hashCode() {
-    return reflectionHashCode(this);
+    int result = status.hashCode();
+    result = 31 * result + question.hashCode();
+    return result;
   }
 }

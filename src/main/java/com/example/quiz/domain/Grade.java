@@ -1,8 +1,5 @@
 package com.example.quiz.domain;
 
-import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
-
 public class Grade {
     private int totalQuestions;
     private int correct;
@@ -27,13 +24,31 @@ public class Grade {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return reflectionEquals(this, other);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Grade grade = (Grade) o;
+
+        if (totalQuestions != grade.totalQuestions) {
+            return false;
+        }
+        if (correct != grade.correct) {
+            return false;
+        }
+        return incorrect == grade.incorrect;
     }
 
     @Override
     public int hashCode() {
-        return reflectionHashCode(this);
+        int result = totalQuestions;
+        result = 31 * result + correct;
+        result = 31 * result + incorrect;
+        return result;
     }
 
     @Override

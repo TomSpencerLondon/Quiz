@@ -63,10 +63,9 @@ class QuestionTransformerTest {
     questionDbo.setText("Question 1");
     question.choices().forEach((a) -> {
       final ChoiceDbo answerDbo = new ChoiceDbo();
-      answerDbo.setQuestion(questionDbo);
       answerDbo.setChoiceText(a.text());
       answerDbo.setCorrect(question.isCorrectAnswer(a));
-      questionDbo.addAnswer(answerDbo);
+      questionDbo.getChoices().add(answerDbo);
     });
 
 

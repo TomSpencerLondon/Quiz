@@ -1,10 +1,6 @@
 package com.example.quiz.domain;
 
-import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
-
 public class Choice {
-    private Long id;
     private String text;
 
     public Choice(String text) {
@@ -15,26 +11,27 @@ public class Choice {
       return this.text;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return this.text;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return reflectionEquals(this, other);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Choice choice = (Choice) o;
+
+        return text.equals(choice.text);
     }
 
     @Override
     public int hashCode() {
-        return reflectionHashCode(this);
+        return text.hashCode();
     }
 }

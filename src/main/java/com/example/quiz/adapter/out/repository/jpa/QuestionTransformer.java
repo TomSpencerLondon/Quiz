@@ -16,7 +16,7 @@ public class QuestionTransformer {
 
   com.example.quiz.domain.Question toQuestion(QuestionDbo questionDbo) {
     final List<Choice> choices = questionDbo
-        .getAnswers()
+        .getChoices()
         .stream()
         .map((ChoiceDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
@@ -24,7 +24,7 @@ public class QuestionTransformer {
         .collect(Collectors.toList());
 
     final Choice correctChoice = questionDbo
-        .getAnswers()
+        .getChoices()
         .stream()
         .filter((ChoiceDbo::isCorrect))
         .findFirst()
@@ -54,7 +54,7 @@ public class QuestionTransformer {
 
     choices.forEach(choice -> {
       final ChoiceDbo answerDbo = new ChoiceDbo();
-      questionDbo.addAnswer(answerDbo);
+      questionDbo.getChoices().add(answerDbo);
       answerDbo.setChoiceText(choice.text());
       answerDbo.setCorrect(question.isCorrectAnswer(choice));
     });

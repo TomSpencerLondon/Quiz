@@ -1,16 +1,13 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
-
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,16 +19,12 @@ public class QuestionDbo {
   private Long id;
   private String text;
 
-  @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<ChoiceDbo> answers = new ArrayList<>();
+  @ElementCollection
+  @CollectionTable(name = "questions_choices")
+  private List<ChoiceDbo> choices = new ArrayList<>();
 
-  public List<ChoiceDbo> getAnswers() {
-    return answers;
-  }
-
-  public void addAnswer(ChoiceDbo answer) {
-    answer.setQuestion(this);
-    answers.add(answer);
+  public List<ChoiceDbo> getChoices() {
+    return choices;
   }
 
   public Long getId() {
@@ -51,12 +44,21 @@ public class QuestionDbo {
   }
 
   @Override
-  public boolean equals(Object other) {
-    return reflectionEquals(this, other);
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    QuestionDbo that = (QuestionDbo) o;
+
+    return id != null ? id.equals(that.id) : that.id == null;
   }
 
   @Override
   public int hashCode() {
-    return reflectionHashCode(this);
+    return id != null ? id.hashCode() : 0;
   }
 }

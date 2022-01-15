@@ -1,8 +1,5 @@
 package com.example.quiz.domain;
 
-import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
-
 import java.util.List;
 
 public class Question {
@@ -16,29 +13,6 @@ public class Question {
   ) {
     this.text = text;
     this.singleChoice = singleChoice;
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    return reflectionEquals(this, other);
-  }
-
-  @Override
-  public int hashCode() {
-    return reflectionHashCode(this);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(this.text);
-
-    this.singleChoice.answers().forEach((a) -> {
-      sb.append("\n");
-      sb.append(a);
-    });
-
-    return sb.toString();
   }
 
   public List<Choice> choices() {
@@ -59,5 +33,37 @@ public class Question {
 
   public String text() {
     return text;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.text);
+
+    this.singleChoice.answers().forEach((a) -> {
+      sb.append("\n");
+      sb.append(a);
+    });
+
+    return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Question question = (Question) o;
+
+    return id != null ? id.equals(question.id) : question.id == null;
+  }
+
+  @Override
+  public int hashCode() {
+    return id != null ? id.hashCode() : 0;
   }
 }
