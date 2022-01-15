@@ -13,8 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "answers")
-public class AnswerDbo {
+@Table(name = "choices")
+public class ChoiceDbo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)

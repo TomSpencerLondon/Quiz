@@ -18,7 +18,7 @@ public class QuestionTransformer {
     final List<Choice> choices = questionDbo
         .getAnswers()
         .stream()
-        .map((AnswerDbo answerDbo) -> new Choice(
+        .map((ChoiceDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
         ))
         .collect(Collectors.toList());
@@ -26,9 +26,9 @@ public class QuestionTransformer {
     final Choice correctChoice = questionDbo
         .getAnswers()
         .stream()
-        .filter((AnswerDbo::isCorrect))
+        .filter((ChoiceDbo::isCorrect))
         .findFirst()
-        .map((AnswerDbo answerDbo) -> new Choice(
+        .map((ChoiceDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
         ))
         .get();
@@ -53,7 +53,7 @@ public class QuestionTransformer {
     questionDbo.setText(questionText);
 
     choices.forEach(choice -> {
-      final AnswerDbo answerDbo = new AnswerDbo();
+      final ChoiceDbo answerDbo = new ChoiceDbo();
       questionDbo.addAnswer(answerDbo);
       answerDbo.setChoiceText(choice.text());
       answerDbo.setCorrect(question.isCorrectAnswer(choice));

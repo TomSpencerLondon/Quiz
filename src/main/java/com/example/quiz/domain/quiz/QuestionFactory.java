@@ -15,7 +15,8 @@ public class QuestionFactory {
             new Choice(answer),
             List.of(
                 new Choice(choice1),
-                new Choice(choice2), new Choice(choice3),
+                new Choice(choice2),
+                new Choice(choice3),
                 new Choice(choice4))
         ));
   }

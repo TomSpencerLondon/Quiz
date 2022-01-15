@@ -1,4 +1,4 @@
-create table answers
+create table choices
 (
     id          bigint not null
         primary key,

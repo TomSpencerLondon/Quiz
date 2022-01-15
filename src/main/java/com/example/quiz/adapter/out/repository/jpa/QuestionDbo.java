@@ -23,13 +23,13 @@ public class QuestionDbo {
   private String text;
 
   @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<AnswerDbo> answers = new ArrayList<>();
+  private List<ChoiceDbo> answers = new ArrayList<>();
 
-  public List<AnswerDbo> getAnswers() {
+  public List<ChoiceDbo> getAnswers() {
     return answers;
   }
 
-  public void addAnswer(AnswerDbo answer) {
+  public void addAnswer(ChoiceDbo answer) {
     answer.setQuestion(this);
     answers.add(answer);
   }
