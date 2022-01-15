@@ -37,14 +37,14 @@ public class QuizController {
       return "redirect:/result";
     }
     Question question = quizSession.question();
-    final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
-    model.addAttribute("askQuestionForm", askQuestionForm);
-    return "quiz";
+    final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = AskSingleChoiceQuestionForm.from(question);
+    model.addAttribute("askSingleChoiceQuestionForm", askSingleChoiceQuestionForm);
+    return "single-choice";
   }
 
   @PostMapping("/quiz")
-  public String questionResponse(AskQuestionForm askQuestionForm) {
-    final Choice selectedChoice = new Choice(askQuestionForm.getSelectedChoice());
+  public String questionResponse(AskSingleChoiceQuestionForm askSingleChoiceQuestionForm) {
+    final Choice selectedChoice = new Choice(askSingleChoiceQuestionForm.getSelectedChoice());
     quizSession.respondWith(selectedChoice);
     if (quizSession.isFinished()) {
       return "redirect:/result";

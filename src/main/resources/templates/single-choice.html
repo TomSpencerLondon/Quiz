@@ -6,14 +6,14 @@
   <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
 <body>
-<form th:object="${askQuestionForm}"
+<form th:object="${askSingleChoiceQuestionForm}"
       th:action="@{/quiz}"
       method="post">
   <div>
     <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
       <div class="sm:col-span-6">
         <label class="block text-sm font-medium text-gray-700">
-          <span th:text="${askQuestionForm.question}">Question 1</span>
+          <span th:text="${askSingleChoiceQuestionForm.question}">Question 1</span>
         </label>
         <div th:each="choice,iter : *{choices}">
           <input type="radio"

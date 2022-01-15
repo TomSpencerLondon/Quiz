@@ -6,11 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class QuestionTest {
-    private ResponseStatus status = ResponseStatus.PENDING;
+public class SingleChoiceTest {
 
     @Test
-    void knows_OneAnswer() {
+    void knowsOneAnswer() {
         // Given
         Question question = new Question("Question 1",
                 new SingleChoice(
@@ -27,7 +26,7 @@ public class QuestionTest {
     }
 
     @Test
-    void knows_SeveralAnswers() {
+    void knowsSeveralAnswers() {
         List<Choice> choices = List.of(new Choice("Answer 1"),
                 new Choice("Answer 2"),
                 new Choice("Answer 3"),
@@ -54,7 +53,7 @@ public class QuestionTest {
     }
 
     @Test
-    void knows_correctAnswer() {
+    void knowsCorrectAnswer() {
         // Given
         final Choice correct = new Choice("Answer 3");
         Question question = new Question(

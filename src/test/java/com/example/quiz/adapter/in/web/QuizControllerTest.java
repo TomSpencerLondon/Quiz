@@ -32,7 +32,7 @@ public class QuizControllerTest {
 
     quizController.askQuestion(model);
 
-    final AskQuestionForm question = (AskQuestionForm) model.getAttribute("askQuestionForm");
+    final AskSingleChoiceQuestionForm question = (AskSingleChoiceQuestionForm) model.getAttribute("askSingleChoiceQuestionForm");
 
     assertThat(question.getQuestion())
         .isEqualTo("Question 1");
@@ -54,9 +54,9 @@ public class QuizControllerTest {
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
-    AskQuestionForm askQuestionForm = new AskQuestionForm();
-    askQuestionForm.setSelectedChoice("Correct Answer");
-    quizController.questionResponse(askQuestionForm);
+    AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
+    askSingleChoiceQuestionForm.setSelectedChoice("Correct Answer");
+    quizController.questionResponse(askSingleChoiceQuestionForm);
 
     assertThat(quizSession.lastResponseStatus())
         .isEqualTo(ResponseStatus.CORRECT);
@@ -69,9 +69,9 @@ public class QuizControllerTest {
     final Model model = new ConcurrentModel();
 
     quizController.askQuestion(model);
-    AskQuestionForm askQuestionForm = new AskQuestionForm();
-    askQuestionForm.setSelectedChoice("Correct Answer");
-    final String redirectPage = quizController.questionResponse(askQuestionForm);
+    AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
+    askSingleChoiceQuestionForm.setSelectedChoice("Correct Answer");
+    final String redirectPage = quizController.questionResponse(askSingleChoiceQuestionForm);
 
     assertThat(redirectPage)
         .isEqualTo("redirect:/result");
@@ -98,7 +98,7 @@ public class QuizControllerTest {
 
     // Then
     assertThat(page)
-        .isEqualTo("quiz");
+        .isEqualTo("single-choice");
   }
 
   @Test
@@ -106,9 +106,9 @@ public class QuizControllerTest {
     final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
     final ConcurrentModel model = new ConcurrentModel();
     quizController.askQuestion(model);
-    AskQuestionForm askQuestionForm = new AskQuestionForm();
-    askQuestionForm.setSelectedChoice("Correct Answer");
-    quizController.questionResponse(askQuestionForm);
+    AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
+    askSingleChoiceQuestionForm.setSelectedChoice("Correct Answer");
+    quizController.questionResponse(askSingleChoiceQuestionForm);
     final String redirectPage = quizController.askQuestion(model);
 
     assertThat(redirectPage)

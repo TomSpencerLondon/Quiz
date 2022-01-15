@@ -4,21 +4,21 @@ import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import java.util.List;
 
-public class AskQuestionForm {
+public class AskSingleChoiceQuestionForm {
   private String question;
   private List<String> choices;
   private String selectedChoice;
 
-  public static AskQuestionForm from(Question question) {
-    final AskQuestionForm askQuestionForm = new AskQuestionForm();
-    askQuestionForm.setQuestion(question.text());
+  public static AskSingleChoiceQuestionForm from(Question question) {
+    final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
+    askSingleChoiceQuestionForm.setQuestion(question.text());
     final List<String> choices = question.choices()
         .stream()
         .map(Choice::text)
         .toList();
-    askQuestionForm.setChoices(choices);
+    askSingleChoiceQuestionForm.setChoices(choices);
 
-    return askQuestionForm;
+    return askSingleChoiceQuestionForm;
   }
 
   public String getQuestion() {
