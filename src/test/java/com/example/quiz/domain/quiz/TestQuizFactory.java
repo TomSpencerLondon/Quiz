@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TestQuizFactory {
 
-  public static Quiz createQuizWithQuestions(int count) {
+  public static Quiz createQuizWithSingleChoiceQuestions(int count) {
     final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
     List<Choice> choices = List.of(
         new Choice("Answer 1")

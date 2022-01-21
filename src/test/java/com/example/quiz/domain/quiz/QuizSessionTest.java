@@ -16,7 +16,7 @@ public class QuizSessionTest {
   @Test
   void emptyQuizThrowsException() {
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(0);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(0);
 
     assertThatThrownBy(quiz::start)
         .isInstanceOf(IllegalArgumentException.class);
@@ -45,7 +45,7 @@ public class QuizSessionTest {
   @Test
   void testTakerCanAddResponseToQuestionFromTheSession() {
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
     QuizSession session = quiz.start();
 
     // when
@@ -60,7 +60,7 @@ public class QuizSessionTest {
 //  testTakerCanCheckIfSessionWithOneQuestionIsFinished
   void givenQuizWithOneQuestionWhenQuestionIsAnsweredSessionIsFinished() {
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
     QuizSession session = quiz.start();
     Question question = session.question();
 
@@ -77,7 +77,7 @@ public class QuizSessionTest {
   void quizWithThreeQuestionsWhenAnsweringTwoQuestionsSessionIsNotFinished() {
 
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -92,7 +92,7 @@ public class QuizSessionTest {
 
   @Test
   void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterThirdQuestion() {
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -111,7 +111,7 @@ public class QuizSessionTest {
   // respondWith_givesCorrectStatusForAnswer
   void quizWithOneQuestionWhenAnsweredCorrectlyThenReturnsCorrect() {
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
     final QuizSession quizSession = quiz.start();
 
     // When
@@ -126,7 +126,7 @@ public class QuizSessionTest {
 
   @Test
   void grade_gives_number_of_correct_responses_for_Session() {
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -142,7 +142,7 @@ public class QuizSessionTest {
   }
   @Test
   void counts_incorrect_responses() {
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -159,7 +159,7 @@ public class QuizSessionTest {
 
   @Test
   void calculatesGradeForFinishedTest() {
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(3);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(3);
     QuizSession session = quiz.start();
 
     // when
@@ -180,7 +180,7 @@ public class QuizSessionTest {
   @Test
   void returnSameQuestionIfItHasntBeenAnswered() {
     // Given
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
     QuizSession session = quiz.start();
 
     // When
@@ -194,7 +194,7 @@ public class QuizSessionTest {
 
   @Test
   void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
-    final Quiz quiz = TestQuizFactory.createQuizWithQuestions(2);
+    final Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(2);
 
     final QuizSession session = quiz.start();
 

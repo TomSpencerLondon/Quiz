@@ -11,7 +11,7 @@ public class SingleChoice {
     this.choices = choices;
   }
 
-  public List<Choice> answers() {
+  public List<Choice> choices() {
     return this.choices;
   }
 

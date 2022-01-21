@@ -6,10 +6,8 @@ import java.util.List;
 
 public class QuestionParser {
 
-  private final QuestionFactory questionFactory;
-
   public QuestionParser() {
-    this.questionFactory = new QuestionFactory();
+    QuestionFactory questionFactory = new QuestionFactory();
   }
 
   public List<Question> parse(String quizText) {
@@ -25,7 +23,7 @@ public class QuestionParser {
   private Question parseQuestion(String questionText) {
     List<String> list = notEmptyLinesFrom(questionText);
 
-    return questionFactory
+    return QuestionFactory
         .createQuestion(list);
   }
 

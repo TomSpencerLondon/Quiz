@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.ResponseStatus;
 import com.example.quiz.domain.SingleChoice;
@@ -64,7 +65,7 @@ public class QuizControllerTest {
 
   @Test
   void afterRespondingToLastQuestionShowsResults() {
-    QuizController quizController = createAndStartQuizControllerWithOneQuestion();
+    QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
 
     final Model model = new ConcurrentModel();
 
@@ -79,7 +80,7 @@ public class QuizControllerTest {
 
   @Test
   void showsResultOnPage() {
-    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
     final Model model = new ConcurrentModel();
     quizController.showResult(model);
 
@@ -89,7 +90,7 @@ public class QuizControllerTest {
   @Test
   void askQuestionTwiceGoesToSamePage() {
     // Given
-    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
     final Model model = new ConcurrentModel();
     quizController.askQuestion(model);
 
@@ -103,7 +104,7 @@ public class QuizControllerTest {
 
   @Test
   void askingQuestionOnAFinishedQuizReturnsResult() {
-    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
     final ConcurrentModel model = new ConcurrentModel();
     quizController.askQuestion(model);
     AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
@@ -119,7 +120,7 @@ public class QuizControllerTest {
   @Test
   void afterStartCreateSessionAndRedirectToQuiz() {
     // Given
-    final QuizController quizController = createAndStartQuizControllerWithOneQuestion();
+    final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
 
     // When
     final String redirect = quizController.start();
@@ -130,8 +131,30 @@ public class QuizControllerTest {
         .isEqualTo("redirect:/quiz");
   }
 
-  private QuizController createAndStartQuizControllerWithOneQuestion() {
-    Quiz quiz = TestQuizFactory.createQuizWithQuestions(1);
+  @Test
+  void multipleChoiceQuestionReturnsMultipleChoicePage() {
+    final InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+    final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
+        new Choice("Answer 3"), new Choice("Answer 4"));
+
+    MultipleChoice multipleChoice = new MultipleChoice(choices);
+
+    inMemoryQuestionRepository.save(new Question("Question 1", multipleChoice));
+
+    final Quiz quiz = new Quiz(inMemoryQuestionRepository);
+
+    final QuizController quizController = new QuizController(quiz);
+    quizController.start();
+    final ConcurrentModel model = new ConcurrentModel();
+
+    final String redirect = quizController.askQuestion(model);
+
+    assertThat(redirect)
+        .isEqualTo("multiple-choice");
+  }
+
+  private QuizController createAndStartQuizControllerWithOneSingleChoiceQuestion() {
+    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
     QuizController quizController = new QuizController(quiz);
     quizController.start();
     return quizController;

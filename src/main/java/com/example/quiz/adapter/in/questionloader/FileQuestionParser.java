@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class FileQuestionParser {
 
-  private QuestionParser questionLoader;
+  private final QuestionParser questionLoader;
 
   public FileQuestionParser(QuestionParser questionLoader) {
     this.questionLoader = questionLoader;

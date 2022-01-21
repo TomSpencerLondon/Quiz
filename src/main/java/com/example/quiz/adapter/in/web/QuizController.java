@@ -37,9 +37,17 @@ public class QuizController {
       return "redirect:/result";
     }
     Question question = quizSession.question();
-    final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = AskSingleChoiceQuestionForm.from(question);
-    model.addAttribute("askSingleChoiceQuestionForm", askSingleChoiceQuestionForm);
-    return "single-choice";
+
+    if (question.isSingleChoice()) {
+      final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = AskSingleChoiceQuestionForm.from(question);
+      model.addAttribute("askSingleChoiceQuestionForm", askSingleChoiceQuestionForm);
+      return "single-choice";
+    } else {
+      // AskMultipleChoiceQuestionForm
+      // Test for Multiple Choice
+      return "multiple-choice";
+    }
+
   }
 
   @PostMapping("/quiz")

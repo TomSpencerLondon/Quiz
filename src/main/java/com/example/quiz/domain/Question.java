@@ -3,8 +3,9 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class Question {
-  private final SingleChoice singleChoice;
+  private SingleChoice singleChoice;
   private final String text;
+  private MultipleChoice multipleChoice;
   private Long id;
 
   public Question(
@@ -15,12 +16,20 @@ public class Question {
     this.singleChoice = singleChoice;
   }
 
-  public List<Choice> choices() {
-    return this.singleChoice.answers();
+  public Question(String text, MultipleChoice multipleChoice) {
+    this.text = text;
+    this.multipleChoice = multipleChoice;
   }
 
-  public boolean isCorrectAnswer(Choice choice) {
-    return singleChoice.isCorrect(choice);
+  public List<Choice> choices() {
+    if (singleChoice == null) {
+      return multipleChoice.choices();
+    }
+    return singleChoice.choices();
+  }
+
+  public boolean isCorrectAnswer(Choice... choices) {
+    return singleChoice.isCorrect(choices[0]);
   }
 
   public Long getId() {
@@ -35,12 +44,16 @@ public class Question {
     return text;
   }
 
+  public boolean isSingleChoice() {
+    return singleChoice != null;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(this.text);
 
-    this.singleChoice.answers().forEach((a) -> {
+    this.singleChoice.choices().forEach((a) -> {
       sb.append("\n");
       sb.append(a);
     });
