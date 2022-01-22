@@ -1,7 +1,7 @@
 package com.example.quiz.application;
 
+import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.port.QuestionRepository;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

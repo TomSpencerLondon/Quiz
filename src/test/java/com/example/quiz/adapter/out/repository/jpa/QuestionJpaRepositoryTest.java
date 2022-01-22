@@ -2,8 +2,8 @@ package com.example.quiz.adapter.out.repository.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizSession;
+import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.QuizSession;
 import java.util.Optional;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

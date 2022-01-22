@@ -12,7 +12,7 @@ public class SingleChoice {
   }
 
   public List<Choice> choices() {
-    return this.choices;
+    return choices;
   }
 
   public boolean isCorrect(Choice choice) {

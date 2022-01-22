@@ -1,0 +1,15 @@
+@startuml
+actor       TestCreator as creator
+boundary    SpringMVC   as mvc
+control     EditController  as ctrl
+participant AddQuestionForm as form
+participant QuestionFactory as factory
+entity      Entity      as entity
+database    Database    as repo
+creator -> mvc : GET /add-question
+mvc -> ctrl : show add question
+ctrl -> form : AddQuestionForm
+ctrl <-- form : create form
+ctrl --> creator : Return question form
+creator -> mvc : POST /add-question
+@enduml

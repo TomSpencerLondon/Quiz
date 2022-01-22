@@ -1,8 +1,6 @@
-package com.example.quiz.domain.quiz;
+package com.example.quiz.domain;
 
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.port.QuestionRepository;
-import java.util.List;
+import com.example.quiz.application.port.QuestionRepository;
 
 public class QuizFactory {
 

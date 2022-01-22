@@ -1,17 +1,12 @@
-package com.example.quiz.domain.quiz;
+package com.example.quiz.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.ResponseStatus;
-import com.example.quiz.domain.SingleChoice;
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QuizTest {
-    private ResponseStatus PENDING = ResponseStatus.PENDING;
 
     @Test
     void new_quiz_hasNoQuestions() {

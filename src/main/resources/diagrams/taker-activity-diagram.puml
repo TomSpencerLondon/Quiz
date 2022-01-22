@@ -1,0 +1,13 @@
+@startuml
+start
+
+repeat
+  :show quiz question;
+  :accept choice;
+repeat while (Quiz is finished?) is (no)
+->yes;
+:show result
+calculate correct answers;
+stop
+
+@enduml

@@ -1,10 +1,5 @@
-package com.example.quiz.domain.quiz;
+package com.example.quiz.domain;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Grade;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Response;
-import com.example.quiz.domain.ResponseStatus;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +10,6 @@ public class QuizSession {
   private final List<Question> questions;
 
   private final List<Response> responses = new ArrayList<>();
-  private Response lastResponse;
   private Question question;
 
   public QuizSession(Quiz quiz) {
@@ -32,19 +26,15 @@ public class QuizSession {
   }
 
   public void respondWith(Choice choice) {
-    lastResponse = new Response(choice, question);
-    responses.add(lastResponse);
+    Response response = new Response(choice, question);
+    responses.add(response);
     if (iterator.hasNext()) {
-      this.question = iterator.next();
+      question = iterator.next();
     }
   }
 
   public boolean isFinished() {
     return responses.size() == questions.size();
-  }
-
-  public ResponseStatus lastResponseStatus() {
-    return lastResponse.status();
   }
 
   public int correctResponsesCount() {

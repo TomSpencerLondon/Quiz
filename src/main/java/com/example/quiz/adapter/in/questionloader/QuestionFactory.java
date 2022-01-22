@@ -13,7 +13,7 @@ public class QuestionFactory {
     String answer4 = lines.get(4);
     String correctAnswer = lines.get(5);
 
-    return com.example.quiz.domain.quiz.QuestionFactory.create(questionText, answer1, answer2, answer3, answer4, correctAnswer);
+    return com.example.quiz.domain.QuestionFactory.create(questionText, answer1, answer2, answer3, answer4, correctAnswer);
   }
 
 }

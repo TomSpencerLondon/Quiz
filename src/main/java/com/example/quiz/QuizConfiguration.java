@@ -1,7 +1,7 @@
 package com.example.quiz;
 
-import com.example.quiz.domain.port.QuestionRepository;
-import com.example.quiz.domain.quiz.Quiz;
+import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.domain.Quiz;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

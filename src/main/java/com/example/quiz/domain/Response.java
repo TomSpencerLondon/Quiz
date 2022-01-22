@@ -2,15 +2,17 @@ package com.example.quiz.domain;
 
 public class Response {
   private final ResponseStatus status;
+  private Choice choice;
   private final Question question;
 
-  public Response(Choice responseText, Question question) {
+  public Response(Choice choice, Question question) {
+    this.choice = choice;
     this.question = question;
-    this.status = statusFor(responseText);
+    this.status = statusFor(choice);
   }
 
   public ResponseStatus status() {
-    return this.status;
+    return status;
   }
 
   private ResponseStatus statusFor(Choice choice) {

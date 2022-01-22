@@ -3,8 +3,8 @@ package com.example.quiz.adapter.in.web;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.quiz.application.QuestionService;
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.port.QuestionRepository;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.QuestionRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;

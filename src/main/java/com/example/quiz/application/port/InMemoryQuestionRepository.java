@@ -1,10 +1,8 @@
-package com.example.quiz.domain.port;
+package com.example.quiz.application.port;
 
 import com.example.quiz.domain.Question;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryQuestionRepository implements

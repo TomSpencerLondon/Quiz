@@ -1,10 +1,10 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.SingleChoice;
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.quiz.Quiz;
 import java.util.List;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

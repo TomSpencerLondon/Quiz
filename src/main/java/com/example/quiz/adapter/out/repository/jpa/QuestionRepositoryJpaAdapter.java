@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import com.example.quiz.domain.port.QuestionRepository;
+import com.example.quiz.application.port.QuestionRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;

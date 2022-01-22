@@ -1,9 +1,8 @@
-package com.example.quiz.domain.quiz;
+package com.example.quiz.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
 import org.junit.jupiter.api.Test;
 
 public class QuizFactoryTest {

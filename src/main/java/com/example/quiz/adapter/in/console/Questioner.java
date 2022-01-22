@@ -2,8 +2,8 @@ package com.example.quiz.adapter.in.console;
 
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.Quiz;
-import com.example.quiz.domain.quiz.QuizSession;
+import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.QuizSession;
 import java.util.Scanner;
 
 class Questioner {
@@ -27,7 +27,6 @@ class Questioner {
 
   private void mark(QuizSession session) {
     session.respondWith(new Choice(scanner.nextLine()));
-    System.out.println(session.lastResponseStatus());
   }
 
   private void print(Question q) {

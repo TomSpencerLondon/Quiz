@@ -1,14 +1,9 @@
-package com.example.quiz.domain.quiz;
+package com.example.quiz.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Grade;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.ResponseStatus;
-import com.example.quiz.domain.SingleChoice;
-import com.example.quiz.domain.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
@@ -40,20 +35,6 @@ public class QuizSessionTest {
 
     assertThat(session.question())
         .isEqualTo(question);
-  }
-
-  @Test
-  void testTakerCanAddResponseToQuestionFromTheSession() {
-    // Given
-    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
-    QuizSession session = quiz.start();
-
-    // when
-    session.question();
-    session.respondWith(new Choice("Answer 1"));
-
-    assertThat(session.lastResponseStatus())
-        .isEqualTo(ResponseStatus.CORRECT);
   }
 
   @Test
@@ -105,21 +86,6 @@ public class QuizSessionTest {
 
     assertThat(session.isFinished())
         .isTrue();
-  }
-
-  @Test
-  // respondWith_givesCorrectStatusForAnswer
-  void quizWithOneQuestionWhenAnsweredCorrectlyThenReturnsCorrect() {
-    // Given
-    Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
-    final QuizSession quizSession = quiz.start();
-
-    // When
-    quizSession.respondWith(new Choice("Answer 1"));
-
-    // then
-    assertThat(quizSession.lastResponseStatus())
-        .isEqualByComparingTo(ResponseStatus.CORRECT);
   }
 
   // Ask Grade

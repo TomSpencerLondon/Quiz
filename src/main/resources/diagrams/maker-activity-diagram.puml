@@ -1,0 +1,7 @@
+@startuml
+start
+:Add Question Form;
+:Add Question;
+:View Questions;
+stop
+@enduml

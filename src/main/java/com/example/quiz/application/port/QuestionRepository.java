@@ -1,4 +1,4 @@
-package com.example.quiz.domain.port;
+package com.example.quiz.application.port;
 
 import com.example.quiz.domain.Question;
 import java.util.List;

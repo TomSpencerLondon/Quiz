@@ -2,7 +2,7 @@ package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.quiz.QuestionFactory;
+import com.example.quiz.domain.QuestionFactory;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
