@@ -38,3 +38,5 @@ https://tailwindcss.com/blog/standalone-cli
 and run:
 ./tailwindcss -o ./src/main/resources/static/css/application.css --watch 
 
+#### Class Diagram
+<img width="970" alt="Screenshot 2022-01-22 at 13 13 45" src="https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png">

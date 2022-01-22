@@ -1,0 +1,23 @@
+@startuml
+
+|Admin|
+start
+:Generate Invite Link with Token;
+|#HoneyDew|Invitee|
+:Click on Link;
+|#LightYellow|Ensembler|
+:Authenticate via GitHub;
+|Invitee|
+:Login/AuthN with GitHub;
+|Ensembler|
+:Retrieve Group info for Token;
+|Invitee|
+:Fill out Profile;
+|Ensembler|
+:Add Group info to new Member;
+:Mark invite as completed;
+:Present Member Page;
+|Ensembler|
+:Send Admin notification of Invite Accepted;
+stop
+@enduml
