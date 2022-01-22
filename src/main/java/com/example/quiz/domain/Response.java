@@ -1,30 +1,16 @@
 package com.example.quiz.domain;
 
 public class Response {
-  private final ResponseStatus status;
-  private Choice choice;
+  private final Choice choice;
   private final Question question;
 
   public Response(Question question, Choice choice) {
     this.choice = choice;
     this.question = question;
-    this.status = statusFor(choice);
-  }
-
-  public ResponseStatus status() {
-    return status;
   }
 
   public boolean isCorrect() {
     return question.isCorrectAnswer(choice);
-  }
-
-  private ResponseStatus statusFor(Choice choice) {
-    if (question.isCorrectAnswer(choice)) {
-      return ResponseStatus.CORRECT;
-    } else {
-      return ResponseStatus.INCORRECT;
-    }
   }
 
   @Override
@@ -38,7 +24,7 @@ public class Response {
 
     Response response = (Response) o;
 
-    if (status != response.status) {
+    if (!choice.equals(response.choice)) {
       return false;
     }
     return question.equals(response.question);
@@ -46,7 +32,7 @@ public class Response {
 
   @Override
   public int hashCode() {
-    int result = status.hashCode();
+    int result = choice.hashCode();
     result = 31 * result + question.hashCode();
     return result;
   }
