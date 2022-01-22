@@ -1,0 +1,58 @@
+@startuml
+title Relationships - Class Diagram
+
+class Quiz {
+  + List<Question> questions()
+  + QuizSession start()
+}
+
+class Grade <<Value Object>> {
+  + int percent()
+  + int correct()
+  + int incorrect()
+}
+
+class QuizSession <<Entity>> {
+  + Grade grade()
+  + Question question()
+  + boolean isFinished()
+  + int correctResponsescount()
+  + int incorrectResponsescount()
+  + void respondWith(Choice)
+}
+
+class Question <<Value Object>> {
+  + Long getId()
+  + void setId()
+  + String text()
+  + List<Choice> choices()
+  + boolean isSingleChoice()
+  + boolean isCorrectAnswer(Choice[])
+}
+
+class Response <<Value Object>> {
+  + boolean isCorrect()
+}
+
+class SingleChoice {
+  + List<Choice> choices()
+  + boolean isCorrect(Choice)
+}
+
+class MultipleChoice <<Value Object>> {
+  + List<Choice> choices()
+}
+
+class Choice <<Value Object>> {
+  + String text()
+}
+
+Quiz -> QuizSession : <<creates>>
+Quiz -> Grade : <<creates>>
+QuizSession -down-> Response : <<creates>>
+Question <-down- SingleChoice
+Question <-down- MultipleChoice
+SingleChoice <-down- Choice
+MultipleChoice <-down- Choice
+
+@enduml
