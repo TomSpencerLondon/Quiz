@@ -57,6 +57,9 @@ https://github.com/TomSpencerLondon/Quiz
 #### Class Diagram
 ![Screenshot 2022-01-22 at 22 10 55](https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png)
 
+#### Sequence Diagrams
+![Screenshot 2022-01-22 at 22 46 35](https://user-images.githubusercontent.com/27693622/150657804-d522f19e-23f3-4916-a1a3-99e3aba8691c.png)
+
 
 #### Running Tailwind:
 

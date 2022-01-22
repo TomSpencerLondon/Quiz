@@ -1,0 +1,37 @@
+@startuml
+title Add Question
+
+actor       TestCreator as creator
+boundary    SpringMVC   as mvc
+control     EditController  as ctrl
+participant QuestionFactory as factory
+entity "Choice \n <<Value Object>>" as choice
+entity "SingleChoice \n <<Value Object>>" as singleChoice
+entity "Question \n <<Value Object>>" as question
+participant "QuestionService \n <<Service>>" as service
+boundary "Question \n Repository" as repo
+
+creator -> mvc : POST /add-question
+mvc -> ctrl : addQuestion()
+ctrl -> factory : create
+factory -> choice : create
+choice --> factory
+factory -> choice : create
+choice --> factory
+factory -> choice : create
+choice --> factory
+factory -> choice : create
+choice --> factory
+factory -> choice : create
+choice --> factory
+factory -> singleChoice : create
+factory <-- singleChoice
+factory -> question
+factory <-- question
+ctrl <-- factory
+ctrl -> service : add()
+service -> repo : save()
+service <-- repo
+ctrl <-- service
+mvc <-- ctrl : GET /add-question
+@enduml
