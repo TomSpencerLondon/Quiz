@@ -26,7 +26,7 @@ public class QuizSession {
   }
 
   public void respondWith(Choice choice) {
-    Response response = new Response(choice, question);
+    Response response = new Response(question, choice);
     responses.add(response);
     if (iterator.hasNext()) {
       question = iterator.next();

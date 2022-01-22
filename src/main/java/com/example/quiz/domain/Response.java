@@ -5,7 +5,7 @@ public class Response {
   private Choice choice;
   private final Question question;
 
-  public Response(Choice choice, Question question) {
+  public Response(Question question, Choice choice) {
     this.choice = choice;
     this.question = question;
     this.status = statusFor(choice);
