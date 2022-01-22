@@ -6,11 +6,11 @@ import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.MultipleChoiceQuestionFactory;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.QuizSession;
 import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.SingleChoiceQuestionTestFactory;
 import com.example.quiz.domain.TestQuizFactory;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class QuizControllerTest {
   @Test
   void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
     QuestionRepository questionRepository = new InMemoryQuestionRepository();
-    questionRepository.save(MultipleChoiceQuestionFactory.createMultipleChoiceQuestion());
+    questionRepository.save(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion());
     Quiz quiz = new Quiz(questionRepository);
     QuizController quizController = new QuizController(quiz);
     quizController.start();

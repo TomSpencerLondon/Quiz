@@ -1,5 +1,7 @@
 package com.example.quiz.domain;
 
+import static java.util.function.Predicate.not;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,16 +40,14 @@ public class QuizSession {
   }
 
   public int correctResponsesCount() {
-    return responseCountFor(ResponseStatus.CORRECT);
+    return Math.toIntExact(responses.stream()
+        .filter(Response::isCorrect)
+        .count());
   }
 
   public int incorrectResponsesCount() {
-    return responseCountFor(ResponseStatus.INCORRECT);
-  }
-
-  private int responseCountFor(ResponseStatus status) {
     return Math.toIntExact(responses.stream()
-        .filter(r -> r.status().equals(status))
+        .filter(not(Response::isCorrect))
         .count());
   }
 

@@ -15,6 +15,10 @@ public class Response {
     return status;
   }
 
+  public boolean isCorrect() {
+    return question.isCorrectAnswer(choice);
+  }
+
   private ResponseStatus statusFor(Choice choice) {
     if (question.isCorrectAnswer(choice)) {
       return ResponseStatus.CORRECT;

@@ -2,9 +2,9 @@ package com.example.quiz.domain;
 
 import java.util.List;
 
-public class MultipleChoiceQuestionFactory {
+public class SingleChoiceQuestionTestFactory {
 
-  public static Question createMultipleChoiceQuestion() {
+  public static Question createSingleChoiceQuestion() {
     Question question = new Question(
         "Question 1",
         new SingleChoice(new Choice("Answer 1"),
