@@ -4,11 +4,13 @@ import java.util.List;
 
 public class Grade {
     private int totalQuestions;
+    private List<Response> responses;
     private int correct;
     private int incorrect;
 
     public Grade(List<Response> responses, int correct, int incorrect) {
         this.totalQuestions = responses.size();
+        this.responses = responses;
         this.correct = correct;
         this.incorrect = incorrect;
     }
@@ -70,5 +72,9 @@ public class Grade {
 
     public int correct() {
         return correct;
+    }
+
+    public List<Response> responses() {
+        return responses;
     }
 }
