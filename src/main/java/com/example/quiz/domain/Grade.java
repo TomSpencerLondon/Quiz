@@ -1,12 +1,14 @@
 package com.example.quiz.domain;
 
+import java.util.List;
+
 public class Grade {
     private int totalQuestions;
     private int correct;
     private int incorrect;
 
-    public Grade(int totalQuestions, int correct, int incorrect) {
-        this.totalQuestions = totalQuestions;
+    public Grade(List<Response> responses, int correct, int incorrect) {
+        this.totalQuestions = responses.size();
         this.correct = correct;
         this.incorrect = incorrect;
     }

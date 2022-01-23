@@ -52,7 +52,7 @@ public class QuizSession {
   }
 
   public Grade grade() {
-    return new Grade(responses.size(), correctResponsesCount(), incorrectResponsesCount());
+    return new Grade(responses, correctResponsesCount(), incorrectResponsesCount());
   }
 
 }

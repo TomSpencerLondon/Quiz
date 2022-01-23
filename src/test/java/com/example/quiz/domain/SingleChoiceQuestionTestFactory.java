@@ -11,4 +11,12 @@ public class SingleChoiceQuestionTestFactory {
             List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
     return question;
   }
+
+  public static Response createSingleChoiceQuestionCorrectResponse(Question question) {
+    return new Response(question, new Choice("Answer 1"));
+  }
+
+  public static Response createSingleChoiceQuestionIncorrectResponse(Question question) {
+    return new Response(question, new Choice("Answer 2"));
+  }
 }

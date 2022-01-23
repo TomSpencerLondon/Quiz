@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QuizSessionTest {
@@ -130,13 +131,21 @@ public class QuizSessionTest {
 
     // when
     Question q1 = session.question();
-    session.respondWith(new Choice("Answer 1"));
+    Choice choice1 = new Choice("Answer 1");
+    session.respondWith(choice1);
     Question q2 = session.question();
-    session.respondWith(new Choice("Answer 2"));
+    Choice choice2 = new Choice("Answer 2");
+    session.respondWith(choice2);
     Question q3 = session.question();
-    session.respondWith(new Choice("Answer 2"));
+    Choice choice3 = new Choice("Answer 2");
+    session.respondWith(choice3);
 
-    final Grade grade = new Grade(3,1, 2);
+    List<Response> responses = List.of(
+        new Response(q1, choice1),
+        new Response(q2, choice2),
+        new Response(q3, choice3));
+
+    final Grade grade = new Grade(responses,1, 2);
 
     final Grade result = session.grade();
     assertThat(result)
