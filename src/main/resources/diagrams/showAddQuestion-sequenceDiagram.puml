@@ -10,5 +10,6 @@ creator -> mvc : GET /add-question
 mvc -> ctrl : showAddQuestion()
 ctrl -> form : create
 ctrl <-- form
+creator <-- ctrl
 @enduml
 

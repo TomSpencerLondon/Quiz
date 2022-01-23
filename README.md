@@ -33,7 +33,7 @@ https://github.com/jitterted/quizdown
 
 |                                                                  Edit Quiz                                                                  |
 |:-------------------------------------------------------------------------------------------------------------------------------------------:|
-| ![Screenshot 2022-01-22 at 22 49 08](https://user-images.githubusercontent.com/27693622/150657856-7c007a48-fc4c-4e32-af56-2f01763f7ecd.png) |
+| ![Screenshot 2022-01-23 at 22 07 45](https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png) |
 | ![Screenshot 2022-01-22 at 22 46 35](https://user-images.githubusercontent.com/27693622/150657804-d522f19e-23f3-4916-a1a3-99e3aba8691c.png) |
 
 |                                                                 Answer Quiz                                                                |
