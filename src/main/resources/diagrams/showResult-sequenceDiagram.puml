@@ -26,14 +26,14 @@ session -> grade : <<create>>
 session <-- grade
 ctrl <-- session
 ctrl -> result : from()
-view -> grade : correct()
-view <-- grade
-view -> grade : incorrect()
-view <-- grade
-view -> grade : percent()
+result -> grade : correct()
+result <-- grade
+result -> grade : incorrect()
+result <-- grade
+result -> grade : percent()
 grade -> grade : calculatePercent()
-view <-- grade
-view -> view : <<create>>
-ctrl <-- view
+result <-- grade
+result -> result : <<create>>
+ctrl <-- result
 taker <-- ctrl : GET /result
 @enduml

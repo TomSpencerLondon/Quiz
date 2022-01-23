@@ -36,11 +36,11 @@ https://github.com/jitterted/quizdown
 | ![Screenshot 2022-01-22 at 22 49 08](https://user-images.githubusercontent.com/27693622/150657856-7c007a48-fc4c-4e32-af56-2f01763f7ecd.png) |
 | ![Screenshot 2022-01-22 at 22 46 35](https://user-images.githubusercontent.com/27693622/150657804-d522f19e-23f3-4916-a1a3-99e3aba8691c.png) |
 
-|                                                                 Answer Quiz                                                                 |
-|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                 Answer Quiz                                                                |
+|:------------------------------------------------------------------------------------------------------------------------------------------:|
 | ![Screenshot 2022-01-23 at 21 30 49](https://user-images.githubusercontent.com/27693622/150698726-f11a8e5a-cf9b-413f-b038-ca88811df73b.png) |
 | ![Screenshot 2022-01-23 at 21 45 52](https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png) |
-| ![Screenshot 2022-01-23 at 21 57 14](https://user-images.githubusercontent.com/27693622/150699437-a89a26a1-4a2c-4c60-a5ce-0de5a23e55b1.png) |
+| ![Screenshot 2022-01-23 at 22 03 58](https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png)|
 
 #### Running Tailwind:
 
