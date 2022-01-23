@@ -1,0 +1,39 @@
+@startuml
+title Show Result
+
+actor       TestTaker as taker
+boundary    SpringMVC   as mvc
+control     QuizController  as ctrl
+participant ResultView as result
+entity "Choice \n <<Value Object>>" as choice
+entity "QuizSession \n <<Entity>>" as session
+entity "Response \n <<Value Object>>" as response
+entity "Grade \n <<Value Object>>" as grade
+
+taker -> mvc : POST /quiz
+mvc -> ctrl : questionResponse \n (AskSingleQuestionForm)
+ctrl -> choice : <<create>>
+ctrl <-- choice
+ctrl -> session : respondWith(Choice)
+session -> response : <<create>>
+session <-- response
+ctrl <-- session
+ctrl -> session : isFinished()
+ctrl <-- session
+ctrl -> ctrl : showResult()
+ctrl -> session : grade()
+session -> grade : <<create>>
+session <-- grade
+ctrl <-- session
+ctrl -> result : from()
+view -> grade : correct()
+view <-- grade
+view -> grade : incorrect()
+view <-- grade
+view -> grade : percent()
+grade -> grade : calculatePercent()
+view <-- grade
+view -> view : <<create>>
+ctrl <-- view
+taker <-- ctrl : GET /result
+@enduml

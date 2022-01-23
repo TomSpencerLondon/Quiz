@@ -1,0 +1,20 @@
+@startuml
+title Answer Question
+
+actor       TestTaker as taker
+boundary    SpringMVC   as mvc
+control     QuizController  as ctrl
+entity "Choice \n <<Value Object>>" as choice
+entity "QuizSession \n <<Entity>>" as session
+entity "Response \n <<Value Object>>" as response
+
+taker -> mvc : POST /quiz
+mvc -> ctrl : questionResponse \n (AskSingleQuestionForm)
+ctrl -> choice : <<create>>
+ctrl <-- choice
+ctrl -> session : respondWith(Choice)
+session -> response : <<create>>
+session <-- response
+ctrl <-- session
+taker <-- ctrl : GET /quiz
+@enduml

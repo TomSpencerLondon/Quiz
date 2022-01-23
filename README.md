@@ -5,35 +5,6 @@ https://github.com/jitterted/quizdown
 
 # Java OCP Quiz Application
 
-https://github.com/TomSpencerLondon/Quiz
-
-- Console-Based Version
-- Story: display 3 questions on the screen
-- Story: display each question, wait for input (ENTER), then display next question, until done
-- Story: wait for ANSWER after each question and indicate Right/Wrong
-- Create Question class (value object) -- NO NEW BEHAVIOR (“solves primitive obsession”)
-
-# Question knows (add behavior to Question class)
-
-- all possible choices
-- the correct answerDbo
-
-# Add behavior to Questioner to
-
-- Display all choices
-- Accept an answerDbo selection
-- Report is correct or not
-
-# Story: collect choices and grade overall exam
-
-- Quiz knows (add behaviour to Quiz class)
-- All questions
-- All correct choices
-- All incorrect choices
-- The Final Grade
-
-<img width="1002" alt="Screenshot 2021-10-20 at 13 33 44" src="https://user-images.githubusercontent.com/27693622/138093618-1148ab61-49c5-43f9-8bb6-a597f76b177b.png">
-
 #### Ubiquitous Language
 
 | Domain                                                                                                          | Definition                            | "Quiz Maker" Bounded Context                                                      | "Quiz Taker"  Bounded Context |
@@ -55,11 +26,21 @@ https://github.com/TomSpencerLondon/Quiz
 <img width="970" alt="Screenshot 2022-01-22 at 13 13 45" src="https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png">
 
 #### Class Diagram
+
 ![Screenshot 2022-01-22 at 22 10 55](https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png)
 
 #### Sequence Diagrams
-![Screenshot 2022-01-22 at 22 46 35](https://user-images.githubusercontent.com/27693622/150657804-d522f19e-23f3-4916-a1a3-99e3aba8691c.png)
 
+|                                                                  Edit Quiz                                                                  |
+|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+| ![Screenshot 2022-01-22 at 22 49 08](https://user-images.githubusercontent.com/27693622/150657856-7c007a48-fc4c-4e32-af56-2f01763f7ecd.png) |
+| ![Screenshot 2022-01-22 at 22 46 35](https://user-images.githubusercontent.com/27693622/150657804-d522f19e-23f3-4916-a1a3-99e3aba8691c.png) |
+
+|                                                                 Answer Quiz                                                                 |
+|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+| ![Screenshot 2022-01-23 at 21 30 49](https://user-images.githubusercontent.com/27693622/150698726-f11a8e5a-cf9b-413f-b038-ca88811df73b.png) |
+| ![Screenshot 2022-01-23 at 21 45 52](https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png) |
+| ![Screenshot 2022-01-23 at 21 57 14](https://user-images.githubusercontent.com/27693622/150699437-a89a26a1-4a2c-4c60-a5ce-0de5a23e55b1.png) |
 
 #### Running Tailwind:
 
