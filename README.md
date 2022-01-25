@@ -7,19 +7,20 @@ https://github.com/jitterted/quizdown
 
 #### Ubiquitous Language
 
-| Domain                                                                                                          | Definition                            | "Quiz Maker" Bounded Context                                                      | "Quiz Taker"  Bounded Context |
-|-----------------------------------------------------------------------------------------------------------------|---------------------------------------|-----------------------------------------------------------------------------------|-------------------------------|
-| Question                                                                                                        | Text for question                     | Text for question is completely editable (has no behaviour other than validation) | Text for question Immutable (read-only) (Query) Can ask if Choice is the Answer - delegates to Single/Multiple Choice |                   |                                                                                   |                               |
-| Choice | Choice for a question                 | Editable | Immutable |
-| Answer | Correct choice(s) for a question      | Editable | not directly visible |
-| Single Choice | A question that has only 1 answer     | Editable | Invisible |
-| Multiple Choice | A quesiton that has 2 or more answers | Editable | Invisible |
-| Quiz | Collection of Questions | Define (editable) | Immutable/ read-only |
-| Quiz Taker | Person that is taking the quiz | Does not exist in the Editable Bounded context | Stateful |
-| Quiz Session | Quiz being taken by a person, collecting Responses | Does not exist | Stateful |
-| Response | Choice selected by Quiz taker | Does not exist | Value Object |
-| Grade | How well a Quiz Taker did for a specific, completed Quiz Session | Does not exist | Value Object |
-| Explanation | Further information about question | Editable | View only |
+| Domain          | Definition                                                      | "Quiz Maker" Bounded Context                                                     | "Quiz Taker"  Bounded Context                                                                                         |
+|-----------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Question        | Text for question                                               | Text for question is completely editable (has no behaviour other than validation) | Text for question Immutable (read-only) (Query) Can ask if Choice is the Answer - delegates to Single/Multiple Choice |                   |                                                                                   |                               |
+| Choice          | Choice for a question                                           | Editable                                                                         | Immutable                                                                                                             |
+| Answer          | Correct choice(s) for a question                                | Editable                                                                         | not directly visible                                                                                                  |
+| Single Choice   | A question that has only 1 answer                               | Editable                                                                         | Invisible                                                                                                             |
+| Multiple Choice | A quesiton that has 2 or more answers                           | Editable                                                                         | Invisible                                                                                                             |
+| Quiz            | Collection of Questions                                         | Define (editable)                                                                | Immutable/ read-only                                                                                                  |
+| Quiz Taker      | Person that is taking the quiz                                  | Does not exist in the Editable Bounded context                                   | Stateful                                                                                                              |
+| Quiz Session    | Quiz being taken by a person, collecting Responses              | Does not exist                                                                   | Stateful                                                                                                              |
+| Response        | Choice selected by Quiz taker                                   | Does not exist                                                                   | Value Object                                                                                                          |
+| Grade           | How well a Quiz Taker did for a specific, completed Quiz Session | Does not exist                                                                   | Value Object                                                                                                          |
+| Explanation     | Further information about question                              | Editable                                                                         | View only                                                                                                             |
+| Category        | Type of question - single, multiple, fill-in                    | Editable                                                                         | View only                                                                                                             |
 
 #### CRC Diagram
 
