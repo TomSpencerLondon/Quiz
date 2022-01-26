@@ -13,6 +13,14 @@ public class Response {
     return question.isCorrectAnswer(choice);
   }
 
+  public Choice getChoice() {
+    return choice;
+  }
+
+  public Question getQuestion() {
+    return question;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
