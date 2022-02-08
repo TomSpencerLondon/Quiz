@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
 import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class QuestionTransformer {
   public QuestionTransformer() {
   }
 
-  com.example.quiz.domain.Question toQuestion(QuestionDbo questionDbo) {
+  Question toQuestion(QuestionDbo questionDbo) {
     final List<Choice> choices = questionDbo
         .getChoices()
         .stream()
@@ -33,7 +34,7 @@ public class QuestionTransformer {
         ))
         .get();
 
-    final com.example.quiz.domain.Question question = new com.example.quiz.domain.Question(
+    final Question question = new com.example.quiz.domain.Question(
         questionDbo.getText(),
         new SingleChoice(
             correctChoice,

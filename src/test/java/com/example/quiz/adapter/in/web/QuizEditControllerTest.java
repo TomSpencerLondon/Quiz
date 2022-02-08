@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -33,12 +32,14 @@ public class QuizEditControllerTest {
     QuestionService questionService = new QuestionService(questionRepository);
     QuizEditController quizController = new QuizEditController(questionService);
 
-    final List<String> correctAnswers = List.of("1", "2");
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
-        "question", "a1", "a2", "a3", "a4");
+        "question", new ChoiceForm("a1", true),
+        new ChoiceForm("a2", false),
+        new ChoiceForm("a3", false),
+        new ChoiceForm("a4", false));
 
-    addQuestionForm.setChoice1("1");
-    addQuestionForm.setChoice1("2");
+    addQuestionForm.setChoice1(new ChoiceForm("1", false));
+    addQuestionForm.setChoice1(new ChoiceForm("2", false));
 
 
     final String redirectPage = quizController.addQuestion(addQuestionForm);
