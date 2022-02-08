@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 class QuestionTransformerTest {
+
   final QuestionTransformer questionTransformer = new QuestionTransformer();
 
   @Test
@@ -24,7 +25,6 @@ class QuestionTransformerTest {
     expected.setId(1L);
 
     final QuestionDbo questionDbo = createQuestionDbo(expected);
-
 
     // When
     final Question question = questionTransformer.toQuestion(questionDbo);
@@ -44,7 +44,7 @@ class QuestionTransformerTest {
         "Answer 3",
         "Answer 4",
         "Answer 1"
-        );
+    );
 
     final QuestionDbo questionDbo = createQuestionDbo(question);
 
@@ -67,7 +67,6 @@ class QuestionTransformerTest {
       answerDbo.setCorrect(question.isCorrectAnswer(a));
       questionDbo.getChoices().add(answerDbo);
     });
-
 
     return questionDbo;
   }

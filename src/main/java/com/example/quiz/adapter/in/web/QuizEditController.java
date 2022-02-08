@@ -21,12 +21,10 @@ public class QuizEditController {
   public String addQuestion(AddQuestionForm addQuestionForm) {
     final Question question = QuestionFactory.create(
         addQuestionForm.getText(),
-        addQuestionForm.getChoice1().getChoice(),
-        addQuestionForm.getChoice2().getChoice(),
-        addQuestionForm.getChoice3().getChoice(),
-        addQuestionForm.getChoice4().getChoice(),
-        addQuestionForm.getAnswer()
-    );
+        addQuestionForm.getChoice1(),
+        addQuestionForm.getChoice2(),
+        addQuestionForm.getChoice3(),
+        addQuestionForm.getChoice4());
 
     questionService.add(question);
 

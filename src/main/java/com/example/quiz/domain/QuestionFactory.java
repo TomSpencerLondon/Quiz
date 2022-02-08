@@ -1,8 +1,21 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.adapter.in.web.ChoiceForm;
 import java.util.List;
 
 public class QuestionFactory {
+
+  public static Question create(String questionText, ChoiceForm... choices) {
+    return new Question(questionText,
+        new SingleChoice(
+            new Choice(""),
+            List.of(
+                new Choice(choices[0].getChoice()),
+                new Choice(choices[1].getChoice()),
+                new Choice(choices[2].getChoice()),
+                new Choice(choices[3].getChoice()))
+        ));
+  }
 
   public static Question create(String questionText, String choice1, String choice2,
       String choice3,
@@ -17,4 +30,6 @@ public class QuestionFactory {
                 new Choice(choice4))
         ));
   }
+
+
 }

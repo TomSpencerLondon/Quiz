@@ -35,10 +35,10 @@ public class QuizEditControllerWebMvcTest {
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("text", "Q1")
         .param("correctAnswers", "1", "2")
-        .param("choice1", "Q1A1")
-        .param("choice2", "Q1A2")
-        .param("choice3", "Q1A3")
-        .param("choice4", "Q1A4")
+        .param("choice1.choice", "Q1A1")
+        .param("choice2.choice", "Q1A2")
+        .param("choice3.choice", "Q1A3")
+        .param("choice4.choice", "Q1A4")
     ).andExpect(status().is3xxRedirection());
   }
 

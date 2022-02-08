@@ -6,12 +6,12 @@ import java.util.List;
 public class AddQuestionForm {
 
   private String text;
-  private String answer;
   private ChoiceForm choice1;
   private ChoiceForm choice2;
   private ChoiceForm choice3;
   private ChoiceForm choice4;
   private List<ChoiceForm> choices = new ArrayList<>();
+  private String answer;
 
   public AddQuestionForm() {
   }
@@ -27,10 +27,6 @@ public class AddQuestionForm {
 
   public String getText() {
     return text;
-  }
-
-  public String getAnswer() {
-    return answer;
   }
 
   public ChoiceForm getChoice1() {
@@ -53,10 +49,6 @@ public class AddQuestionForm {
     this.text = text;
   }
 
-  public void setAnswer(String answer) {
-    this.answer = answer;
-  }
-
   public void setChoice1(ChoiceForm choice1) {
     this.choices.add(choice1);
     this.choice1 = choice1;
@@ -75,6 +67,14 @@ public class AddQuestionForm {
   public void setChoice4(ChoiceForm choice4) {
     this.choices.add(choice4);
     this.choice4 = choice4;
+  }
+
+  public String getAnswer() {
+    return answer;
+  }
+
+  public void setAnswer(String answer) {
+    this.answer = answer;
   }
 
   public List<ChoiceForm> getChoices() {
