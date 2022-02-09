@@ -5,11 +5,14 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionTransformer {
+  private static final Logger LOGGER = LoggerFactory.getLogger(QuestionTransformer.class);
 
   @Autowired
   public QuestionTransformer() {
@@ -31,8 +34,10 @@ public class QuestionTransformer {
         .findFirst()
         .map((ChoiceDbo answerDbo) -> new Choice(
             answerDbo.getChoiceText()
-        ))
-        .get();
+        )).orElseGet(() -> {
+          LOGGER.error("No correct answer for QuestionDbo with id: {}", questionDbo.getId());
+          return choices.get(0);
+        });
 
     final Question question = new com.example.quiz.domain.Question(
         questionDbo.getText(),

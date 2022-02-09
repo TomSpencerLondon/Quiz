@@ -15,10 +15,10 @@ public class QuizSession {
   private Question question;
 
   public QuizSession(Quiz quiz) {
-    if (quiz.questions().isEmpty()) {
+    questions = quiz.questions();
+    if (questions.isEmpty()) {
       throw new IllegalArgumentException();
     }
-    questions = quiz.questions();
     iterator = questions.iterator();
     question = iterator.next();
   }

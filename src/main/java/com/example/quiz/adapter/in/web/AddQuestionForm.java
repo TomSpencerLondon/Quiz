@@ -1,8 +1,5 @@
 package com.example.quiz.adapter.in.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AddQuestionForm {
 
   private String text;
@@ -10,8 +7,6 @@ public class AddQuestionForm {
   private ChoiceForm choice2;
   private ChoiceForm choice3;
   private ChoiceForm choice4;
-  private List<ChoiceForm> choices = new ArrayList<>();
-  private String answer;
 
   public AddQuestionForm() {
   }
@@ -50,34 +45,19 @@ public class AddQuestionForm {
   }
 
   public void setChoice1(ChoiceForm choice1) {
-    this.choices.add(choice1);
     this.choice1 = choice1;
   }
 
   public void setChoice2(ChoiceForm choice2) {
-    this.choices.add(choice2);
     this.choice2 = choice2;
   }
 
   public void setChoice3(ChoiceForm choice3) {
-    this.choices.add(choice3);
     this.choice3 = choice3;
   }
 
   public void setChoice4(ChoiceForm choice4) {
-    this.choices.add(choice4);
     this.choice4 = choice4;
   }
 
-  public String getAnswer() {
-    return answer;
-  }
-
-  public void setAnswer(String answer) {
-    this.answer = answer;
-  }
-
-  public List<ChoiceForm> getChoices() {
-    return this.choices;
-  }
 }
