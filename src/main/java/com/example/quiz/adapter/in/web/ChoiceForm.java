@@ -27,4 +27,12 @@ public class ChoiceForm {
   public void setCorrectAnswer(boolean correctAnswer) {
     this.correctAnswer = correctAnswer;
   }
+
+  @Override
+  public String toString() {
+    return "ChoiceForm{" +
+        "choice='" + choice + '\'' +
+        ", correctAnswer=" + correctAnswer +
+        '}';
+  }
 }

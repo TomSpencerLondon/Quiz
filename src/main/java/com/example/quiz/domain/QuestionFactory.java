@@ -10,7 +10,8 @@ public class QuestionFactory {
     Choice correctChoice = Arrays.stream(choices)
         .filter(ChoiceForm::isCorrectAnswer)
         .map(c -> new Choice(c.getChoice())).findFirst()
-        .orElseThrow(IllegalArgumentException::new);
+        .orElseThrow(() -> new IllegalArgumentException(
+            String.format("No choices (%s,%s,%s,%s) are marked as correct", choices)));
 
     return new Question(questionText,
         new SingleChoice(
