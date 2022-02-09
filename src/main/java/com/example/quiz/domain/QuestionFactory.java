@@ -1,14 +1,20 @@
 package com.example.quiz.domain;
 
 import com.example.quiz.adapter.in.web.ChoiceForm;
+import java.util.Arrays;
 import java.util.List;
 
 public class QuestionFactory {
 
   public static Question create(String questionText, ChoiceForm... choices) {
+    Choice correctChoice = Arrays.stream(choices)
+        .filter(ChoiceForm::isCorrectAnswer)
+        .map(c -> new Choice(c.getChoice())).findFirst()
+        .orElseThrow(IllegalArgumentException::new);
+
     return new Question(questionText,
         new SingleChoice(
-            new Choice(""),
+            correctChoice,
             List.of(
                 new Choice(choices[0].getChoice()),
                 new Choice(choices[1].getChoice()),

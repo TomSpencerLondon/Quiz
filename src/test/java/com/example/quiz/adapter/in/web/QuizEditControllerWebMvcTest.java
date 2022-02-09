@@ -34,11 +34,14 @@ public class QuizEditControllerWebMvcTest {
         .with(csrf())
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("text", "Q1")
-        .param("correctAnswers", "1", "2")
         .param("choice1.choice", "Q1A1")
+        .param("choice1.correctAnswer", "true")
         .param("choice2.choice", "Q1A2")
+        .param("choice1.correctAnswer", "false")
         .param("choice3.choice", "Q1A3")
+        .param("choice1.correctAnswer", "false")
         .param("choice4.choice", "Q1A4")
+        .param("choice1.correctAnswer", "false")
     ).andExpect(status().is3xxRedirection());
   }
 

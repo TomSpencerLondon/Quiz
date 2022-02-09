@@ -7,6 +7,14 @@ public class SingleChoice {
   private List<Choice> choices;
 
   public SingleChoice(Choice correct, List<Choice> choices) {
+    if (!choices.contains(correct)) {
+      throw new IllegalArgumentException(String.format(
+          "'%s' is not among %s",
+          correct.text(),
+          choices
+      ));
+    }
+
     this.correct = correct;
     this.choices = choices;
   }

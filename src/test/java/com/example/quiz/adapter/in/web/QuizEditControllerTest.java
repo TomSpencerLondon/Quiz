@@ -38,10 +38,6 @@ public class QuizEditControllerTest {
         new ChoiceForm("a3", false),
         new ChoiceForm("a4", false));
 
-    addQuestionForm.setChoice1(new ChoiceForm("1", false));
-    addQuestionForm.setChoice1(new ChoiceForm("2", false));
-
-
     final String redirectPage = quizController.addQuestion(addQuestionForm);
 
     assertThat(redirectPage)
