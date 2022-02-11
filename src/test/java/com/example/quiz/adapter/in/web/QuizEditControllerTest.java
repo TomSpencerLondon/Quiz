@@ -8,6 +8,8 @@ import com.example.quiz.application.port.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 
 public class QuizEditControllerTest {
 
@@ -38,7 +40,9 @@ public class QuizEditControllerTest {
         new ChoiceForm("a3", false),
         new ChoiceForm("a4", false));
 
-    final String redirectPage = quizController.addQuestion(addQuestionForm);
+    BindingResult bindingResult = new BeanPropertyBindingResult( "objectName", "error");
+
+    final String redirectPage = quizController.addQuestion(addQuestionForm, bindingResult);
 
     assertThat(redirectPage)
         .isEqualTo("redirect:/add-question");

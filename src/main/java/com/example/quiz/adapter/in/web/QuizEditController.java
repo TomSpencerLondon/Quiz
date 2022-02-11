@@ -6,11 +6,14 @@ import com.example.quiz.domain.QuestionFactory;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class QuizEditController {
+
   private final QuestionService questionService;
 
   public QuizEditController(QuestionService questionService) {
@@ -18,15 +21,22 @@ public class QuizEditController {
   }
 
   @PostMapping("/add-question")
-  public String addQuestion(AddQuestionForm addQuestionForm) {
-    final Question question = QuestionFactory.create(
-        addQuestionForm.getText(),
-        addQuestionForm.getChoice1(),
-        addQuestionForm.getChoice2(),
-        addQuestionForm.getChoice3(),
-        addQuestionForm.getChoice4());
-
-    questionService.add(question);
+  public String addQuestion(AddQuestionForm addQuestionForm, BindingResult bindingResult) {
+    try {
+      final Question question = QuestionFactory.create(
+          addQuestionForm.getText(),
+          addQuestionForm.getChoice1(),
+          addQuestionForm.getChoice2(),
+          addQuestionForm.getChoice3(),
+          addQuestionForm.getChoice4());
+      questionService.add(question);
+    } catch (IllegalArgumentException e) {
+      ObjectError error = new ObjectError("Error", "no correct answer selected");
+      bindingResult.addError(error);
+      if (bindingResult.hasErrors()) {
+        return "add-question";
+      }
+    }
 
     return "redirect:/add-question";
   }
