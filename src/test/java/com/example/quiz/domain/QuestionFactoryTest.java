@@ -42,7 +42,7 @@ public class QuestionFactoryTest {
     assertThatThrownBy(() -> {
       QuestionFactory
           .create(questionText, choiceForm, choiceForm1, choiceForm2, choiceForm3);
-    }).isInstanceOf(IllegalArgumentException.class)
+    }).isInstanceOf(NoCorrectChoiceSelected.class)
         .hasMessage(String.format(
             "No choices (%s,%s,%s,%s) are marked as correct",
             choiceForm, choiceForm1, choiceForm2, choiceForm3));
