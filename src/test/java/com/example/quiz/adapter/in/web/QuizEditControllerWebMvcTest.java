@@ -64,27 +64,4 @@ public class QuizEditControllerWebMvcTest {
     ).andExpect(status().isOk());
   }
 
-  @Test
-  @WithMockUser(username = "tom")
-  void formWithoutQuestionAndMissingChoiceShowsErrors() throws Exception {
-    mockMvc.perform(post("/add-question")
-            .with(csrf())
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("text", "")
-            .param("choice1.choice", "")
-            .param("choice1.correctAnswer", "true")
-            .param("choice2.choice", " ")
-            .param("choice2.correctAnswer", "false")
-            .param("choice3.choice", " ")
-            .param("choice3.correctAnswer", "false")
-            .param("choice4.choice", "Q1A4")
-            .param("choice4.correctAnswer", "false"))
-        .andExpect(view().name("add-question"))
-        .andExpect(model().hasErrors())
-        .andExpect(model().attributeHasFieldErrors("addQuestionForm", "text"))
-        .andExpect(model().attributeHasFieldErrors("addQuestionForm", "choice1.choice"))
-        .andExpect(model().attributeHasFieldErrors("addQuestionForm", "choice2.choice"))
-        .andExpect(model().attributeHasFieldErrors("addQuestionForm", "choice3.choice"));
-  }
-
 }
