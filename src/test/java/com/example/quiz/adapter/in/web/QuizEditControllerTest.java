@@ -69,5 +69,7 @@ public class QuizEditControllerTest {
         .isEqualTo("add-question");
     assertThat(questionRepository.findAll())
         .isEmpty();
+    assertThat(bindingResult.getGlobalErrors())
+        .hasSize(1);
   }
 }
