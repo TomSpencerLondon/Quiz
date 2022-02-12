@@ -35,7 +35,8 @@ public class QuizEditControllerTest {
     QuizEditController quizController = new QuizEditController(questionService);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
-        "question", new ChoiceForm("a1", true),
+        "question",
+        new ChoiceForm("a1", true),
         new ChoiceForm("a2", false),
         new ChoiceForm("a3", false),
         new ChoiceForm("a4", false));
@@ -57,7 +58,8 @@ public class QuizEditControllerTest {
     QuizEditController quizController = new QuizEditController(questionService);
 
     final AddQuestionForm addQuestionForm = new AddQuestionForm(
-        "question", new ChoiceForm("a1", false),
+        "question",
+        new ChoiceForm("a1", false),
         new ChoiceForm("a2", false),
         new ChoiceForm("a3", false),
         new ChoiceForm("a4", false));

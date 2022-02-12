@@ -1,7 +1,10 @@
 package com.example.quiz.adapter.in.web;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AddQuestionForm {
 
+  @NotEmpty
   private String text;
   private ChoiceForm choice1;
   private ChoiceForm choice2;

@@ -4,14 +4,17 @@ import com.example.quiz.application.QuestionService;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionFactory;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@Validated
 public class QuizEditController {
 
   private final QuestionService questionService;
@@ -21,7 +24,10 @@ public class QuizEditController {
   }
 
   @PostMapping("/add-question")
-  public String addQuestion(AddQuestionForm addQuestionForm, BindingResult bindingResult) {
+  public String addQuestion(@Valid AddQuestionForm addQuestionForm, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "add-question";
+    }
     try {
       final Question question = QuestionFactory.create(
           addQuestionForm.getText(),
