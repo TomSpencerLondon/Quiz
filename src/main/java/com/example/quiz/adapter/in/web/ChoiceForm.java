@@ -1,6 +1,9 @@
 package com.example.quiz.adapter.in.web;
 
+import javax.validation.constraints.NotBlank;
+
 public class ChoiceForm {
+  @NotBlank
   private String choice;
   private boolean correctAnswer;
 

@@ -38,6 +38,7 @@
   <div class="flex flex-wrap -mx-3 mb-6">
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
       Question Text
+      <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
     </label>
     <textarea type="text" th:field="*{text}" rows="10"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -46,6 +47,7 @@
     <input type="checkbox" th:field="*{choice1.correctAnswer}"/>
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
       Choice #1
+      <p th:if="${#fields.hasErrors('choice1.choice')}" th:errors="*{choice1.choice}"></p>
     </label>
     <input type="text" th:field="*{choice1.choice}"
            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
@@ -53,6 +55,7 @@
     <input type="checkbox" th:field="*{choice2.correctAnswer}"/>
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
       Choice #2
+      <p th:if="${#fields.hasErrors('choice2.choice')}" th:errors="*{choice2.choice}"></p>
     </label>
     <input type="text" th:field="*{choice2.choice}"
            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
@@ -60,6 +63,7 @@
     <input type="checkbox" th:field="*{choice3.correctAnswer}"/>
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
       Choice #3
+      <p th:if="${#fields.hasErrors('choice3.choice')}" th:errors="*{choice3.choice}"></p>
     </label>
     <input type="text" th:field="*{choice3.choice}"
            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
@@ -67,6 +71,7 @@
     <input type="checkbox" th:field="*{choice4.correctAnswer}"/>
     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
       Choice #4
+      <p th:if="${#fields.hasErrors('choice4.choice')}" th:errors="*{choice4.choice}"></p>
     </label>
     <input type="text" th:field="*{choice4.choice}"
            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>

@@ -1,14 +1,19 @@
 package com.example.quiz.adapter.in.web;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 public class AddQuestionForm {
 
-  @NotEmpty
+  @NotBlank
   private String text;
+  @Valid
   private ChoiceForm choice1;
+  @Valid
   private ChoiceForm choice2;
+  @Valid
   private ChoiceForm choice3;
+  @Valid
   private ChoiceForm choice4;
 
   public AddQuestionForm() {
