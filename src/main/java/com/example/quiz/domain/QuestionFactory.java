@@ -7,6 +7,12 @@ import java.util.List;
 public class QuestionFactory {
 
   public static Question create(String questionText, ChoiceForm... choices) {
+    long count = Arrays.stream(choices)
+        .filter(ChoiceForm::isCorrectAnswer).count();
+    if (count > 1) {
+      throw new TooManyCorrectChoicesSelected(choices);
+    }
+
     Choice correctChoice = Arrays.stream(choices)
         .filter(ChoiceForm::isCorrectAnswer)
         .map(c -> new Choice(c.getChoice())).findFirst()

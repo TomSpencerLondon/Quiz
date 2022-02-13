@@ -29,7 +29,7 @@ public class QuestionFactoryTest {
   }
 
   @Test
-  void singleChoiceMustHaveOneCorrectAnswer() {
+  void singleChoiceMustHaveAtLeastOneCorrectAnswer() {
     // Given
 
     String questionText = "Question 1";
@@ -45,6 +45,27 @@ public class QuestionFactoryTest {
     }).isInstanceOf(NoCorrectChoiceSelected.class)
         .hasMessage(String.format(
             "No choices (%s,%s,%s,%s) are marked as correct",
+            choiceForm, choiceForm1, choiceForm2, choiceForm3));
+
+  }
+
+  @Test
+  void singleChoiceMustHaveNoMoreThanOneCorrectAnswer() {
+    // Given
+
+    String questionText = "Question 1";
+    ChoiceForm choiceForm = new ChoiceForm("Answer 1", true);
+    ChoiceForm choiceForm1 = new ChoiceForm("Answer 2", true);
+    ChoiceForm choiceForm2 = new ChoiceForm("Answer 3", false);
+    ChoiceForm choiceForm3 = new ChoiceForm("Answer 4", false);
+
+    // when + then
+    assertThatThrownBy(() -> {
+      QuestionFactory
+          .create(questionText, choiceForm, choiceForm1, choiceForm2, choiceForm3);
+    }).isInstanceOf(TooManyCorrectChoicesSelected.class)
+        .hasMessage(String.format(
+            "Too many choices (%s,%s,%s,%s) are marked as correct",
             choiceForm, choiceForm1, choiceForm2, choiceForm3));
 
   }

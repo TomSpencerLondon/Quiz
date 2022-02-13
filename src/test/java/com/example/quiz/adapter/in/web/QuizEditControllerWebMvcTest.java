@@ -85,4 +85,23 @@ public class QuizEditControllerWebMvcTest {
         .andExpect(model().attributeHasFieldErrors("addQuestionForm", "choice2.choice"))
         .andExpect(model().attributeHasFieldErrors("addQuestionForm", "choice3.choice"));
   }
+
+  @Test
+  @WithMockUser(username = "tom")
+  void formWithTooManyCorrectAnswersSelectedShowsErrors() throws Exception {
+    mockMvc.perform(post("/add-question")
+            .with(csrf())
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("text", "Q1")
+            .param("choice1.choice", "Q1A1")
+            .param("choice1.correctAnswer", "true")
+            .param("choice2.choice", "Q1A2")
+            .param("choice2.correctAnswer", "true")
+            .param("choice3.choice", "Q1A3")
+            .param("choice3.correctAnswer", "false")
+            .param("choice4.choice", "Q1A4")
+            .param("choice4.correctAnswer", "false"))
+        .andExpect(view().name("add-question"))
+        .andExpect(model().hasErrors());
+  }
 }

@@ -67,5 +67,4 @@ public class AddQuestionForm {
   public void setChoice4(ChoiceForm choice4) {
     this.choice4 = choice4;
   }
-
 }

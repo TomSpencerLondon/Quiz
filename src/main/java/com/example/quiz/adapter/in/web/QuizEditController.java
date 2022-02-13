@@ -1,8 +1,10 @@
 package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
+import com.example.quiz.domain.NoCorrectChoiceSelected;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionFactory;
+import com.example.quiz.domain.TooManyCorrectChoicesSelected;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -34,8 +36,8 @@ public class QuizEditController {
           addQuestionForm.getChoice3(),
           addQuestionForm.getChoice4());
       questionService.add(question);
-    } catch (IllegalArgumentException e) {
-      ObjectError error = new ObjectError("Error", "no correct answer selected");
+    } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
+      ObjectError error = new ObjectError("Error", e.getMessage());
       bindingResult.addError(error);
       if (bindingResult.hasErrors()) {
         return "add-question";
