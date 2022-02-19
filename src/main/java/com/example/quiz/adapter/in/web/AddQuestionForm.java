@@ -97,6 +97,10 @@ public class AddQuestionForm {
             throw new TooManyCorrectChoicesSelected(correctChoices);
         }
 
+        if (correctChoices.size() < 2 && choiceType.equals("multiple")) {
+            throw new TooFewCorrectChoicesSelected(correctChoices);
+        }
+
         return correctChoices;
     }
 }

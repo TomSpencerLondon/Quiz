@@ -70,4 +70,17 @@ class AddQuestionFormTest {
         assertThatThrownBy(addQuestionForm::transformToCorrectChoices)
                 .isInstanceOf(TooManyCorrectChoicesSelected.class);
     }
+
+    @Test
+    void throwsErrorForOneCorrectChoiceForMultipleChoice() {
+        final AddQuestionForm addQuestionForm = new AddQuestionForm(
+                "question",
+                new ChoiceForm("a1", true),
+                new ChoiceForm("a2", false),
+                new ChoiceForm("a3", false),
+                new ChoiceForm("a4", false), "multiple");
+
+        assertThatThrownBy(addQuestionForm::transformToCorrectChoices)
+                .isInstanceOf(TooFewCorrectChoicesSelected.class);
+    }
 }
