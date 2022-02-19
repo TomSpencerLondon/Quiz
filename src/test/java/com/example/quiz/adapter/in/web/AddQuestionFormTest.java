@@ -28,7 +28,7 @@ class AddQuestionFormTest {
     }
 
     @Test
-    void transformToCorrectChoices() {
+    void transformToCorrectChoicesForSingleChoice() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
                 new ChoiceForm("a1", true),
@@ -40,5 +40,20 @@ class AddQuestionFormTest {
 
         assertThat(correctChoices)
                 .containsExactly("a1");
+    }
+
+    @Test
+    void transformToCorrectChoicesForMultipleChoice() {
+        final AddQuestionForm addQuestionForm = new AddQuestionForm(
+                "question",
+                new ChoiceForm("a1", true),
+                new ChoiceForm("a2", true),
+                new ChoiceForm("a3", false),
+                new ChoiceForm("a4", false), "multiple");
+
+        List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
+
+        assertThat(correctChoices)
+                .containsExactly("a1", "a2");
     }
 }
