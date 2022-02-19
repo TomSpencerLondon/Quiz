@@ -32,10 +32,10 @@ https://github.com/jitterted/quizdown
 
 #### Sequence Diagrams
 
-|                                                                  Edit Quiz                                                                 |
-|:------------------------------------------------------------------------------------------------------------------------------------------:|
-| ![Screenshot 2022-01-23 at 22 07 45](https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png) |
-| ![Screenshot 2022-02-19 at 10 44 25](https://user-images.githubusercontent.com/27693622/154797916-66e8cf57-e666-474a-8c59-df943ef92669.png)|
+|                                                                     Edit Quiz                                                                     |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------:|
+|    ![Screenshot 2022-01-23 at 22 07 45](https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png)    |
+|![addQuestion-sequenceDiagram-Add_Question](https://user-images.githubusercontent.com/27693622/154798311-a00154e3-640b-43b0-b902-b50b0e76a5af.png) |
 
 |                                                                 Answer Quiz                                                                |
 |:------------------------------------------------------------------------------------------------------------------------------------------:|
