@@ -26,4 +26,19 @@ class AddQuestionFormTest {
                         "a4"
                 );
     }
+
+    @Test
+    void transformToCorrectChoices() {
+        final AddQuestionForm addQuestionForm = new AddQuestionForm(
+                "question",
+                new ChoiceForm("a1", true),
+                new ChoiceForm("a2", false),
+                new ChoiceForm("a3", false),
+                new ChoiceForm("a4", false), "single");
+
+        List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
+
+        assertThat(correctChoices)
+                .containsExactly("a1");
+    }
 }

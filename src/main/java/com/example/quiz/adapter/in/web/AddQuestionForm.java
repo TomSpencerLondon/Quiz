@@ -86,4 +86,11 @@ public class AddQuestionForm {
                      .map(ChoiceForm::getChoice)
                      .toList();
     }
+
+    public List<String> transformToCorrectChoices() {
+        return Stream.of(choice1, choice2, choice3, choice4)
+                     .filter(ChoiceForm::isCorrectAnswer)
+                     .map(ChoiceForm::getChoice)
+                     .toList();
+    }
 }
