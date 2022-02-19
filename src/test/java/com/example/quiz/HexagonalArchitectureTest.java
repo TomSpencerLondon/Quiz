@@ -13,11 +13,13 @@ public class HexagonalArchitectureTest {
   @Test
   void domainMustNotDependOnAdapters() {
     noClasses()
-        .that().resideInAPackage("..domain..")
-        .should().dependOnClassesThat().resideInAPackage("..adapter..")
+        .that()
+        .resideInAPackage("..domain..")
+        .should()
+        .dependOnClassesThat()
+        .resideInAPackage("..adapter..")
         .check(productionAndTestClasses());
   }
-
 
   private JavaClasses productionAndTestClasses() {
     return new ClassFileImporter().importPackages("com.example.quiz");
