@@ -10,7 +10,9 @@ box "Application" #orange
 participant QuestionFactory as factory
 end box
 box "Domain" #lightyellow
+entity "TooManyCorrectChoicesSelected \n <<Value Object>>" as tooMany
 entity "Choice \n <<Value Object>>" as choice
+entity "NoCorrectChoiceSelected \n <<Value Object>>" as noCorrect
 entity "SingleChoice \n <<Value Object>>" as singleChoice
 entity "Question \n <<Value Object>>" as question
 end box
@@ -22,8 +24,14 @@ end box
 creator -> mvc : POST /add-question
 mvc -> ctrl : addQuestion()
 ctrl -> factory : create
+factory -> tooMany : create
+tooMany -> tooMany : create
+factory <-- tooMany
 factory -> choice : create
 choice --> factory
+factory -> noCorrect : create
+noCorrect -> noCorrect : create
+factory <-- noCorrect
 factory -> choice : create
 choice --> factory
 factory -> choice : create
@@ -33,8 +41,10 @@ choice --> factory
 factory -> choice : create
 choice --> factory
 factory -> singleChoice : create
+singleChoice -> choice : text
+singleChoice <-- choice
 factory <-- singleChoice
-factory -> question
+factory -> question : create
 factory <-- question
 ctrl <-- factory
 ctrl -> service : add()
