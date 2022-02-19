@@ -21,6 +21,17 @@ public class HexagonalArchitectureTest {
         .check(productionAndTestClasses());
   }
 
+  @Test
+  public void domainMustNotDependOnApplication() {
+    noClasses()
+        .that()
+        .resideInAPackage("..domain..")
+        .should()
+        .dependOnClassesThat()
+        .resideInAPackage("..application..")
+        .check(productionAndTestClasses());
+  }
+
   private JavaClasses productionAndTestClasses() {
     return new ClassFileImporter().importPackages("com.example.quiz");
   }
