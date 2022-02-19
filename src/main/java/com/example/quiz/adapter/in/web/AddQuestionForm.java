@@ -88,9 +88,15 @@ public class AddQuestionForm {
     }
 
     public List<String> transformToCorrectChoices() {
-        return Stream.of(choice1, choice2, choice3, choice4)
-                     .filter(ChoiceForm::isCorrectAnswer)
-                     .map(ChoiceForm::getChoice)
-                     .toList();
+        List<String> correctChoices = Stream.of(choice1, choice2, choice3, choice4)
+                                            .filter(ChoiceForm::isCorrectAnswer)
+                                            .map(ChoiceForm::getChoice)
+                                            .toList();
+
+        if (correctChoices.size() > 1 && choiceType.equals("single")) {
+            throw new TooManyCorrectChoicesSelected(correctChoices);
+        }
+
+        return correctChoices;
     }
 }

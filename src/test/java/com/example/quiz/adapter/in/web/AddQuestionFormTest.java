@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AddQuestionFormTest {
     @Test
@@ -55,5 +56,18 @@ class AddQuestionFormTest {
 
         assertThat(correctChoices)
                 .containsExactly("a1", "a2");
+    }
+
+    @Test
+    void throwsErrorForTwoCorrectChoicesForSingleChoice() {
+        final AddQuestionForm addQuestionForm = new AddQuestionForm(
+                "question",
+                new ChoiceForm("a1", true),
+                new ChoiceForm("a2", true),
+                new ChoiceForm("a3", false),
+                new ChoiceForm("a4", false), "single");
+
+        assertThatThrownBy(addQuestionForm::transformToCorrectChoices)
+                .isInstanceOf(TooManyCorrectChoicesSelected.class);
     }
 }
