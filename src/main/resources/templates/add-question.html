@@ -1,88 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Text Input Form</title>
-  <link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css">
+    <meta charset="UTF-8">
+    <title>Text Input Form</title>
+    <link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css">
 </head>
 <body>
 <div class="max-w-screen-md mx-auto p-5">
-  <div class="text-center mb-16">
-    <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
-      Quiz
-    </p>
-    <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
-      Add a <span class="text-indigo-600">Question</span>
-    </h3>
-  </div>
-  <form action="#" th:action="@{/add-question}" th:object="${addQuestionForm}" method="post"
-        class="w-full">
-    <div th:if="${#fields.hasGlobalErrors()}" class="rounded-md bg-yellow-50 p-4 mb-4">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <!-- Heroicon name: solid/exclamation -->
-          <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <div class="ml-3">
-          <h3 class="text-sm font-medium text-yellow-800">Attention needed</h3>
-          <div class="mt-2 text-sm text-yellow-700">
-            <p th:each="error:${#fields.globalErrors()}" th:text="${error}">
-              Sample Error Message
-            </p>
-          </div>
-        </div>
-      </div>
+    <div class="text-center mb-16">
+        <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
+            Quiz
+        </p>
+        <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
+            Add a <span class="text-indigo-600">Question</span>
+        </h3>
     </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-      Question Text
-      <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
-    </label>
-    <textarea type="text" th:field="*{text}" rows="10"
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+    <form action="#" th:action="@{/add-question}" th:object="${addQuestionForm}" method="post"
+          class="w-full">
+        <div>
+            <input type="radio"
+                   value="single" id="choice1" name="choiceType" checked="checked"/>
+            <label
+                    class="radio"
+                    for="choice1">Single Choice</label>
+            <input type="radio"
+                   value="multiple" id="choice2" name="choiceType"/>
+            <label
+                    class="radio"
+                    for="choice2">Multiple Choice</label>
+        </div>
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="rounded-md bg-yellow-50 p-4 mb-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <!-- Heroicon name: solid/exclamation -->
+                    <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-yellow-800">Attention needed</h3>
+                    <div class="mt-2 text-sm text-yellow-700">
+                        <p th:each="error:${#fields.globalErrors()}" th:text="${error}">
+                            Sample Error Message
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Question Text
+                <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
+            </label>
+            <textarea type="text" th:field="*{text}" rows="10"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
       </textarea>
 
-    <input type="checkbox" th:field="*{choice1.correctAnswer}"/>
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-      Choice #1
-      <p th:if="${#fields.hasErrors('choice1.choice')}" th:errors="*{choice1.choice}"></p>
-    </label>
-    <input type="text" th:field="*{choice1.choice}"
-           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            <input type="checkbox" th:field="*{choice1.correctAnswer}"/>
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Choice #1
+                <p th:if="${#fields.hasErrors('choice1.choice')}" th:errors="*{choice1.choice}"></p>
+            </label>
+            <input type="text" th:field="*{choice1.choice}"
+                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-    <input type="checkbox" th:field="*{choice2.correctAnswer}"/>
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-      Choice #2
-      <p th:if="${#fields.hasErrors('choice2.choice')}" th:errors="*{choice2.choice}"></p>
-    </label>
-    <input type="text" th:field="*{choice2.choice}"
-           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            <input type="checkbox" th:field="*{choice2.correctAnswer}"/>
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Choice #2
+                <p th:if="${#fields.hasErrors('choice2.choice')}" th:errors="*{choice2.choice}"></p>
+            </label>
+            <input type="text" th:field="*{choice2.choice}"
+                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-    <input type="checkbox" th:field="*{choice3.correctAnswer}"/>
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-      Choice #3
-      <p th:if="${#fields.hasErrors('choice3.choice')}" th:errors="*{choice3.choice}"></p>
-    </label>
-    <input type="text" th:field="*{choice3.choice}"
-           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            <input type="checkbox" th:field="*{choice3.correctAnswer}"/>
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Choice #3
+                <p th:if="${#fields.hasErrors('choice3.choice')}" th:errors="*{choice3.choice}"></p>
+            </label>
+            <input type="text" th:field="*{choice3.choice}"
+                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-    <input type="checkbox" th:field="*{choice4.correctAnswer}"/>
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-      Choice #4
-      <p th:if="${#fields.hasErrors('choice4.choice')}" th:errors="*{choice4.choice}"></p>
-    </label>
-    <input type="text" th:field="*{choice4.choice}"
-           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            <input type="checkbox" th:field="*{choice4.correctAnswer}"/>
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Choice #4
+                <p th:if="${#fields.hasErrors('choice4.choice')}" th:errors="*{choice4.choice}"></p>
+            </label>
+            <input type="text" th:field="*{choice4.choice}"
+                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-    <button type="submit"
-            class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
-      Create
-    </button>
-  </div>
+            <button type="submit"
+                    class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
+                Create
+            </button>
+        </div>
 
-  </form>
+    </form>
 </div>
 </body>
 </html>

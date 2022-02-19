@@ -1,6 +1,4 @@
-package com.example.quiz.domain;
-
-import com.example.quiz.adapter.in.web.ChoiceForm;
+package com.example.quiz.adapter.in.web;
 
 public class TooManyCorrectChoicesSelected extends RuntimeException {
 

@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QuizConfiguration {
 
-  @Bean
-  Quiz createQuiz(QuestionRepository questionRepository) {
-    return new Quiz(questionRepository);
-  }
+    @Bean
+    Quiz createQuiz(QuestionRepository questionRepository) {
+        return new Quiz(questionRepository);
+    }
 
 }

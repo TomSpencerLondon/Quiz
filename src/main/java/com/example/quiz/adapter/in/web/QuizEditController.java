@@ -1,12 +1,7 @@
 package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.application.QuestionService;
-import com.example.quiz.domain.NoCorrectChoiceSelected;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionFactory;
-import com.example.quiz.domain.TooManyCorrectChoicesSelected;
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,54 +9,61 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @Controller
 public class QuizEditController {
 
-  private final QuestionService questionService;
+    private final QuestionService questionService;
 
-  public QuizEditController(QuestionService questionService) {
-    this.questionService = questionService;
-  }
-
-  @PostMapping("/add-question")
-  public String addQuestion(@Valid AddQuestionForm addQuestionForm, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      return "add-question";
+    public QuizEditController(QuestionService questionService) {
+        this.questionService = questionService;
     }
-    try {
-      final Question question = QuestionFactory.create(
-          addQuestionForm.getText(),
-          addQuestionForm.getChoice1(),
-          addQuestionForm.getChoice2(),
-          addQuestionForm.getChoice3(),
-          addQuestionForm.getChoice4());
-      questionService.add(question);
-    } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
-      ObjectError error = new ObjectError("Error", e.getMessage());
-      bindingResult.addError(error);
-      if (bindingResult.hasErrors()) {
+
+    @PostMapping("/add-question")
+    public String addQuestion(@Valid AddQuestionForm addQuestionForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add-question";
+        }
+        try {
+            addNewQuestion(addQuestionForm);
+        } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
+            ObjectError error = new ObjectError("Error", e.getMessage());
+            bindingResult.addError(error);
+            if (bindingResult.hasErrors()) {
+                return "add-question";
+            }
+        }
+
+        return "redirect:/add-question";
+    }
+
+    private void addNewQuestion(AddQuestionForm addQuestionForm) {
+        final Question question = QuestionFactory.create(
+                addQuestionForm.getText(),
+                addQuestionForm.getChoice1(),
+                addQuestionForm.getChoice2(),
+                addQuestionForm.getChoice3(),
+                addQuestionForm.getChoice4());
+        questionService.add(question);
+    }
+
+    @GetMapping("/add-question")
+    public String showAddQuestion(Model model) {
+        model.addAttribute("addQuestionForm", new AddQuestionForm());
         return "add-question";
-      }
     }
 
-    return "redirect:/add-question";
-  }
+    @GetMapping("/view-questions")
+    public String viewQuestions(Model model) {
+        final List<Question> questions = questionService.findAll();
 
-  @GetMapping("/add-question")
-  public String showAddQuestion(Model model) {
-    model.addAttribute("addQuestionForm", new AddQuestionForm());
-    return "add-question";
-  }
+        final List<QuestionView> questionViews = questions.stream()
+                                                          .map(QuestionView::of)
+                                                          .toList();
 
-  @GetMapping("/view-questions")
-  public String viewQuestions(Model model) {
-    final List<Question> questions = questionService.findAll();
-
-    final List<QuestionView> questionViews = questions.stream()
-        .map(QuestionView::of)
-        .toList();
-
-    model.addAttribute("questions", questionViews);
-    return "view-questions";
-  }
+        model.addAttribute("questions", questionViews);
+        return "view-questions";
+    }
 }
