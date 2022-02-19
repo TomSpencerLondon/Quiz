@@ -9,7 +9,7 @@ end box
 box "Application" #orange
 participant QuestionFactory as factory
 end box
-box "Domain" #yellow
+box "Domain" #lightyellow
 entity "Choice \n <<Value Object>>" as choice
 entity "SingleChoice \n <<Value Object>>" as singleChoice
 entity "Question \n <<Value Object>>" as question
