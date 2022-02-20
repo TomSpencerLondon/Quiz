@@ -1,6 +1,5 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -26,10 +25,7 @@ public class QuizSessionTest {
                 Collections.singletonList(new Choice("Answer 1")));
 
         final Question question = new Question("Question 1", choice);
-
-        final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-        questionRepository.save(question);
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
 
         // When
