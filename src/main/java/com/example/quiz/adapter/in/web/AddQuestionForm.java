@@ -88,19 +88,29 @@ public class AddQuestionForm {
     }
 
     public List<String> transformToCorrectChoices() {
+        List<String> correctChoices = correctChoices();
+        checkForTooManyCorrectChoicesInSingleChoice(correctChoices);
+        checkForTooFewCorrectChoicesInMultipleChoice(correctChoices);
+        return correctChoices;
+    }
+
+    private void checkForTooFewCorrectChoicesInMultipleChoice(List<String> correctChoices) {
+        if (correctChoices.size() < 2 && choiceType.equals("multiple")) {
+            throw new TooFewCorrectChoicesSelected(correctChoices);
+        }
+    }
+
+    private void checkForTooManyCorrectChoicesInSingleChoice(List<String> correctChoices) {
+        if (correctChoices.size() > 1 && choiceType.equals("single")) {
+            throw new TooManyCorrectChoicesSelected(correctChoices);
+        }
+    }
+
+    private List<String> correctChoices() {
         List<String> correctChoices = Stream.of(choice1, choice2, choice3, choice4)
                                             .filter(ChoiceForm::isCorrectAnswer)
                                             .map(ChoiceForm::getChoice)
                                             .toList();
-
-        if (correctChoices.size() > 1 && choiceType.equals("single")) {
-            throw new TooManyCorrectChoicesSelected(correctChoices);
-        }
-
-        if (correctChoices.size() < 2 && choiceType.equals("multiple")) {
-            throw new TooFewCorrectChoicesSelected(correctChoices);
-        }
-
         return correctChoices;
     }
 }
