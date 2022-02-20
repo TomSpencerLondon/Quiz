@@ -1,10 +1,11 @@
 package com.example.quiz.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.example.quiz.application.port.InMemoryQuestionRepository;
-import java.util.List;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizTest {
 
@@ -12,7 +13,8 @@ public class QuizTest {
     void new_quiz_hasNoQuestions() {
         final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
         // Given / when
-        Quiz quiz = new Quiz(questionRepository);
+        List<Question> repositoryQuestions = questionRepository.findAll();
+        Quiz quiz = new Quiz(repositoryQuestions);
 
         // Then
         List<Question> questions = quiz.questions();
@@ -35,8 +37,8 @@ public class QuizTest {
 
         final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
         questionRepository.save(question);
-
-        Quiz quiz = new Quiz(questionRepository);
+        List<Question> repositoryQuestions = questionRepository.findAll();
+        Quiz quiz = new Quiz(repositoryQuestions);
 
         List<Question> questions = quiz.questions();
 

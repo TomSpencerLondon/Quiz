@@ -1,12 +1,13 @@
 package com.example.quiz.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.example.quiz.application.port.InMemoryQuestionRepository;
+import org.junit.jupiter.api.Test;
+
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class QuizSessionTest {
   @Test
@@ -28,8 +29,8 @@ public class QuizSessionTest {
 
     final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
     questionRepository.save(question);
-
-    Quiz quiz = new Quiz(questionRepository);
+      List<Question> questions = questionRepository.findAll();
+      Quiz quiz = new Quiz(questions);
 
     // When
     QuizSession session = quiz.start();

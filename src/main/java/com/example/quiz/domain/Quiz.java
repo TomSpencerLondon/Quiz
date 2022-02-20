@@ -1,21 +1,16 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.application.port.QuestionRepository;
-
-import javax.transaction.Transactional;
 import java.util.List;
 
 public class Quiz {
+    private final List<Question> questions;
 
-    private final QuestionRepository questionRepository;
-
-    public Quiz(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+    public Quiz(List<Question> questions) {
+        this.questions = questions;
     }
 
-    @Transactional
     public List<Question> questions() {
-        return questionRepository.findAll();
+        return questions;
     }
 
     public QuizSession start() {
