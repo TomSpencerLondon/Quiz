@@ -43,6 +43,10 @@ https://github.com/jitterted/quizdown
 | ![Screenshot 2022-01-23 at 21 45 52](https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png) |
 | ![Screenshot 2022-01-23 at 22 03 58](https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png) |
 
+|                                                  Hexagonal Diagrams                                                   |
+|:---------------------------------------------------------------------------------------------------------------------:|
+| ![hex-diagram](https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png) |
+
 #### Running Tailwind:
 
 Use:
