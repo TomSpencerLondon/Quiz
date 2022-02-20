@@ -6,9 +6,6 @@ box "Adapter" #lightblue
 boundary    SpringMVC   as mvc
 control     EditController  as ctrl
 end box
-box "Application" #orange
-participant QuestionFactory as factory
-end box
 box "Domain" #lightyellow
 entity "TooManyCorrectChoicesSelected \n <<Value Object>>" as tooMany
 entity "Choice \n <<Value Object>>" as choice
@@ -23,30 +20,26 @@ end box
 
 creator -> mvc : POST /add-question
 mvc -> ctrl : addQuestion()
-ctrl -> factory : create
-factory -> tooMany : create
+ctrl -> service : add()
+service -> service : checkForMoreThanOneCorrectChoice(SingleChoice)
+service -> tooMany : create
 tooMany -> tooMany : create
-factory <-- tooMany
-factory -> choice : create
-choice --> factory
-factory -> noCorrect : create
+service <-- tooMany
+service -> choice : create
+service <-- choice
+service -> noCorrect : create
 noCorrect -> noCorrect : create
-factory <-- noCorrect
-factory -> choice : create
-choice --> factory
-factory -> choice : create
-choice --> factory
-factory -> choice : create
-choice --> factory
-factory -> choice : create
-choice --> factory
-factory -> singleChoice : create
+service <-- noCorrect
+service -> service : extractChoicesFrom()
+service -> choice : create
+service <-- choice
+service -> singleChoice : create
 singleChoice -> choice : text
 singleChoice <-- choice
-factory <-- singleChoice
-factory -> question : create
-factory <-- question
-ctrl <-- factory
+service <-- singleChoice
+service -> question : create
+service <-- question
+ctrl <-- service
 ctrl -> service : add()
 service -> repo : save()
 service <-- repo

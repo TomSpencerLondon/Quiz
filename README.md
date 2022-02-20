@@ -32,16 +32,16 @@ https://github.com/jitterted/quizdown
 
 #### Sequence Diagrams
 
-|                                                                     Edit Quiz                                                                     |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------:|
-|    ![Screenshot 2022-01-23 at 22 07 45](https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png)    |
-|![addQuestion-sequenceDiagram-Add_Question](https://user-images.githubusercontent.com/27693622/154798311-a00154e3-640b-43b0-b902-b50b0e76a5af.png) |
+|                                                                     Edit Quiz                                                                    |
+|:------------------------------------------------------------------------------------------------------------------------------------------------:|
+|    ![Screenshot 2022-01-23 at 22 07 45](https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png)   |
+|![addQuestion-sequenceDiagram-Add_Question](https://user-images.githubusercontent.com/27693622/154843182-412bae9a-485f-46b5-b19a-db4a7aff4140.png)|
 
-|                                                                 Answer Quiz                                                                |
-|:------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                                 Answer Quiz                                                                 |
+|:-------------------------------------------------------------------------------------------------------------------------------------------:|
 | ![Screenshot 2022-01-23 at 21 30 49](https://user-images.githubusercontent.com/27693622/150698726-f11a8e5a-cf9b-413f-b038-ca88811df73b.png) |
 | ![Screenshot 2022-01-23 at 21 45 52](https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png) |
-| ![Screenshot 2022-01-23 at 22 03 58](https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png)|
+| ![Screenshot 2022-01-23 at 22 03 58](https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png) |
 
 #### Running Tailwind:
 
