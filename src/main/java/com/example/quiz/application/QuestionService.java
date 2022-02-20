@@ -1,12 +1,19 @@
 package com.example.quiz.application;
 
+import com.example.quiz.adapter.in.web.AddQuestionForm;
+import com.example.quiz.adapter.in.web.ChoiceForm;
+import com.example.quiz.adapter.in.web.NoCorrectChoiceSelected;
+import com.example.quiz.adapter.in.web.TooManyCorrectChoicesSelected;
 import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class QuestionService {
@@ -17,12 +24,41 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public Question add(Question question) {
-        return questionRepository.save(question);
-    }
-
     @Transactional
     public List<Question> findAll() {
         return questionRepository.findAll();
+    }
+
+    public Question add(AddQuestionForm addQuestionForm) {
+        List<ChoiceForm> choiceForms = Stream.of(addQuestionForm.getChoice1(), addQuestionForm.getChoice2(), addQuestionForm.getChoice3(), addQuestionForm.getChoice4())
+                                             .toList();
+        checkForMoreThanOneCorrectChoice(choiceForms);
+        Choice correctChoice = extractCorrectChoiceFrom(choiceForms);
+        SingleChoice singleChoice = new SingleChoice(correctChoice, extractChoicesFrom(choiceForms));
+        Question question = new Question(addQuestionForm.getText(), singleChoice);
+        questionRepository.save(question);
+        return question;
+    }
+
+    private static void checkForMoreThanOneCorrectChoice(List<ChoiceForm> choices) {
+        int count = choices.stream()
+                           .filter(ChoiceForm::isCorrectAnswer)
+                           .toList().size();
+        if (count > 1) {
+            throw new TooManyCorrectChoicesSelected(choices.toArray(new ChoiceForm[0]));
+        }
+    }
+
+
+    private static List<Choice> extractChoicesFrom(List<ChoiceForm> choices) {
+        return choices.stream().map(ChoiceForm::getChoice).map(Choice::new).toList();
+    }
+
+    private static Choice extractCorrectChoiceFrom(List<ChoiceForm> choices) {
+        return choices.stream()
+                      .filter(ChoiceForm::isCorrectAnswer)
+                      .map(c -> new Choice(c.getChoice()))
+                      .findFirst()
+                      .orElseThrow(() -> new NoCorrectChoiceSelected(choices.toArray(new ChoiceForm[0])));
     }
 }

@@ -27,7 +27,7 @@ public class QuizEditController {
             return "add-question";
         }
         try {
-            addNewQuestion(addQuestionForm);
+            questionService.add(addQuestionForm);
         } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
             ObjectError error = new ObjectError("Error", e.getMessage());
             bindingResult.addError(error);
@@ -37,16 +37,6 @@ public class QuizEditController {
         }
 
         return "redirect:/add-question";
-    }
-
-    private void addNewQuestion(AddQuestionForm addQuestionForm) {
-        final Question question = QuestionFactory.create(
-                addQuestionForm.getText(),
-                addQuestionForm.getChoice1(),
-                addQuestionForm.getChoice2(),
-                addQuestionForm.getChoice3(),
-                addQuestionForm.getChoice4());
-        questionService.add(question);
     }
 
     @GetMapping("/add-question")

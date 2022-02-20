@@ -8,7 +8,7 @@ public class Choice {
     }
 
     public String text() {
-      return this.text;
+        return this.text;
     }
 
     @Override
