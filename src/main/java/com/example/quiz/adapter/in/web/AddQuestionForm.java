@@ -1,10 +1,13 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.CorrectAnswer;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Stream;
 
+@CorrectAnswer
 public class AddQuestionForm {
 
     @NotBlank

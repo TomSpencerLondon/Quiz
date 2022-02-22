@@ -4,13 +4,19 @@ import java.util.List;
 
 public class MultipleChoice {
 
+    private List<Choice> correctChoices;
     private List<Choice> choices;
 
-    public MultipleChoice(List<Choice> choices) {
-        this.choices = choices;
+    public MultipleChoice(List<Choice> correctChoices, List<Choice> allChoices) {
+        this.correctChoices = correctChoices;
+        this.choices = allChoices;
     }
 
     public List<Choice> choices() {
         return choices;
+    }
+
+    public List<Choice> correctChoices() {
+        return correctChoices;
     }
 }

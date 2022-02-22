@@ -128,8 +128,9 @@ public class QuizControllerTest {
         final InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
                 new Choice("Answer 3"), new Choice("Answer 4"));
+        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
 
-        MultipleChoice multipleChoice = new MultipleChoice(choices);
+        MultipleChoice multipleChoice = new MultipleChoice(correctChoices, choices);
 
         inMemoryQuestionRepository.save(new Question("Question 1", multipleChoice));
         List<Question> questions = inMemoryQuestionRepository.findAll();

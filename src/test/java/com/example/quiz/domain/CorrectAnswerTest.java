@@ -1,13 +1,14 @@
 package com.example.quiz.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 
-public class SingleChoiceTest {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+public class CorrectAnswerTest {
 
   @Test
   void knowsOneAnswer() {
