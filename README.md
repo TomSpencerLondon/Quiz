@@ -24,11 +24,15 @@ https://github.com/jitterted/quizdown
 
 #### CRC Diagram
 
-<img width="970" alt="Screenshot 2022-01-22 at 13 13 45" src="https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png">
+|                                                                             CRC Diagram                                                                             |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|<img width="970" alt="Screenshot 2022-01-22 at 13 13 45" src="https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png">|
 
 #### Class Diagram
 
-![Screenshot 2022-01-22 at 22 10 55](https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png)
+|                                                                Class Diagram                                                                |
+|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+| ![Screenshot 2022-01-22 at 22 10 55](https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png) |
 
 #### Sequence Diagrams
 
