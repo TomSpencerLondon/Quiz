@@ -47,6 +47,10 @@ https://github.com/jitterted/quizdown
 |:---------------------------------------------------------------------------------------------------------------------:|
 | ![hex-diagram](https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png) |
 
+|                                           Design for Multiple and Single Choice Questions                                           |
+|:-----------------------------------------------------------------------------------------------------------------------------------:|
+|![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155505633-7122f183-afbc-429c-b343-6bed5601bdf1.png)|
+
 #### Running Tailwind:
 
 Use:

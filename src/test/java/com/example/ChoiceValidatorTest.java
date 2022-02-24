@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ChoiceValidatorTest {
 
     @Test
-    void shouldRejectSingleWithZeroCorrectAnswers() {
+    void shouldRejectSingleChoiceWithZeroCorrectAnswers() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
                 new ChoiceForm("a1", false),

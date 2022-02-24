@@ -15,8 +15,4 @@ public class MultipleChoice {
     public List<Choice> choices() {
         return choices;
     }
-
-    public List<Choice> correctChoices() {
-        return correctChoices;
-    }
 }
