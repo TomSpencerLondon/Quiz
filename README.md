@@ -47,9 +47,12 @@ https://github.com/jitterted/quizdown
 |:---------------------------------------------------------------------------------------------------------------------:|
 | ![hex-diagram](https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png) |
 
-|                                           Design for Multiple and Single Choice Questions                                           |
-|:-----------------------------------------------------------------------------------------------------------------------------------:|
-|![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155521593-4fdeb4d0-3318-4c04-b6e7-10c791a9a99a.png)|
+|                                               Design for Multiple and Single Choice Questions                                                |
+|:--------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                          1. [Current] Value for the radio button is the choice text                                          |
+|    ![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155522088-a98e19fd-049c-4bee-88cb-0355c1a01560.png)     |
+|                               2. [Change in Question structure] respondWith(int) — int is the "Correct Answer"                               |
+| ![index_to_list-design-AskChoiceForm](https://user-images.githubusercontent.com/27693622/155524082-4c35043f-5330-44f4-aa33-0fe56b1f3355.png) |
 
 #### Running Tailwind:
 

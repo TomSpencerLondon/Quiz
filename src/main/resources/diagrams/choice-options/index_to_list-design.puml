@@ -1,5 +1,5 @@
 @startuml
-title AskSingleChoiceForm
+title AskChoiceForm
 actor       TestTaker as taker
 participant singleForm [
     =AskSingleChoiceForm
@@ -33,21 +33,20 @@ participant choice [
     ----
     ====Knows
     ----
-    * number of choice
+    * index
 ]
 
-participant response [
-    =Response
+participant question [
+    =Question
     ----
     ====Knows
-    ----
-    * isCorrect
+    * isCorrectAnswer
+    * choices
     ----
     ====Collaborates
-    ----
-    * choice
-    * question
+    * SingleChoice
 ]
+
 taker -> singleForm
 note left
 single-choice.html
@@ -56,7 +55,7 @@ radio button
 --
 value="1"
 name="selectedChoice"
-id=""selectedChoice1"
+id="1"
 end note
 singleForm -> ctrl : POST /quiz
 note left
@@ -65,7 +64,9 @@ end note
 ctrl -> choice : <<create>>
 ctrl <-- choice
 ctrl -> session : respondWith(Choice selectedChoice)
-session -> response : <<create>>
-session <-- response
-ctrl <-- response
+session -> question : isCorrect(Choice)
+question -> question : matchChoices()
+session <-- question
+session -> session : questions.next()
+ctrl <-- session
 @enduml

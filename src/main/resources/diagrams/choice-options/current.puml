@@ -77,7 +77,7 @@ radio button
 --
 value="Answer 1"
 name="selectedChoice"
-id=""selectedChoice1"
+id="selectedChoice1"
 end note
 singleForm -> ctrl : POST /quiz
 note left
@@ -89,7 +89,7 @@ ctrl -> session : respondWith(Choice selectedChoice)
 session -> response : <<create>>
 response -> question : isCorrect()
 question -> singlechoice : isCorrectAnswer(Choice... choices)
-singlechoice -> singlechoice : isCorrect(Choice choice)
+singlechoice -> singlechoice : isCorrect(Choice choices[0])
 question <-- singlechoice
 response <-- question
 session <-- response
