@@ -33,7 +33,7 @@ participant choice [
     ----
     ====Knows
     ----
-    * display text
+    * number of choice
 ]
 
 participant response [
@@ -48,51 +48,24 @@ participant response [
     * choice
     * question
 ]
-
-participant question [
-    =Question
-    ----
-    ====Knows
-    * isCorrectAnswer
-    * choices
-    ----
-    ====Collaborates
-    * SingleChoice
-]
-
-participant singlechoice [
-    =SingleChoice
-    ----
-    ====Knows
-    * isCorrect
-    ----
-    ====Collaborates
-    * Choice
-]
 taker -> singleForm
 note left
 single-choice.html
 --
 radio button
 --
-value="Answer 1"
+value="1"
 name="selectedChoice"
 id=""selectedChoice1"
 end note
 singleForm -> ctrl : POST /quiz
 note left
-selectedChoice=Answer 1
+selectedChoice=1
 end note
 ctrl -> choice : <<create>>
 ctrl <-- choice
 ctrl -> session : respondWith(Choice selectedChoice)
 session -> response : <<create>>
-response -> question : isCorrect()
-question -> singlechoice : isCorrectAnswer(Choice... choices)
-singlechoice -> singlechoice : isCorrect(Choice choice)
-question <-- singlechoice
-response <-- question
 session <-- response
-session -> session : questions.next()
-ctrl <-- session
+ctrl <-- response
 @enduml

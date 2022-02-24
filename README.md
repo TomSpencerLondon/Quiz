@@ -49,7 +49,7 @@ https://github.com/jitterted/quizdown
 
 |                                           Design for Multiple and Single Choice Questions                                           |
 |:-----------------------------------------------------------------------------------------------------------------------------------:|
-|![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155505633-7122f183-afbc-429c-b343-6bed5601bdf1.png)|
+|![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155521593-4fdeb4d0-3318-4c04-b6e7-10c791a9a99a.png)|
 
 #### Running Tailwind:
 
