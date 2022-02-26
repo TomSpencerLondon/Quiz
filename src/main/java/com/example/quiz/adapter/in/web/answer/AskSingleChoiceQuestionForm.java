@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
@@ -9,6 +9,7 @@ public class AskSingleChoiceQuestionForm {
     private String question;
     private List<String> choices;
     private String selectedChoice;
+    private int index;
 
     public static AskSingleChoiceQuestionForm from(Question question) {
         final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
@@ -30,8 +31,8 @@ public class AskSingleChoiceQuestionForm {
         this.question = question;
     }
 
-    public List<String> getChoices() {
-        return choices;
+    public List<ChoiceSelection> getChoices() {
+        return List.of(new ChoiceSelection(0, choices.get(0)), new ChoiceSelection(1, choices.get(1)));
     }
 
     public void setChoices(List<String> choices) {

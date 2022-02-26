@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.edit;
 
 import com.example.CorrectAnswer;
 

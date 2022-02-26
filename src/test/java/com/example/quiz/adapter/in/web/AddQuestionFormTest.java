@@ -1,5 +1,9 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
+import com.example.quiz.adapter.in.web.edit.ChoiceForm;
+import com.example.quiz.adapter.in.web.edit.TooFewCorrectChoicesSelected;
+import com.example.quiz.adapter.in.web.edit.TooManyCorrectChoicesSelected;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

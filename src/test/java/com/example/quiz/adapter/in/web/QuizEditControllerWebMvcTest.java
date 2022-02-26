@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
+import com.example.quiz.adapter.in.web.edit.QuizEditController;
 import com.example.quiz.application.QuestionService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

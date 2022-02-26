@@ -1,7 +1,7 @@
 package com.example.quiz.application;
 
-import com.example.quiz.adapter.in.web.AddQuestionForm;
-import com.example.quiz.adapter.in.web.ChoiceForm;
+import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
+import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;

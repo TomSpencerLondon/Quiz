@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.edit;
 
 public class NoCorrectChoiceSelected extends RuntimeException {
 

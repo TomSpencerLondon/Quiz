@@ -1,7 +1,7 @@
 package com.example;
 
-import com.example.quiz.adapter.in.web.AddQuestionForm;
-import com.example.quiz.adapter.in.web.ChoiceForm;
+import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
+import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
