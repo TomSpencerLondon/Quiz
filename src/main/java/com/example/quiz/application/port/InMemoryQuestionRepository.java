@@ -1,31 +1,32 @@
 package com.example.quiz.application.port;
 
 import com.example.quiz.domain.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryQuestionRepository implements
-    QuestionRepository {
+        QuestionRepository {
 
-  private List<Question> questions;
-  private AtomicLong counter = new AtomicLong();
+    private List<Question> questions;
+    private AtomicLong counter = new AtomicLong();
 
-  public InMemoryQuestionRepository() {
-    questions = new ArrayList<>();
-  }
-
-  @Override
-  public Question save(Question question) {
-    if (question.getId() == null) {
-      question.setId(counter.getAndIncrement());
+    public InMemoryQuestionRepository() {
+        questions = new ArrayList<>();
     }
-    questions.add(question);
-    return question;
-  }
 
-  @Override
-  public List<Question> findAll() {
-    return questions;
-  }
+    @Override
+    public Question save(Question question) {
+        if (question.getId() == null) {
+            question.setId(counter.getAndIncrement());
+        }
+        questions.add(question);
+        return question;
+    }
+
+    @Override
+    public List<Question> findAll() {
+        return questions;
+    }
 }

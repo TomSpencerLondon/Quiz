@@ -1,4 +1,6 @@
 @startuml
+hide footbox
+
 title AskChoiceForm
 actor       TestTaker as taker
 participant singleForm [
@@ -28,13 +30,6 @@ participant session [
     ----
     * Quiz
 ]
-participant choice [
-    =Choice
-    ----
-    ====Knows
-    ----
-    * index
-]
 
 participant question [
     =Question
@@ -45,6 +40,25 @@ participant question [
     ----
     ====Collaborates
     * SingleChoice
+]
+
+participant singlechoice [
+    =SingleChoice
+    ----
+    ====Knows
+    * isCorrect
+    ----
+    ====Collaborates
+    * Choice
+]
+
+participant choice [
+    =Choice
+    ----
+    ====Knows
+    ----
+    * text
+    * isCorrect
 ]
 
 taker -> singleForm
@@ -61,11 +75,13 @@ singleForm -> ctrl : POST /quiz
 note left
 selectedChoice=1
 end note
-ctrl -> choice : <<create>>
-ctrl <-- choice
-ctrl -> session : respondWith(Choice selectedChoice)
-session -> question : isCorrect(Choice)
-question -> question : matchChoices()
+ctrl -> session : respondWith(int indexOfChoice)
+session -> session : question.choices().get(indexOfChoice)
+session -> question : isCorrect(Choice... choices)
+question -> singlechoice : isCorrect()
+singlechoice -> choice : isCorrect()
+singlechoice <-- choice
+question <-- singlechoice
 session <-- question
 session -> session : questions.next()
 ctrl <-- session
