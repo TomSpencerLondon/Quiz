@@ -23,8 +23,8 @@ public class SingleChoice {
         return choices;
     }
 
-    public boolean isCorrect(Choice choice) {
-        return correct.equals(choice);
+    public boolean isCorrect(Choice... choices) {
+        return correct.equals(choices[0]);
     }
 
     @Override
