@@ -2,7 +2,7 @@ package com.example.quiz.domain;
 
 import java.util.List;
 
-public class MultipleChoice {
+public class MultipleChoice implements ChoiceType {
 
     private List<Choice> correctChoices;
     private List<Choice> choices;
@@ -14,5 +14,10 @@ public class MultipleChoice {
 
     public List<Choice> choices() {
         return choices;
+    }
+
+    @Override
+    public boolean isCorrect(Choice... choices) {
+        throw new UnsupportedOperationException("Implement me!");
     }
 }

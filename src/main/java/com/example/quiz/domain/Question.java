@@ -3,17 +3,17 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class Question {
-    private SingleChoice singleChoice;
+    private ChoiceType choiceType;
     private final String text;
     private MultipleChoice multipleChoice;
     private Long id;
 
     public Question(
             String text,
-            SingleChoice singleChoice
+            ChoiceType choiceType
     ) {
         this.text = text;
-        this.singleChoice = singleChoice;
+        this.choiceType = choiceType;
     }
 
     public Question(String text, MultipleChoice multipleChoice) {
@@ -22,14 +22,14 @@ public class Question {
     }
 
     public List<Choice> choices() {
-        if (singleChoice == null) {
+        if (choiceType == null) {
             return multipleChoice.choices();
         }
-        return singleChoice.choices();
+        return choiceType.choices();
     }
 
     public boolean isCorrectAnswer(Choice... choices) {
-        return singleChoice.isCorrect(choices[0]);
+        return choiceType.isCorrect(choices[0]);
     }
 
     public Long getId() {
@@ -45,7 +45,7 @@ public class Question {
     }
 
     public boolean isSingleChoice() {
-        return singleChoice != null;
+        return choiceType != null;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Question {
         StringBuilder sb = new StringBuilder();
         sb.append(this.text);
 
-        this.singleChoice.choices().forEach((a) -> {
+        this.choiceType.choices().forEach((a) -> {
             sb.append("\n");
             sb.append(a);
         });

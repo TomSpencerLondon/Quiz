@@ -2,7 +2,7 @@ package com.example.quiz.domain;
 
 import java.util.List;
 
-public class SingleChoice {
+public class SingleChoice implements ChoiceType {
     private Choice correct;
     private List<Choice> choices;
 
@@ -19,10 +19,12 @@ public class SingleChoice {
         this.choices = choices;
     }
 
+    @Override
     public List<Choice> choices() {
         return choices;
     }
 
+    @Override
     public boolean isCorrect(Choice... choices) {
         return correct.equals(choices[0]);
     }

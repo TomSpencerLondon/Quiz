@@ -21,7 +21,7 @@ public class QuizSessionTest {
     @Test
     void sessionStartsWithTheFirstQuestion() {
         // Given
-        final SingleChoice choice = new SingleChoice(new Choice("Answer 1"),
+        final ChoiceType choice = new SingleChoice(new Choice("Answer 1"),
                 Collections.singletonList(new Choice("Answer 1")));
 
         final Question question = new Question("Question 1", choice);

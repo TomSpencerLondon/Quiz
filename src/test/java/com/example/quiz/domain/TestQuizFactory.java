@@ -9,7 +9,7 @@ public class TestQuizFactory {
         List<Choice> choices = List.of(
                 new Choice("Answer 1")
         );
-        SingleChoice choice = new SingleChoice(new Choice("Answer 1"), choices);
+        ChoiceType choice = new SingleChoice(new Choice("Answer 1"), choices);
 
         List<Question> questions = new ArrayList<>();
         for (int i = 1; i <= count; i++) {

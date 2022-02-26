@@ -4,10 +4,7 @@ import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
 import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 import com.example.quiz.adapter.in.web.edit.NoCorrectChoiceSelected;
 import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +31,7 @@ public class QuestionService {
                                              .toList();
         if (addQuestionForm.getChoiceType().equals("single")) {
             Choice correctChoice = extractCorrectChoiceFrom(choiceForms);
-            SingleChoice singleChoice = new SingleChoice(correctChoice, extractChoicesFrom(choiceForms));
+            ChoiceType singleChoice = new SingleChoice(correctChoice, extractChoicesFrom(choiceForms));
             Question question = new Question(addQuestionForm.getText(), singleChoice);
             return questionRepository.save(question);
         } else {

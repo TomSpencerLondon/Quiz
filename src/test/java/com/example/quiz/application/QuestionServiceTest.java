@@ -3,10 +3,7 @@ package com.example.quiz.application;
 import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
 import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -37,7 +34,7 @@ class QuestionServiceTest {
                 new Choice("Answer 2"),
                 new Choice("Answer 3"),
                 new Choice("Answer 4"));
-        SingleChoice singleChoiceResult = new SingleChoice(
+        ChoiceType singleChoiceResult = new SingleChoice(
                 correctChoiceResult,
                 otherChoicesResult);
         Question questionResult = new Question("Question 1",
