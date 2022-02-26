@@ -1,6 +1,9 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.domain.Grade;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.QuizSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,8 +51,7 @@ public class QuizController {
 
     @PostMapping("/quiz")
     public String questionResponse(AskSingleChoiceQuestionForm askSingleChoiceQuestionForm) {
-        final Choice selectedChoice = quizSession.question().choices().get(askSingleChoiceQuestionForm.getSelectedChoice());
-        quizSession.respondWith(selectedChoice);
+        quizSession.respondWith(askSingleChoiceQuestionForm.getSelectedChoice());
         if (quizSession.isFinished()) {
             return "redirect:/result";
         }

@@ -55,4 +55,8 @@ public class QuizSession {
         return new Grade(responses, correctResponsesCount(), incorrectResponsesCount());
     }
 
+    public void respondWith(int index) {
+        Choice selectedChoice = question.choices().get(index);
+        respondWith(selectedChoice);
+    }
 }
