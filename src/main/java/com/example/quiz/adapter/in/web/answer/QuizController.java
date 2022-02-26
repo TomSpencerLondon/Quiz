@@ -48,7 +48,7 @@ public class QuizController {
 
     @PostMapping("/quiz")
     public String questionResponse(AskSingleChoiceQuestionForm askSingleChoiceQuestionForm) {
-        final Choice selectedChoice = new Choice(askSingleChoiceQuestionForm.getSelectedChoice());
+        final Choice selectedChoice = quizSession.question().choices().get(askSingleChoiceQuestionForm.getSelectedChoice());
         quizSession.respondWith(selectedChoice);
         if (quizSession.isFinished()) {
             return "redirect:/result";

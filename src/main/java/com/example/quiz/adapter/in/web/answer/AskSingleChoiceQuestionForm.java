@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AskSingleChoiceQuestionForm {
     private String question;
     private List<ChoiceSelection> choices;
-    private String selectedChoice;
+    private int selectedChoice;
 
     public static AskSingleChoiceQuestionForm from(Question question) {
         final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
@@ -40,11 +40,11 @@ public class AskSingleChoiceQuestionForm {
         this.question = question;
     }
 
-    public String getSelectedChoice() {
+    public int getSelectedChoice() {
         return selectedChoice;
     }
 
-    public void setSelectedChoice(String selectedChoice) {
+    public void setSelectedChoice(int selectedChoice) {
         this.selectedChoice = selectedChoice;
     }
 }
