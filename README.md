@@ -51,12 +51,16 @@ https://github.com/jitterted/quizdown
 |:---------------------------------------------------------------------------------------------------------------------:|
 | ![hex-diagram](https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png) |
 
-|                                               Design for Multiple and Single Choice Questions                                                |
-|:--------------------------------------------------------------------------------------------------------------------------------------------:|
-|                                          1. [Current] Value for the radio button is the choice text                                          |
-|    ![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155522088-a98e19fd-049c-4bee-88cb-0355c1a01560.png)     |
-|                               2. [Change in Question structure] respondWith(int) — int is the "Correct Answer"                               |
-| ![index_to_list-design-AskChoiceForm](https://user-images.githubusercontent.com/27693622/155524082-4c35043f-5330-44f4-aa33-0fe56b1f3355.png) |
+|                                                       Design for Multiple and Single Choice Questions                                                       |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                                                 1. [Current] Value for the radio button is the choice text                                                  |
+|            ![current-AskSingleChoiceForm](https://user-images.githubusercontent.com/27693622/155522088-a98e19fd-049c-4bee-88cb-0355c1a01560.png)            |
+|                                                                     2. AskSingleChoice                                                                      |
+|        ![index_to_list-design-AskChoiceForm](https://user-images.githubusercontent.com/27693622/155892934-5cbec524-5e69-4599-aca7-3db57df4d572.png)         |
+|                                                                    3. AskMultipleChoice                                                                     |
+|    ![index_to_list_multiplechoice-AskChoiceForm](https://user-images.githubusercontent.com/27693622/155892935-0ada1222-76bb-4289-9dae-787428d4a425.png)     |
+|                                                                    3. ChoiceFormFactory                                                                     |
+| ![index_to_list_bothSingleAndMultiple-AskChoiceForm](https://user-images.githubusercontent.com/27693622/155892937-92fdda25-9eed-4b99-bdaf-26a8c5aa5e43.png) |
 
 #### Running Tailwind:
 
