@@ -20,7 +20,7 @@ public class Question {
     }
 
     public boolean isCorrectAnswer(Choice... choices) {
-        return choiceType.isCorrect(choices[0]);
+        return choiceType.isCorrect(choices);
     }
 
     public Long getId() {

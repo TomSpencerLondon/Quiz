@@ -28,6 +28,9 @@ public class SingleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
+        if (choices.length > 1) {
+            return false;
+        }
         return correct.equals(choices[0]);
     }
 
