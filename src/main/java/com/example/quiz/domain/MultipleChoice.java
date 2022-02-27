@@ -1,5 +1,6 @@
 package com.example.quiz.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MultipleChoice implements ChoiceType {
@@ -18,6 +19,6 @@ public class MultipleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
-        throw new UnsupportedOperationException("Implement me!");
+        return Arrays.asList(choices).equals(correctChoices);
     }
 }
