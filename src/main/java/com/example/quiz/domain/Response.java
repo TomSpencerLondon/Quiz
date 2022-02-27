@@ -1,11 +1,15 @@
 package com.example.quiz.domain;
 
+import java.util.List;
+
 public class Response {
     private final Choice choice;
     private final Question question;
+    private final List<Choice> choices;
 
-    public Response(Question question, Choice choice) {
-        this.choice = choice;
+    public Response(Question question, Choice... choices) {
+        this.choice = choices[0];
+        this.choices = List.of(choices);
         this.question = question;
     }
 

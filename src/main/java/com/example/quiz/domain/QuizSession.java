@@ -1,6 +1,7 @@
 package com.example.quiz.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,8 +28,15 @@ public class QuizSession {
         return question;
     }
 
-    public void respondWith(Choice choice) {
-        Response response = new Response(question, choice);
+    public void respondWith(int... indices) {
+        Choice[] selectedChoices = Arrays.stream(indices)
+                                         .mapToObj(index -> question.choices().get(index))
+                                         .toArray(Choice[]::new);
+        respondWith(selectedChoices);
+    }
+
+    public void respondWith(Choice... choices) {
+        Response response = new Response(question, choices);
         responses.add(response);
         if (iterator.hasNext()) {
             question = iterator.next();
@@ -53,10 +61,5 @@ public class QuizSession {
 
     public Grade grade() {
         return new Grade(responses, correctResponsesCount(), incorrectResponsesCount());
-    }
-
-    public void respondWith(int index) {
-        Choice selectedChoice = question.choices().get(index);
-        respondWith(selectedChoice);
     }
 }
