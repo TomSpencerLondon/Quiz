@@ -5,7 +5,6 @@ import java.util.List;
 public class Question {
     private ChoiceType choiceType;
     private final String text;
-    private MultipleChoice multipleChoice;
     private Long id;
 
     public Question(
@@ -16,15 +15,7 @@ public class Question {
         this.choiceType = choiceType;
     }
 
-    public Question(String text, MultipleChoice multipleChoice) {
-        this.text = text;
-        this.multipleChoice = multipleChoice;
-    }
-
     public List<Choice> choices() {
-        if (choiceType == null) {
-            return multipleChoice.choices();
-        }
         return choiceType.choices();
     }
 
@@ -45,7 +36,7 @@ public class Question {
     }
 
     public boolean isSingleChoice() {
-        return choiceType != null;
+        return choiceType.type().equals(Type.SINGLE_CHOICE);
     }
 
     @Override

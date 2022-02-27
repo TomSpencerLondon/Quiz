@@ -3,6 +3,7 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class SingleChoice implements ChoiceType {
+    private final Type type;
     private Choice correct;
     private List<Choice> choices;
 
@@ -17,6 +18,7 @@ public class SingleChoice implements ChoiceType {
 
         this.correct = correct;
         this.choices = choices;
+        this.type = Type.SINGLE_CHOICE;
     }
 
     @Override
@@ -27,6 +29,11 @@ public class SingleChoice implements ChoiceType {
     @Override
     public boolean isCorrect(Choice... choices) {
         return correct.equals(choices[0]);
+    }
+
+    @Override
+    public Type type() {
+        return type;
     }
 
     @Override
