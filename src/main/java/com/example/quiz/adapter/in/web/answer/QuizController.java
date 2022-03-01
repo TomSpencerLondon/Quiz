@@ -25,6 +25,11 @@ public class QuizController {
         this.quiz = quiz;
     }
 
+    @Autowired(required = false)
+    public void setQuizSession(QuizSession quizSession) {
+        this.quizSession = quizSession;
+    }
+
     @GetMapping("/")
     public String home() {
         return "start";
