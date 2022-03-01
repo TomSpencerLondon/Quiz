@@ -3,22 +3,20 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class Response {
-    private final Choice choice;
     private final Question question;
     private final List<Choice> choices;
 
     public Response(Question question, Choice... choices) {
-        this.choice = choices[0];
         this.choices = List.of(choices);
         this.question = question;
     }
 
     public boolean isCorrect() {
-        return question.isCorrectAnswer(choice);
+        return question.isCorrectAnswer(choices.toArray(Choice[]::new));
     }
 
-    public Choice getChoice() {
-        return choice;
+    public List<Choice> getChoices() {
+        return choices;
     }
 
     public Question getQuestion() {
@@ -27,25 +25,19 @@ public class Response {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Response response = (Response) o;
 
-        if (!choice.equals(response.choice)) {
-            return false;
-        }
-        return question.equals(response.question);
+        if (!question.equals(response.question)) return false;
+        return choices.equals(response.choices);
     }
 
     @Override
     public int hashCode() {
-        int result = choice.hashCode();
-        result = 31 * result + question.hashCode();
+        int result = question.hashCode();
+        result = 31 * result + choices.hashCode();
         return result;
     }
 }

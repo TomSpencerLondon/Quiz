@@ -1,17 +1,20 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.adapter.in.web.edit.QuestionView;
+import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Response;
+
+import java.util.List;
 
 public class ResponseView {
 
     private QuestionView questionView;
-    private String chosenAnswer;
+    private List<String> chosenAnswers;
     private boolean correctlyAnswered;
 
     public static ResponseView from(Response response) {
         ResponseView responseView = new ResponseView();
-        responseView.chosenAnswer = response.getChoice().text();
+        responseView.chosenAnswers = response.getChoices().stream().map(Choice::text).toList();
         responseView.questionView = QuestionView.of(response.getQuestion());
         responseView.correctlyAnswered = response.isCorrect();
         return responseView;
@@ -21,8 +24,8 @@ public class ResponseView {
         return questionView;
     }
 
-    public String getChosenAnswer() {
-        return chosenAnswer;
+    public List<String> getChosenAnswers() {
+        return chosenAnswers;
     }
 
     public boolean isCorrectlyAnswered() {
