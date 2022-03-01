@@ -5,23 +5,26 @@ import com.example.quiz.domain.Question;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AskSingleChoiceQuestionForm {
+public class AskQuestionForm {
     private String question;
     private List<ChoiceSelection> choices;
-    private int selectedChoice;
+    // make this a list of integers to reuse the class for single and multiple choice
+    private int[] selectedChoices;
 
-    public static AskSingleChoiceQuestionForm from(Question question) {
-        final AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
-        askSingleChoiceQuestionForm.setQuestion(question.text());
+    public static AskQuestionForm from(Question question) {
+        final AskQuestionForm askQuestionForm = new AskQuestionForm();
+        askQuestionForm.setQuestion(question.text());
         AtomicInteger index = new AtomicInteger(0);
         final List<ChoiceSelection> choices = question
                 .choices()
                 .stream()
                 .map(c -> new ChoiceSelection(index.getAndIncrement(), c.text()))
                 .toList();
-        askSingleChoiceQuestionForm.setChoices(choices);
+        askQuestionForm.setChoices(choices);
+        int[] choiceIndexes = choices.stream().map(ChoiceSelection::getIndex).mapToInt(Integer::intValue).toArray();
+        askQuestionForm.setSelectedChoice(choiceIndexes);
 
-        return askSingleChoiceQuestionForm;
+        return askQuestionForm;
     }
 
     public List<ChoiceSelection> getChoices() {
@@ -40,11 +43,11 @@ public class AskSingleChoiceQuestionForm {
         this.question = question;
     }
 
-    public int getSelectedChoice() {
-        return selectedChoice;
+    public int[] getSelectedChoices() {
+        return selectedChoices;
     }
 
-    public void setSelectedChoice(int selectedChoice) {
-        this.selectedChoice = selectedChoice;
+    public void setSelectedChoice(int... selectedChoices) {
+        this.selectedChoices = selectedChoices;
     }
 }

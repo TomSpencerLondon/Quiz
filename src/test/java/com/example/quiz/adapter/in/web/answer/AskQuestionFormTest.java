@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AskSingleChoiceQuestionFormTest {
+class AskQuestionFormTest {
     @Test
     void convertsQuestionToAskSingleChoiceForm() {
         Question singleChoiceQuestion = new Question(
@@ -17,7 +17,7 @@ class AskSingleChoiceQuestionFormTest {
                 new SingleChoice(new Choice("Answer 1"),
                         List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
 
-        AskSingleChoiceQuestionForm form = AskSingleChoiceQuestionForm.from(singleChoiceQuestion);
+        AskQuestionForm form = AskQuestionForm.from(singleChoiceQuestion);
 
         assertThat(form.getQuestion())
                 .isEqualTo("Question 1");

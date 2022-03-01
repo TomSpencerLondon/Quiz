@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.in.web;
 
-import com.example.quiz.adapter.in.web.answer.AskSingleChoiceQuestionForm;
+import com.example.quiz.adapter.in.web.answer.AskQuestionForm;
 import com.example.quiz.adapter.in.web.answer.QuizController;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
@@ -28,7 +28,7 @@ public class QuizControllerTest {
 
         quizController.askQuestion(model);
 
-        final AskSingleChoiceQuestionForm question = (AskSingleChoiceQuestionForm) model.getAttribute("askSingleChoiceQuestionForm");
+        final AskQuestionForm question = (AskQuestionForm) model.getAttribute("askQuestionForm");
 
         assertThat(question.getQuestion())
                 .isEqualTo("Question 1");
@@ -49,9 +49,9 @@ public class QuizControllerTest {
         final Model model = new ConcurrentModel();
         quizController.askQuestion(model);
 
-        AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
-        askSingleChoiceQuestionForm.setSelectedChoice(0);
-        quizController.questionResponse(askSingleChoiceQuestionForm);
+        AskQuestionForm askQuestionForm = new AskQuestionForm();
+        askQuestionForm.setSelectedChoice(0);
+        quizController.questionResponse(askQuestionForm);
 
         assertThat(quizSession.correctResponsesCount())
                 .isEqualTo(1L);
@@ -64,9 +64,9 @@ public class QuizControllerTest {
         final Model model = new ConcurrentModel();
 
         quizController.askQuestion(model);
-        AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
-        askSingleChoiceQuestionForm.setSelectedChoice(0);
-        final String redirectPage = quizController.questionResponse(askSingleChoiceQuestionForm);
+        AskQuestionForm askQuestionForm = new AskQuestionForm();
+        askQuestionForm.setSelectedChoice(0);
+        final String redirectPage = quizController.questionResponse(askQuestionForm);
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result");
@@ -101,9 +101,9 @@ public class QuizControllerTest {
         final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final ConcurrentModel model = new ConcurrentModel();
         quizController.askQuestion(model);
-        AskSingleChoiceQuestionForm askSingleChoiceQuestionForm = new AskSingleChoiceQuestionForm();
-        askSingleChoiceQuestionForm.setSelectedChoice(0);
-        quizController.questionResponse(askSingleChoiceQuestionForm);
+        AskQuestionForm askQuestionForm = new AskQuestionForm();
+        askQuestionForm.setSelectedChoice(0);
+        quizController.questionResponse(askQuestionForm);
         final String redirectPage = quizController.askQuestion(model);
 
         assertThat(redirectPage)
