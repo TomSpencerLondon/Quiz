@@ -22,7 +22,7 @@ public class AskQuestionForm {
                 .toList();
         askQuestionForm.setChoices(choices);
         int[] choiceIndexes = choices.stream().map(ChoiceSelection::getIndex).mapToInt(Integer::intValue).toArray();
-        askQuestionForm.setSelectedChoice(choiceIndexes);
+        askQuestionForm.setSelectedChoices(choiceIndexes);
 
         return askQuestionForm;
     }
@@ -47,7 +47,7 @@ public class AskQuestionForm {
         return selectedChoices;
     }
 
-    public void setSelectedChoice(int... selectedChoices) {
+    public void setSelectedChoices(int... selectedChoices) {
         this.selectedChoices = selectedChoices;
     }
 }

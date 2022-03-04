@@ -50,7 +50,7 @@ public class QuizControllerTest {
         quizController.askQuestion(model);
 
         AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setSelectedChoice(0);
+        askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
 
         assertThat(quizSession.correctResponsesCount())
@@ -65,7 +65,7 @@ public class QuizControllerTest {
 
         quizController.askQuestion(model);
         AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setSelectedChoice(0);
+        askQuestionForm.setSelectedChoices(0);
         final String redirectPage = quizController.questionResponse(askQuestionForm);
 
         assertThat(redirectPage)
@@ -102,7 +102,7 @@ public class QuizControllerTest {
         final ConcurrentModel model = new ConcurrentModel();
         quizController.askQuestion(model);
         AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setSelectedChoice(0);
+        askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
         final String redirectPage = quizController.askQuestion(model);
 
