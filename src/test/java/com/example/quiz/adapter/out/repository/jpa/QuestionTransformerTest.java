@@ -4,7 +4,6 @@ import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoiceQuestionTestFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -91,12 +90,10 @@ class QuestionTransformerTest {
     }
 
     @Test
-    @Disabled
     void multipleChoiceQuestionToQuestionDbo() {
-        final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
+        final List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true),
                 new Choice("Answer 3"), new Choice("Answer 4"));
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
-        MultipleChoice multipleChoice = new MultipleChoice(correctChoices, choices);
+        MultipleChoice multipleChoice = new MultipleChoice(choices);
         Question multipleChoiceQuestion = new Question("Question 1", multipleChoice);
 
         final QuestionDbo questionDbo = new QuestionDbo();
