@@ -4,15 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MultipleChoice implements ChoiceType {
-    private Type type;
-
     private List<Choice> correctChoices;
     private List<Choice> choices;
 
     public MultipleChoice(List<Choice> correctChoices, List<Choice> allChoices) {
         this.correctChoices = correctChoices;
         this.choices = allChoices;
-        this.type = Type.MULTIPLE_CHOICE;
     }
 
     public List<Choice> choices() {
@@ -25,7 +22,7 @@ public class MultipleChoice implements ChoiceType {
     }
 
     @Override
-    public Type type() {
-        return type;
+    public boolean isSingleChoice() {
+        return false;
     }
 }

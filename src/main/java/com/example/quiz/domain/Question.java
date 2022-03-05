@@ -36,7 +36,7 @@ public class Question {
     }
 
     public boolean isSingleChoice() {
-        return choiceType.type().equals(Type.SINGLE_CHOICE);
+        return choiceType.isSingleChoice();
     }
 
     @Override
