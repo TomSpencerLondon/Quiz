@@ -24,7 +24,8 @@ public class QuestionTransformer {
                 .getChoices()
                 .stream()
                 .map((ChoiceDbo answerDbo) -> new Choice(
-                        answerDbo.getChoiceText()
+                        answerDbo.getChoiceText(),
+                        answerDbo.isCorrect()
                 ))
                 .collect(Collectors.toList());
 
@@ -34,7 +35,8 @@ public class QuestionTransformer {
                 .filter((ChoiceDbo::isCorrect))
                 .findFirst()
                 .map((ChoiceDbo answerDbo) -> new Choice(
-                        answerDbo.getChoiceText()
+                        answerDbo.getChoiceText(),
+                        answerDbo.isCorrect()
                 )).orElseGet(() -> {
                     LOGGER.error("No correct answer for QuestionDbo with id: {}", questionDbo.getId());
                     return choices.get(0);

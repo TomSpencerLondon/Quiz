@@ -22,8 +22,7 @@ class QuestionTransformerTest {
                 "Answer 1",
                 "Answer 2",
                 "Answer 3",
-                "Answer 4",
-                "Answer 1"
+                "Answer 4"
         );
         expected.setId(1L);
 
@@ -60,8 +59,7 @@ class QuestionTransformerTest {
                 "Answer 1",
                 "Answer 2",
                 "Answer 3",
-                "Answer 4",
-                "Answer 1"
+                "Answer 4"
         );
 
         final QuestionDbo questionDbo = new QuestionDbo();

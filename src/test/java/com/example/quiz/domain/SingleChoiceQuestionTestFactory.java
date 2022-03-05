@@ -25,16 +25,15 @@ public class SingleChoiceQuestionTestFactory {
             String choice1,
             String choice2,
             String choice3,
-            String choice4,
-            String answer) {
+            String choice4) {
         return new Question(
                 questionText,
                 new SingleChoice(
-                        new Choice(answer),
+                        new Choice(choice1, true),
                         List.of(
-                                new Choice(choice1),
-                                new Choice(choice2),
-                                new Choice(choice3),
-                                new Choice(choice4))));
+                                new Choice(choice1, true),
+                                new Choice(choice2, false),
+                                new Choice(choice3, false),
+                                new Choice(choice4, false))));
     }
 }
