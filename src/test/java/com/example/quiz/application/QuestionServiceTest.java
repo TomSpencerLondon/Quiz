@@ -67,15 +67,12 @@ class QuestionServiceTest {
         // Act
         questionService.add(multipleChoiceQuestionForm);
         List<Question> questions = inMemoryQuestionRepository.findAll();
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
-        List<Choice> otherChoicesResult = List.of(
-                new Choice("Answer 1"),
-                new Choice("Answer 2"),
-                new Choice("Answer 3"),
-                new Choice("Answer 4"));
-        MultipleChoice multipleChoice = new MultipleChoice(
-                correctChoices,
-                otherChoicesResult);
+        List<Choice> choices = List.of(
+                new Choice("Answer 1", true),
+                new Choice("Answer 2", true),
+                new Choice("Answer 3", false),
+                new Choice("Answer 4", false));
+        MultipleChoice multipleChoice = new MultipleChoice(choices);
         Question expectedQuestion = new Question("Question 1",
                 multipleChoice);
         expectedQuestion.setId(0L);
@@ -83,8 +80,7 @@ class QuestionServiceTest {
         // Assert
         assertThat(questions.get(0).isSingleChoice())
                 .isFalse();
-
-        assertThat(questions.get(0).isCorrectAnswer(correctChoices.toArray(Choice[]::new)))
+        assertThat(questions.get(0).isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true)))
                 .isTrue();
         assertThat(questions)
                 .usingRecursiveFieldByFieldElementComparator()

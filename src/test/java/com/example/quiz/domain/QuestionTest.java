@@ -30,12 +30,12 @@ class QuestionTest {
 
     @Test
     void multipleChoiceQuestionWithAllCorrectAnswersReturnsTrue() {
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
+        List<Choice> correctChoices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true));
 
         final Question question = new Question("Question 1",
-                new MultipleChoice(correctChoices, List.of(new Choice("Answer 1"), new Choice("Answer 2"), new Choice("Answer 3"))));
+                new MultipleChoice(correctChoices, List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", false))));
 
-        boolean correctAnswer = question.isCorrectAnswer(new Choice("Answer 1"), new Choice("Answer 2"));
+        boolean correctAnswer = question.isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true));
 
         assertThat(correctAnswer)
                 .isTrue();

@@ -28,20 +28,19 @@ public class Choice {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Choice choice = (Choice) o;
 
+        if (isCorrect != choice.isCorrect) return false;
         return text.equals(choice.text);
     }
 
     @Override
     public int hashCode() {
-        return text.hashCode();
+        int result = text.hashCode();
+        result = 31 * result + (isCorrect ? 1 : 0);
+        return result;
     }
 }

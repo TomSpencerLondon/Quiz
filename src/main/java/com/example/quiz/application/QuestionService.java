@@ -35,8 +35,8 @@ public class QuestionService {
             Question question = new Question(addQuestionForm.getText(), singleChoice);
             return questionRepository.save(question);
         } else {
-            List<Choice> correctChoices = extractCorrectChoicesFrom(choiceForms);
-            MultipleChoice multipleChoice = new MultipleChoice(correctChoices, extractChoicesFrom(choiceForms));
+            List<Choice> choices = extractChoicesFrom(choiceForms);
+            MultipleChoice multipleChoice = new MultipleChoice(choices);
             Question question = new Question(addQuestionForm.getText(), multipleChoice);
             return questionRepository.save(question);
         }
@@ -44,13 +44,13 @@ public class QuestionService {
 
 
     private static List<Choice> extractChoicesFrom(List<ChoiceForm> choices) {
-        return choices.stream().map(ChoiceForm::getChoice).map(Choice::new).toList();
+        return choices.stream().map(c -> new Choice(c.getChoice(), c.isCorrectAnswer())).toList();
     }
 
     private static Choice extractCorrectChoiceFrom(List<ChoiceForm> choices) {
         return choices.stream()
                       .filter(ChoiceForm::isCorrectAnswer)
-                      .map(c -> new Choice(c.getChoice()))
+                      .map(c -> new Choice(c.getChoice(), true))
                       .findFirst()
                       .orElseThrow(() -> new NoCorrectChoiceSelected(choices.toArray(new ChoiceForm[0])));
     }
@@ -58,7 +58,7 @@ public class QuestionService {
     private static List<Choice> extractCorrectChoicesFrom(List<ChoiceForm> choices) {
         return choices.stream()
                       .filter(ChoiceForm::isCorrectAnswer)
-                      .map(c -> new Choice(c.getChoice()))
+                      .map(c -> new Choice(c.getChoice(), true))
                       .toList();
     }
 }

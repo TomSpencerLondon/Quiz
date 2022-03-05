@@ -21,11 +21,11 @@ class MultipleChoiceTest {
 
     @Test
     void isCorrectReturnsTrueIfCalledWithAllCorrectChoices() {
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
+        List<Choice> correctChoices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true));
 
         MultipleChoice multipleChoice = new MultipleChoice(correctChoices, List.of(new Choice("Answer 1")));
 
-        boolean result = multipleChoice.isCorrect(new Choice("Answer 1"), new Choice("Answer 2"));
+        boolean result = multipleChoice.isCorrect(new Choice("Answer 1", true), new Choice("Answer 2", true));
 
         assertThat(result)
                 .isTrue();
