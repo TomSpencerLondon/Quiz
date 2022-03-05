@@ -2,13 +2,23 @@ package com.example.quiz.domain;
 
 public class Choice {
     private String text;
+    private boolean isCorrect;
 
     public Choice(String text) {
         this.text = text;
     }
 
+    public Choice(String text, boolean isCorrect) {
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
     public String text() {
         return this.text;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
     }
 
     @Override
