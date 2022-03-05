@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
 <body>
+<div class="flex justify-center">
+    <form th:object="${askQuestionForm}"
+          th:action="@{/quiz}"
+          method="post">
+        <div>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <div class="sm:col-span-6">
+                    <label class="block text-2xl font-medium text-gray-700">
+                        <span th:text="${askQuestionForm.question}">Question 1</span>
+                    </label>
+                    <div th:each="choice : *{choices}">
+                        <label th:for="${'choice-'+choice}"
+                               class="inline-flex items-center">
+                            <input type="checkbox"
+                                   th:field="*{selectedChoices}"
+                                   th:value="${choice.index}"
+                                   class="form-checkbox"
+                                   name="checkbox"
+                            >
+                            <span th:text="${choice.text}" class="ml-2"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <button type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Save
+        </button>
+    </form>
+</div>
 </body>
 </html>

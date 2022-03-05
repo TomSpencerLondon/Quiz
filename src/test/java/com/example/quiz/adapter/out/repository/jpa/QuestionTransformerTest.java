@@ -1,10 +1,12 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.MultipleChoice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +15,7 @@ class QuestionTransformerTest {
     final QuestionTransformer questionTransformer = new QuestionTransformer();
 
     @Test
-    void questionDboToQuestion() {
+    void questionDboToSingleChoiceQuestion() {
         // Given
         final Question expected = SingleChoiceQuestionTestFactory.create(
                 "Question 1",
@@ -25,18 +27,33 @@ class QuestionTransformerTest {
         );
         expected.setId(1L);
 
-        final QuestionDbo questionDbo = createQuestionDbo(expected);
-
+        final QuestionDbo questionDbo = new QuestionDbo();
+        questionDbo.setText("Question 1");
+        ChoiceDbo choiceDbo1 = new ChoiceDbo();
+        choiceDbo1.setChoiceText("Answer 1");
+        choiceDbo1.setCorrect(true);
+        ChoiceDbo choiceDbo2 = new ChoiceDbo();
+        choiceDbo2.setChoiceText("Answer 2");
+        choiceDbo2.setCorrect(false);
+        ChoiceDbo choiceDbo3 = new ChoiceDbo();
+        choiceDbo3.setChoiceText("Answer 3");
+        choiceDbo3.setCorrect(false);
+        ChoiceDbo choiceDbo4 = new ChoiceDbo();
+        choiceDbo4.setChoiceText("Answer 4");
+        choiceDbo4.setCorrect(false);
+        questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
+        questionDbo.setId(1L);
         // When
         final Question question = questionTransformer.toQuestion(questionDbo);
 
         // Then
         assertThat(question)
+                .usingRecursiveComparison()
                 .isEqualTo(expected);
     }
 
     @Test
-    void questionToQuestionDbo() {
+    void singleChoiceQuestionToQuestionDbo() {
         // Given
         final Question question = SingleChoiceQuestionTestFactory.create(
                 "Question 1",
@@ -47,28 +64,61 @@ class QuestionTransformerTest {
                 "Answer 1"
         );
 
-        final QuestionDbo questionDbo = createQuestionDbo(question);
+        final QuestionDbo questionDbo = new QuestionDbo();
+        questionDbo.setText("Question 1");
+        ChoiceDbo choiceDbo1 = new ChoiceDbo();
+        choiceDbo1.setChoiceText("Answer 1");
+        choiceDbo1.setCorrect(true);
+        ChoiceDbo choiceDbo2 = new ChoiceDbo();
+        choiceDbo2.setChoiceText("Answer 2");
+        choiceDbo2.setCorrect(false);
+        ChoiceDbo choiceDbo3 = new ChoiceDbo();
+        choiceDbo3.setChoiceText("Answer 3");
+        choiceDbo3.setCorrect(false);
+        ChoiceDbo choiceDbo4 = new ChoiceDbo();
+        choiceDbo4.setChoiceText("Answer 4");
+        choiceDbo4.setCorrect(false);
+        questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
 
         // When
         final QuestionDbo result = questionTransformer.toQuestionDbo(question);
 
         assertThat(result)
+                .usingRecursiveComparison()
                 .isEqualTo(questionDbo);
 
     }
 
-    private QuestionDbo createQuestionDbo(Question question) {
-        final QuestionDbo questionDbo = new QuestionDbo();
-        final Optional<Long> id = Optional.ofNullable(question.getId());
-        id.ifPresent(questionDbo::setId);
-        questionDbo.setText("Question 1");
-        question.choices().forEach((a) -> {
-            final ChoiceDbo answerDbo = new ChoiceDbo();
-            answerDbo.setChoiceText(a.text());
-            answerDbo.setCorrect(question.isCorrectAnswer(a));
-            questionDbo.getChoices().add(answerDbo);
-        });
+    @Test
+    void multipleChoiceQuestionToQuestionDbo() {
+        final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
+                new Choice("Answer 3"), new Choice("Answer 4"));
+        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
+        MultipleChoice multipleChoice = new MultipleChoice(correctChoices, choices);
+        Question multipleChoiceQuestion = new Question("Question 1", multipleChoice);
 
-        return questionDbo;
+        final QuestionDbo questionDbo = new QuestionDbo();
+        questionDbo.setText("Question 1");
+        ChoiceDbo choiceDbo1 = new ChoiceDbo();
+        choiceDbo1.setChoiceText("Answer 1");
+        choiceDbo1.setCorrect(true);
+        ChoiceDbo choiceDbo2 = new ChoiceDbo();
+        choiceDbo2.setChoiceText("Answer 2");
+        choiceDbo2.setCorrect(true);
+        ChoiceDbo choiceDbo3 = new ChoiceDbo();
+        choiceDbo3.setChoiceText("Answer 3");
+        choiceDbo3.setCorrect(false);
+        ChoiceDbo choiceDbo4 = new ChoiceDbo();
+        choiceDbo4.setChoiceText("Answer 4");
+        choiceDbo4.setCorrect(false);
+        questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
+
+
+        // When
+        final QuestionDbo result = questionTransformer.toQuestionDbo(multipleChoiceQuestion);
+
+        assertThat(result)
+                .usingRecursiveComparison()
+                .isEqualTo(questionDbo);
     }
 }

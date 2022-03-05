@@ -21,6 +21,10 @@ public class QuestionDbo {
         return choices;
     }
 
+    public void setChoices(List<ChoiceDbo> choices) {
+        this.choices = choices;
+    }
+
     public Long getId() {
         return id;
     }

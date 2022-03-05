@@ -52,12 +52,17 @@ class QuestionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         QuestionService questionService = new QuestionService(inMemoryQuestionRepository);
         String questionText = "Question 1";
-        ChoiceForm correctChoiceForm = new ChoiceForm("Answer 1", true);
-        ChoiceForm choiceForm1 = new ChoiceForm("Answer 2", true);
-        ChoiceForm choiceForm2 = new ChoiceForm("Answer 3", false);
-        ChoiceForm choiceForm3 = new ChoiceForm("Answer 4", false);
+        ChoiceForm correct1 = new ChoiceForm("Answer 1", true);
+        ChoiceForm correct2 = new ChoiceForm("Answer 2", true);
+        ChoiceForm choice3 = new ChoiceForm("Answer 3", false);
+        ChoiceForm choice4 = new ChoiceForm("Answer 4", false);
 
-        AddQuestionForm multipleChoiceQuestionForm = new AddQuestionForm(questionText, correctChoiceForm, choiceForm1, choiceForm2, choiceForm3, "multiple");
+        AddQuestionForm multipleChoiceQuestionForm = new AddQuestionForm(questionText,
+                correct1,
+                correct2,
+                choice3,
+                choice4,
+                "multiple");
 
         // Act
         questionService.add(multipleChoiceQuestionForm);
@@ -71,12 +76,18 @@ class QuestionServiceTest {
         MultipleChoice multipleChoice = new MultipleChoice(
                 correctChoices,
                 otherChoicesResult);
-        Question questionResult = new Question("Question 1",
+        Question expectedQuestion = new Question("Question 1",
                 multipleChoice);
-        questionResult.setId(0L);
+        expectedQuestion.setId(0L);
 
         // Assert
         assertThat(questions.get(0).isSingleChoice())
                 .isFalse();
+
+        assertThat(questions.get(0).isCorrectAnswer(correctChoices.toArray(Choice[]::new)))
+                .isTrue();
+        assertThat(questions)
+                .usingRecursiveFieldByFieldElementComparator()
+                .containsExactly(expectedQuestion);
     }
 }

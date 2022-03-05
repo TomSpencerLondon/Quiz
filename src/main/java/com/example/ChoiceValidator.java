@@ -22,13 +22,13 @@ public class ChoiceValidator implements ConstraintValidator<CorrectAnswer, AddQu
                            .filter(ChoiceForm::isCorrectAnswer)
                            .map(ChoiceForm::getChoice)
                            .count();
-        if (tooManyForSingleChoice(addQuestionForm, count) || toFewForMultipleChoice(addQuestionForm, count)) {
+        if (tooManyForSingleChoice(addQuestionForm, count) || tooFewForMultipleChoice(addQuestionForm, count)) {
             return false;
         }
         return true;
     }
 
-    private boolean toFewForMultipleChoice(AddQuestionForm addQuestionForm, long count) {
+    private boolean tooFewForMultipleChoice(AddQuestionForm addQuestionForm, long count) {
         return (count < 2L) && addQuestionForm.getChoiceType().equals("multiple");
     }
 
