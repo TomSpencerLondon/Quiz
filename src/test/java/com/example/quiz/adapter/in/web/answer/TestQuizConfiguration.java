@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;

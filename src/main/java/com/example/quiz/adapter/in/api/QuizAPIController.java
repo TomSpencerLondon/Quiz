@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.api;
 
 import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
 import com.example.quiz.adapter.in.web.edit.QuestionView;

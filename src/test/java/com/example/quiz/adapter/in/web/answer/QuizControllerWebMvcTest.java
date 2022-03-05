@@ -1,6 +1,5 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.adapter.in.web.answer.QuizController;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

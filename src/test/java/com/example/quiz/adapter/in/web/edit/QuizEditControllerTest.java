@@ -1,8 +1,5 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
-import com.example.quiz.adapter.in.web.edit.ChoiceForm;
-import com.example.quiz.adapter.in.web.edit.QuizEditController;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;

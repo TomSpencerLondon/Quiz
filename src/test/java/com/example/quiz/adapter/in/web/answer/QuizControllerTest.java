@@ -1,7 +1,5 @@
-package com.example.quiz.adapter.in.web;
+package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.adapter.in.web.answer.AskQuestionForm;
-import com.example.quiz.adapter.in.web.answer.QuizController;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
@@ -44,7 +42,7 @@ public class QuizControllerTest {
         List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
         QuizSession quizSession = quiz.start();
-        QuizController quizController = new QuizController(quiz);
+        QuizController quizController = new QuizController(quizSession);
         final Model model = new ConcurrentModel();
         quizController.askQuestion(model);
 
