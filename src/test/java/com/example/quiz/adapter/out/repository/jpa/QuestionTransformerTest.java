@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.TestQuestionFactory;
+import com.example.quiz.domain.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ class QuestionTransformerTest {
     @Test
     void questionDboToQuestion() {
         // Given
-        final Question expected = TestQuestionFactory.create(
+        final Question expected = SingleChoiceQuestionTestFactory.create(
                 "Question 1",
                 "Answer 1",
                 "Answer 2",
@@ -38,7 +38,7 @@ class QuestionTransformerTest {
     @Test
     void questionToQuestionDbo() {
         // Given
-        final Question question = TestQuestionFactory.create(
+        final Question question = SingleChoiceQuestionTestFactory.create(
                 "Question 1",
                 "Answer 1",
                 "Answer 2",

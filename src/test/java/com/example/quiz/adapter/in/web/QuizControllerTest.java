@@ -5,6 +5,7 @@ import com.example.quiz.adapter.in.web.answer.QuizController;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -127,25 +128,25 @@ public class QuizControllerTest {
 
     @Test
     void multipleChoiceQuestionReturnsMultipleChoicePage() {
-        final InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
-                new Choice("Answer 3"), new Choice("Answer 4"));
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
-
-        MultipleChoice multipleChoice = new MultipleChoice(correctChoices, choices);
-
-        inMemoryQuestionRepository.save(new Question("Question 1", multipleChoice));
-        List<Question> questions = inMemoryQuestionRepository.findAll();
-        final Quiz quiz = new Quiz(questions);
-
-        final QuizController quizController = new QuizController(quiz);
-        quizController.start();
+        final QuizController quizController = createAndStartMultipleChoiceQuizController();
         final ConcurrentModel model = new ConcurrentModel();
 
         final String redirect = quizController.askQuestion(model);
 
         assertThat(redirect)
                 .isEqualTo("multiple-choice");
+        assertThat(model.containsAttribute("askQuestionForm"))
+                .isTrue();
+    }
+
+    @NotNull
+    private QuizController createAndStartMultipleChoiceQuizController() {
+        Question multipleChoiceQuestion = MultipleChoiceQuestionTestFactory.multipleChoiceQuestion();
+        List<Question> questions = List.of(multipleChoiceQuestion);
+        final Quiz quiz = new Quiz(questions);
+        final QuizController quizController = new QuizController(quiz);
+        quizController.start();
+        return quizController;
     }
 
     private QuizController createAndStartQuizControllerWithOneSingleChoiceQuestion() {

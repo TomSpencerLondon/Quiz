@@ -106,22 +106,4 @@ class QuizControllerWebMvcTest {
                                 new Choice("Answer 4")
                         )));
     }
-
-    @Test
-    void shouldReturnMultipleChoiceViewForMultipleChoiceQuestion() throws Exception {
-        when(mockQuizSession.question())
-                .thenReturn(new Question("Question 1",
-                        new MultipleChoice(List.of(new Choice("Answer 1"), new Choice("Answer 2")),
-                                List.of(
-                                        new Choice("Answer 1"),
-                                        new Choice("Answer 2"),
-                                        new Choice("Answer 3"),
-                                        new Choice("Answer 2")
-                                ))));
-
-        mockMvc.perform(get("/quiz"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("multiple-choice"))
-               .andExpect(model().attributeExists("askQuestionForm"));
-    }
 }
