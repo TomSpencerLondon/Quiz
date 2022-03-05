@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.in.web;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Quiz;
@@ -21,9 +20,7 @@ class TestQuizConfiguration {
                 "Question 1",
                 new SingleChoice(new Choice("Answer 1"),
                         List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
-        final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-        questionRepository.save(question);
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = List.of(question);
         return new Quiz(questions);
     }
 }

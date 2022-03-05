@@ -16,18 +16,14 @@ public class QuizController {
     private QuizSession quizSession;
     private Quiz quiz;
 
-    public QuizController(QuizSession quizSession) {
+    // for testing only
+    QuizController(QuizSession quizSession) {
         this.quizSession = quizSession;
     }
 
     @Autowired
     public QuizController(Quiz quiz) {
         this.quiz = quiz;
-    }
-
-    @Autowired(required = false)
-    public void setQuizSession(QuizSession quizSession) {
-        this.quizSession = quizSession;
     }
 
     @GetMapping("/")

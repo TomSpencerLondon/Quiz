@@ -37,16 +37,14 @@ public class QuizControllerTest {
 
     @Test
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
-        QuestionRepository questionRepository = new InMemoryQuestionRepository();
         Question question = new Question(
                 "Question 1",
                 new SingleChoice(new Choice("Correct Answer"),
                         List.of(new Choice("Correct Answer"), new Choice("Wrong Answer"))));
-        questionRepository.save(question);
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
-        QuizSession quizSession = new QuizSession(quiz);
-        QuizController quizController = new QuizController(quizSession);
+        QuizSession quizSession = quiz.start();
+        QuizController quizController = new QuizController(quiz);
         final Model model = new ConcurrentModel();
         quizController.askQuestion(model);
 
@@ -99,13 +97,13 @@ public class QuizControllerTest {
 
     @Test
     void askingQuestionOnAFinishedQuizReturnsResult() {
-        final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
-        final ConcurrentModel model = new ConcurrentModel();
+        QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
+        ConcurrentModel model = new ConcurrentModel();
         quizController.askQuestion(model);
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
-        final String redirectPage = quizController.askQuestion(model);
+        String redirectPage = quizController.askQuestion(model);
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result");
@@ -114,24 +112,18 @@ public class QuizControllerTest {
 
     @Test
     void afterStartCreateSessionAndRedirectToQuiz() {
-        // Given
-        final QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
-
-        // When
-        final String redirect = quizController.start();
-
-
-        // Then
+        QuizController quizController = createAndStartQuizControllerWithOneSingleChoiceQuestion();
+        String redirect = quizController.start();
         assertThat(redirect)
                 .isEqualTo("redirect:/quiz");
     }
 
     @Test
     void multipleChoiceQuestionReturnsMultipleChoicePage() {
-        final QuizController quizController = createAndStartMultipleChoiceQuizController();
-        final ConcurrentModel model = new ConcurrentModel();
+        QuizController quizController = createAndStartMultipleChoiceQuizController();
+        ConcurrentModel model = new ConcurrentModel();
 
-        final String redirect = quizController.askQuestion(model);
+        String redirect = quizController.askQuestion(model);
 
         assertThat(redirect)
                 .isEqualTo("multiple-choice");
