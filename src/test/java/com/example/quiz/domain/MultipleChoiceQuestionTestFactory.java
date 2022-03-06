@@ -7,11 +7,9 @@ import java.util.List;
 public class MultipleChoiceQuestionTestFactory {
     @NotNull
     public static Question multipleChoiceQuestion() {
-        final List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"),
-                new Choice("Answer 3"), new Choice("Answer 4"));
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
-        MultipleChoice multipleChoice = new MultipleChoice(correctChoices, choices);
-        Question multipleChoiceQuestion = new Question("Question 1", multipleChoice);
-        return multipleChoiceQuestion;
+        final List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true),
+                new Choice("Answer 3", false), new Choice("Answer 4", false));
+        MultipleChoice multipleChoice = new MultipleChoice(choices);
+        return new Question("Question 1", multipleChoice);
     }
 }

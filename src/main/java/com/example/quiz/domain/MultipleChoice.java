@@ -4,13 +4,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class MultipleChoice implements ChoiceType {
-    private List<Choice> correctChoices;
-    private List<Choice> choices;
-
-    public MultipleChoice(List<Choice> correctChoices, List<Choice> allChoices) {
-        this.correctChoices = correctChoices;
-        this.choices = allChoices;
-    }
+    private final List<Choice> choices;
 
     public MultipleChoice(List<Choice> choices) {
         this.choices = choices;
