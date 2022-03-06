@@ -1,8 +1,6 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,12 @@ public class QuestionTransformer {
                         answerDbo.isCorrect()
                 )).toList();
 
+        ChoiceType choiceType = choices.stream().filter(Choice::isCorrect).count() < 2 ?
+                new SingleChoice(choices) : new MultipleChoice(choices);
+
         final Question question = new com.example.quiz.domain.Question(
                 questionDbo.getText(),
-                new SingleChoice(choices));
+                choiceType);
 
         question.setId(questionDbo.getId());
 

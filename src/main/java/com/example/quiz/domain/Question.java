@@ -54,20 +54,21 @@ public class Question {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Question question = (Question) o;
 
-        return id != null ? id.equals(question.id) : question.id == null;
+        if (!choiceType.equals(question.choiceType)) return false;
+        if (!text.equals(question.text)) return false;
+        return id.equals(question.id);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = choiceType.hashCode();
+        result = 31 * result + text.hashCode();
+        result = 31 * result + id.hashCode();
+        return result;
     }
 }
