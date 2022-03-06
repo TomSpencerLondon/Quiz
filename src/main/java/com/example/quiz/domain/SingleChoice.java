@@ -1,6 +1,7 @@
 package com.example.quiz.domain;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class SingleChoice implements ChoiceType {
     private Choice correct;
@@ -19,6 +20,10 @@ public class SingleChoice implements ChoiceType {
         this.choices = choices;
     }
 
+    public SingleChoice(List<Choice> choices) {
+        this.choices = choices;
+    }
+
     @Override
     public List<Choice> choices() {
         return choices;
@@ -26,10 +31,7 @@ public class SingleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
-        if (choices.length > 1) {
-            return false;
-        }
-        return correct.equals(choices[0]);
+        return Stream.of(choices).allMatch(Choice::isCorrect);
     }
 
     @Override

@@ -95,11 +95,11 @@ public class QuizSessionTest {
 
         // when
         Question q1 = session.question();
-        session.respondWith(new Choice("Answer 1"));
+        session.respondWith(new Choice("Answer 1", true));
         Question q2 = session.question();
-        session.respondWith(new Choice("Answer 2"));
+        session.respondWith(new Choice("Answer 2", false));
         Question q3 = session.question();
-        session.respondWith(new Choice("Answer 2"));
+        session.respondWith(new Choice("Answer 2", false));
 
         assertThat(session.correctResponsesCount())
                 .isEqualTo(1L);
@@ -112,11 +112,11 @@ public class QuizSessionTest {
 
         // when
         Question q1 = session.question();
-        session.respondWith(new Choice("Answer 1"));
+        session.respondWith(new Choice("Answer 1", true));
         Question q2 = session.question();
-        session.respondWith(new Choice("Answer 2"));
+        session.respondWith(new Choice("Answer 2", false));
         Question q3 = session.question();
-        session.respondWith(new Choice("Answer 2"));
+        session.respondWith(new Choice("Answer 2", false));
 
         assertThat(session.incorrectResponsesCount())
                 .isEqualTo(2L);
@@ -129,13 +129,13 @@ public class QuizSessionTest {
 
         // when
         Question q1 = session.question();
-        Choice choice1 = new Choice("Answer 1");
+        Choice choice1 = new Choice("Answer 1", true);
         session.respondWith(choice1);
         Question q2 = session.question();
-        Choice choice2 = new Choice("Answer 2");
+        Choice choice2 = new Choice("Answer 2", false);
         session.respondWith(choice2);
         Question q3 = session.question();
-        Choice choice3 = new Choice("Answer 2");
+        Choice choice3 = new Choice("Answer 2", false);
         session.respondWith(choice3);
 
         List<Response> responses = List.of(

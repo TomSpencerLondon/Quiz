@@ -55,10 +55,4 @@ public class QuestionService {
                       .orElseThrow(() -> new NoCorrectChoiceSelected(choices.toArray(new ChoiceForm[0])));
     }
 
-    private static List<Choice> extractCorrectChoicesFrom(List<ChoiceForm> choices) {
-        return choices.stream()
-                      .filter(ChoiceForm::isCorrectAnswer)
-                      .map(c -> new Choice(c.getChoice(), true))
-                      .toList();
-    }
 }

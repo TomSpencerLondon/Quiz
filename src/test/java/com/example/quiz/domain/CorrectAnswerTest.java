@@ -10,87 +10,87 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CorrectAnswerTest {
 
-  @Test
-  void knowsOneAnswer() {
-    // Given
-    Question question = new Question("Question 1",
-        new SingleChoice(
-            new Choice("Answer 1"),
-            Collections.singletonList(
-                new Choice("Answer 1")
-            )));
+    @Test
+    void knowsOneAnswer() {
+        // Given
+        Question question = new Question("Question 1",
+                new SingleChoice(
+                        new Choice("Answer 1"),
+                        Collections.singletonList(
+                                new Choice("Answer 1")
+                        )));
 
-    // When
-    List<Choice> choices = question.choices();
+        // When
+        List<Choice> choices = question.choices();
 
-    // Then
-    assertThat(choices).containsExactly(new Choice("Answer 1"));
-  }
+        // Then
+        assertThat(choices).containsExactly(new Choice("Answer 1"));
+    }
 
-  @Test
-  void knowsSeveralAnswers() {
-    List<Choice> choices = List.of(new Choice("Answer 1"),
-        new Choice("Answer 2"),
-        new Choice("Answer 3"),
-        new Choice("Answer 4"));
-    // Given
-    Question question = new Question(
-        "Question 1",
-        new SingleChoice(
-            new Choice("Answer 1"),
-            choices)
-    );
-
-    // When
-    List<Choice> result = question.choices();
-
-    // Then
-    assertThat(result)
-        .containsExactly(
-            new Choice("Answer 1"),
-            new Choice("Answer 2"),
-            new Choice("Answer 3"),
-            new Choice("Answer 4")
+    @Test
+    void knowsSeveralAnswers() {
+        List<Choice> choices = List.of(new Choice("Answer 1"),
+                new Choice("Answer 2"),
+                new Choice("Answer 3"),
+                new Choice("Answer 4"));
+        // Given
+        Question question = new Question(
+                "Question 1",
+                new SingleChoice(
+                        new Choice("Answer 1"),
+                        choices)
         );
-  }
 
-  @Test
-  void knowsCorrectAnswer() {
-    // Given
-    final Choice correct = new Choice("Answer 3");
-    Question question = new Question(
-        "Question 1",
-        new SingleChoice(
-            correct,
-            List.of(new Choice("Answer 2"), new Choice("Answer 3"))
-        ));
+        // When
+        List<Choice> result = question.choices();
 
-    // When
-    final boolean correctAnswer = question.isCorrectAnswer(correct);
+        // Then
+        assertThat(result)
+                .containsExactly(
+                        new Choice("Answer 1"),
+                        new Choice("Answer 2"),
+                        new Choice("Answer 3"),
+                        new Choice("Answer 4")
+                );
+    }
 
-    // Then
-    assertThat(correctAnswer)
-        .isTrue();
-  }
+    @Test
+    void knowsCorrectAnswer() {
+        // Given
+        final Choice correct = new Choice("Answer 3", true);
+        Question question = new Question(
+                "Question 1",
+                new SingleChoice(
+                        correct,
+                        List.of(new Choice("Answer 2", false), new Choice("Answer 3", true))
+                ));
 
-  @Test
-  void correctChoiceMustBeOneOfTheChoices() {
-    // Given
-    Choice not_a_choice = new Choice("Not a choice");
-    List<Choice> choices = List.of(
-        new Choice("Answer 1"),
-        new Choice("Answer 2"),
-        new Choice("Answer 3"),
-        new Choice("Answer 4"));
+        // When
+        final boolean correctAnswer = question.isCorrectAnswer(correct);
 
-    // When + Then
-    assertThatThrownBy(() -> {
-      new SingleChoice(not_a_choice, choices);
-    }).isInstanceOf(IllegalArgumentException.class)
-        .hasMessage(String.format(
-            "'%s' is not among %s",
-            not_a_choice.text(),
-            choices
-        ));
-  }
+        // Then
+        assertThat(correctAnswer)
+                .isTrue();
+    }
+
+    @Test
+    void correctChoiceMustBeOneOfTheChoices() {
+        // Given
+        Choice not_a_choice = new Choice("Not a choice");
+        List<Choice> choices = List.of(
+                new Choice("Answer 1"),
+                new Choice("Answer 2"),
+                new Choice("Answer 3"),
+                new Choice("Answer 4"));
+
+        // When + Then
+        assertThatThrownBy(() -> {
+            new SingleChoice(not_a_choice, choices);
+        }).isInstanceOf(IllegalArgumentException.class)
+          .hasMessage(String.format(
+                  "'%s' is not among %s",
+                  not_a_choice.text(),
+                  choices
+          ));
+    }
 }
