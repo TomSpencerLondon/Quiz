@@ -24,13 +24,10 @@ public class QuizTest {
     @Test
     void new_quiz_hasOneQuestion() {
         // Given / when
-        List<Choice> choices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
+        List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", false));
         final Question question = new Question(
                 "Question 1",
-                new SingleChoice(
-                        new Choice("Answer 2"),
-                        choices
-                )
+                new SingleChoice(choices)
         );
         List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);

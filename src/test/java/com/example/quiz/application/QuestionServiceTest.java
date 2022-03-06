@@ -28,15 +28,12 @@ class QuestionServiceTest {
         // Act
         questionService.add(singleChoiceQuestionForm);
         List<Question> questions = inMemoryQuestionRepository.findAll();
-        Choice correctChoiceResult = new Choice("Answer 1");
-        List<Choice> otherChoicesResult = List.of(
-                new Choice("Answer 1"),
-                new Choice("Answer 2"),
-                new Choice("Answer 3"),
-                new Choice("Answer 4"));
-        ChoiceType singleChoiceResult = new SingleChoice(
-                correctChoiceResult,
-                otherChoicesResult);
+        List<Choice> choices = List.of(
+                new Choice("Answer 1", true),
+                new Choice("Answer 2", false),
+                new Choice("Answer 3", false),
+                new Choice("Answer 4", false));
+        ChoiceType singleChoiceResult = new SingleChoice(choices);
         Question questionResult = new Question("Question 1",
                 singleChoiceResult);
         questionResult.setId(0L);

@@ -7,8 +7,7 @@ public class SingleChoiceQuestionTestFactory {
     public static Question createSingleChoiceQuestion() {
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(new Choice("Answer 1"),
-                        List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
+                new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", false))));
         return question;
     }
 
@@ -28,12 +27,10 @@ public class SingleChoiceQuestionTestFactory {
             String choice4) {
         return new Question(
                 questionText,
-                new SingleChoice(
+                new SingleChoice(List.of(
                         new Choice(choice1, true),
-                        List.of(
-                                new Choice(choice1, true),
-                                new Choice(choice2, false),
-                                new Choice(choice3, false),
-                                new Choice(choice4, false))));
+                        new Choice(choice2, false),
+                        new Choice(choice3, false),
+                        new Choice(choice4, false))));
     }
 }

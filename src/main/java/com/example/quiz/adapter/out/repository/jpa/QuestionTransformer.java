@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QuestionTransformer {
@@ -27,28 +26,11 @@ public class QuestionTransformer {
                 .map((ChoiceDbo answerDbo) -> new Choice(
                         answerDbo.getChoiceText(),
                         answerDbo.isCorrect()
-                ))
-                .collect(Collectors.toList());
-
-        final Choice correctChoice = questionDbo
-                .getChoices()
-                .stream()
-                .filter((ChoiceDbo::isCorrect))
-                .findFirst()
-                .map((ChoiceDbo answerDbo) -> new Choice(
-                        answerDbo.getChoiceText(),
-                        answerDbo.isCorrect()
-                )).orElseGet(() -> {
-                    LOGGER.error("No correct answer for QuestionDbo with id: {}", questionDbo.getId());
-                    return choices.get(0);
-                });
+                )).toList();
 
         final Question question = new com.example.quiz.domain.Question(
                 questionDbo.getText(),
-                new SingleChoice(
-                        correctChoice,
-                        choices
-                ));
+                new SingleChoice(choices));
 
         question.setId(questionDbo.getId());
 

@@ -7,9 +7,9 @@ public class TestQuizFactory {
 
     public static Quiz createQuizWithSingleChoiceQuestions(int count) {
         List<Choice> choices = List.of(
-                new Choice("Answer 1")
+                new Choice("Answer 1", true)
         );
-        ChoiceType choice = new SingleChoice(new Choice("Answer 1"), choices);
+        ChoiceType choice = new SingleChoice(choices);
 
         List<Question> questions = new ArrayList<>();
         for (int i = 1; i <= count; i++) {

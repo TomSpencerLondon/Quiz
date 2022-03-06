@@ -20,25 +20,21 @@ public class ConsoleQuiz implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<Choice> choices =
-                List.of(new Choice("Answer 1"),
-                        new Choice("Answer 2"),
-                        new Choice("Answer 3"),
-                        new Choice("Answer 4"));
+                List.of(new Choice("Answer 1", true),
+                        new Choice("Answer 2", false),
+                        new Choice("Answer 3", false),
+                        new Choice("Answer 4", false));
         Question question1 = new Question(
                 "Question 1",
                 new SingleChoice(
-                        new Choice("Answer 2"),
                         choices));
         Question question2 = new Question(
                 "Question 2",
-                new SingleChoice(new Choice("Answer 3"),
-                        choices)
+                new SingleChoice(choices)
         );
         Question question3 = new Question(
                 "Question 3",
-                new SingleChoice(new Choice("Answer 1"),
-                        choices
-                )
+                new SingleChoice(choices)
         );
         final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
         questionRepository.save(question1);

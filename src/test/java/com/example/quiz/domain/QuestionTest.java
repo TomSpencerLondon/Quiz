@@ -11,7 +11,7 @@ class QuestionTest {
     @Test
     void questionWithSingleChoiceIsSingleChoice() {
         final Question question = new Question("Question 1",
-                new SingleChoice(new Choice("Answer 1"), List.of(new Choice("Answer 1"))));
+                new SingleChoice(List.of(new Choice("Answer 1", true))));
 
         assertThat(question.isSingleChoice())
                 .isTrue();
@@ -19,10 +19,9 @@ class QuestionTest {
 
     @Test
     void questionWithMultipleChoiceIsMultipleChoice() {
-        List<Choice> correctChoices = List.of(new Choice("Answer 1"), new Choice("Answer 2"));
 
         final Question question = new Question("Question 1",
-                new MultipleChoice(correctChoices, List.of(new Choice("Answer 1"))));
+                new MultipleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", false))));
 
         assertThat(question.isSingleChoice())
                 .isFalse();
@@ -30,10 +29,8 @@ class QuestionTest {
 
     @Test
     void multipleChoiceQuestionWithAllCorrectAnswersReturnsTrue() {
-        List<Choice> correctChoices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true));
-
         final Question question = new Question("Question 1",
-                new MultipleChoice(correctChoices, List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", false))));
+                new MultipleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", false))));
 
         boolean correctAnswer = question.isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true));
 
@@ -45,7 +42,7 @@ class QuestionTest {
     void singleChoiceWithCorrectAnswerReturnsTrue() {
 
         final Question question = new Question("Question 1",
-                new SingleChoice(new Choice("Answer 1", true), List.of(new Choice("Answer 1", true), new Choice("Answer 2", false), new Choice("Answer 3", false))));
+                new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", false), new Choice("Answer 3", false))));
 
         boolean correctAnswer = question.isCorrectAnswer(new Choice("Answer 1", true));
 
@@ -56,7 +53,7 @@ class QuestionTest {
     void singleChoiceWithTwoAnswersReturnsFalse() {
 
         final Question question = new Question("Question 1",
-                new SingleChoice(new Choice("Answer 1", true), List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", true))));
+                new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", true))));
 
         boolean correctAnswer = question.isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", false));
 

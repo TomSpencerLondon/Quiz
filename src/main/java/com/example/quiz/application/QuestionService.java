@@ -30,8 +30,8 @@ public class QuestionService {
         List<ChoiceForm> choiceForms = Stream.of(addQuestionForm.getChoice1(), addQuestionForm.getChoice2(), addQuestionForm.getChoice3(), addQuestionForm.getChoice4())
                                              .toList();
         if (addQuestionForm.getChoiceType().equals("single")) {
-            Choice correctChoice = extractCorrectChoiceFrom(choiceForms);
-            ChoiceType singleChoice = new SingleChoice(correctChoice, extractChoicesFrom(choiceForms));
+            List<Choice> choices = extractChoicesFrom(choiceForms);
+            ChoiceType singleChoice = new SingleChoice(choices);
             Question question = new Question(addQuestionForm.getText(), singleChoice);
             return questionRepository.save(question);
         } else {

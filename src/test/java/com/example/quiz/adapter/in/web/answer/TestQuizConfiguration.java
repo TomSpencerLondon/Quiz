@@ -18,8 +18,7 @@ class TestQuizConfiguration {
     Quiz createTestQuiz() {
         final Question question = new Question(
                 "Question 1",
-                new SingleChoice(new Choice("Answer 1"),
-                        List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
+                new SingleChoice(List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
         List<Question> questions = List.of(question);
         return new Quiz(questions);
     }

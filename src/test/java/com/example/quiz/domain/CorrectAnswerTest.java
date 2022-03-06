@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CorrectAnswerTest {
 
@@ -15,7 +14,6 @@ public class CorrectAnswerTest {
         // Given
         Question question = new Question("Question 1",
                 new SingleChoice(
-                        new Choice("Answer 1"),
                         Collections.singletonList(
                                 new Choice("Answer 1")
                         )));
@@ -36,9 +34,7 @@ public class CorrectAnswerTest {
         // Given
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(
-                        new Choice("Answer 1"),
-                        choices)
+                new SingleChoice(choices)
         );
 
         // When
@@ -60,10 +56,7 @@ public class CorrectAnswerTest {
         final Choice correct = new Choice("Answer 3", true);
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(
-                        correct,
-                        List.of(new Choice("Answer 2", false), new Choice("Answer 3", true))
-                ));
+                new SingleChoice(List.of(new Choice("Answer 2", false), new Choice("Answer 3", true))));
 
         // When
         final boolean correctAnswer = question.isCorrectAnswer(correct);
@@ -73,24 +66,4 @@ public class CorrectAnswerTest {
                 .isTrue();
     }
 
-    @Test
-    void correctChoiceMustBeOneOfTheChoices() {
-        // Given
-        Choice not_a_choice = new Choice("Not a choice");
-        List<Choice> choices = List.of(
-                new Choice("Answer 1"),
-                new Choice("Answer 2"),
-                new Choice("Answer 3"),
-                new Choice("Answer 4"));
-
-        // When + Then
-        assertThatThrownBy(() -> {
-            new SingleChoice(not_a_choice, choices);
-        }).isInstanceOf(IllegalArgumentException.class)
-          .hasMessage(String.format(
-                  "'%s' is not among %s",
-                  not_a_choice.text(),
-                  choices
-          ));
-    }
 }

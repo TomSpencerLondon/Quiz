@@ -50,28 +50,4 @@ public class QuizEditControllerTest {
         assertThat(questionRepository.findAll())
                 .hasSize(1);
     }
-
-    @Test
-    void addQuestionWithoutACorrectChoiceReturnsForm() {
-        QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        QuestionService questionService = new QuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(questionService);
-
-        final AddQuestionForm addQuestionForm = new AddQuestionForm(
-                "question",
-                new ChoiceForm("a1", false),
-                new ChoiceForm("a2", false),
-                new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
-
-        BindingResult bindingResult = new BeanPropertyBindingResult("objectName", "error");
-
-        final String page = quizController.addQuestion(addQuestionForm, bindingResult);
-        assertThat(page)
-                .isEqualTo("add-question");
-        assertThat(questionRepository.findAll())
-                .isEmpty();
-        assertThat(bindingResult.getGlobalErrors())
-                .hasSize(1);
-    }
 }

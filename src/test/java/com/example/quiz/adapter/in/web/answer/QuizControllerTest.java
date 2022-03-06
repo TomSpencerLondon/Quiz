@@ -37,8 +37,7 @@ public class QuizControllerTest {
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(new Choice("Correct Answer", true),
-                        List.of(new Choice("Correct Answer", true), new Choice("Wrong Answer", false))));
+                new SingleChoice(List.of(new Choice("Correct Answer", true), new Choice("Wrong Answer", false))));
         List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
         QuizSession quizSession = quiz.start();

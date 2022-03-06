@@ -35,7 +35,6 @@ class QuizAPIControllerTest {
         when(questionService.findAll())
                 .thenReturn(List.of(new Question("Q1",
                         new SingleChoice(
-                                new Choice("Q1A1", true),
                                 List.of(new Choice("Q1A1", true),
                                         new Choice("Q1A2", false),
                                         new Choice("Q1A3", false),
