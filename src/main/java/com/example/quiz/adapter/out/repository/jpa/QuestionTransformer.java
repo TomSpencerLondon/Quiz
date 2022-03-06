@@ -61,16 +61,12 @@ public class QuestionTransformer {
         final QuestionDbo questionDbo = new QuestionDbo();
         questionDbo.setText(questionText);
 
-        choices.forEach(choice -> {
+        for (Choice choice : choices) {
             final ChoiceDbo choiceDbo = new ChoiceDbo();
             questionDbo.getChoices().add(choiceDbo);
             choiceDbo.setChoiceText(choice.text());
-            if (question.isSingleChoice()) {
-                choiceDbo.setCorrect(question.isCorrectAnswer(choice));
-            }else {
-                choiceDbo.setCorrect(choice.isCorrect());
-            }
-        });
+            choiceDbo.setCorrect(choice.isCorrect());
+        }
 
         return questionDbo;
     }
