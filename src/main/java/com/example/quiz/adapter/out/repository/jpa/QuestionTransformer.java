@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,18 +56,22 @@ public class QuestionTransformer {
     }
 
     QuestionDbo toQuestionDbo(com.example.quiz.domain.Question question) {
-        final List<Choice> choices = question.choices();
-        final String questionText = question.text();
+        List<Choice> choices = question.choices();
+        String questionText = question.text();
 
-        final QuestionDbo questionDbo = new QuestionDbo();
+        QuestionDbo questionDbo = new QuestionDbo();
         questionDbo.setText(questionText);
 
+        List<ChoiceDbo> choiceDbos = new ArrayList<>();
         for (Choice choice : choices) {
-            final ChoiceDbo choiceDbo = new ChoiceDbo();
+            ChoiceDbo choiceDbo = new ChoiceDbo();
             questionDbo.getChoices().add(choiceDbo);
             choiceDbo.setChoiceText(choice.text());
             choiceDbo.setCorrect(choice.isCorrect());
+            choiceDbos.add(choiceDbo);
         }
+
+        questionDbo.setChoices(choiceDbos);
 
         return questionDbo;
     }
