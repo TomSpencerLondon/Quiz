@@ -5,9 +5,11 @@ import java.util.List;
 
 public class MultipleChoice implements ChoiceType {
     private final List<Choice> choices;
+    private final List<Choice> correctChoices;
 
     public MultipleChoice(List<Choice> choices) {
         this.choices = choices;
+        correctChoices = this.choices.stream().filter(Choice::isCorrect).toList();
     }
 
     public List<Choice> choices() {
@@ -16,13 +18,7 @@ public class MultipleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
-        if (choices.length < 2) {
-            return false;
-        }
-
-        List<Choice> correctChoices = this.choices.stream().filter(Choice::isCorrect).toList();
-        List<Choice> playerChoices = Arrays.asList(choices);
-        return correctChoices.containsAll(playerChoices);
+        return Arrays.asList(choices).containsAll(correctChoices);
     }
 
     @Override
