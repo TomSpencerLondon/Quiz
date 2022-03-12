@@ -1,7 +1,7 @@
 package com.example.quiz.domain;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MultipleChoice implements ChoiceType {
     private final List<Choice> choices;
@@ -16,8 +16,13 @@ public class MultipleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
-        return Stream.of(choices).count()
-                == this.choices.stream().filter(Choice::isCorrect).count();
+        if (choices.length < 2) {
+            return false;
+        }
+
+        List<Choice> correctChoices = this.choices.stream().filter(Choice::isCorrect).toList();
+        List<Choice> playerChoices = Arrays.asList(choices);
+        return correctChoices.containsAll(playerChoices);
     }
 
     @Override
