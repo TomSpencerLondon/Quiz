@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.application.QuizService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
@@ -18,9 +19,8 @@ public class QuizControllerTest {
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
         questionRepository.save(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion());
-        List<Question> questions = questionRepository.findAll();
-        Quiz quiz = new Quiz(questions);
-        QuizController quizController = new QuizController(quiz);
+        QuizService quizService = new QuizService(questionRepository);
+        QuizController quizController = new QuizController(quizService);
         quizController.start();
 
         final Model model = new ConcurrentModel();
@@ -131,16 +131,25 @@ public class QuizControllerTest {
     @NotNull
     private QuizController createAndStartMultipleChoiceQuizController() {
         Question multipleChoiceQuestion = MultipleChoiceQuestionTestFactory.multipleChoiceQuestion();
-        List<Question> questions = List.of(multipleChoiceQuestion);
-        final Quiz quiz = new Quiz(questions);
-        final QuizController quizController = new QuizController(quiz);
+        InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+        inMemoryQuestionRepository.save(multipleChoiceQuestion);
+        QuizService quizService = new QuizService(inMemoryQuestionRepository);
+        final QuizController quizController = new QuizController(quizService);
         quizController.start();
         return quizController;
     }
 
     private QuizController createAndStartQuizControllerWithOneSingleChoiceQuestion() {
-        Quiz quiz = TestQuizFactory.createQuizWithSingleChoiceQuestions(1);
-        QuizController quizController = new QuizController(quiz);
+        List<Choice> choices = List.of(
+                new Choice("Answer 1", true)
+        );
+        ChoiceType choice = new SingleChoice(choices);
+        Question question = new Question("Question 1", choice);
+        InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+        inMemoryQuestionRepository.save(question);
+        QuizService quizService = new QuizService(inMemoryQuestionRepository);
+
+        QuizController quizController = new QuizController(quizService);
         quizController.start();
         return quizController;
     }

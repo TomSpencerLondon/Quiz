@@ -1,8 +1,8 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.application.QuizService;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.QuizSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class QuizController {
 
     private QuizSession quizSession;
-    private Quiz quiz;
+    private QuizService quizService;
 
     // for testing only
     QuizController(QuizSession quizSession) {
@@ -22,8 +22,8 @@ public class QuizController {
     }
 
     @Autowired
-    public QuizController(Quiz quiz) {
-        this.quiz = quiz;
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
     }
 
     @GetMapping("/")
@@ -67,7 +67,7 @@ public class QuizController {
 
     @PostMapping("/start")
     public String start() {
-        quizSession = quiz.start();
+        quizSession = quizService.createQuiz().start();
         return "redirect:/quiz";
     }
 }
