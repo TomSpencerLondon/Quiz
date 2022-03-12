@@ -15,19 +15,19 @@ public class CorrectAnswerTest {
         Question question = new Question("Question 1",
                 new SingleChoice(
                         Collections.singletonList(
-                                new Choice("Answer 1")
+                                new Choice("Answer 1", true)
                         )));
 
         // When
         List<Choice> choices = question.choices();
 
         // Then
-        assertThat(choices).containsExactly(new Choice("Answer 1"));
+        assertThat(choices).containsExactly(new Choice("Answer 1", true));
     }
 
     @Test
     void knowsSeveralAnswers() {
-        List<Choice> choices = List.of(new Choice("Answer 1"),
+        List<Choice> choices = List.of(new Choice("Answer 1", true),
                 new Choice("Answer 2"),
                 new Choice("Answer 3"),
                 new Choice("Answer 4"));
@@ -43,7 +43,7 @@ public class CorrectAnswerTest {
         // Then
         assertThat(result)
                 .containsExactly(
-                        new Choice("Answer 1"),
+                        new Choice("Answer 1", true),
                         new Choice("Answer 2"),
                         new Choice("Answer 3"),
                         new Choice("Answer 4")

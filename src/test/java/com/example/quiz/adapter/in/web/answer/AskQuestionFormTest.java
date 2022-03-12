@@ -14,7 +14,7 @@ class AskQuestionFormTest {
     void convertsQuestionToAskSingleChoiceForm() {
         Question singleChoiceQuestion = new Question(
                 "Question 1",
-                new SingleChoice(List.of(new Choice("Answer 1"), new Choice("Answer 2"))));
+                new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2"))));
 
         AskQuestionForm form = AskQuestionForm.from(singleChoiceQuestion);
 
