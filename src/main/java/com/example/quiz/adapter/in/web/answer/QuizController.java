@@ -5,7 +5,6 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.QuizSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +15,15 @@ public class QuizController {
 
     private QuizSession quizSession;
     private Quiz quiz;
-    private ApplicationContext context;
 
     // for testing only
     QuizController(QuizSession quizSession) {
         this.quizSession = quizSession;
     }
 
-    // for testing only
+    @Autowired
     public QuizController(Quiz quiz) {
         this.quiz = quiz;
-    }
-
-    @Autowired
-    public QuizController(ApplicationContext context) {
-        this.context = context;
     }
 
     @GetMapping("/")
@@ -74,7 +67,6 @@ public class QuizController {
 
     @PostMapping("/start")
     public String start() {
-        this.quiz = context.getBean(Quiz.class);
         quizSession = quiz.start();
         return "redirect:/quiz";
     }
