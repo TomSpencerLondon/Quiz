@@ -4,11 +4,15 @@ import java.util.List;
 
 public class SingleChoice implements ChoiceType {
     private final Choice correctChoice;
-    private List<Choice> choices;
+    private final List<Choice> choices;
 
     public SingleChoice(List<Choice> choices) {
         this.choices = choices;
-        correctChoice = this.choices.stream().filter(Choice::isCorrect).findFirst().orElseThrow();
+        correctChoice = this.choices
+                .stream()
+                .filter(Choice::isCorrect)
+                .findFirst()
+                .orElseThrow();
     }
 
     @Override
@@ -18,7 +22,14 @@ public class SingleChoice implements ChoiceType {
 
     @Override
     public boolean isCorrect(Choice... choices) {
+        requireOnlyOneChoice(choices);
         return correctChoice.equals(choices[0]);
+    }
+
+    private void requireOnlyOneChoice(Choice[] choices) {
+        if (choices.length > 1) {
+            throw new TooManyCorrectChoicesSelected();
+        }
     }
 
     @Override
