@@ -1,6 +1,10 @@
 package com.example.quiz.adapter.out.repository.jpa;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
+import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,5 +1,8 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.factories;
 
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

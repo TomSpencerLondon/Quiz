@@ -1,9 +1,11 @@
 package com.example.quiz.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GradeTest {
 

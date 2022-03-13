@@ -1,5 +1,6 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

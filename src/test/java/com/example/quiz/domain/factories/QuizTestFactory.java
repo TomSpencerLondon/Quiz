@@ -1,9 +1,11 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.factories;
+
+import com.example.quiz.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestQuizFactory {
+public class QuizTestFactory {
 
     public static Quiz createQuizWithSingleChoiceQuestions(int count) {
         List<Choice> choices = List.of(
@@ -18,5 +20,14 @@ public class TestQuizFactory {
             questions.add(q);
         }
         return new Quiz(questions);
+    }
+
+    public static Quiz createQuizWithSingleChoiceQuestion() {
+        Question question = new Question(
+                "Question 1",
+                new SingleChoice(List.of(new Choice("Correct Answer", true), new Choice("Wrong Answer", false))));
+        List<Question> questions = List.of(question);
+        Quiz quiz = new Quiz(questions);
+        return quiz;
     }
 }

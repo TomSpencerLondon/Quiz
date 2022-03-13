@@ -1,4 +1,9 @@
-package com.example.quiz.domain;
+package com.example.quiz.domain.factories;
+
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Response;
+import com.example.quiz.domain.SingleChoice;
 
 import java.util.List;
 
