@@ -3,7 +3,6 @@ package com.example.quiz.application;
 import com.example.quiz.domain.QuizSession;
 
 public class QuizSessionService {
-
     private QuizService quizService;
     private QuizSession quizSession;
 
@@ -13,7 +12,7 @@ public class QuizSessionService {
 
     public Long startNewSession() {
         quizSession = quizService.createQuiz().start();
-        return 0l;
+        return quizSession.getId();
     }
 
     public QuizSession currentSession() {
