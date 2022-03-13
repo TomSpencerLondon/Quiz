@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.application.QuizService;
+import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.Primary;
 import java.util.List;
 
 @TestConfiguration
-class TestQuizConfiguration {
+class TestSessionConfiguration {
     @Primary
     @Bean
     QuizService createTestQuizService() {
@@ -23,5 +24,11 @@ class TestQuizConfiguration {
         inMemoryQuestionRepository.save(question);
 
         return new QuizService(inMemoryQuestionRepository);
+    }
+
+    @Primary
+    @Bean
+    QuizSessionService createTestQuizSessionService(QuizService quizService) {
+        return new QuizSessionService(quizService);
     }
 }

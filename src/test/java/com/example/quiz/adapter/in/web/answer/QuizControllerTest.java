@@ -1,9 +1,8 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.adapter.in.web.QuizControllerTestFactory;
-import com.example.quiz.domain.Quiz;
-import com.example.quiz.domain.QuizSession;
-import com.example.quiz.domain.factories.QuizTestFactory;
+import com.example.quiz.application.QuizSessionService;
+import com.example.quiz.application.QuizSessionServiceTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -26,9 +25,10 @@ public class QuizControllerTest {
 
     @Test
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
-        Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestion();
-        QuizSession quizSession = quiz.start();
-        QuizController quizController = new QuizController(quizSession);
+        QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
+        QuizController quizController = new QuizController(quizSessionService);
+        quizController.start();
+
         final Model model = new ConcurrentModel();
 
         quizController.askQuestion(model);
@@ -36,7 +36,7 @@ public class QuizControllerTest {
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
 
-        assertThat(quizSession.correctResponsesCount())
+        assertThat(quizSessionService.currentSession().correctResponsesCount())
                 .isEqualTo(1L);
     }
 

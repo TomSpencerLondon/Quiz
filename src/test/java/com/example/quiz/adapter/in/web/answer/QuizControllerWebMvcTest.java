@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Tag("integration")
 @WebMvcTest(QuizController.class)
-@Import(TestQuizConfiguration.class)
+@Import(TestSessionConfiguration.class)
 @WithMockUser(username = "tom")
 class QuizControllerWebMvcTest {
 
