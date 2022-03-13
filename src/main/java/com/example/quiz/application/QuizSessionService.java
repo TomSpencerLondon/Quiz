@@ -11,8 +11,9 @@ public class QuizSessionService {
         this.quizService = quizService;
     }
 
-    public void startNewSession() {
+    public Long startNewSession() {
         quizSession = quizService.createQuiz().start();
+        return 0l;
     }
 
     public QuizSession currentSession() {

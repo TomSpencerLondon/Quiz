@@ -23,4 +23,17 @@ public class QuizSessionServiceTest {
         assertThat(quizSession)
                 .isInstanceOf(QuizSession.class);
     }
+
+  @Test
+  void startNewSessionReturnsSessionId() {
+      Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+      InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+      inMemoryQuestionRepository.save(question);
+      QuizService quizService = new QuizService(inMemoryQuestionRepository);
+      QuizSessionService quizSessionService = new QuizSessionService(quizService);
+      
+      Long sessionId = quizSessionService.startNewSession();
+      
+      assertThat(sessionId).isEqualTo(quizSessionService.currentSession().getId());
+  }
 }

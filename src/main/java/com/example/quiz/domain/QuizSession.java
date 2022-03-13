@@ -14,6 +14,15 @@ public class QuizSession {
 
     private final List<Response> responses = new ArrayList<>();
     private Question question;
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public QuizSession(Quiz quiz) {
         questions = quiz.questions();
