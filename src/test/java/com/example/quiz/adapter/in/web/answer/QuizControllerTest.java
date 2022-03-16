@@ -16,7 +16,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model);
+        quizController.askQuestion(model, "1");
         final AskQuestionForm askQuestion = (AskQuestionForm) model.getAttribute("askQuestionForm");
 
         assertThat(askQuestion.getQuestion())
@@ -26,12 +26,13 @@ public class QuizControllerTest {
     @Test
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService);
+        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
         quizController.start();
 
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model);
+        quizController.askQuestion(model, "1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
@@ -45,7 +46,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model);
+        quizController.askQuestion(model, "1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
         final String redirectPage = quizController.questionResponse(askQuestionForm);
@@ -70,10 +71,10 @@ public class QuizControllerTest {
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
 
         final Model model = new ConcurrentModel();
-        quizController.askQuestion(model);
+        quizController.askQuestion(model, "1");
 
         // When
-        final String page = quizController.askQuestion(model);
+        final String page = quizController.askQuestion(model, "1");
 
         // Then
         assertThat(page)
@@ -85,11 +86,11 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
 
-        quizController.askQuestion(model);
+        quizController.askQuestion(model, "1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm);
-        String redirectPage = quizController.askQuestion(model);
+        String redirectPage = quizController.askQuestion(model, "1");
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result");
@@ -109,7 +110,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartChoiceQuizControllerWithOneMultipleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
 
-        String redirect = quizController.askQuestion(model);
+        String redirect = quizController.askQuestion(model, "1");
 
         assertThat(redirect)
                 .isEqualTo("multiple-choice");

@@ -2,6 +2,7 @@ package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
+import com.example.quiz.application.port.IdGenerator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
@@ -30,5 +31,11 @@ class TestSessionConfiguration {
     @Bean
     QuizSessionService createTestQuizSessionService(QuizService quizService) {
         return new QuizSessionService(quizService);
+    }
+
+    @Primary
+    @Bean
+    IdGenerator createIdGenerator() {
+        return new StubIdGenerator();
     }
 }

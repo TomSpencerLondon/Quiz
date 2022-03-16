@@ -24,7 +24,7 @@ class QuizControllerWebMvcTest {
     @Test
     void questionEndpointExists() throws Exception {
         mockMvc.perform(
-                get("/quiz")
+                get("/quiz?id=stub-id-1")
         ).andExpect(status().isOk());
     }
 
@@ -52,7 +52,7 @@ class QuizControllerWebMvcTest {
     @Test
     void shouldReturnSingleViewForSingleChoiceQuestion() throws Exception {
         mockMvc.perform(post("/start"));
-        mockMvc.perform(get("/quiz"))
+        mockMvc.perform(get("/quiz?id=stub-id-1"))
                .andExpect(status().isOk());
     }
 

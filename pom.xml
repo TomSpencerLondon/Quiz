@@ -65,6 +65,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.kkuegler</groupId>
+            <artifactId>human-readable-ids-java</artifactId>
+            <version>0.1</version>
+        </dependency>
+
         <!-- D A T A B A S E -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
