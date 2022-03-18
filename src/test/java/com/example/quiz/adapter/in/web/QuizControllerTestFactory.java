@@ -5,6 +5,7 @@ import com.example.quiz.adapter.in.web.answer.StubIdGenerator;
 import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizSessionRepository;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
@@ -15,10 +16,10 @@ public class QuizControllerTestFactory {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(singleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start();
+        quizController.start("stub-id-1");
         return quizController;
     }
 
@@ -27,10 +28,10 @@ public class QuizControllerTestFactory {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(multipleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
         final QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start();
+        quizController.start("stub-id-1");
         return quizController;
     }
 }

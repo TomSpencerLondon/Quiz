@@ -16,7 +16,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model, "1");
+        quizController.askQuestion(model, "stub-id-1");
         final AskQuestionForm askQuestion = (AskQuestionForm) model.getAttribute("askQuestionForm");
 
         assertThat(askQuestion.getQuestion())
@@ -28,16 +28,16 @@ public class QuizControllerTest {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start();
+        quizController.start("stub-id-1");
 
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model, "1");
+        quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
-        quizController.questionResponse(askQuestionForm);
+        quizController.questionResponse(askQuestionForm, "stub-id-1");
 
-        assertThat(quizSessionService.currentSession().correctResponsesCount())
+        assertThat(quizSessionService.findSessionById("stub-id-1").correctResponsesCount())
                 .isEqualTo(1L);
     }
 
@@ -46,10 +46,10 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
 
-        quizController.askQuestion(model, "1");
+        quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
-        final String redirectPage = quizController.questionResponse(askQuestionForm);
+        final String redirectPage = quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result");
@@ -60,7 +60,7 @@ public class QuizControllerTest {
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
 
-        quizController.showResult(model);
+        quizController.showResult(model, "stub-id-1");
 
         assertThat(model.containsAttribute("resultView")).isTrue();
     }
@@ -71,10 +71,10 @@ public class QuizControllerTest {
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
 
         final Model model = new ConcurrentModel();
-        quizController.askQuestion(model, "1");
+        quizController.askQuestion(model, "stub-id-1");
 
         // When
-        final String page = quizController.askQuestion(model, "1");
+        final String page = quizController.askQuestion(model, "stub-id-1");
 
         // Then
         assertThat(page)
@@ -86,11 +86,11 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
 
-        quizController.askQuestion(model, "1");
+        quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
-        quizController.questionResponse(askQuestionForm);
-        String redirectPage = quizController.askQuestion(model, "1");
+        quizController.questionResponse(askQuestionForm, "stub-id-1");
+        String redirectPage = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result");
@@ -100,7 +100,7 @@ public class QuizControllerTest {
     @Test
     void afterStartCreateSessionAndRedirectToQuiz() {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
-        String redirect = quizController.start();
+        String redirect = quizController.start("stub-id-1");
         assertThat(redirect)
                 .isEqualTo("redirect:/quiz");
     }
@@ -110,7 +110,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartChoiceQuizControllerWithOneMultipleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
 
-        String redirect = quizController.askQuestion(model, "1");
+        String redirect = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirect)
                 .isEqualTo("multiple-choice");

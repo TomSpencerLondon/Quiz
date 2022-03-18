@@ -41,7 +41,7 @@ public class QuizController {
     @GetMapping("/quiz")
     public String askQuestion(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
         if (id.isBlank()) {
-            return "redirect:/?id=" + idGenerator.newId();
+            return "redirect:/start?id=" + idGenerator.newId();
         }
 
         QuizSession quizSession = quizSessionService.currentSession();
@@ -49,7 +49,7 @@ public class QuizController {
             return "redirect:/result";
         }
 
-        Question question = quizSessionService.currentSession().question();
+        Question question = quizSessionService.findSessionById(id).question();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
 
@@ -62,8 +62,12 @@ public class QuizController {
     }
 
     @PostMapping("/quiz")
-    public String questionResponse(AskQuestionForm askQuestionForm) {
-        QuizSession quizSession = quizSessionService.currentSession();
+    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
+        if (id.isBlank()) {
+            return "redirect:/start?id=" + idGenerator.newId();
+        }
+
+        QuizSession quizSession = quizSessionService.findSessionById(id);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
             return "redirect:/result";
@@ -72,15 +76,19 @@ public class QuizController {
     }
 
     @GetMapping("/result")
-    public String showResult(Model model) {
+    public String showResult(Model model, @RequestParam(value = "id") String id) {
         Grade grade = quizSessionService.currentSession().grade();
         model.addAttribute("resultView", ResultView.from(grade));
         return "result";
     }
 
     @PostMapping("/start")
-    public String start() {
-        quizSessionService.startNewSession();
+    public String start(@RequestParam(value = "id", defaultValue = "") String id) {
+        if (id.isBlank()) {
+            return "redirect:/start?id=" + idGenerator.newId();
+        }
+
+        quizSessionService.startSessionWithId(id);
         return "redirect:/quiz";
     }
 }

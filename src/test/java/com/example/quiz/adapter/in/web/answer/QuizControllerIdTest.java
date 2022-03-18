@@ -13,11 +13,11 @@ public class QuizControllerIdTest {
     void askQuestionWithoutIdThenRedirectsWithId() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
-        quizController.start();
+        quizController.start("stub-id-1");
 
         final Model model = new ConcurrentModel();
         String redirectPage = quizController.askQuestion(model, "");
         assertThat(redirectPage)
-                .isEqualTo("redirect:/?id=stub-id-1");
+                .isEqualTo("redirect:/start?id=stub-id-1");
     }
 }

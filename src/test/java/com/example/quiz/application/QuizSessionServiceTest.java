@@ -1,6 +1,7 @@
 package com.example.quiz.application;
 
 import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizSessionRepository;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuizSession;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
@@ -15,7 +16,7 @@ public class QuizSessionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(question);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
         quizSessionService.startNewSession();
         QuizSession quizSession = quizSessionService.currentSession();
@@ -30,10 +31,13 @@ public class QuizSessionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(question);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
-        Long sessionId = quizSessionService.startNewSession();
+        String id = "stub-id-1";
+        quizSessionService.startSessionWithId(id);
 
-        assertThat(sessionId).isEqualTo(quizSessionService.currentSession().getId());
+        QuizSession quizSession = quizSessionService.findSessionById("stub-id-1");
+
+        assertThat(quizSession.getId()).isEqualTo(id);
     }
 }
