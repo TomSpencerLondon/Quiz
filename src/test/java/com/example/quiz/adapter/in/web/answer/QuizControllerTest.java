@@ -1,8 +1,13 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.adapter.in.web.QuizControllerTestFactory;
+import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.QuizSessionServiceTestFactory;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -15,7 +20,7 @@ public class QuizControllerTest {
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
-
+        quizController.start();
         quizController.askQuestion(model, "stub-id-1");
         final AskQuestionForm askQuestion = (AskQuestionForm) model.getAttribute("askQuestionForm");
 
@@ -28,7 +33,7 @@ public class QuizControllerTest {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start("stub-id-1");
+        quizController.start();
 
         final Model model = new ConcurrentModel();
 
@@ -45,7 +50,7 @@ public class QuizControllerTest {
     void afterRespondingToLastQuestionShowsResults() {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
-
+        quizController.start();
         quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setSelectedChoices(0);
@@ -59,7 +64,7 @@ public class QuizControllerTest {
     void showsResultOnPage() {
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
-
+        quizController.start();
         quizController.showResult(model, "stub-id-1");
 
         assertThat(model.containsAttribute("resultView")).isTrue();
@@ -69,8 +74,8 @@ public class QuizControllerTest {
     void askQuestionTwiceGoesToSamePage() {
         // Given
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
-
         final Model model = new ConcurrentModel();
+        quizController.start();
         quizController.askQuestion(model, "stub-id-1");
 
         // When
@@ -85,6 +90,7 @@ public class QuizControllerTest {
     void askingQuestionOnAFinishedQuizReturnsResult() {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
+        quizController.start();
 
         quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -100,16 +106,16 @@ public class QuizControllerTest {
     @Test
     void afterStartCreateSessionAndRedirectToQuiz() {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
-        String redirect = quizController.start("stub-id-1");
+        String redirect = quizController.start();
         assertThat(redirect)
-                .isEqualTo("redirect:/quiz");
+                .isEqualTo("redirect:/quiz?id=stub-id-1");
     }
 
     @Test
     void multipleChoiceQuestionReturnsMultipleChoicePage() {
         QuizController quizController = QuizControllerTestFactory.createAndStartChoiceQuizControllerWithOneMultipleChoiceQuestion();
         ConcurrentModel model = new ConcurrentModel();
-
+        quizController.start();
         String redirect = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirect)
@@ -118,4 +124,16 @@ public class QuizControllerTest {
                 .isTrue();
     }
 
+    @Test
+    void askQuestionPullsQuestionFromSessionBasedOnId() {
+        Question singleChoiceQuestion = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+        inMemoryQuestionRepository.save(singleChoiceQuestion);
+        QuizService quizService = new QuizService(inMemoryQuestionRepository);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
+        quizController.start();
+        quizController.start();
+    }
 }

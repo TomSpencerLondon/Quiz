@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerIdTest {
     @Test
-    void askQuestionWithoutIdThenRedirectsWithId() {
+    void askQuestionWithoutIdThenRedirectsToStart() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
-        quizController.start("stub-id-1");
+        quizController.start();
 
         final Model model = new ConcurrentModel();
         String redirectPage = quizController.askQuestion(model, "");
         assertThat(redirectPage)
-                .isEqualTo("redirect:/start?id=stub-id-1");
+                .isEqualTo("redirect:/start");
     }
 }

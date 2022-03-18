@@ -18,9 +18,7 @@ public class QuizControllerTestFactory {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start("stub-id-1");
-        return quizController;
+        return new QuizController(quizSessionService, stubIdGenerator);
     }
 
     public static QuizController createAndStartChoiceQuizControllerWithOneMultipleChoiceQuestion() {
@@ -30,8 +28,6 @@ public class QuizControllerTestFactory {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubIdGenerator stubIdGenerator = new StubIdGenerator();
-        final QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
-        quizController.start("stub-id-1");
-        return quizController;
+        return new QuizController(quizSessionService, stubIdGenerator);
     }
 }

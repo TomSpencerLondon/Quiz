@@ -18,8 +18,6 @@ public class QuizController {
     private QuizSessionService quizSessionService;
     private QuizSession quizSession;
     private final IdGenerator idGenerator;
-    private Model model;
-    private String id;
 
     // for testing only
     QuizController(QuizSession quizSession, IdGenerator idGenerator) {
@@ -41,7 +39,7 @@ public class QuizController {
     @GetMapping("/quiz")
     public String askQuestion(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
         if (id.isBlank()) {
-            return "redirect:/start?id=" + idGenerator.newId();
+            return "redirect:/start";
         }
 
         QuizSession quizSession = quizSessionService.currentSession();
@@ -83,12 +81,9 @@ public class QuizController {
     }
 
     @PostMapping("/start")
-    public String start(@RequestParam(value = "id", defaultValue = "") String id) {
-        if (id.isBlank()) {
-            return "redirect:/start?id=" + idGenerator.newId();
-        }
-
+    public String start() {
+        String id = idGenerator.newId();
         quizSessionService.startSessionWithId(id);
-        return "redirect:/quiz";
+        return "redirect:/quiz?id=" + id;
     }
 }
