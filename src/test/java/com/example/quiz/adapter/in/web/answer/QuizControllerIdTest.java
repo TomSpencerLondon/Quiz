@@ -101,7 +101,7 @@ public class QuizControllerIdTest {
         QuizSession unfinishedQuizSession = new UnfinishedQuizSession();
         finishedQuizSession.setId("finished");
         unfinishedQuizSession.setId("unfinished");
-        finishedQuizSession = quizSessionRepository.save(finishedQuizSession);
+        quizSessionRepository.save(finishedQuizSession);
         quizSessionRepository.save(unfinishedQuizSession);
 
         QuizService quizService = new QuizService(new InMemoryQuestionRepository());
