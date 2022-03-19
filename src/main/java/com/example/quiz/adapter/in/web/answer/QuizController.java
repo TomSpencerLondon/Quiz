@@ -42,12 +42,12 @@ public class QuizController {
             return "redirect:/start";
         }
 
-        QuizSession quizSession = quizSessionService.currentSession();
+        QuizSession quizSession = quizSessionService.findSessionById(id);
         if (quizSession.isFinished()) {
             return "redirect:/result";
         }
 
-        Question question = quizSessionService.findSessionById(id).question();
+        Question question = quizSession.question();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
 
@@ -62,7 +62,7 @@ public class QuizController {
     @PostMapping("/quiz")
     public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
         if (id.isBlank()) {
-            return "redirect:/start?id=" + idGenerator.newId();
+            return "redirect:/start";
         }
 
         QuizSession quizSession = quizSessionService.findSessionById(id);
@@ -75,7 +75,7 @@ public class QuizController {
 
     @GetMapping("/result")
     public String showResult(Model model, @RequestParam(value = "id") String id) {
-        Grade grade = quizSessionService.currentSession().grade();
+        Grade grade = quizSessionService.findSessionById(id).grade();
         model.addAttribute("resultView", ResultView.from(grade));
         return "result";
     }

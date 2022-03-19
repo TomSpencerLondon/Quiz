@@ -18,10 +18,10 @@ public class QuizSessionServiceTest {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
-        quizSessionService.startNewSession();
-        QuizSession quizSession = quizSessionService.currentSession();
+        quizSessionService.startSessionWithId("stub-id-1");
+        QuizSession savedSession = quizSessionService.findSessionById("stub-id-1");
 
-        assertThat(quizSession)
+        assertThat(savedSession)
                 .isInstanceOf(QuizSession.class);
     }
 

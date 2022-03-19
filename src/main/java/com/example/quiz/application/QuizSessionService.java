@@ -13,15 +13,6 @@ public class QuizSessionService {
         this.quizSessionRepository = quizSessionRepository;
     }
 
-    public String startNewSession() {
-        quizSession = quizService.createQuiz().start();
-        return quizSession.getId();
-    }
-
-    public QuizSession currentSession() {
-        return quizSession;
-    }
-
     public QuizSession findSessionById(String id) {
         return quizSessionRepository.findById(id);
     }
