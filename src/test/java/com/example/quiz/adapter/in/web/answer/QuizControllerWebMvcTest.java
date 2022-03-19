@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("integration")
@@ -50,10 +51,23 @@ class QuizControllerWebMvcTest {
     }
 
     @Test
-    void shouldReturnSingleViewForSingleChoiceQuestion() throws Exception {
-        mockMvc.perform(post("/start?id=stub-id-1"));
+    void getForAskQuestionShouldBeOk() throws Exception {
+        mockMvc.perform(post("/start"));
         mockMvc.perform(get("/quiz?id=stub-id-1"))
                .andExpect(status().isOk());
     }
 
+    @Test
+    void postToQuestionResponseWithNoIdRedirectsToStart() throws Exception {
+        mockMvc.perform(post("/quiz"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("/start"));
+    }
+
+    @Test
+    void getShowResultWithNoIdRedirectsToStart() throws Exception {
+        mockMvc.perform(get("/result"))
+               .andExpect(status().is3xxRedirection())
+               .andExpect(redirectedUrl("/start"));
+    }
 }

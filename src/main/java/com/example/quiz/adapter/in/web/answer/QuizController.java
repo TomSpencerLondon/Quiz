@@ -44,16 +44,11 @@ public class QuizController {
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
 
-        if (question.isSingleChoice()) {
-            return "single-choice";
-        } else {
-            return "multiple-choice";
-        }
-
+        return templateFor(question);
     }
 
     @PostMapping("/quiz")
-    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
+    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id", defaultValue = "") String id) {
         if (id.isBlank()) {
             return "redirect:/start";
         }
@@ -67,7 +62,11 @@ public class QuizController {
     }
 
     @GetMapping("/result")
-    public String showResult(Model model, @RequestParam(value = "id") String id) {
+    public String showResult(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
+        if (id.isBlank()) {
+            return "redirect:/start";
+        }
+
         Grade grade = quizSessionService.findSessionById(id).grade();
         model.addAttribute("resultView", ResultView.from(grade));
         return "result";
@@ -78,5 +77,13 @@ public class QuizController {
         String id = idGenerator.newId();
         quizSessionService.startSessionWithId(id);
         return "redirect:/quiz?id=" + id;
+    }
+
+    private String templateFor(Question question) {
+        if (question.isSingleChoice()) {
+            return "single-choice";
+        } else {
+            return "multiple-choice";
+        }
     }
 }

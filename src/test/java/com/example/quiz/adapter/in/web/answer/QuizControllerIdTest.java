@@ -97,11 +97,8 @@ public class QuizControllerIdTest {
     @Test
     void askQuestionRedirectsToResultForTheFinishedSession() {
         InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
-        QuizSession finishedQuizSession = new FinishedQuizSession("finished");
-        QuizSession unfinishedQuizSession = new UnfinishedQuizSession("unfinished");
-        quizSessionRepository.save(finishedQuizSession);
-        quizSessionRepository.save(unfinishedQuizSession);
-
+        quizSessionRepository.save(new FinishedQuizSession("finished"));
+        quizSessionRepository.save(new UnfinishedQuizSession("unfinished"));
         QuizService quizService = new QuizService(new InMemoryQuestionRepository());
         QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository);
 
@@ -112,5 +109,7 @@ public class QuizControllerIdTest {
         assertThat(redirect)
                 .isEqualTo("redirect:/result");
     }
+
+
 
 }
