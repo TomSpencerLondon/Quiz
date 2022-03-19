@@ -15,15 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class QuizController {
 
-    private QuizSessionService quizSessionService;
-    private QuizSession quizSession;
+    private final QuizSessionService quizSessionService;
     private final IdGenerator idGenerator;
-
-    // for testing only
-    QuizController(QuizSession quizSession, IdGenerator idGenerator) {
-        this.quizSession = quizSession;
-        this.idGenerator = idGenerator;
-    }
 
     @Autowired
     public QuizController(QuizSessionService quizSessionService, IdGenerator idGenerator) {

@@ -1,9 +1,14 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.QuizSessionServiceTestFactory;
+import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.domain.FinishedQuizSession;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.QuizSession;
+import com.example.quiz.domain.UnfinishedQuizSession;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
@@ -38,7 +43,6 @@ public class QuizControllerIdTest {
                 .isEqualTo("redirect:/start");
 
     }
-
 
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
@@ -89,4 +93,26 @@ public class QuizControllerIdTest {
         assertThat(grade2.percent())
                 .isEqualTo(0);
     }
+
+    @Test
+    void askQuestionRedirectsToResultForTheFinishedSession() {
+        InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
+        QuizSession finishedQuizSession = new FinishedQuizSession();
+        QuizSession unfinishedQuizSession = new UnfinishedQuizSession();
+        finishedQuizSession.setId("finished");
+        unfinishedQuizSession.setId("unfinished");
+        finishedQuizSession = quizSessionRepository.save(finishedQuizSession);
+        quizSessionRepository.save(unfinishedQuizSession);
+
+        QuizService quizService = new QuizService(new InMemoryQuestionRepository());
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository);
+
+        QuizController quizController = new QuizController(quizSessionService, null);
+
+        String redirect = quizController.askQuestion(new ConcurrentModel(), "finished");
+
+        assertThat(redirect)
+                .isEqualTo("redirect:/result");
+    }
+
 }

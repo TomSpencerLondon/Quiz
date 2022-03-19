@@ -24,6 +24,12 @@ public class QuizSession {
         this.id = id;
     }
 
+    // for testing purposes
+    QuizSession() {
+        this.iterator = null;
+        this.questions = null;
+    }
+
     public QuizSession(Quiz quiz) {
         questions = quiz.questions();
         if (questions.isEmpty()) {
