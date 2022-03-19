@@ -97,10 +97,8 @@ public class QuizControllerIdTest {
     @Test
     void askQuestionRedirectsToResultForTheFinishedSession() {
         InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
-        QuizSession finishedQuizSession = new FinishedQuizSession();
-        QuizSession unfinishedQuizSession = new UnfinishedQuizSession();
-        finishedQuizSession.setId("finished");
-        unfinishedQuizSession.setId("unfinished");
+        QuizSession finishedQuizSession = new FinishedQuizSession("finished");
+        QuizSession unfinishedQuizSession = new UnfinishedQuizSession("unfinished");
         quizSessionRepository.save(finishedQuizSession);
         quizSessionRepository.save(unfinishedQuizSession);
 
