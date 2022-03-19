@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.out.repository.jpa;
+package com.example.quiz.adapter.out.jpa;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.out.repository.jpa;
+package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.application.port.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

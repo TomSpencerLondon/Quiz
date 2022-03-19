@@ -1,10 +1,7 @@
-package com.example.quiz.adapter.out.repository.jpa;
-
-import static org.assertj.core.api.Assertions.assertThat;
+package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.Quiz;
 import com.example.quiz.domain.QuizSession;
-import java.util.Optional;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,10 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("integration")
 @DataJpaTest(properties = {

@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.out.repository.jpa;
+package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.*;
 import org.slf4j.Logger;
