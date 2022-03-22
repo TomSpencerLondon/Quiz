@@ -37,7 +37,7 @@ public class QuizController {
 
         QuizSession quizSession = quizSessionService.findSessionById(id);
         if (quizSession.isFinished()) {
-            return "redirect:/result";
+            return "redirect:/result?id=" + id;
         }
 
         Question question = quizSession.question();
@@ -52,7 +52,7 @@ public class QuizController {
         QuizSession quizSession = quizSessionService.findSessionById(id);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
-            return "redirect:/result";
+            return "redirect:/result?id=" + id;
         }
         return "redirect:/quiz?id=" + id;
     }

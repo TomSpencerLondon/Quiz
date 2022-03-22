@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Text Input Form</title>
     <link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
 </head>
 <body>
 <div class="max-w-screen-md mx-auto p-5">
@@ -51,14 +52,21 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="flex flex-wrap flex-col -mx-3 mb-6">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Question Text
                 <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
             </label>
-            <textarea type="text" th:field="*{text}" rows="10"
-                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-      </textarea>
+            <div class="flex">
+                <div class="w-1/2 mr-4">
+                 <textarea type="text" id="question-text" th:field="*{text}" rows="10" cols="30"
+                           class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+                </div>
+                <div class="w-1/2">
+                    <div id="question-text-preview"
+                         class="w-full appearance-none block bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></div>
+                </div>
+            </div>
 
             <input type="checkbox" th:field="*{choice1.correctAnswer}"/>
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -97,8 +105,19 @@
                 Create
             </button>
         </div>
-
     </form>
+
+    <script th:inline="javascript">
+
+        var converter = new showdown.Converter();
+        var textAreaElement = document.getElementById("question-text");
+        textAreaElement.addEventListener("input", function(event) {
+           var rawMarkDown = event.target.value;
+           var convertedHtml = converter.makeHtml(rawMarkDown);
+           var previewArea = document.getElementById("question-text-preview");
+           previewArea.innerHTML = convertedHtml;
+        });
+    </script>
 </div>
 </body>
 </html>

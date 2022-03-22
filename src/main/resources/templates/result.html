@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>All Questions</title>
     <link rel="stylesheet" th:href="@{/css/application.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
 </head>
 <body>
 
@@ -41,10 +42,17 @@
                         </th>
                     </tr>
                     </thead>
-                    <tr th:each="responseView : ${resultView.responsesViews}">
-                        <td th:text="${responseView.questionView.text}"
-                            class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Question Text
-                        </td>
+                    <tr th:each="responseView, iter : ${resultView.responsesViews}">
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:id="'question-text-' + ${iter.index}"
+                        ></td>
+                        <script th:inline="javascript">
+                            var text = [[${responseView.questionView.text}]];
+                            var index = [[${iter.index}]];
+                            var converter = new showdown.Converter();
+                            var questionArea = document.getElementById("question-text-" + index);
+                            var convertedHtml = converter.makeHtml(text);
+                            questionArea.innerHTML = convertedHtml;
+                        </script>
                         <td th:text="${responseView.chosenAnswers}"
                             class="px-5 py-5 border-b border-gray-200 text-sm"
                             th:classappend="${responseView.correctlyAnswered} ? bg-green-600 : bg-red-600"
@@ -69,7 +77,5 @@
         </button>
     </form>
 </div>
-</div>
-
 </body>
 </html>
