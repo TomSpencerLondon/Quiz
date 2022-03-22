@@ -94,7 +94,7 @@ public class QuizControllerIdTest {
         String redirect = quizController.askQuestion(new ConcurrentModel(), "finished");
 
         assertThat(redirect)
-                .isEqualTo("redirect:/result");
+                .isEqualTo("redirect:/result?id=finished");
     }
 
 

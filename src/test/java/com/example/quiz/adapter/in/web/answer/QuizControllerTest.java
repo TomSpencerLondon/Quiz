@@ -57,7 +57,7 @@ public class QuizControllerTest {
         final String redirectPage = quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/result");
+                .isEqualTo("redirect:/result?id=stub-id-1");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class QuizControllerTest {
         String redirectPage = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/result");
+                .isEqualTo("redirect:/result?id=stub-id-1");
     }
 
 
