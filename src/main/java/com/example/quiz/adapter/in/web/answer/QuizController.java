@@ -32,7 +32,7 @@ public class QuizController {
     @GetMapping("/quiz")
     public String askQuestion(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
         if (id.isBlank()) {
-            return "redirect:/start";
+            return "redirect:/";
         }
 
         QuizSession quizSession = quizSessionService.findSessionById(id);
@@ -43,28 +43,24 @@ public class QuizController {
         Question question = quizSession.question();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
-
+        model.addAttribute("id", id);
         return templateFor(question);
     }
 
     @PostMapping("/quiz")
-    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id", defaultValue = "") String id) {
-        if (id.isBlank()) {
-            return "redirect:/start";
-        }
-
+    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
         QuizSession quizSession = quizSessionService.findSessionById(id);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
             return "redirect:/result";
         }
-        return "redirect:/quiz";
+        return "redirect:/quiz?id=" + id;
     }
 
     @GetMapping("/result")
     public String showResult(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
         if (id.isBlank()) {
-            return "redirect:/start";
+            return "redirect:/";
         }
 
         Grade grade = quizSessionService.findSessionById(id).grade();

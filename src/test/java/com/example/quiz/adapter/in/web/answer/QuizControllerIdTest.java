@@ -28,20 +28,7 @@ public class QuizControllerIdTest {
         final Model model = new ConcurrentModel();
         String redirectPage = quizController.askQuestion(model, "");
         assertThat(redirectPage)
-                .isEqualTo("redirect:/start");
-    }
-
-    @Test
-    void answerQuestionWithoutIdThenRedirectsToStart() {
-        QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
-        quizController.start();
-        AskQuestionForm askQuestionForm = new AskQuestionForm();
-        String redirectPage = quizController.questionResponse(askQuestionForm, "");
-
-        assertThat(redirectPage)
-                .isEqualTo("redirect:/start");
-
+                .isEqualTo("redirect:/");
     }
 
     @Test

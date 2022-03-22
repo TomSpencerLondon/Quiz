@@ -58,16 +58,9 @@ class QuizControllerWebMvcTest {
     }
 
     @Test
-    void postToQuestionResponseWithNoIdRedirectsToStart() throws Exception {
-        mockMvc.perform(post("/quiz"))
-               .andExpect(status().is3xxRedirection())
-               .andExpect(redirectedUrl("/start"));
-    }
-
-    @Test
     void getShowResultWithNoIdRedirectsToStart() throws Exception {
         mockMvc.perform(get("/result"))
                .andExpect(status().is3xxRedirection())
-               .andExpect(redirectedUrl("/start"));
+               .andExpect(redirectedUrl("/"));
     }
 }
