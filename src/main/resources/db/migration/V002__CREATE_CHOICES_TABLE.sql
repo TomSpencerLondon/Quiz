@@ -1,5 +1,7 @@
-create table questions_choices (
-    question_dbo_id bigint,
-    choice_text text not null,
-    is_correct boolean
+create table choices
+(
+    id          BIGINT  NOT NULL PRIMARY KEY,
+    question_id BIGINT  NOT NULL,
+    choice_text TEXT    NOT NULL,
+    is_correct  BOOLEAN NOT NULL
 )

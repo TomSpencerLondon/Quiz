@@ -1,16 +1,24 @@
 package com.example.quiz.adapter.out.jpa;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Embeddable
+@Entity
 @Table(name = "choices")
 public class ChoiceDbo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    @Column(nullable = false)
     private String choiceText;
     private boolean isCorrect;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getChoiceText() {
         return choiceText;
@@ -30,25 +38,16 @@ public class ChoiceDbo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         ChoiceDbo choiceDbo = (ChoiceDbo) o;
 
-        if (isCorrect != choiceDbo.isCorrect) {
-            return false;
-        }
-        return choiceText.equals(choiceDbo.choiceText);
+        return id != null ? id.equals(choiceDbo.id) : choiceDbo.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = choiceText.hashCode();
-        result = 31 * result + (isCorrect ? 1 : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 }

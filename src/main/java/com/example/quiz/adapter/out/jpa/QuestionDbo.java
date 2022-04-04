@@ -13,8 +13,8 @@ public class QuestionDbo {
     private Long id;
     private String text;
 
-    @ElementCollection
-    @CollectionTable(name = "questions_choices")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
     private List<ChoiceDbo> choices = new ArrayList<>();
 
     public List<ChoiceDbo> getChoices() {
