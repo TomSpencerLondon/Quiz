@@ -11,6 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +42,10 @@ public class QuestionJpaRepositoryTest {
     void stores_and_retrieves_Questions() {
         QuestionDbo question = new QuestionDbo();
         question.setText("Q1");
+        ChoiceDbo choiceDbo = new ChoiceDbo();
+        choiceDbo.setChoiceText("choice 2");
+        choiceDbo.setCorrect(true);
+        question.setChoices(List.of(choiceDbo));
 
         QuestionDbo savedQuestion = questionJpaRepository.save(question);
 
@@ -52,5 +57,8 @@ public class QuestionJpaRepositoryTest {
                 .findByText("Q1");
         assertThat(foundQuestion)
                 .isPresent();
+        List<ChoiceDbo> choices = foundQuestion.get().getChoices();
+        assertThat(choices.get(0).getChoiceText())
+                .isEqualTo("choice 2");
     }
 }
