@@ -1,16 +1,32 @@
 package com.example.quiz.domain;
 
 public class Choice {
-    private String text;
-    private boolean isCorrect;
+    private Long id;
+    private final String text;
+    private final boolean isCorrect;
 
     public Choice(String text) {
         this.text = text;
+        this.isCorrect = false;
     }
 
     public Choice(String text, boolean isCorrect) {
         this.text = text;
         this.isCorrect = isCorrect;
+    }
+
+    public Choice(Long id, String text, boolean isCorrect) {
+        this.id = id;
+        this.text = text;
+        this.isCorrect = isCorrect;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String text() {

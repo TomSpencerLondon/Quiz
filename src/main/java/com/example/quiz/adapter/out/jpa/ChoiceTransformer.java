@@ -20,6 +20,7 @@ public class ChoiceTransformer {
 
     static Choice toChoice(ChoiceDbo choiceDbo) {
         return new Choice(
+                choiceDbo.getId(),
                 choiceDbo.getChoiceText(),
                 choiceDbo.isCorrect()
         );
@@ -27,6 +28,7 @@ public class ChoiceTransformer {
 
     static ChoiceDbo toChoiceDbo(Choice choice) {
         ChoiceDbo choiceDbo = new ChoiceDbo();
+        choiceDbo.setId(choice.getId());
         choiceDbo.setChoiceText(choice.text());
         choiceDbo.setCorrect(choice.isCorrect());
         return choiceDbo;

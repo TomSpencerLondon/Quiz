@@ -28,7 +28,6 @@ public class QuestionTransformer {
         questionDbo.setText(question.text());
         List<ChoiceDbo> choiceDbos = ChoiceTransformer.toChoiceDbos(question.choices());
         questionDbo.setChoices(choiceDbos);
-
         return questionDbo;
     }
 
