@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <div th:replace="fragments/header-fragments :: header-input('Start')"></div>
 </head>
 <body>
-<h1>Welcome</h1>
-<form action="#" th:action="@{/start}" th:method="post">
-  <button type="submit" id="start">Start Quiz</button>
-</form>
+<div class="max-w-screen-md mx-auto p-5">
+    <div class="text-center mb-16">
+        <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
+            Welcome
+        </p>
+        <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
+            Start <span class="text-indigo-600">Quiz</span>
+        </h3>
+    </div>
+    <div class="text-center mb-16">
+        <form action="#" th:action="@{/start}" th:method="post"
+              class="w-full">
+            <button type="submit"
+                    id="start"
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                Start Quiz
+            </button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
