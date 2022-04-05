@@ -1,6 +1,9 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.MultipleChoice;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +14,7 @@ public class QuestionTransformer {
         List<Choice> choices = ChoiceTransformer.toChoices(questionDbo
                 .getChoices());
 
-        ChoiceType choiceType = choices.stream().filter(Choice::isCorrect).count() < 2 ?
+        com.example.quiz.domain.ChoiceType choiceType = choices.stream().filter(Choice::isCorrect).count() < 2 ?
                 new SingleChoice(choices) : new MultipleChoice(choices);
 
         Question question = new Question(

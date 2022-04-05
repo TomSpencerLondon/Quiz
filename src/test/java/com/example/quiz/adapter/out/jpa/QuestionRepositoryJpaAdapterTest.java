@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.TestContainerConfiguration;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;

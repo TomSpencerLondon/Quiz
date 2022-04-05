@@ -4,4 +4,4 @@ create table choices
     question_id BIGINT,
     choice_text TEXT    NOT NULL,
     is_correct  BOOLEAN NOT NULL
-)
+);
