@@ -43,6 +43,7 @@ class QuestionTransformerTest {
         choiceDbo4.setCorrect(false);
         questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
         questionDbo.setId(1L);
+        questionDbo.setChoiceType(ChoiceType.SINGLE);
         // When
         final Question question = questionTransformer.toQuestion(questionDbo);
 
@@ -78,6 +79,7 @@ class QuestionTransformerTest {
         choiceDbo4.setChoiceText("Answer 4");
         choiceDbo4.setCorrect(false);
         questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
+        questionDbo.setChoiceType(ChoiceType.SINGLE);
 
         // When
         final QuestionDbo result = questionTransformer.toQuestionDbo(question);
@@ -110,7 +112,7 @@ class QuestionTransformerTest {
         choiceDbo4.setChoiceText("Answer 4");
         choiceDbo4.setCorrect(false);
         questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
-
+        questionDbo.setChoiceType(ChoiceType.MULTIPLE);
 
         // When
         final QuestionDbo result = questionTransformer.toQuestionDbo(multipleChoiceQuestion);
@@ -142,6 +144,7 @@ class QuestionTransformerTest {
         choiceDbo4.setCorrect(false);
         questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
         questionDbo.setId(1L);
+        questionDbo.setChoiceType(ChoiceType.MULTIPLE);
 
         // When
         final Question result = questionTransformer.toQuestion(questionDbo);

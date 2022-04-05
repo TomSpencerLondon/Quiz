@@ -14,12 +14,9 @@ public class QuestionTransformer {
         List<Choice> choices = ChoiceTransformer.toChoices(questionDbo
                 .getChoices());
 
-        com.example.quiz.domain.ChoiceType choiceType = choices.stream().filter(Choice::isCorrect).count() < 2 ?
-                new SingleChoice(choices) : new MultipleChoice(choices);
-
         Question question = new Question(
                 questionDbo.getText(),
-                choiceType);
+                choiceType(questionDbo, choices));
 
         question.setId(questionDbo.getId());
 
@@ -29,9 +26,16 @@ public class QuestionTransformer {
     QuestionDbo toQuestionDbo(Question question) {
         QuestionDbo questionDbo = new QuestionDbo();
         questionDbo.setText(question.text());
+        ChoiceType choiceType = question.isSingleChoice() ? ChoiceType.SINGLE : ChoiceType.MULTIPLE;
+        questionDbo.setChoiceType(choiceType);
         List<ChoiceDbo> choiceDbos = ChoiceTransformer.toChoiceDbos(question.choices());
         questionDbo.setChoices(choiceDbos);
         return questionDbo;
+    }
+
+    private com.example.quiz.domain.ChoiceType choiceType(QuestionDbo questionDbo, List<Choice> choices) {
+        return questionDbo.getChoiceType().equals(ChoiceType.SINGLE) ?
+                new SingleChoice(choices) : new MultipleChoice(choices);
     }
 
 }
