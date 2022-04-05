@@ -11,3 +11,9 @@ CREATE TABLE responses
     id         BIGINT NOT NULL PRIMARY KEY,
     session_id BIGINT NOT NULL
 );
+
+CREATE TABLE response_choices
+(
+    response_id BIGINT NOT NULL,
+    choice_id   BIGINT NOT NULL
+);

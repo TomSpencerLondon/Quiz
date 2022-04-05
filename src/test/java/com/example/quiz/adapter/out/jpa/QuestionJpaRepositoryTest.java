@@ -42,6 +42,7 @@ public class QuestionJpaRepositoryTest {
     void stores_and_retrieves_Questions() {
         QuestionDbo question = new QuestionDbo();
         question.setText("Q1");
+        question.setChoiceType(ChoiceType.SINGLE);
         ChoiceDbo choiceDbo = new ChoiceDbo();
         choiceDbo.setChoiceText("choice 2");
         choiceDbo.setCorrect(true);
@@ -57,6 +58,8 @@ public class QuestionJpaRepositoryTest {
                 .findByText("Q1");
         assertThat(foundQuestion)
                 .isPresent();
+        assertThat(foundQuestion.get().getChoiceType())
+                .isEqualTo(ChoiceType.SINGLE);
         List<ChoiceDbo> choices = foundQuestion.get().getChoices();
         assertThat(choices.get(0).getChoiceText())
                 .isEqualTo("choice 2");

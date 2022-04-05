@@ -17,6 +17,9 @@ public class QuestionDbo {
     @JoinColumn(name = "question_id")
     private List<ChoiceDbo> choices = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private ChoiceType choiceType;
+    
     public List<ChoiceDbo> getChoices() {
         return choices;
     }
@@ -39,6 +42,14 @@ public class QuestionDbo {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public ChoiceType getChoiceType() {
+        return choiceType;
+    }
+
+    public void setChoiceType(ChoiceType choiceType) {
+        this.choiceType = choiceType;
     }
 
     @Override

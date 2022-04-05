@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,5 +35,23 @@ class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
 
         assertThat(savedSession.getId())
                 .isNotNull();
+    }
+
+    @Test
+    void saveAndRetrieveAQuizSessionWithMultipleResponses() {
+        QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
+        quizSessionDbo.setCurrentQuestionId(2L);
+        quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
+        quizSessionDbo.setToken("stub-1");
+        ResponseDbo responseDbo1 = new ResponseDbo();
+        responseDbo1.setChoiceIds(Set.of(1L, 2L));
+        ResponseDbo responseDbo2 = new ResponseDbo();
+        responseDbo2.setChoiceIds(Set.of(3L, 4L));
+        quizSessionDbo.setResponses(List.of(responseDbo1, responseDbo2));
+
+        QuizSessionDbo savedSession = quizSessionJpaRepository.save(quizSessionDbo);
+
+        assertThat(savedSession.getResponses().size())
+                .isEqualTo(2);
     }
 }
