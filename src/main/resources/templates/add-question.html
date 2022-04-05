@@ -5,6 +5,7 @@
     <title>Text Input Form</title>
     <link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="max-w-screen-md mx-auto p-5">
@@ -67,39 +68,18 @@
                          class="w-full appearance-none block bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></div>
                 </div>
             </div>
-
-            <input type="checkbox" th:field="*{choice1.correctAnswer}"/>
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Choice #1
-                <p th:if="${#fields.hasErrors('choice1.choice')}" th:errors="*{choice1.choice}"></p>
-            </label>
-            <input type="text" th:field="*{choice1.choice}"
-                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
-            <input type="checkbox" th:field="*{choice2.correctAnswer}"/>
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Choice #2
-                <p th:if="${#fields.hasErrors('choice2.choice')}" th:errors="*{choice2.choice}"></p>
-            </label>
-            <input type="text" th:field="*{choice2.choice}"
-                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
-            <input type="checkbox" th:field="*{choice3.correctAnswer}"/>
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Choice #3
-                <p th:if="${#fields.hasErrors('choice3.choice')}" th:errors="*{choice3.choice}"></p>
-            </label>
-            <input type="text" th:field="*{choice3.choice}"
-                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
-            <input type="checkbox" th:field="*{choice4.correctAnswer}"/>
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Choice #4
-                <p th:if="${#fields.hasErrors('choice4.choice')}" th:errors="*{choice4.choice}"></p>
-            </label>
-            <input type="text" th:field="*{choice4.choice}"
-                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-
+            <div th:each="choice, stat : *{choices}">
+                <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count})"></div>
+            </div>
+            <div class="flex justify-end mb-3">
+                <div>
+                    <button type="button"
+                            id="add-new-choice"
+                            class="shadow mt-3 bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Add new choice
+                    </button>
+                </div>
+            </div>
             <button type="submit"
                     class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
                 Create
@@ -111,11 +91,11 @@
 
         var converter = new showdown.Converter();
         var textAreaElement = document.getElementById("question-text");
-        textAreaElement.addEventListener("input", function(event) {
-           var rawMarkDown = event.target.value;
-           var convertedHtml = converter.makeHtml(rawMarkDown);
-           var previewArea = document.getElementById("question-text-preview");
-           previewArea.innerHTML = convertedHtml;
+        textAreaElement.addEventListener("input", function (event) {
+            var rawMarkDown = event.target.value;
+            var convertedHtml = converter.makeHtml(rawMarkDown);
+            var previewArea = document.getElementById("question-text-preview");
+            previewArea.innerHTML = convertedHtml;
         });
     </script>
 </div>

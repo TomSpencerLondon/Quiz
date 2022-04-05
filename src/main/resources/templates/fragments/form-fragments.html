@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<div th:fragment="choice-input(fieldNameChoiceText, fieldNameCorrectAnswer, hasErrors, index)">
+    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2">
+        Choice #[[ ${index} ]]
+    </label>
+    <label>
+        Is correct answer?
+    </label>
+    <input type="checkbox" th:field="*{__${fieldNameCorrectAnswer}__}"/>
+    <input type="text" th:field="*{__${fieldNameChoiceText}__}"
+           class="mb-0 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+    <p class="text-red-700 mb-2 text-xs font-bold uppercase" th:if="${hasErrors}" th:errors="*{__${fieldNameChoiceText}__}"></p>
+</div>
+</html>
