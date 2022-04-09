@@ -65,7 +65,7 @@ https://github.com/jitterted/quizdown
 ##### Database Diagram
 ![database](https://user-images.githubusercontent.com/27693622/162573740-9754afc6-5892-42ff-a761-2df7d587b06d.png)
 
-##### Edited Class Diagram (aim following database)
+##### Class Diagram (aim)
 ![classDiagram](https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d3-41ba-9bed-7158ba3dcd24.png)
 
 #### Running Tailwind:
