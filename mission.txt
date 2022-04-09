@@ -3,6 +3,7 @@
 ## Current Feature
 
 1. Add Saving for Session
+    [] Stop Long references: use Id objects for Identifiers e.g. ResponseId, QuestionId, ChoiceId, SessionId (can use Record - example MobReg etc.)
     [>>] Create Transformer class for QuizSession -> QuizSessionDbo
     [] Add saving for Session in database
 

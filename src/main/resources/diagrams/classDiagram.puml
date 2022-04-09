@@ -13,8 +13,12 @@ class Grade <<Value Object>> {
 }
 
 class QuizSession <<Entity>> {
+  - Long id
+  - List<Response> responses
+  - String token
+  - Question currentQuestion
   + Grade grade()
-  + Question question()
+  + Question currentQuestion()
   + boolean isFinished()
   + int correctResponsescount()
   + int incorrectResponsescount()
@@ -22,6 +26,8 @@ class QuizSession <<Entity>> {
 }
 
 class Question <<Value Object>> {
+  - Long id
+  - String text
   + Long getId()
   + void setId()
   + String text()
@@ -31,6 +37,9 @@ class Question <<Value Object>> {
 }
 
 class Response <<Value Object>> {
+  - Long id
+  - Long questionId
+  - Set<Long> choiceIds
   + boolean isCorrect()
 }
 
@@ -44,7 +53,9 @@ class MultipleChoice <<Value Object>> {
 }
 
 class Choice <<Value Object>> {
+  - Long id
   + String text()
+  + boolean isCorrect()
 }
 
 Quiz -> QuizSession : <<creates>>

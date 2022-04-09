@@ -1,0 +1,44 @@
+@startuml
+
+namespace Session {
+    entity Session {
+        * id: Long <<generated>>
+        --
+        * token: String
+        * current_question_id: Long<<FK>>
+    }
+
+    entity Response {
+        * id: Long<<generated>>
+        --
+        * question_id: Long <<FK>>
+    }
+
+    entity response_choices {
+        * response_id: Long <<FK>>
+        * choice_id: Long <<FK>>
+    }
+}
+namespace Question {
+    entity Question {
+        * id: Long <<generated>>
+        --
+        * text: String
+    }
+
+    entity Choice {
+        * id: Long <<generated>>
+        --
+        * question_id: Long <<FK>>
+        * choice_text: String
+        * is_correct: boolean
+    }
+}
+
+
+Session ||--o{ Response
+Response }o--|| Question
+Choice }o--|| Question
+Response ||-left-o{ response_choices
+Choice ||-right-o{ response_choices
+@enduml
