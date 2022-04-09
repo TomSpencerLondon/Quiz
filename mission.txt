@@ -1,0 +1,16 @@
+# Mission/Goals
+
+## Current Feature
+
+1. Add Saving for Session
+    [>>] Create Transformer class for QuizSession -> QuizSessionDbo
+    [] Add saving for Session in database
+
+
+## Other Feature Options
+2. Edit / Delete Questions
+3. Add Chapter Categories for Questions
+
+# Questions
+- Is ChoiceType Interface correct naming and implementers (e.g. MultipleChoice / SingleChoice)?
+Should it be Answer?
