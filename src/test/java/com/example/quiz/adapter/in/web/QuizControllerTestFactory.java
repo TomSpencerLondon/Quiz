@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.adapter.in.web.answer.QuizController;
-import com.example.quiz.adapter.in.web.answer.StubIdGenerator;
+import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
 import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
@@ -17,7 +17,7 @@ public class QuizControllerTestFactory {
         inMemoryQuestionRepository.save(singleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
-        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         return new QuizController(quizSessionService, stubIdGenerator);
     }
 
@@ -27,7 +27,7 @@ public class QuizControllerTestFactory {
         inMemoryQuestionRepository.save(multipleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
-        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         return new QuizController(quizSessionService, stubIdGenerator);
     }
 }

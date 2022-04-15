@@ -4,7 +4,7 @@ public class FinishedQuizSession extends QuizSession {
 
 
     public FinishedQuizSession(String finished) {
-        setId(finished);
+        setToken(finished);
     }
 
     @Override

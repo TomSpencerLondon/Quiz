@@ -22,7 +22,7 @@ public class QuizControllerIdTest {
     @Test
     void askQuestionWithoutIdThenRedirectsToStart() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
         quizController.start();
 
         final Model model = new ConcurrentModel();
@@ -34,7 +34,7 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -54,7 +54,7 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubIdGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
         quizController.start();
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");

@@ -2,9 +2,9 @@ package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
-import com.example.quiz.application.port.IdGenerator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;
@@ -36,7 +36,7 @@ class TestSessionConfiguration {
 
     @Primary
     @Bean
-    IdGenerator createIdGenerator() {
-        return new StubIdGenerator();
+    TokenGenerator createIdGenerator() {
+        return new StubTokenGenerator();
     }
 }

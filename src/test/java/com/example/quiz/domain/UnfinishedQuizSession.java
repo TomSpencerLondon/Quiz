@@ -2,7 +2,7 @@ package com.example.quiz.domain;
 
 public class UnfinishedQuizSession extends QuizSession {
     public UnfinishedQuizSession(String unfinished) {
-        setId(unfinished);
+        setToken(unfinished);
     }
 
     @Override

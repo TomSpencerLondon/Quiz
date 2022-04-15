@@ -5,5 +5,5 @@ import com.example.quiz.domain.QuizSession;
 public interface QuizSessionRepository {
     QuizSession save(QuizSession question);
 
-    QuizSession findById(String id);
+    QuizSession findByToken(String id);
 }

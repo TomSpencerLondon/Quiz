@@ -1,14 +1,14 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.application.port.IdGenerator;
+import com.example.quiz.application.port.TokenGenerator;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StubIdGenerator implements IdGenerator {
+public class StubTokenGenerator implements TokenGenerator {
     private final AtomicInteger sequence = new AtomicInteger(1);
 
     @Override
-    public String newId() {
+    public String token() {
         return "stub-id-" + sequence.getAndIncrement();
     }
 }

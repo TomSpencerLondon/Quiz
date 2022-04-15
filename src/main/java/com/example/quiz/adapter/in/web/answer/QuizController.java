@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.application.QuizSessionService;
-import com.example.quiz.application.port.IdGenerator;
+import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuizSession;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QuizController {
 
     private final QuizSessionService quizSessionService;
-    private final IdGenerator idGenerator;
+    private final TokenGenerator tokenGenerator;
 
     @Autowired
-    public QuizController(QuizSessionService quizSessionService, IdGenerator idGenerator) {
+    public QuizController(QuizSessionService quizSessionService, TokenGenerator tokenGenerator) {
         this.quizSessionService = quizSessionService;
-        this.idGenerator = idGenerator;
+        this.tokenGenerator = tokenGenerator;
     }
 
     @GetMapping("/")
@@ -70,9 +70,9 @@ public class QuizController {
 
     @PostMapping("/start")
     public String start() {
-        String id = idGenerator.newId();
-        quizSessionService.startSessionWithId(id);
-        return "redirect:/quiz?id=" + id;
+        String token = tokenGenerator.token();
+        quizSessionService.startSessionWithId(token);
+        return "redirect:/quiz?id=" + token;
     }
 
     private String templateFor(Question question) {

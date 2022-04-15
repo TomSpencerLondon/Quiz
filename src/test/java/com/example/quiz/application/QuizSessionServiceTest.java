@@ -38,6 +38,6 @@ public class QuizSessionServiceTest {
 
         QuizSession quizSession = quizSessionService.findSessionById("stub-id-1");
 
-        assertThat(quizSession.getId()).isEqualTo(id);
+        assertThat(quizSession.getToken()).isEqualTo(id);
     }
 }

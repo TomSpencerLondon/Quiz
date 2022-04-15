@@ -31,7 +31,7 @@ public class QuizControllerTest {
     @Test
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
         quizController.start();
 
@@ -131,7 +131,7 @@ public class QuizControllerTest {
         inMemoryQuestionRepository.save(singleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
-        StubIdGenerator stubIdGenerator = new StubIdGenerator();
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
         quizController.start();
         quizController.start();

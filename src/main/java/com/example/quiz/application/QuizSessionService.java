@@ -14,12 +14,12 @@ public class QuizSessionService {
     }
 
     public QuizSession findSessionById(String id) {
-        return quizSessionRepository.findById(id);
+        return quizSessionRepository.findByToken(id);
     }
 
     public void startSessionWithId(String id) {
         quizSession = quizService.createQuiz().start();
-        quizSession.setId(id);
+        quizSession.setToken(id);
         quizSessionRepository.save(quizSession);
     }
 }

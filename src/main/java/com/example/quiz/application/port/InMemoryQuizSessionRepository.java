@@ -13,8 +13,10 @@ public class InMemoryQuizSessionRepository implements QuizSessionRepository {
         return quizSession;
     }
 
-    @Override
-    public QuizSession findById(String id) {
-        return quizSessionList.stream().filter(q -> id.equals(q.getId())).findFirst().get();
+    public QuizSession findByToken(String id) {
+        return quizSessionList.stream()
+                              .filter(q -> id.equals(q.getToken()))
+                              .findFirst()
+                              .get();
     }
 }
