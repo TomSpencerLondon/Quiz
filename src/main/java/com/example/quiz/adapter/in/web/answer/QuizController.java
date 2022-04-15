@@ -30,31 +30,31 @@ public class QuizController {
     }
 
     @GetMapping("/quiz")
-    public String askQuestion(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
-        if (id.isBlank()) {
+    public String askQuestion(Model model, @RequestParam(value = "token", defaultValue = "") String token) {
+        if (token.isBlank()) {
             return "redirect:/";
         }
 
-        QuizSession quizSession = quizSessionService.findSessionByToken(id);
+        QuizSession quizSession = quizSessionService.findSessionByToken(token);
         if (quizSession.isFinished()) {
-            return "redirect:/result?id=" + id;
+            return "redirect:/result?id=" + token;
         }
 
         Question question = quizSession.question();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
-        model.addAttribute("id", id);
+        model.addAttribute("id", token);
         return templateFor(question);
     }
 
     @PostMapping("/quiz")
-    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
-        QuizSession quizSession = quizSessionService.findSessionByToken(id);
+    public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "token") String token) {
+        QuizSession quizSession = quizSessionService.findSessionByToken(token);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
-            return "redirect:/result?id=" + id;
+            return "redirect:/result?id=" + token;
         }
-        return "redirect:/quiz?id=" + id;
+        return "redirect:/quiz?id=" + token;
     }
 
     @GetMapping("/result")
