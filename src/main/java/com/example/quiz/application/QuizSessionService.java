@@ -13,13 +13,13 @@ public class QuizSessionService {
         this.quizSessionRepository = quizSessionRepository;
     }
 
-    public QuizSession findSessionByToken(String id) {
-        return quizSessionRepository.findByToken(id);
+    public QuizSession findSessionByToken(String token) {
+        return quizSessionRepository.findByToken(token);
     }
 
-    public void startSessionWithToken(String id) {
+    public void startSessionWithToken(String token) {
         quizSession = quizService.createQuiz().start();
-        quizSession.setToken(id);
+        quizSession.setToken(token);
         quizSessionRepository.save(quizSession);
     }
 }

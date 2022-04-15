@@ -11,10 +11,20 @@ public class QuizSession {
 
     private final Iterator<Question> iterator;
     private final List<Question> questions;
+    private Long id;
 
     private final List<Response> responses = new ArrayList<>();
     private Question question;
     private String token;
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getToken() {
         return token;
@@ -23,8 +33,8 @@ public class QuizSession {
     public void setToken(String token) {
         this.token = token;
     }
-
     // for testing purposes
+
     QuizSession() {
         this.iterator = null;
         this.questions = null;

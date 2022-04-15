@@ -57,7 +57,7 @@ public class QuizControllerTest {
         final String redirectPage = quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/result?id=stub-id-1");
+                .isEqualTo("redirect:/result?token=stub-id-1");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class QuizControllerTest {
         String redirectPage = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/result?id=stub-id-1");
+                .isEqualTo("redirect:/result?token=stub-id-1");
     }
 
 
@@ -108,7 +108,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         String redirect = quizController.start();
         assertThat(redirect)
-                .isEqualTo("redirect:/quiz?id=stub-id-1");
+                .isEqualTo("redirect:/quiz?token=stub-id-1");
     }
 
     @Test
