@@ -19,7 +19,7 @@ public class QuizSessionServiceTest {
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
         quizSessionService.startSessionWithId("stub-id-1");
-        QuizSession savedSession = quizSessionService.findSessionById("stub-id-1");
+        QuizSession savedSession = quizSessionService.findSessionByToken("stub-id-1");
 
         assertThat(savedSession)
                 .isInstanceOf(QuizSession.class);
@@ -36,7 +36,7 @@ public class QuizSessionServiceTest {
         String id = "stub-id-1";
         quizSessionService.startSessionWithId(id);
 
-        QuizSession quizSession = quizSessionService.findSessionById("stub-id-1");
+        QuizSession quizSession = quizSessionService.findSessionByToken("stub-id-1");
 
         assertThat(quizSession.getToken()).isEqualTo(id);
     }

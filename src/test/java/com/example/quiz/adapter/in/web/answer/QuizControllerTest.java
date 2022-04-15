@@ -42,7 +42,7 @@ public class QuizControllerTest {
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
-        assertThat(quizSessionService.findSessionById("stub-id-1").correctResponsesCount())
+        assertThat(quizSessionService.findSessionByToken("stub-id-1").correctResponsesCount())
                 .isEqualTo(1L);
     }
 

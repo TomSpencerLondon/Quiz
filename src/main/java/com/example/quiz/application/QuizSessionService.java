@@ -13,7 +13,7 @@ public class QuizSessionService {
         this.quizSessionRepository = quizSessionRepository;
     }
 
-    public QuizSession findSessionById(String id) {
+    public QuizSession findSessionByToken(String id) {
         return quizSessionRepository.findByToken(id);
     }
 

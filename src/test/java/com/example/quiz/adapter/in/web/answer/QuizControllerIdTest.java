@@ -42,7 +42,7 @@ public class QuizControllerIdTest {
         askQuestionForm.setChoices(List.of(new ChoiceSelection(1, "true"), new ChoiceSelection(2, "false")));
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
-        QuizSession sessionById = quizSessionService.findSessionById("stub-id-1");
+        QuizSession sessionById = quizSessionService.findSessionByToken("stub-id-1");
         boolean finished = sessionById.isFinished();
         Grade grade = sessionById.grade();
         assertThat(finished)
@@ -64,7 +64,7 @@ public class QuizControllerIdTest {
         askQuestionForm.setSelectedChoices(0);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
-        QuizSession session1 = quizSessionService.findSessionById("stub-id-1");
+        QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
         boolean finished = session1.isFinished();
         Grade grade = session1.grade();
         assertThat(finished)
@@ -72,7 +72,7 @@ public class QuizControllerIdTest {
         assertThat(grade.percent())
                 .isEqualTo(100);
 
-        QuizSession session2 = quizSessionService.findSessionById("stub-id-2");
+        QuizSession session2 = quizSessionService.findSessionByToken("stub-id-2");
         boolean finished2 = session2.isFinished();
         Grade grade2 = session2.grade();
         assertThat(finished2)

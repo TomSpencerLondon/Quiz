@@ -35,7 +35,7 @@ public class QuizController {
             return "redirect:/";
         }
 
-        QuizSession quizSession = quizSessionService.findSessionById(id);
+        QuizSession quizSession = quizSessionService.findSessionByToken(id);
         if (quizSession.isFinished()) {
             return "redirect:/result?id=" + id;
         }
@@ -49,7 +49,7 @@ public class QuizController {
 
     @PostMapping("/quiz")
     public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "id") String id) {
-        QuizSession quizSession = quizSessionService.findSessionById(id);
+        QuizSession quizSession = quizSessionService.findSessionByToken(id);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
             return "redirect:/result?id=" + id;
@@ -58,12 +58,12 @@ public class QuizController {
     }
 
     @GetMapping("/result")
-    public String showResult(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
-        if (id.isBlank()) {
+    public String showResult(Model model, @RequestParam(value = "token", defaultValue = "") String token) {
+        if (token.isBlank()) {
             return "redirect:/";
         }
 
-        Grade grade = quizSessionService.findSessionById(id).grade();
+        Grade grade = quizSessionService.findSessionByToken(token).grade();
         model.addAttribute("resultView", ResultView.from(grade));
         return "result";
     }
