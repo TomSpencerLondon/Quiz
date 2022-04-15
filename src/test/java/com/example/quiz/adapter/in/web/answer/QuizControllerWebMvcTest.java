@@ -25,14 +25,14 @@ class QuizControllerWebMvcTest {
     @Test
     void questionEndpointExists() throws Exception {
         mockMvc.perform(
-                get("/quiz?id=stub-id-1")
+                get("/quiz?token=stub-id-1")
         ).andExpect(status().isOk());
     }
 
     @Test
     void resultEndPointExists() throws Exception {
         mockMvc.perform(
-                get("/result?id=stub-id-1")
+                get("/result?token=stub-id-1")
         ).andExpect(status().isOk());
     }
 
@@ -53,7 +53,7 @@ class QuizControllerWebMvcTest {
     @Test
     void getForAskQuestionShouldBeOk() throws Exception {
         mockMvc.perform(post("/start"));
-        mockMvc.perform(get("/quiz?id=stub-id-1"))
+        mockMvc.perform(get("/quiz?token=stub-id-1"))
                .andExpect(status().isOk());
     }
 

@@ -18,7 +18,7 @@ public class QuizSessionServiceTest {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
-        quizSessionService.startSessionWithId("stub-id-1");
+        quizSessionService.startSessionWithToken("stub-id-1");
         QuizSession savedSession = quizSessionService.findSessionByToken("stub-id-1");
 
         assertThat(savedSession)
@@ -34,7 +34,7 @@ public class QuizSessionServiceTest {
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
 
         String id = "stub-id-1";
-        quizSessionService.startSessionWithId(id);
+        quizSessionService.startSessionWithToken(id);
 
         QuizSession quizSession = quizSessionService.findSessionByToken("stub-id-1");
 

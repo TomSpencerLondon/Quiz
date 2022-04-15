@@ -17,7 +17,7 @@ public class QuizSessionService {
         return quizSessionRepository.findByToken(id);
     }
 
-    public void startSessionWithId(String id) {
+    public void startSessionWithToken(String id) {
         quizSession = quizService.createQuiz().start();
         quizSession.setToken(id);
         quizSessionRepository.save(quizSession);

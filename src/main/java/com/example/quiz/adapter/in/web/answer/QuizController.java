@@ -37,13 +37,13 @@ public class QuizController {
 
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
         if (quizSession.isFinished()) {
-            return "redirect:/result?id=" + token;
+            return "redirect:/result?token=" + token;
         }
 
         Question question = quizSession.question();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
-        model.addAttribute("id", token);
+        model.addAttribute("token", token);
         return templateFor(question);
     }
 
@@ -52,9 +52,9 @@ public class QuizController {
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
-            return "redirect:/result?id=" + token;
+            return "redirect:/result?token=" + token;
         }
-        return "redirect:/quiz?id=" + token;
+        return "redirect:/quiz?token=" + token;
     }
 
     @GetMapping("/result")
@@ -71,8 +71,8 @@ public class QuizController {
     @PostMapping("/start")
     public String start() {
         String token = tokenGenerator.token();
-        quizSessionService.startSessionWithId(token);
-        return "redirect:/quiz?id=" + token;
+        quizSessionService.startSessionWithToken(token);
+        return "redirect:/quiz?token=" + token;
     }
 
     private String templateFor(Question question) {

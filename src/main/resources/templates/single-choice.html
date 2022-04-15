@@ -8,7 +8,7 @@
     <form th:object="${askQuestionForm}"
           th:action="@{/quiz}"
           method="post">
-        <input type="hidden" th:value="${id}" name="id">
+        <input type="hidden" th:value="${token}" name="token">
         <div>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div class="sm:col-span-6">
