@@ -6,10 +6,8 @@ import com.example.quiz.domain.QuestionId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class QuestionRepositoryJpaAdapter implements QuestionRepository {
@@ -25,20 +23,23 @@ public class QuestionRepositoryJpaAdapter implements QuestionRepository {
     }
 
     @Override
-    public com.example.quiz.domain.Question save(com.example.quiz.domain.Question question) {
+    public Question save(Question question) {
         QuestionDbo questionDbo = questionTransformer.toQuestionDbo(question);
         return questionTransformer.toQuestion(questionJpaRepository.save(questionDbo));
     }
 
-    @Transactional
     @Override
-    public List<com.example.quiz.domain.Question> findAll() {
+    public List<Question> findAll() {
         List<QuestionDbo> questions = questionJpaRepository.findAll();
-        return questions.stream().map(questionTransformer::toQuestion).collect(Collectors.toList());
+        return questions.stream()
+                        .map(questionTransformer::toQuestion)
+                        .toList();
     }
 
     @Override
     public Optional<Question> findById(QuestionId questionId) {
-        return Optional.empty();
+        return questionJpaRepository
+                .findById(questionId.id())
+                .map(questionTransformer::toQuestion);
     }
 }
