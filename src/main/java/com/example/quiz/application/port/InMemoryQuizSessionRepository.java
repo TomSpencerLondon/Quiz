@@ -1,7 +1,7 @@
 package com.example.quiz.application.port;
 
 import com.example.quiz.domain.QuizSession;
-import com.example.quiz.domain.SessionId;
+import com.example.quiz.domain.QuizSessionId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class InMemoryQuizSessionRepository implements QuizSessionRepository {
     @Override
     public QuizSession save(QuizSession quizSession) {
         if (quizSession.getId() == null) {
-            quizSession.setId(SessionId.of(counter.getAndIncrement()));
+            quizSession.setId(QuizSessionId.of(counter.getAndIncrement()));
         }
 
         quizSessionList.add(quizSession);

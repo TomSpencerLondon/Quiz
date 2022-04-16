@@ -1,8 +1,8 @@
 package com.example.quiz.domain;
 
-public record SessionId(long id) {
-    public static SessionId of(long id) {
-        return new SessionId(id);
+public record QuizSessionId(long id) {
+    public static QuizSessionId of(long id) {
+        return new QuizSessionId(id);
     }
 
     @Override

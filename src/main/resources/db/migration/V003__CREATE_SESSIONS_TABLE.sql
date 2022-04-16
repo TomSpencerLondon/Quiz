@@ -9,7 +9,8 @@ CREATE TABLE quiz_sessions
 CREATE TABLE responses
 (
     id         BIGINT NOT NULL PRIMARY KEY,
-    session_id BIGINT NOT NULL
+    session_id BIGINT NOT NULL,
+    question_id BIGINT NOT NULL
 );
 
 CREATE TABLE response_choices

@@ -1,5 +1,6 @@
 package com.example.quiz.domain;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -11,19 +12,35 @@ public class QuizSession {
 
     private final Iterator<Question> iterator;
     private final List<Question> questions;
-    private SessionId id;
+    private QuizSessionId id;
+    private ZonedDateTime startedAt;
 
     private final List<Response> responses = new ArrayList<>();
     private Question question;
     private String token;
 
+    public List<Response> getResponses() {
+        return responses;
+    }
 
-    public void setId(SessionId id) {
+    public void setResponse(Response response) {
+        this.responses.add(response);
+    }
+
+    public void setId(QuizSessionId id) {
         this.id = id;
     }
 
-    public SessionId getId() {
+    public QuizSessionId getId() {
         return id;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getToken() {
@@ -35,7 +52,7 @@ public class QuizSession {
     }
     // for testing purposes
 
-    QuizSession() {
+    public QuizSession() {
         this.iterator = null;
         this.questions = null;
     }
@@ -86,5 +103,13 @@ public class QuizSession {
 
     public Grade grade() {
         return new Grade(responses, correctResponsesCount(), incorrectResponsesCount());
+    }
+
+    public ZonedDateTime getStartedAt() {
+        return startedAt;
+    }
+
+    public void setStartedAt(ZonedDateTime startedAt) {
+        this.startedAt = startedAt;
     }
 }

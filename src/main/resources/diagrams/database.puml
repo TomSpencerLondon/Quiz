@@ -12,6 +12,7 @@ namespace Session {
         * id: Long<<generated>>
         --
         * question_id: Long <<FK>>
+        * session_id: Long <<FK>>
     }
 
     entity response_choices {
