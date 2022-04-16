@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.application.QuizSessionService;
+import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
@@ -17,11 +18,19 @@ public class QuizController {
 
     private final QuizSessionService quizSessionService;
     private final TokenGenerator tokenGenerator;
+    private final QuestionRepository questionRepository;
 
     @Autowired
+    public QuizController(QuizSessionService quizSessionService, TokenGenerator tokenGenerator, QuestionRepository questionRepository) {
+        this.quizSessionService = quizSessionService;
+        this.tokenGenerator = tokenGenerator;
+        this.questionRepository = questionRepository;
+    }
+
     public QuizController(QuizSessionService quizSessionService, TokenGenerator tokenGenerator) {
         this.quizSessionService = quizSessionService;
         this.tokenGenerator = tokenGenerator;
+        this.questionRepository = null;
     }
 
     @GetMapping("/")

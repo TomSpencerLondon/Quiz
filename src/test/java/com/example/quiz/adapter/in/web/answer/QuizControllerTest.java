@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerTest {
@@ -61,13 +63,26 @@ public class QuizControllerTest {
     }
 
     @Test
-    void showsResultOnPage() {
+    void afterQuestionResponseResultViewHasQuestion() {
+        // given
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
         quizController.start();
+
+        // when
+        AskQuestionForm askQuestionForm = new AskQuestionForm();
+        askQuestionForm.setSelectedChoices(1);
+        quizController.questionResponse(askQuestionForm, "stub-id-1");
         quizController.showResult(model, "stub-id-1");
 
-        assertThat(model.containsAttribute("resultView")).isTrue();
+        // then
+        ResultView resultView = (ResultView) model.getAttribute("resultView");
+        List<ResponseView> responseViews = resultView.getResponsesViews();
+
+        assertThat(responseViews)
+                .hasSize(1);
+        assertThat(responseViews.get(0).getQuestionView().getText())
+                .isEqualTo("Question 1");
     }
 
     @Test

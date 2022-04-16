@@ -15,6 +15,7 @@ public class ResponseView {
     public static ResponseView from(Response response) {
         ResponseView responseView = new ResponseView();
         responseView.chosenAnswers = response.getChoices().stream().map(Choice::text).toList();
+
         responseView.questionView = QuestionView.of(response.getQuestion());
         responseView.correctlyAnswered = response.isCorrect();
         return responseView;
