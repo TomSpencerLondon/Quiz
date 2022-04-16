@@ -11,18 +11,18 @@ public class QuizSession {
 
     private final Iterator<Question> iterator;
     private final List<Question> questions;
-    private Long id;
+    private SessionId id;
 
     private final List<Response> responses = new ArrayList<>();
     private Question question;
     private String token;
 
 
-    public void setId(Long id) {
+    public void setId(SessionId id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public SessionId getId() {
         return id;
     }
 
