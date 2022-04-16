@@ -33,6 +33,10 @@ public class Response {
         return question;
     }
 
+    public QuestionId questionId() {
+        return question.getId();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

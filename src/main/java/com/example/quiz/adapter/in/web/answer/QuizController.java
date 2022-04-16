@@ -27,12 +27,6 @@ public class QuizController {
         this.questionRepository = questionRepository;
     }
 
-    public QuizController(QuizSessionService quizSessionService, TokenGenerator tokenGenerator) {
-        this.quizSessionService = quizSessionService;
-        this.tokenGenerator = tokenGenerator;
-        this.questionRepository = null;
-    }
-
     @GetMapping("/")
     public String home() {
         return "start";
@@ -73,7 +67,7 @@ public class QuizController {
         }
 
         Grade grade = quizSessionService.findSessionByToken(token).grade();
-        model.addAttribute("resultView", ResultView.from(grade));
+        model.addAttribute("resultView", ResultView.from(grade, questionRepository));
         return "result";
     }
 

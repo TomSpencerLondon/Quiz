@@ -5,6 +5,8 @@ import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.QuizSessionServiceTestFactory;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.FinishedQuizSession;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.QuizSession;
@@ -19,10 +21,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerIdTest {
+
+    public static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
+    public static final TokenGenerator DUMMY_TOKEN_GENERATOR = null;
+
     @Test
     void askQuestionWithoutIdThenRedirectsToStart() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
 
         final Model model = new ConcurrentModel();
@@ -34,7 +40,7 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
         AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -54,7 +60,7 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
@@ -89,7 +95,7 @@ public class QuizControllerIdTest {
         QuizService quizService = new QuizService(new InMemoryQuestionRepository());
         QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository);
 
-        QuizController quizController = new QuizController(quizSessionService, null);
+        QuizController quizController = new QuizController(quizSessionService, DUMMY_TOKEN_GENERATOR, DUMMY_QUESTION_REPOSITORY);
 
         String redirect = quizController.askQuestion(new ConcurrentModel(), "finished");
 

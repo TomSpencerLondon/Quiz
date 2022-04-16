@@ -6,6 +6,7 @@ import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.QuizSessionServiceTestFactory;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerTest {
+
+    public static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
 
     @Test
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
@@ -34,7 +37,7 @@ public class QuizControllerTest {
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, DUMMY_QUESTION_REPOSITORY);
         quizController.start();
 
         final Model model = new ConcurrentModel();
@@ -147,7 +150,7 @@ public class QuizControllerTest {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator);
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, DUMMY_QUESTION_REPOSITORY);
         quizController.start();
         quizController.start();
     }

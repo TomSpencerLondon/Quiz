@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.Grade;
 
 import java.util.List;
@@ -19,13 +20,14 @@ public class ResultView {
         this.responsesViews = responsesViews;
     }
 
-    public static ResultView from(Grade grade) {
+    public static ResultView from(Grade grade, QuestionRepository questionRepository) {
         final int correct = grade.correct();
         final int incorrect = grade.incorrect();
         final int percent = grade.percent();
         final List<ResponseView> responseViews = grade.responses()
                                                       .stream()
-                                                      .map(ResponseView::from).toList();
+                                                      .map(response -> ResponseView.from(response, questionRepository))
+                                                      .toList();
         return new ResultView(percent, correct, incorrect, responseViews);
     }
 

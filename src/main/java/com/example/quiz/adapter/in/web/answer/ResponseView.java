@@ -1,7 +1,9 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.adapter.in.web.edit.QuestionView;
+import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Response;
 
 import java.util.List;
@@ -12,11 +14,14 @@ public class ResponseView {
     private List<String> chosenAnswers;
     private boolean correctlyAnswered;
 
-    public static ResponseView from(Response response) {
+    public static ResponseView from(Response response, QuestionRepository questionRepository) {
         ResponseView responseView = new ResponseView();
         responseView.chosenAnswers = response.getChoices().stream().map(Choice::text).toList();
+        Question question = questionRepository
+                .findById(response.questionId())
+                .orElseThrow();
 
-        responseView.questionView = QuestionView.of(response.getQuestion());
+        responseView.questionView = QuestionView.of(question);
         responseView.correctlyAnswered = response.isCorrect();
         return responseView;
     }
