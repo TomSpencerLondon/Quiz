@@ -3,6 +3,8 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class Response {
+
+    private ResponseId id;
     private final Question question;
     private final List<Choice> choices;
 

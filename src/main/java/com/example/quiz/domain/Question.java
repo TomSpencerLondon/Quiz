@@ -5,7 +5,7 @@ import java.util.List;
 public class Question {
     private ChoiceType choiceType;
     private final String text;
-    private Long id;
+    private QuestionId id;
 
     public Question(
             String text,

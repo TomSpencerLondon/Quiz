@@ -1,7 +1,7 @@
 package com.example.quiz.domain;
 
 public class Choice {
-    private Long id;
+    private ChoiceId id;
     private final String text;
     private final boolean isCorrect;
 
@@ -15,17 +15,17 @@ public class Choice {
         this.isCorrect = isCorrect;
     }
 
-    public Choice(Long id, String text, boolean isCorrect) {
+    public Choice(ChoiceId id, String text, boolean isCorrect) {
         this.id = id;
         this.text = text;
         this.isCorrect = isCorrect;
     }
 
-    public Long getId() {
+    public ChoiceId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ChoiceId id) {
         this.id = id;
     }
 
