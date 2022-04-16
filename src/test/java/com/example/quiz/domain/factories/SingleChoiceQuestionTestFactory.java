@@ -1,9 +1,6 @@
 package com.example.quiz.domain.factories;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Response;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 
 import java.util.List;
 
@@ -12,16 +9,16 @@ public class SingleChoiceQuestionTestFactory {
     public static Question createSingleChoiceQuestion() {
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", false))));
+                new SingleChoice(List.of(new Choice(ChoiceId.of(1L), "Answer 1", true), new Choice(ChoiceId.of(2L), "Answer 2", false))));
         return question;
     }
 
     public static Response createSingleChoiceQuestionCorrectResponse(Question question) {
-        return new Response(question, new Choice("Answer 1"));
+        return new Response(question, new Choice(ChoiceId.of(1L), "Answer 1", true));
     }
 
     public static Response createSingleChoiceQuestionIncorrectResponse(Question question) {
-        return new Response(question, new Choice("Answer 2"));
+        return new Response(question, new Choice(ChoiceId.of(1L), "Answer 2", false));
     }
 
     public static Question create(
@@ -33,9 +30,9 @@ public class SingleChoiceQuestionTestFactory {
         return new Question(
                 questionText,
                 new SingleChoice(List.of(
-                        new Choice(choice1, true),
-                        new Choice(choice2, false),
-                        new Choice(choice3, false),
-                        new Choice(choice4, false))));
+                        new Choice(ChoiceId.of(1L), choice1, true),
+                        new Choice(ChoiceId.of(2L), choice2, false),
+                        new Choice(ChoiceId.of(3L), choice3, false),
+                        new Choice(ChoiceId.of(4L), choice4, false))));
     }
 }

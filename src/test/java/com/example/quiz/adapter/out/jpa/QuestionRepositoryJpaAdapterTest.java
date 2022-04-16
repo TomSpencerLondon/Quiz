@@ -38,9 +38,9 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
         Question question = new Question("Q1",
                 new SingleChoice(
                         List.of(new Choice("Q1A1", true),
-                                new Choice("Q1A2"),
-                                new Choice("Q1A3"),
-                                new Choice("Q1A4"))));
+                                new Choice("Q1A2", false),
+                                new Choice("Q1A3", false),
+                                new Choice("Q1A4", false))));
 
         final Question savedQuestion = questionRepositoryJpaAdapter.save(question);
 

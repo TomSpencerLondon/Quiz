@@ -16,7 +16,7 @@ public class QuizTestFactory {
         List<Question> questions = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             Question q = new Question("Question " + i, choice);
-            q.setId((long) i);
+            q.setId(QuestionId.of((long) i));
             questions.add(q);
         }
         return new Quiz(questions);

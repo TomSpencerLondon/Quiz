@@ -36,7 +36,7 @@ class QuestionServiceTest {
         ChoiceType singleChoiceResult = new SingleChoice(choices);
         Question questionResult = new Question("Question 1",
                 singleChoiceResult);
-        questionResult.setId(0L);
+        questionResult.setId(QuestionId.of(0L));
         // Assert
         assertThat(questions)
                 .containsExactly(questionResult);
@@ -72,7 +72,7 @@ class QuestionServiceTest {
         MultipleChoice multipleChoice = new MultipleChoice(choices);
         Question expectedQuestion = new Question("Question 1",
                 multipleChoice);
-        expectedQuestion.setId(0L);
+        expectedQuestion.setId(QuestionId.of(0L));
 
         // Assert
         assertThat(questions.get(0).isSingleChoice())

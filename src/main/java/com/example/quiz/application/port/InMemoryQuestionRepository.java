@@ -1,6 +1,7 @@
 package com.example.quiz.application.port;
 
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class InMemoryQuestionRepository implements
     @Override
     public Question save(Question question) {
         if (question.getId() == null) {
-            question.setId(counter.getAndIncrement());
+            question.setId(QuestionId.of(counter.getAndIncrement()));
         }
         questions.add(question);
         return question;

@@ -11,6 +11,14 @@ public class Response {
         this.question = question;
     }
 
+    public ResponseId getId() {
+        return id;
+    }
+
+    public void setId(ResponseId id) {
+        this.id = id;
+    }
+
     public boolean isCorrect() {
         return question.isCorrectAnswer(choices.toArray(Choice[]::new));
     }

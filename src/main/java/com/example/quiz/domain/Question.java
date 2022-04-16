@@ -23,11 +23,11 @@ public class Question {
         return choiceType.isCorrect(choices);
     }
 
-    public Long getId() {
+    public QuestionId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(QuestionId id) {
         this.id = id;
     }
 

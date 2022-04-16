@@ -1,9 +1,6 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public class QuestionTransformer {
                 questionDbo.getText(),
                 choiceType(questionDbo, choices));
 
-        question.setId(questionDbo.getId());
+        question.setId(QuestionId.of(questionDbo.getId()));
 
         return question;
     }

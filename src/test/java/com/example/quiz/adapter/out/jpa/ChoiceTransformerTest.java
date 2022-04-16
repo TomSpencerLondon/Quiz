@@ -9,12 +9,9 @@ class ChoiceTransformerTest {
 
     @Test
     void choiceToChoiceDboTransformsCorrectly() {
-        Choice choice = new Choice(2L, "choice 2", true);
+        Choice choice = new Choice("choice 2", true);
 
         ChoiceDbo choiceDbo = ChoiceTransformer.toChoiceDbo(choice);
-
-        assertThat(choiceDbo.getId())
-                .isEqualTo(2L);
         assertThat(choiceDbo.getChoiceText())
                 .isEqualTo("choice 2");
         assertThat(choiceDbo.isCorrect())
@@ -34,7 +31,7 @@ class ChoiceTransformerTest {
                 .isEqualTo("choice 1");
         assertThat(choice.isCorrect())
                 .isTrue();
-        assertThat(choice.getId())
+        assertThat(choice.getId().id())
                 .isEqualTo(1L);
     }
 }
