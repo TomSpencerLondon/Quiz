@@ -15,7 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class QuizSessionTransformerTest {
     InMemoryChoiceRepository choiceRepository = new InMemoryChoiceRepository();
     InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-    final QuizSessionTransformer quizSessionTransformer = new QuizSessionTransformer(questionRepository, choiceRepository);
+    ResponseTransformer responseTransformer = new ResponseTransformer(choiceRepository, questionRepository);
+    final QuizSessionTransformer quizSessionTransformer = new QuizSessionTransformer(questionRepository, choiceRepository, responseTransformer);
 
     @Test
     void quizSessionDboToQuizSession() {
@@ -55,6 +56,41 @@ class QuizSessionTransformerTest {
         // then
 
         assertThat(quizSession)
+                .usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void quizSessionToQuizSessionDbo() {
+        // given
+        SingleChoice singleChoice = new SingleChoice(List.of(
+                new Choice(ChoiceId.of(1L), "C1", true),
+                new Choice(ChoiceId.of(2L), "C2", false)
+        ));
+        Choice choice = new Choice(ChoiceId.of(1L), "C1", true);
+        Question question = new Question("Q1", singleChoice);
+        question.setId(QuestionId.of(1L));
+        QuizSession quizSession = new QuizSession();
+        quizSession.setId(QuizSessionId.of(1L));
+        quizSession.setToken("stub-token-1");
+        quizSession.setQuestion(question);
+        quizSession.setResponse(new Response(question.getId(), question.isCorrectAnswer(choice), choice));
+        quizSession.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
+
+        QuizSessionDbo expected = new QuizSessionDbo();
+        expected.setToken("stub-token-1");
+        ResponseDbo responseDbo = new ResponseDbo();
+        responseDbo.setQuestionId(question.getId().id());
+        responseDbo.setChoiceIds(Set.of(choice.getId().id()));
+        expected.setResponses(List.of(responseDbo));
+        expected.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
+        expected.setCurrentQuestionId(1L);
+
+        // when
+        QuizSessionDbo quizSessionDbo = quizSessionTransformer.toQuizSessionDbo(quizSession);
+
+        // then
+        assertThat(quizSessionDbo)
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
     }
