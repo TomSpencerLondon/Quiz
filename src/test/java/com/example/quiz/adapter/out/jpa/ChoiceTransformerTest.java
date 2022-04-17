@@ -10,9 +10,13 @@ class ChoiceTransformerTest {
 
     @Test
     void choiceToChoiceDboTransformsCorrectly() {
+        // given
         Choice choice = new Choice("choice 2", true);
 
+        // when
         ChoiceDbo choiceDbo = choiceTransformer.toChoiceDbo(choice);
+
+        // then
         assertThat(choiceDbo.getChoiceText())
                 .isEqualTo("choice 2");
         assertThat(choiceDbo.isCorrect())
@@ -21,13 +25,16 @@ class ChoiceTransformerTest {
 
     @Test
     void choiceDboToChoiceTransformsCorrectly() {
+        // given
         ChoiceDbo choiceDbo = new ChoiceDbo();
         choiceDbo.setId(1L);
         choiceDbo.setChoiceText("choice 1");
         choiceDbo.setCorrect(true);
 
+        // when
         Choice choice = choiceTransformer.toChoice(choiceDbo);
 
+        // then
         assertThat(choice.text())
                 .isEqualTo("choice 1");
         assertThat(choice.isCorrect())

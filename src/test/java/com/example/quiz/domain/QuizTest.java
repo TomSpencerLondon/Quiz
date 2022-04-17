@@ -11,19 +11,18 @@ public class QuizTest {
 
     @Test
     void new_quiz_hasNoQuestions() {
-        // Given / when
+        // Given
         Quiz quiz = new Quiz(Collections.EMPTY_LIST);
 
         // Then
         List<Question> questions = quiz.questions();
-
         assertThat(questions)
                 .isEmpty();
     }
 
     @Test
     void new_quiz_hasOneQuestion() {
-        // Given / when
+        // Given
         List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", false));
         final Question question = new Question(
                 "Question 1",
@@ -33,6 +32,7 @@ public class QuizTest {
         Quiz quiz = new Quiz(questions);
         List<Question> questionsResult = quiz.questions();
 
+        // Then
         assertThat(questionsResult).containsOnly(question);
     }
 }

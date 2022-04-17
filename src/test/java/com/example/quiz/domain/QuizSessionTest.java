@@ -15,6 +15,7 @@ public class QuizSessionTest {
         // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(0);
 
+        // Then
         assertThatThrownBy(quiz::start)
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -31,6 +32,7 @@ public class QuizSessionTest {
         // When
         QuizSession session = quiz.start();
 
+        // Then
         assertThat(session.question())
                 .isEqualTo(question);
     }
@@ -41,7 +43,6 @@ public class QuizSessionTest {
         // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(1);
         QuizSession session = quiz.start();
-        Question question = session.question();
 
         // when
         session.respondWith(new Choice("Answer 1"));
@@ -52,19 +53,16 @@ public class QuizSessionTest {
     }
 
     @Test
-        // testTakerCanCheckIfSessionIsFinishedWithThreeQuestionsAfterSecondQuestion
     void quizWithThreeQuestionsWhenAnsweringTwoQuestionsSessionIsNotFinished() {
-
         // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
 
         // when
-        Question q1 = session.question();
         session.respondWith(new Choice("Answer 1"));
-        Question q2 = session.question();
         session.respondWith(new Choice("Answer 2"));
 
+        // Then
         assertThat(session.isFinished())
                 .isFalse();
     }
@@ -75,76 +73,70 @@ public class QuizSessionTest {
         QuizSession session = quiz.start();
 
         // when
-        Question q1 = session.question();
         session.respondWith(new Choice("Answer 1"));
-        Question q2 = session.question();
         session.respondWith(new Choice("Answer 2"));
-        Question q3 = session.question();
         session.respondWith(new Choice("Answer 2"));
 
+        // Then
         assertThat(session.isFinished())
                 .isTrue();
     }
 
-    // Ask Grade
-
     @Test
     void grade_gives_number_of_correct_responses_for_Session() {
+        // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
 
-        // when
-        Question q1 = session.question();
+        // When
         session.respondWith(new Choice("Answer 1", true));
-        Question q2 = session.question();
         session.respondWith(new Choice("Answer 2", false));
-        Question q3 = session.question();
         session.respondWith(new Choice("Answer 2", false));
 
+        // Then
         assertThat(session.correctResponsesCount())
                 .isEqualTo(1L);
     }
 
     @Test
     void counts_incorrect_responses() {
+        // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
 
-        // when
-        Question q1 = session.question();
+        // When
         session.respondWith(new Choice("Answer 1", true));
-        Question q2 = session.question();
         session.respondWith(new Choice("Answer 2", false));
-        Question q3 = session.question();
         session.respondWith(new Choice("Answer 2", false));
 
+        // Then
         assertThat(session.incorrectResponsesCount())
                 .isEqualTo(2L);
     }
 
     @Test
     void calculatesGradeForFinishedTest() {
+        // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
-
-        // when
         Question q1 = session.question();
         Choice choice1 = new Choice("Answer 1", true);
-        session.respondWith(choice1);
         Question q2 = session.question();
         Choice choice2 = new Choice("Answer 2", false);
-        session.respondWith(choice2);
         Question q3 = session.question();
         Choice choice3 = new Choice("Answer 2", false);
+        session.respondWith(choice1);
+        session.respondWith(choice2);
         session.respondWith(choice3);
-
         List<Response> responses = List.of(
                 new Response(q1.getId(), q1.isCorrectAnswer(choice1), choice1),
                 new Response(q2.getId(), q2.isCorrectAnswer(choice2), choice2),
                 new Response(q3.getId(), q3.isCorrectAnswer(choice3), choice3));
 
+        // When
         final Grade grade = new Grade(responses, 1, 2);
 
+        // Then
         final Grade result = session.grade();
         assertThat(result)
                 .isEqualTo(grade);
@@ -167,15 +159,16 @@ public class QuizSessionTest {
 
     @Test
     void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
+        // Given
         final Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(2);
-
         final QuizSession session = quiz.start();
-
         final Question q1 = session.question();
         session.respondWith(new Choice("text"));
 
+        // When
         final Question q2 = session.question();
 
+        // Then
         assertThat(q1)
                 .isNotEqualTo(q2);
     }

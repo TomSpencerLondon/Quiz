@@ -49,6 +49,7 @@ class QuestionTransformerTest {
         questionDbo.setChoices(List.of(choiceDbo1, choiceDbo2, choiceDbo3, choiceDbo4));
         questionDbo.setId(1L);
         questionDbo.setChoiceType(ChoiceType.SINGLE);
+
         // When
         final Question question = questionTransformer.toQuestion(questionDbo);
 
@@ -89,6 +90,7 @@ class QuestionTransformerTest {
         // When
         final QuestionDbo result = questionTransformer.toQuestionDbo(question);
 
+        // Then
         assertThat(result)
                 .usingRecursiveComparison()
                 .isEqualTo(questionDbo);
@@ -97,6 +99,7 @@ class QuestionTransformerTest {
 
     @Test
     void multipleChoiceQuestionToQuestionDbo() {
+        // Given
         final List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", true),
                 new Choice("Answer 3", false), new Choice("Answer 4", false));
         MultipleChoice multipleChoice = new MultipleChoice(choices);
@@ -122,6 +125,7 @@ class QuestionTransformerTest {
         // When
         final QuestionDbo result = questionTransformer.toQuestionDbo(multipleChoiceQuestion);
 
+        // Then
         assertThat(result)
                 .usingRecursiveComparison()
                 .isEqualTo(questionDbo);
@@ -132,7 +136,6 @@ class QuestionTransformerTest {
         // Given
         final Question question = MultipleChoiceQuestionTestFactory.multipleChoiceQuestion();
         question.setId(QuestionId.of(1L));
-
         final QuestionDbo questionDbo = new QuestionDbo();
         questionDbo.setText("Question 1");
         ChoiceDbo choiceDbo1 = new ChoiceDbo();
@@ -158,10 +161,10 @@ class QuestionTransformerTest {
         // When
         final Question result = questionTransformer.toQuestion(questionDbo);
 
+        // Then
         assertThat(result)
                 .usingRecursiveComparison()
                 .isEqualTo(question);
-
         assertThat(result.isSingleChoice())
                 .isFalse();
     }

@@ -25,20 +25,24 @@ class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
 
     @Test
     void savesAndRetrievesAQuizSessionWithNoResponses() {
+        // Given
         QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
         quizSessionDbo.setCurrentQuestionId(2L);
         quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
         quizSessionDbo.setToken("stub-1");
         quizSessionDbo.setResponses(Collections.emptyList());
 
+        // When
         QuizSessionDbo savedSession = quizSessionJpaRepository.save(quizSessionDbo);
 
+        // Then
         assertThat(savedSession.getId())
                 .isNotNull();
     }
 
     @Test
     void saveAndRetrieveAQuizSessionWithMultipleResponses() {
+        // Given
         QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
         quizSessionDbo.setCurrentQuestionId(2L);
         quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
@@ -49,8 +53,10 @@ class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
         responseDbo2.setChoiceIds(Set.of(3L, 4L));
         quizSessionDbo.setResponses(List.of(responseDbo1, responseDbo2));
 
+        // When
         QuizSessionDbo savedSession = quizSessionJpaRepository.save(quizSessionDbo);
 
+        // Then
         assertThat(savedSession.getResponses().size())
                 .isEqualTo(2);
     }

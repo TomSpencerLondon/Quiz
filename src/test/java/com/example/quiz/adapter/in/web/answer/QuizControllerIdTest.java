@@ -27,18 +27,23 @@ public class QuizControllerIdTest {
 
     @Test
     void askQuestionWithoutIdThenRedirectsToStart() {
+        // given
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
-
         final Model model = new ConcurrentModel();
+
+        // when
         String redirectPage = quizController.askQuestion(model, "");
+
+        // then
         assertThat(redirectPage)
                 .isEqualTo("redirect:/");
     }
 
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
+        // given
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
@@ -47,7 +52,11 @@ public class QuizControllerIdTest {
         askQuestionForm.setQuestion(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion().text());
         askQuestionForm.setChoices(List.of(new ChoiceSelection(1, "true"), new ChoiceSelection(2, "false")));
         askQuestionForm.setSelectedChoices(0);
+
+        // when
         quizController.questionResponse(askQuestionForm, "stub-id-1");
+
+        // then
         QuizSession sessionById = quizSessionService.findSessionByToken("stub-id-1");
         boolean finished = sessionById.isFinished();
         Grade grade = sessionById.grade();
@@ -59,6 +68,7 @@ public class QuizControllerIdTest {
 
     @Test
     void answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession() {
+        // given
         QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
         QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
@@ -68,8 +78,11 @@ public class QuizControllerIdTest {
         askQuestionForm.setQuestion(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion().text());
         askQuestionForm.setChoices(List.of(new ChoiceSelection(1, "true"), new ChoiceSelection(2, "false")));
         askQuestionForm.setSelectedChoices(0);
+
+        // when
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
+        // then
         QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
         boolean finished = session1.isFinished();
         Grade grade = session1.grade();
@@ -89,6 +102,7 @@ public class QuizControllerIdTest {
 
     @Test
     void askQuestionRedirectsToResultForTheFinishedSession() {
+        // given
         InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
         quizSessionRepository.save(new FinishedQuizSession("finished"));
         quizSessionRepository.save(new UnfinishedQuizSession("unfinished"));
@@ -97,8 +111,10 @@ public class QuizControllerIdTest {
 
         QuizController quizController = new QuizController(quizSessionService, DUMMY_TOKEN_GENERATOR, DUMMY_QUESTION_REPOSITORY);
 
+        // when
         String redirect = quizController.askQuestion(new ConcurrentModel(), "finished");
 
+        // then
         assertThat(redirect)
                 .isEqualTo("redirect:/result?token=finished");
     }

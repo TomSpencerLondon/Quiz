@@ -12,12 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AskQuestionFormTest {
     @Test
     void convertsQuestionToAskSingleChoiceForm() {
+        // given
         Question singleChoiceQuestion = new Question(
                 "Question 1",
                 new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2"))));
 
+        // when
         AskQuestionForm form = AskQuestionForm.from(singleChoiceQuestion);
 
+        // then
         assertThat(form.getQuestion())
                 .isEqualTo("Question 1");
         assertThat(form.getChoices())

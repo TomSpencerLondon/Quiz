@@ -37,6 +37,7 @@ class QuestionServiceTest {
         Question questionResult = new Question("Question 1",
                 singleChoiceResult);
         questionResult.setId(QuestionId.of(1L));
+
         // Assert
         assertThat(questions)
                 .containsExactly(questionResult);

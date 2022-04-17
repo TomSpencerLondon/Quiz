@@ -40,6 +40,7 @@ public class QuestionJpaRepositoryTest {
 
     @Test
     void stores_and_retrieves_Questions() {
+        // given
         QuestionDbo question = new QuestionDbo();
         question.setText("Q1");
         question.setChoiceType(ChoiceType.SINGLE);
@@ -48,12 +49,13 @@ public class QuestionJpaRepositoryTest {
         choiceDbo.setCorrect(true);
         question.setChoices(List.of(choiceDbo));
 
+        // when
         QuestionDbo savedQuestion = questionJpaRepository.save(question);
 
+        // then
         assertThat(savedQuestion.getId())
                 .isNotNull()
                 .isGreaterThanOrEqualTo(0);
-
         Optional<QuestionDbo> foundQuestion = questionJpaRepository
                 .findByText("Q1");
         assertThat(foundQuestion)
