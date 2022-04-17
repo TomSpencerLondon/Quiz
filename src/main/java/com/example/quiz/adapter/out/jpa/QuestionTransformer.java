@@ -7,8 +7,14 @@ import java.util.List;
 
 @Service
 public class QuestionTransformer {
+    private final ChoiceTransformer choiceTransformer;
+
+    public QuestionTransformer(ChoiceTransformer choiceTransformer) {
+        this.choiceTransformer = choiceTransformer;
+    }
+
     Question toQuestion(QuestionDbo questionDbo) {
-        List<Choice> choices = ChoiceTransformer.toChoices(questionDbo
+        List<Choice> choices = choiceTransformer.toChoices(questionDbo
                 .getChoices());
 
         Question question = new Question(
@@ -25,7 +31,7 @@ public class QuestionTransformer {
         questionDbo.setText(question.text());
         ChoiceType choiceType = question.isSingleChoice() ? ChoiceType.SINGLE : ChoiceType.MULTIPLE;
         questionDbo.setChoiceType(choiceType);
-        List<ChoiceDbo> choiceDbos = ChoiceTransformer.toChoiceDbos(question.choices());
+        List<ChoiceDbo> choiceDbos = choiceTransformer.toChoiceDbos(question.choices());
         questionDbo.setChoices(choiceDbos);
         return questionDbo;
     }

@@ -13,8 +13,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class QuestionTransformerTest {
-
-    final QuestionTransformer questionTransformer = new QuestionTransformer();
+    final ChoiceTransformer choiceTransformer = new ChoiceTransformer();
+    final QuestionTransformer questionTransformer = new QuestionTransformer(choiceTransformer);
 
     @Test
     void questionDboToSingleChoiceQuestion() {

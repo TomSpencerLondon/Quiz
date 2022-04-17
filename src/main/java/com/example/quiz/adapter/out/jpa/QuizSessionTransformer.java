@@ -1,35 +1,41 @@
 package com.example.quiz.adapter.out.jpa;
 
+import com.example.quiz.application.port.ChoiceRepository;
 import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuizSession;
-import com.example.quiz.domain.QuizSessionId;
-import com.example.quiz.domain.Response;
+import com.example.quiz.domain.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class QuizSessionTransformer {
     private final QuestionRepository questionRepository;
+    private final ChoiceRepository choiceRepository;
 
-    public QuizSessionTransformer(QuestionRepository questionRepository) {
+    public QuizSessionTransformer(QuestionRepository questionRepository, ChoiceRepository choiceRepository) {
         this.questionRepository = questionRepository;
+        this.choiceRepository = choiceRepository;
     }
 
     QuizSession toQuizSession(QuizSessionDbo quizSessionDbo) {
         QuizSession quizSession = new QuizSession();
         quizSession.setId(QuizSessionId.of(quizSessionDbo.getId()));
+        quizSession.setToken(quizSessionDbo.getToken());
         Long currentQuestionId = quizSessionDbo.getCurrentQuestionId();
-        List<Question> questions = questionRepository.findAll();
-        Optional<Question> question = questions.stream()
-                                               .filter(q -> q.getId().id() == currentQuestionId)
-                                               .findFirst();
-        question.ifPresent(quizSession::setQuestion);
-        List<ResponseDbo> responseDbos = quizSessionDbo.getResponses();
-        List<Response> responses = responseDbos.stream().map(this::toResponse).toList();
+        Question question = questionRepository
+                .findById(QuestionId.of(currentQuestionId))
+                .orElseThrow();
 
-        return null;
+        quizSession.setQuestion(question);
+        List<Response> responses = quizSessionDbo.getResponses()
+                                                 .stream()
+                                                 .map(this::toResponse)
+                                                 .toList();
+
+        responses.forEach(quizSession::setResponse);
+        quizSession.setStartedAt(quizSessionDbo.getStartedAt());
+
+        return quizSession;
     }
 
     QuizSessionDbo toQuizSessionDbo(QuizSession quizSession) {
@@ -38,9 +44,20 @@ public class QuizSessionTransformer {
 
     private Response toResponse(ResponseDbo responseDbo) {
         Set<Long> choiceIds = responseDbo.getChoiceIds();
-        List<Question> questions = questionRepository.findAll().stream().toList();
+        List<Choice> choiceEntries = new ArrayList<>();
+        choiceIds.forEach(choiceId -> {
+            Choice choice = choiceRepository
+                    .findById(ChoiceId.of(choiceId))
+                    .orElseThrow();
+            choiceEntries.add(choice);
+        });
 
-        questions.stream().map(q -> q.choices()).toList();
-        return null;
+        Choice[] choices = choiceEntries.toArray(new Choice[]{});
+        QuestionId questionId = QuestionId.of(responseDbo.getQuestionId());
+        Question question = questionRepository
+                .findById(questionId)
+                .orElseThrow();
+
+        return new Response(questionId, question.isCorrectAnswer(choices), choices);
     }
 }

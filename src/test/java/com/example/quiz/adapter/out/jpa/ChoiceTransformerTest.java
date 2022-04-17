@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ChoiceTransformerTest {
+    final ChoiceTransformer choiceTransformer = new ChoiceTransformer();
 
     @Test
     void choiceToChoiceDboTransformsCorrectly() {
         Choice choice = new Choice("choice 2", true);
 
-        ChoiceDbo choiceDbo = ChoiceTransformer.toChoiceDbo(choice);
+        ChoiceDbo choiceDbo = choiceTransformer.toChoiceDbo(choice);
         assertThat(choiceDbo.getChoiceText())
                 .isEqualTo("choice 2");
         assertThat(choiceDbo.isCorrect())
@@ -25,7 +26,7 @@ class ChoiceTransformerTest {
         choiceDbo.setChoiceText("choice 1");
         choiceDbo.setCorrect(true);
 
-        Choice choice = ChoiceTransformer.toChoice(choiceDbo);
+        Choice choice = choiceTransformer.toChoice(choiceDbo);
 
         assertThat(choice.text())
                 .isEqualTo("choice 1");
