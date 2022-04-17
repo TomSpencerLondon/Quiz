@@ -16,7 +16,7 @@ public class ResponseView {
 
     public static ResponseView from(Response response, QuestionRepository questionRepository) {
         ResponseView responseView = new ResponseView();
-        responseView.chosenAnswers = response.getChoices().stream().map(Choice::text).toList();
+        responseView.chosenAnswers = response.choices().stream().map(Choice::text).toList();
         Question question = questionRepository
                 .findById(response.questionId())
                 .orElseThrow();

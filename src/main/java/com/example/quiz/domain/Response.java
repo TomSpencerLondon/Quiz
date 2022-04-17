@@ -27,7 +27,7 @@ public class Response {
         return isCorrect;
     }
 
-    public List<Choice> getChoices() {
+    public List<Choice> choices() {
         return choices;
     }
 
