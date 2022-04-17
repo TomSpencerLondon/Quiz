@@ -18,8 +18,8 @@
             - Session + Response = one aggregate
             - Question + Choice = different aggregate
         - Mapping from object model to data model - may need improvement
-    [>>] Create Transformer class for QuizSession -> QuizSessionDbo
-    [🚧] Add saving for Session in database
+    [✅] Create Transformer class for QuizSession -> QuizSessionDbo
+    [✅] Add saving for Session in database
 
 
 ## Other Feature Options
