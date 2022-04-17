@@ -5,12 +5,14 @@ import java.util.List;
 public class Response {
 
     private ResponseId id;
-    private final Question question;
+    private QuestionId questionId;
+    private boolean isCorrect;
     private final List<Choice> choices;
 
-    public Response(Question question, Choice... choices) {
+    public Response(QuestionId questionId, boolean isCorrect, Choice... choices) {
+        this.questionId = questionId;
+        this.isCorrect = isCorrect;
         this.choices = List.of(choices);
-        this.question = question;
     }
 
     public ResponseId getId() {
@@ -22,19 +24,15 @@ public class Response {
     }
 
     public boolean isCorrect() {
-        return question.isCorrectAnswer(choices.toArray(Choice[]::new));
+        return isCorrect;
     }
 
     public List<Choice> getChoices() {
         return choices;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
     public QuestionId questionId() {
-        return question.getId();
+        return questionId;
     }
 
     @Override
@@ -44,13 +42,13 @@ public class Response {
 
         Response response = (Response) o;
 
-        if (!question.equals(response.question)) return false;
+        if (!questionId.equals(response.questionId)) return false;
         return choices.equals(response.choices);
     }
 
     @Override
     public int hashCode() {
-        int result = question.hashCode();
+        int result = questionId.hashCode();
         result = 31 * result + choices.hashCode();
         return result;
     }

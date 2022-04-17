@@ -78,7 +78,8 @@ public class QuizSession {
     }
 
     public void respondWith(Choice... choices) {
-        Response response = new Response(question, choices);
+        boolean isCorrect = question.isCorrectAnswer(choices);
+        Response response = new Response(question.getId(), isCorrect, choices);
         responses.add(response);
         if (iterator.hasNext()) {
             question = iterator.next();

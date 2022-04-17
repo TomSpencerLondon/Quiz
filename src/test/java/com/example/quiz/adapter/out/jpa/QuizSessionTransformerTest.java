@@ -31,7 +31,8 @@ class QuizSessionTransformerTest {
         expected.setToken("stub-token-1");
         Question question = new Question("Q1", singleChoice);
         expected.setQuestion(question);
-        expected.setResponse(new Response(question, new Choice(ChoiceId.of(1L), "C1", true)));
+        Choice choice = new Choice(ChoiceId.of(1L), "C1", true);
+        expected.setResponse(new Response(question.getId(), question.isCorrectAnswer(choice), choice));
         expected.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
 
         QuizSessionDbo quizSessionDbo = new QuizSessionDbo();

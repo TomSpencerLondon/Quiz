@@ -139,9 +139,9 @@ public class QuizSessionTest {
         session.respondWith(choice3);
 
         List<Response> responses = List.of(
-                new Response(q1, choice1),
-                new Response(q2, choice2),
-                new Response(q3, choice3));
+                new Response(q1.getId(), q1.isCorrectAnswer(choice1), choice1),
+                new Response(q2.getId(), q2.isCorrectAnswer(choice2), choice2),
+                new Response(q3.getId(), q3.isCorrectAnswer(choice3), choice3));
 
         final Grade grade = new Grade(responses, 1, 2);
 

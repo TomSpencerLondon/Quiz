@@ -11,9 +11,9 @@ class ResponseTest {
     void correctResponseIsMarkedAsCorrect() {
         Question singleChoiceQuestion = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
 
-        Choice answer = new Choice("Answer 1", true);
+        Choice choice = new Choice("Answer 1", true);
 
-        Response response = new Response(singleChoiceQuestion, answer);
+        Response response = new Response(singleChoiceQuestion.getId(), singleChoiceQuestion.isCorrectAnswer(choice), choice);
 
         assertThat(response.isCorrect())
                 .isTrue();
@@ -23,9 +23,9 @@ class ResponseTest {
     void wrongResponseIsMarkedAsIncorrect() {
         Question singleChoiceQuestion = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
 
-        Choice answer = new Choice("Answer 2");
+        Choice choice = new Choice("Answer 2");
 
-        Response response = new Response(singleChoiceQuestion, answer);
+        Response response = new Response(singleChoiceQuestion.getId(), singleChoiceQuestion.isCorrectAnswer(choice), choice);
 
         assertThat(response.isCorrect())
                 .isFalse();

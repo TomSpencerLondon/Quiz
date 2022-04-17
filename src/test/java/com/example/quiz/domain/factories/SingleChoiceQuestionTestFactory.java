@@ -20,11 +20,13 @@ public class SingleChoiceQuestionTestFactory {
     }
 
     public static Response createSingleChoiceQuestionCorrectResponse(Question question) {
-        return new Response(question, new Choice(ChoiceId.of(1L), "Answer 1", true));
+        Choice choice = new Choice(ChoiceId.of(1L), "Answer 1", true);
+        return new Response(question.getId(), question.isCorrectAnswer(choice), choice);
     }
 
     public static Response createSingleChoiceQuestionIncorrectResponse(Question question) {
-        return new Response(question, new Choice(ChoiceId.of(1L), "Answer 2", false));
+        Choice choice = new Choice(ChoiceId.of(1L), "Answer 2", false);
+        return new Response(question.getId(), question.isCorrectAnswer(choice), choice);
     }
 
     public static Question create(
