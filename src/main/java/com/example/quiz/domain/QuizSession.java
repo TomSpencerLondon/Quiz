@@ -70,10 +70,11 @@ public class QuizSession {
         return question;
     }
 
-    public void respondWith(int... indices) {
-        Choice[] selectedChoices = Arrays.stream(indices)
-                                         .mapToObj(index -> question.choices().get(index))
-                                         .toArray(Choice[]::new);
+    public void respondWith(long... choiceIds) {
+        List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
+        Choice[] selectedChoices = question.choices().stream()
+                                           .filter(c -> choiceIdList.contains(c.getId().id()))
+                                           .toArray(Choice[]::new);
         respondWith(selectedChoices);
     }
 

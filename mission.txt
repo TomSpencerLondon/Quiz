@@ -9,6 +9,12 @@
     [🚧] QuizController questionResponse - quizSession.respondWith(askQuestionForm.getSelectedChoices())
         - respondWith in QuizSession relies on order of choices
         - add Ids to the choices and replace localIds with Ids from choices
+        [punch list]
+            [✅] Replace AtomicInteger with ChoiceId for ChoiceSelection in AskQuestionForm
+            [✅] Change ChoiceSelection#index to Long
+            [✅] Change AskQuestionForm#selectedChoices to Long[]
+            [✅] Change quizSession.respondWith signature to Long[]
+            [] Filter question.choices() in QuizSession#respondWith to select correct choices by ChoiceId
     [✅] Create Transformer class for QuizSession -> QuizSessionDbo
     [✅] Add saving for Session in database
 

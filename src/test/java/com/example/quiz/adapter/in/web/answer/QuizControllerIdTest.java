@@ -8,15 +8,12 @@ import com.example.quiz.application.port.InMemoryQuizSessionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.FinishedQuizSession;
-import com.example.quiz.domain.Grade;
+import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuizSession;
 import com.example.quiz.domain.UnfinishedQuizSession;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,22 +45,20 @@ public class QuizControllerIdTest {
         QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-        AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setQuestion(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion().text());
-        askQuestionForm.setChoices(List.of(new ChoiceSelection(1, "true"), new ChoiceSelection(2, "false")));
-        askQuestionForm.setSelectedChoices(0);
+
+        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
+        Question question = sessionByToken.question();
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
         // when
+        long selectedChoiceId = question.choices().get(1).getId().id();
+        askQuestionForm.setSelectedChoices(selectedChoiceId);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
-        QuizSession sessionById = quizSessionService.findSessionByToken("stub-id-1");
-        boolean finished = sessionById.isFinished();
-        Grade grade = sessionById.grade();
-        assertThat(finished)
-                .isTrue();
-        assertThat(grade.percent())
-                .isEqualTo(100);
+        QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
+        assertThat(session1.getResponses())
+                .hasSize(1);
     }
 
     @Test
@@ -74,30 +69,22 @@ public class QuizControllerIdTest {
         quizController.start();
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-        AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setQuestion(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion().text());
-        askQuestionForm.setChoices(List.of(new ChoiceSelection(1, "true"), new ChoiceSelection(2, "false")));
-        askQuestionForm.setSelectedChoices(0);
+        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
+        Question question = sessionByToken.question();
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
         // when
+        long selectedChoiceId = question.choices().get(1).getId().id();
+        askQuestionForm.setSelectedChoices(selectedChoiceId);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
         QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
-        boolean finished = session1.isFinished();
-        Grade grade = session1.grade();
-        assertThat(finished)
-                .isTrue();
-        assertThat(grade.percent())
-                .isEqualTo(100);
-
+        assertThat(session1.getResponses())
+                .hasSize(1);
         QuizSession session2 = quizSessionService.findSessionByToken("stub-id-2");
-        boolean finished2 = session2.isFinished();
-        Grade grade2 = session2.grade();
-        assertThat(finished2)
-                .isFalse();
-        assertThat(grade2.percent())
-                .isEqualTo(0);
+        assertThat(session2.getResponses())
+                .isEmpty();
     }
 
     @Test

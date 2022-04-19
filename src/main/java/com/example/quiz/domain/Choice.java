@@ -39,7 +39,11 @@ public class Choice {
 
     @Override
     public String toString() {
-        return this.text;
+        return "Choice{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", isCorrect=" + isCorrect +
+                '}';
     }
 
     @Override

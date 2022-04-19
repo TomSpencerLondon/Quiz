@@ -1,28 +1,28 @@
 package com.example.quiz.adapter.in.web.answer;
 
 public class ChoiceSelection {
-    private int index;
-    private String text;
+    private final long choiceId;
+    private final String text;
 
-    public ChoiceSelection(int index, String text) {
-        this.index = index;
+    public ChoiceSelection(long choiceId, String text) {
+        this.choiceId = choiceId;
         this.text = text;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
+    public long getChoiceId() {
+        return choiceId;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public String toString() {
+        return "ChoiceSelection{" +
+                "choiceId=" + choiceId +
+                ", text='" + text + '\'' +
+                '}';
     }
 
     @Override
@@ -32,14 +32,11 @@ public class ChoiceSelection {
 
         ChoiceSelection that = (ChoiceSelection) o;
 
-        if (index != that.index) return false;
-        return text.equals(that.text);
+        return choiceId == that.choiceId;
     }
 
     @Override
     public int hashCode() {
-        int result = index;
-        result = 31 * result + text.hashCode();
-        return result;
+        return (int) (choiceId ^ (choiceId >>> 32));
     }
 }

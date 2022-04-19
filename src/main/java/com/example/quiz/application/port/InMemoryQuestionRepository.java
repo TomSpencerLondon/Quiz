@@ -1,5 +1,6 @@
 package com.example.quiz.application.port;
 
+import com.example.quiz.domain.ChoiceId;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 
@@ -20,6 +21,13 @@ public class InMemoryQuestionRepository implements
         if (question.getId() == null) {
             question.setId(QuestionId.of(counter.getAndIncrement()));
         }
+
+        question.choices().forEach(choice -> {
+            if (choice.getId() == null) {
+                choice.setId(ChoiceId.of(counter.getAndIncrement()));
+            }
+        });
+
         questions.put(question.getId(), question);
         return question;
     }

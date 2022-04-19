@@ -3,25 +3,23 @@ package com.example.quiz.adapter.in.web.answer;
 import com.example.quiz.domain.Question;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class AskQuestionForm {
     private String question;
     private List<ChoiceSelection> choices;
     // make this a list of integers to reuse the class for single and multiple choice
-    private int[] selectedChoices;
+    private long[] selectedChoices;
 
     public static AskQuestionForm from(Question question) {
         final AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setQuestion(question.text());
-        AtomicInteger index = new AtomicInteger(0);
         final List<ChoiceSelection> choices = question
                 .choices()
                 .stream()
-                .map(c -> new ChoiceSelection(index.getAndIncrement(), c.text()))
+                .map(c -> new ChoiceSelection(c.getId().id(), c.text()))
                 .toList();
         askQuestionForm.setChoices(choices);
-        int[] choiceIndexes = choices.stream().map(ChoiceSelection::getIndex).mapToInt(Integer::intValue).toArray();
+        long[] choiceIndexes = choices.stream().map(ChoiceSelection::getChoiceId).mapToLong(Long::longValue).toArray();
         askQuestionForm.setSelectedChoices(choiceIndexes);
 
         return askQuestionForm;
@@ -43,11 +41,11 @@ public class AskQuestionForm {
         this.question = question;
     }
 
-    public int[] getSelectedChoices() {
+    public long[] getSelectedChoices() {
         return selectedChoices;
     }
 
-    public void setSelectedChoices(int... selectedChoices) {
+    public void setSelectedChoices(long... selectedChoices) {
         this.selectedChoices = selectedChoices;
     }
 }

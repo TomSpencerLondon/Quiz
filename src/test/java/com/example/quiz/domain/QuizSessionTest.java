@@ -172,4 +172,29 @@ public class QuizSessionTest {
         assertThat(q1)
                 .isNotEqualTo(q2);
     }
+
+    @Test
+    void respondWithChoiceThenResponseHasSelectedChoice() {
+        // Given
+        List<Choice> choices = List.of(
+                new Choice(ChoiceId.of(44L), "Answer 1", true),
+                new Choice(ChoiceId.of(74L), "Answer 2", false),
+                new Choice(ChoiceId.of(37L), "Answer 3", false),
+                new Choice(ChoiceId.of(55L), "Answer 4", false)
+        );
+        ChoiceType singleChoice = new SingleChoice(choices);
+        Question question = new Question("Question 1", singleChoice);
+        question.setId(QuestionId.of(83L));
+        Quiz quiz = new Quiz(Collections.singletonList(question));
+        QuizSession session = quiz.start();
+
+        // When
+        Choice choice = choices.get(1);
+        session.respondWith(choice.getId().id());
+
+        // Then
+        assertThat(session.getResponses().get(0).choices())
+                .containsExactly(choice);
+
+    }
 }

@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class QuestionServiceTest {
 
     @Test
-    void savesQuestionFromQuestionForm() {
+    void givenSingleChoiceQuestionFormThenSavesSingleChoiceQuestionInRepository() {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         QuestionService questionService = new QuestionService(inMemoryQuestionRepository);
@@ -44,7 +44,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void savesMultipleChoiceQuestionForm() {
+    void givenMultipleChoiceQuestionFormThenSavesMultipleChoiceQuestionInRepository() {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         QuestionService questionService = new QuestionService(inMemoryQuestionRepository);
@@ -63,24 +63,22 @@ class QuestionServiceTest {
 
         // Act
         questionService.add(multipleChoiceQuestionForm);
-        List<Question> questions = inMemoryQuestionRepository.findAll();
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", true),
-                new Choice("Answer 2", true),
-                new Choice("Answer 3", false),
-                new Choice("Answer 4", false));
-        MultipleChoice multipleChoice = new MultipleChoice(choices);
-        Question expectedQuestion = new Question("Question 1",
-                multipleChoice);
-        expectedQuestion.setId(QuestionId.of(1L));
 
         // Assert
-        assertThat(questions.get(0).isSingleChoice())
+        Question actualQuestion = inMemoryQuestionRepository.findAll().get(0);
+        assertThat(actualQuestion.isSingleChoice())
                 .isFalse();
-        assertThat(questions.get(0).isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true)))
+        assertThat(actualQuestion.isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true)))
                 .isTrue();
-        assertThat(questions)
-                .usingRecursiveFieldByFieldElementComparator()
-                .containsExactly(expectedQuestion);
+        assertThat(actualQuestion.text())
+                .isEqualTo(questionText);
+        assertThat(actualQuestion.choices())
+                .usingRecursiveComparison()
+                .ignoringFields("id")
+                .isEqualTo(List.of(
+                        new Choice("Answer 1", true),
+                        new Choice("Answer 2", true),
+                        new Choice("Answer 3", false),
+                        new Choice("Answer 4", false)));
     }
 }
