@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -55,5 +56,17 @@ public class QuizEditController {
 
         model.addAttribute("questions", questionViews);
         return "view-questions";
+    }
+
+    @GetMapping("/add-choice")
+    public String addChoice(Model model, @RequestParam("index") int index) {
+        int nextIndex = index + 1;
+        model.addAttribute("fieldNameChoiceText", "dummy.choices[" + index + "].choice");
+        model.addAttribute("fieldNameCorrectAnswer", "dummy.choices[" + index + "].correctAnswer");
+        model.addAttribute("hasErrors", false);
+        model.addAttribute("index", nextIndex);
+        model.addAttribute("dummy", new DummyQuestionChoices(nextIndex));
+
+        return "fragments/form-fragments :: choice-input";
     }
 }

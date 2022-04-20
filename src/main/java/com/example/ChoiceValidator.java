@@ -5,7 +5,7 @@ import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class ChoiceValidator implements ConstraintValidator<CorrectAnswer, AddQuestionForm> {
     @Override
@@ -15,10 +15,7 @@ public class ChoiceValidator implements ConstraintValidator<CorrectAnswer, AddQu
 
     @Override
     public boolean isValid(AddQuestionForm addQuestionForm, ConstraintValidatorContext constraintValidatorContext) {
-        long count = Stream.of(addQuestionForm.getChoice1(),
-                                   addQuestionForm.getChoice2(),
-                                   addQuestionForm.getChoice3(),
-                                   addQuestionForm.getChoice4())
+        long count = Arrays.stream(addQuestionForm.getChoices())
                            .filter(ChoiceForm::isCorrectAnswer)
                            .map(ChoiceForm::getChoice)
                            .count();

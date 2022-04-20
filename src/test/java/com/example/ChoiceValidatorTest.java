@@ -86,7 +86,7 @@ class ChoiceValidatorTest {
                 new ChoiceForm("a4", false), "multiple");
         ChoiceValidator choiceValidator = new ChoiceValidator();
 
-        // Then
+        // Then\
         assertThat(choiceValidator.isValid(addQuestionForm, DUMMY_CONSTRAINT_VALIDATOR_CONTEXT))
                 .isTrue();
     }

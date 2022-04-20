@@ -8,8 +8,8 @@ import com.example.quiz.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Component
 public class QuestionService {
@@ -25,7 +25,7 @@ public class QuestionService {
     }
 
     public Question add(AddQuestionForm addQuestionForm) {
-        List<ChoiceForm> choiceForms = Stream.of(addQuestionForm.getChoice1(), addQuestionForm.getChoice2(), addQuestionForm.getChoice3(), addQuestionForm.getChoice4())
+        List<ChoiceForm> choiceForms = Arrays.stream(addQuestionForm.getChoices())
                                              .toList();
         if (addQuestionForm.getChoiceType().equals("single")) {
             List<Choice> choices = extractChoicesFrom(choiceForms);
