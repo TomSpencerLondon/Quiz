@@ -23,7 +23,7 @@ class QuestionServiceTest {
         ChoiceForm choiceForm2 = new ChoiceForm("Answer 3", false);
         ChoiceForm choiceForm3 = new ChoiceForm("Answer 4", false);
 
-        AddQuestionForm singleChoiceQuestionForm = new AddQuestionForm(questionText, correctChoiceForm, choiceForm1, choiceForm2, choiceForm3, "single");
+        AddQuestionForm singleChoiceQuestionForm = new AddQuestionForm(questionText, "single", correctChoiceForm, choiceForm1, choiceForm2, choiceForm3);
 
         // Act
         questionService.add(singleChoiceQuestionForm);
@@ -55,11 +55,11 @@ class QuestionServiceTest {
         ChoiceForm choice4 = new ChoiceForm("Answer 4", false);
 
         AddQuestionForm multipleChoiceQuestionForm = new AddQuestionForm(questionText,
-                correct1,
+                "multiple", correct1,
                 correct2,
                 choice3,
-                choice4,
-                "multiple");
+                choice4
+        );
 
         // Act
         questionService.add(multipleChoiceQuestionForm);

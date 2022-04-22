@@ -17,10 +17,10 @@ class ChoiceValidatorTest {
         // Given
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", false),
+                "single", new ChoiceForm("a1", false),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
         ChoiceValidator choiceValidator = new ChoiceValidator();
 
         // Then
@@ -33,10 +33,10 @@ class ChoiceValidatorTest {
         // Given
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", true),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
         ChoiceValidator choiceValidator = new ChoiceValidator();
 
         // Then
@@ -49,10 +49,10 @@ class ChoiceValidatorTest {
         // Given
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
 
         ChoiceValidator choiceValidator = new ChoiceValidator();
         assertThat(choiceValidator.isValid(addQuestionForm, DUMMY_CONSTRAINT_VALIDATOR_CONTEXT))
@@ -64,10 +64,10 @@ class ChoiceValidatorTest {
     void shouldRejectMultipleChoiceWithOneCorrectAnswer() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "multiple", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "multiple");
+                new ChoiceForm("a4", false));
         ChoiceValidator choiceValidator = new ChoiceValidator();
 
         // Then
@@ -80,10 +80,10 @@ class ChoiceValidatorTest {
         // Given
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "multiple", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", true),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "multiple");
+                new ChoiceForm("a4", false));
         ChoiceValidator choiceValidator = new ChoiceValidator();
 
         // Then\

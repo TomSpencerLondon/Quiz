@@ -12,10 +12,10 @@ class AddQuestionFormTest {
     void transformsChoicesIntoListOfStrings() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
 
         List<String> choices = addQuestionForm.transformToChoices();
 
@@ -32,10 +32,10 @@ class AddQuestionFormTest {
     void transformToCorrectChoicesForSingleChoice() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
 
         List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
 
@@ -47,10 +47,10 @@ class AddQuestionFormTest {
     void transformToCorrectChoicesForMultipleChoice() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "multiple", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", true),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "multiple");
+                new ChoiceForm("a4", false));
 
         List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
 
@@ -62,10 +62,10 @@ class AddQuestionFormTest {
     void throwsErrorForTwoCorrectChoicesForSingleChoice() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", true),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
 
         assertThatThrownBy(addQuestionForm::transformToCorrectChoices)
                 .isInstanceOf(TooManyCorrectChoicesSelected.class);
@@ -75,10 +75,10 @@ class AddQuestionFormTest {
     void throwsErrorForOneCorrectChoiceForMultipleChoice() {
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "multiple", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "multiple");
+                new ChoiceForm("a4", false));
 
         assertThatThrownBy(addQuestionForm::transformToCorrectChoices)
                 .isInstanceOf(TooFewCorrectChoicesSelected.class);

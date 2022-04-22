@@ -2,7 +2,6 @@ package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
 import com.example.quiz.adapter.in.web.edit.ChoiceForm;
-import com.example.quiz.adapter.in.web.edit.NoCorrectChoiceSelected;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +40,7 @@ public class QuestionService {
     }
 
 
-    private static List<Choice> extractChoicesFrom(List<ChoiceForm> choices) {
+    private List<Choice> extractChoicesFrom(List<ChoiceForm> choices) {
         return choices.stream().map(c -> new Choice(c.getChoice(), c.isCorrectAnswer())).toList();
     }
-
-    private static Choice extractCorrectChoiceFrom(List<ChoiceForm> choices) {
-        return choices.stream()
-                      .filter(ChoiceForm::isCorrectAnswer)
-                      .map(c -> new Choice(c.getChoice(), true))
-                      .findFirst()
-                      .orElseThrow(() -> new NoCorrectChoiceSelected(choices.toArray(new ChoiceForm[0])));
-    }
-
 }

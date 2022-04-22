@@ -36,10 +36,10 @@ public class QuizEditControllerTest {
 
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
-                new ChoiceForm("a1", true),
+                "single", new ChoiceForm("a1", true),
                 new ChoiceForm("a2", false),
                 new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false), "single");
+                new ChoiceForm("a4", false));
 
         BindingResult bindingResult = new BeanPropertyBindingResult("objectName", "error");
 
