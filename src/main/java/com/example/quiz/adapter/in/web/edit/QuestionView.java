@@ -5,6 +5,7 @@ import com.example.quiz.domain.Question;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuestionView {
     private final String text;
@@ -27,11 +28,12 @@ public class QuestionView {
                     question.choices().stream().map(Choice::text).toArray(String[]::new)
             );
         } else {
-            List<Choice> correct = question.choices().stream()
-                                           .filter(Choice::isCorrect).toList();
+            String answer = question.choices().stream()
+                                    .filter(Choice::isCorrect)
+                                    .map(Choice::text).collect(Collectors.joining(", "));
             return new QuestionView(
                     question.text(),
-                    correct.toString(),
+                    answer,
                     question.choices().stream().map(Choice::text).toArray(String[]::new)
             );
         }
