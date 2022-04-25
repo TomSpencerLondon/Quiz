@@ -33,7 +33,7 @@ public class QuizSessionTest {
         QuizSession session = quiz.start();
 
         // Then
-        assertThat(session.question())
+        assertThat(session.currentQuestion())
                 .isEqualTo(question);
     }
 
@@ -119,11 +119,11 @@ public class QuizSessionTest {
         // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
-        Question q1 = session.question();
+        Question q1 = session.currentQuestion();
         Choice choice1 = new Choice("Answer 1", true);
-        Question q2 = session.question();
+        Question q2 = session.currentQuestion();
         Choice choice2 = new Choice("Answer 2", false);
-        Question q3 = session.question();
+        Question q3 = session.currentQuestion();
         Choice choice3 = new Choice("Answer 2", false);
         session.respondWith(choice1);
         session.respondWith(choice2);
@@ -149,8 +149,8 @@ public class QuizSessionTest {
         QuizSession session = quiz.start();
 
         // When
-        Question q1 = session.question();
-        Question q2 = session.question();
+        Question q1 = session.currentQuestion();
+        Question q2 = session.currentQuestion();
 
         // Then
         assertThat(q1)
@@ -162,11 +162,11 @@ public class QuizSessionTest {
         // Given
         final Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(2);
         final QuizSession session = quiz.start();
-        final Question q1 = session.question();
+        final Question q1 = session.currentQuestion();
         session.respondWith(new Choice("text"));
 
         // When
-        final Question q2 = session.question();
+        final Question q2 = session.currentQuestion();
 
         // Then
         assertThat(q1)

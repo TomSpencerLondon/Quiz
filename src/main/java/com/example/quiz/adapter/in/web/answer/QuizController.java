@@ -43,7 +43,7 @@ public class QuizController {
             return "redirect:/result?token=" + token;
         }
 
-        Question question = quizSession.question();
+        Question question = quizSession.currentQuestion();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
         model.addAttribute("token", token);

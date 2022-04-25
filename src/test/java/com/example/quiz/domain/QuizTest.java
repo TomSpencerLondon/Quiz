@@ -1,5 +1,6 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -29,10 +30,67 @@ public class QuizTest {
                 new SingleChoice(choices)
         );
         List<Question> questions = List.of(question);
+
         Quiz quiz = new Quiz(questions);
         List<Question> questionsResult = quiz.questions();
 
         // Then
         assertThat(questionsResult).containsOnly(question);
+    }
+
+    @Test
+    void givenQuizHasANextQuestionWhenAskedForNextQuestionQuizReturnsNextQuestion() {
+        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question1.setId(QuestionId.of(54L));
+        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question2.setId(QuestionId.of(66L));
+
+        List<Question> questions = List.of(question1, question2);
+        Quiz quiz = new Quiz(questions);
+
+        QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
+
+        assertThat(nextQuestionId)
+                .isEqualTo(question2.getId());
+    }
+
+    @Test
+    void givenQuizHasNoNextQuestionWhenAskedForNextQuestionQuizReturnSameQuestion() {
+        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question1.setId(QuestionId.of(54L));
+        List<Question> questions = List.of(question1);
+        Quiz quiz = new Quiz(questions);
+        QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
+
+        assertThat(nextQuestionId)
+                .isEqualTo(question1.getId());
+    }
+
+    @Test
+    void givenLastQuestionIdThenIsLastQuestionIdReturnsTrue() {
+        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question1.setId(QuestionId.of(54L));
+        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question2.setId(QuestionId.of(66L));
+
+        List<Question> questions = List.of(question1, question2);
+        Quiz quiz = new Quiz(questions);
+
+        assertThat(quiz.isLastQuestion(question2.getId()))
+                .isTrue();
+    }
+
+    @Test
+    void givenQuizWithTwoQuestionsWhenIsLastWithFirstQuestionIdReturnsFalse() {
+        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question1.setId(QuestionId.of(54L));
+        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question2.setId(QuestionId.of(66L));
+
+        List<Question> questions = List.of(question1, question2);
+        Quiz quiz = new Quiz(questions);
+
+        assertThat(quiz.isLastQuestion(question1.getId()))
+                .isFalse();
     }
 }

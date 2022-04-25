@@ -28,6 +28,7 @@ public class QuizSession {
 
     public QuizSession(Quiz quiz) {
         questions = quiz.questions();
+
         if (questions.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -68,7 +69,7 @@ public class QuizSession {
         this.token = token;
     }
 
-    public Question question() {
+    public Question currentQuestion() {
         return question;
     }
 
@@ -84,12 +85,20 @@ public class QuizSession {
         boolean isCorrect = question.isCorrectAnswer(choices);
         Response response = new Response(question.getId(), isCorrect, choices);
         responses.add(response);
+        question = nextQuestion();
+    }
+
+    private Question nextQuestion() {
+        // quiz.nextQuestionAfter(questionId)
         if (questionIterator.hasNext()) {
-            question = questionIterator.next();
+            return questionIterator.next();
         }
+
+        return question;
     }
 
     public boolean isFinished() {
+        // quiz.isFinished(questionId)
         return responses.size() == questions.size();
     }
 

@@ -47,7 +47,7 @@ public class QuizControllerIdTest {
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
 
         QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        Question question = sessionByToken.question();
+        Question question = sessionByToken.currentQuestion();
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
         // when
@@ -70,7 +70,7 @@ public class QuizControllerIdTest {
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
         QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        Question question = sessionByToken.question();
+        Question question = sessionByToken.currentQuestion();
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
         // when
