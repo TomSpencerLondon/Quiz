@@ -5,8 +5,8 @@
 1. Add Saving for Session
     [✅] Stop Long references: use Id objects for Identifiers e.g. ResponseId, QuestionId, ChoiceId, SessionId objects (can use Record - example MobReg etc.)
     [✅] Edit class diagram further
-    [🚧] From test taker response ensure submission questionId selected + choice selected id (AskQuestionForm) - delete local identifiers for choice
-    [🚧] QuizController questionResponse - quizSession.respondWith(askQuestionForm.getSelectedChoices())
+    [✅] From test taker response ensure submission questionId selected + choice selected id (AskQuestionForm) - delete local identifiers for choice
+    [✅] QuizController questionResponse - quizSession.respondWith(askQuestionForm.getSelectedChoices())
         - respondWith in QuizSession relies on order of choices
         - add Ids to the choices and replace localIds with Ids from choices
         [punch list]
