@@ -18,6 +18,14 @@
     [✅] Create Transformer class for QuizSession -> QuizSessionDbo
     [✅] Add saving for Session in database
 
+#### Extra tasks
+- Delete unneeded choiceRepository from QuizSessionTransformer
+
+
+#### UML - event storming
+- Movie ticket, theatre, show, seat... how model - domain modeling
+- ECommerce - twist system sell something different
+- CRC cards - roles and responsibilities (map features + scenarios)
 
 ## Other Feature Options
 2. Edit / Delete Questions

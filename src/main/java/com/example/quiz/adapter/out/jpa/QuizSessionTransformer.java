@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.application.port.ChoiceRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
 
@@ -8,14 +7,11 @@ import java.util.List;
 
 public class QuizSessionTransformer {
     private final QuestionRepository questionRepository;
-    private final ChoiceRepository choiceRepository;
     private final ResponseTransformer responseTransformer;
 
     public QuizSessionTransformer(QuestionRepository questionRepository,
-                                  ChoiceRepository choiceRepository,
                                   ResponseTransformer responseTransformer) {
         this.questionRepository = questionRepository;
-        this.choiceRepository = choiceRepository;
         this.responseTransformer = responseTransformer;
     }
 
@@ -42,6 +38,7 @@ public class QuizSessionTransformer {
 
     QuizSessionDbo toQuizSessionDbo(QuizSession quizSession) {
         QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
+        quizSessionDbo.setId(quizSession.getId().id());
         quizSessionDbo.setCurrentQuestionId(quizSession.getQuestion().getId().id());
         quizSessionDbo.setToken(quizSession.getToken());
         quizSessionDbo.setStartedAt(quizSession.getStartedAt());
