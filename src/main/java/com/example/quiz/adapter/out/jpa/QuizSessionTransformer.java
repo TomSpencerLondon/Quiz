@@ -3,6 +3,7 @@ package com.example.quiz.adapter.out.jpa;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.domain.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class QuizSessionTransformer {
@@ -17,8 +18,10 @@ public class QuizSessionTransformer {
 
     QuizSession toQuizSession(QuizSessionDbo quizSessionDbo) {
         QuizSession quizSession = new QuizSession();
-        quizSession.setId(QuizSessionId.of(quizSessionDbo.getId()));
-        quizSession.setToken(quizSessionDbo.getToken());
+        QuizSessionId quizSessionId = QuizSessionId.of(quizSessionDbo.getId());
+        quizSession.setId(quizSessionId);
+        String token = quizSessionDbo.getToken();
+        quizSession.setToken(token);
         Long currentQuestionId = quizSessionDbo.getCurrentQuestionId();
         Question question = questionRepository
                 .findById(QuestionId.of(currentQuestionId))
@@ -30,10 +33,11 @@ public class QuizSessionTransformer {
                                                  .map(responseTransformer::toResponse)
                                                  .toList();
 
-        responses.forEach(quizSession::setResponse);
-        quizSession.setStartedAt(quizSessionDbo.getStartedAt());
+        responses.forEach(quizSession::addResponse);
+        ZonedDateTime startedAt = quizSessionDbo.getStartedAt();
+        quizSession.setStartedAt(startedAt);
 
-        return quizSession;
+        return new QuizSession(quizSessionId, token, question, responses, startedAt);
     }
 
     QuizSessionDbo toQuizSessionDbo(QuizSession quizSession) {
@@ -42,9 +46,11 @@ public class QuizSessionTransformer {
         quizSessionDbo.setCurrentQuestionId(quizSession.getQuestion().getId().id());
         quizSessionDbo.setToken(quizSession.getToken());
         quizSessionDbo.setStartedAt(quizSession.getStartedAt());
+
         List<ResponseDbo> responseDbos = quizSession
-                .getResponses()
-                .stream().map(responseTransformer::toResponseDbo)
+                .responses()
+                .stream()
+                .map(responseTransformer::toResponseDbo)
                 .toList();
 
         quizSessionDbo.setResponses(responseDbos);

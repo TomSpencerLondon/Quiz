@@ -2,26 +2,6 @@
 
 ## Current Feature
 
-1. Add Saving for Session
-    [✅] Stop Long references: use Id objects for Identifiers e.g. ResponseId, QuestionId, ChoiceId, SessionId objects (can use Record - example MobReg etc.)
-    [✅] Edit class diagram further
-    [✅] From test taker response ensure submission questionId selected + choice selected id (AskQuestionForm) - delete local identifiers for choice
-    [✅] QuizController questionResponse - quizSession.respondWith(askQuestionForm.getSelectedChoices())
-        - respondWith in QuizSession relies on order of choices
-        - add Ids to the choices and replace localIds with Ids from choices
-        [punch list]
-            [✅] Replace AtomicInteger with ChoiceId for ChoiceSelection in AskQuestionForm
-            [✅] Change ChoiceSelection#index to Long
-            [✅] Change AskQuestionForm#selectedChoices to Long[]
-            [✅] Change quizSession.respondWith signature to Long[]
-            [] Filter question.choices() in QuizSession#respondWith to select correct choices by ChoiceId
-    [✅] Create Transformer class for QuizSession -> QuizSessionDbo
-    [✅] Add saving for Session in database
-
-#### Extra tasks
-- Delete unneeded choiceRepository from QuizSessionTransformer
-
-
 #### UML - event storming
 - Movie ticket, theatre, show, seat... how model - domain modeling
 - ECommerce - twist system sell something different

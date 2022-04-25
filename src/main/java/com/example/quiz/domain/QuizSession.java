@@ -10,29 +10,46 @@ import static java.util.function.Predicate.not;
 
 public class QuizSession {
 
-    private final Iterator<Question> iterator;
-    private final List<Question> questions;
-    private QuizSessionId id;
+    private Iterator<Question> questionIterator;
+    private List<Question> questions;
+    private QuizSessionId quizSessionId;
     private ZonedDateTime startedAt;
 
-    private final List<Response> responses = new ArrayList<>();
+    private final List<Response> responses;
     private Question question;
     private String token;
 
-    public List<Response> getResponses() {
+    // for testing purposes
+    public QuizSession() {
+        questionIterator = null;
+        questions = null;
+        responses = new ArrayList<>();
+    }
+
+    public QuizSession(Quiz quiz) {
+        questions = quiz.questions();
+        if (questions.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        questionIterator = questions.iterator();
+        question = questionIterator.next();
+        responses = new ArrayList<>();
+    }
+
+    public QuizSession(QuizSessionId quizSessionId, String token, Question question, List<Response> responses, ZonedDateTime startedAt) {
+        this.quizSessionId = quizSessionId;
+        this.token = token;
+        this.question = question;
+        this.responses = responses;
+        this.startedAt = startedAt;
+    }
+
+    public List<Response> responses() {
         return responses;
     }
 
-    public void setResponse(Response response) {
-        this.responses.add(response);
-    }
-
-    public void setId(QuizSessionId id) {
-        this.id = id;
-    }
-
-    public QuizSessionId getId() {
-        return id;
+    public void addResponse(Response response) {
+        responses.add(response);
     }
 
     public Question getQuestion() {
@@ -49,21 +66,6 @@ public class QuizSession {
 
     public void setToken(String token) {
         this.token = token;
-    }
-    // for testing purposes
-
-    public QuizSession() {
-        this.iterator = null;
-        this.questions = null;
-    }
-
-    public QuizSession(Quiz quiz) {
-        questions = quiz.questions();
-        if (questions.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        iterator = questions.iterator();
-        question = iterator.next();
     }
 
     public Question question() {
@@ -82,8 +84,8 @@ public class QuizSession {
         boolean isCorrect = question.isCorrectAnswer(choices);
         Response response = new Response(question.getId(), isCorrect, choices);
         responses.add(response);
-        if (iterator.hasNext()) {
-            question = iterator.next();
+        if (questionIterator.hasNext()) {
+            question = questionIterator.next();
         }
     }
 
@@ -113,5 +115,13 @@ public class QuizSession {
 
     public void setStartedAt(ZonedDateTime startedAt) {
         this.startedAt = startedAt;
+    }
+
+    public void setId(QuizSessionId id) {
+        this.quizSessionId = id;
+    }
+
+    public QuizSessionId getId() {
+        return quizSessionId;
     }
 }

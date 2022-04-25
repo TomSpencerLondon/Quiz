@@ -57,7 +57,7 @@ public class QuizControllerIdTest {
 
         // then
         QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
-        assertThat(session1.getResponses())
+        assertThat(session1.responses())
                 .hasSize(1);
     }
 
@@ -80,10 +80,10 @@ public class QuizControllerIdTest {
 
         // then
         QuizSession session1 = quizSessionService.findSessionByToken("stub-id-1");
-        assertThat(session1.getResponses())
+        assertThat(session1.responses())
                 .hasSize(1);
         QuizSession session2 = quizSessionService.findSessionByToken("stub-id-2");
-        assertThat(session2.getResponses())
+        assertThat(session2.responses())
                 .isEmpty();
     }
 

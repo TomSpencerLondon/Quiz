@@ -85,7 +85,7 @@ class QuizSessionTransformerTest {
         expected.setId(QuizSessionId.of(1L));
         expected.setToken("stub-token-1");
         expected.setQuestion(question);
-        expected.setResponse(new Response(question.getId(), question.isCorrectAnswer(choice1), choice1));
+        expected.addResponse(new Response(question.getId(), question.isCorrectAnswer(choice1), choice1));
         expected.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
         return expected;
     }

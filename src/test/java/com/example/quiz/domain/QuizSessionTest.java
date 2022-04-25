@@ -193,7 +193,7 @@ public class QuizSessionTest {
         session.respondWith(choice.getId().id());
 
         // Then
-        assertThat(session.getResponses().get(0).choices())
+        assertThat(session.responses().get(0).choices())
                 .containsExactly(choice);
 
     }
