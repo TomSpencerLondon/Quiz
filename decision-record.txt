@@ -1,0 +1,7 @@
+## Decision Record
+
+### Options for getting a Question object
+- Inject QuestionRepository directly into the QuizController (Best of all choices)
+- Inject QuestionRepository into QuizSessionService: NOT REALLY
+- Not a good choice: QuizSession doesn't have much to do with Question (directly)
+- Inject into ResponseView: NO (Can't inject into a static method, prefer passing in as parameter)
