@@ -69,8 +69,14 @@ public class QuizSession {
         this.token = token;
     }
 
+    // trying to replace currentQuestion with currentQuestionId
+    @Deprecated
     public Question currentQuestion() {
         return question;
+    }
+
+    public QuestionId currentQuestionId() {
+        return question.getId();
     }
 
     public void respondWith(long... choiceIds) {

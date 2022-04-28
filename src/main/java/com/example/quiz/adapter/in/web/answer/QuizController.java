@@ -5,6 +5,7 @@ import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.Grade;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,8 @@ public class QuizController {
             return "redirect:/result?token=" + token;
         }
 
-        Question question = quizSession.currentQuestion();
+        QuestionId questionId = quizSession.currentQuestionId();
+        Question question = questionRepository.findById(questionId).orElseThrow();
         final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
         model.addAttribute("token", token);

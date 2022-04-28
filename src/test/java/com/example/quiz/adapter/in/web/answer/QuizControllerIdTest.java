@@ -41,17 +41,19 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
         // given
-        QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
+        StubQuestionRepository stubQuestionRepository = new StubQuestionRepository();
+        Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
+        QuizService quizService = new QuizService(stubQuestionRepository);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), stubQuestionRepository);
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
 
         QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        Question question = sessionByToken.currentQuestion();
-        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
         // when
-        long selectedChoiceId = question.choices().get(1).getId().id();
+        long selectedChoiceId = singleChoiceQuestion.choices().get(1).getId().id();
         askQuestionForm.setSelectedChoices(selectedChoiceId);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
@@ -64,17 +66,18 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession() {
         // given
-        QuizSessionService quizSessionService = QuizSessionServiceTestFactory.createQuizSessionService();
-        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), DUMMY_QUESTION_REPOSITORY);
+        StubQuestionRepository stubQuestionRepository = new StubQuestionRepository();
+        Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
+        QuizService quizService = new QuizService(stubQuestionRepository);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), stubQuestionRepository);
         quizController.start();
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        Question question = sessionByToken.currentQuestion();
-        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
         // when
-        long selectedChoiceId = question.choices().get(1).getId().id();
+        long selectedChoiceId = singleChoiceQuestion.choices().get(1).getId().id();
         askQuestionForm.setSelectedChoices(selectedChoiceId);
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
