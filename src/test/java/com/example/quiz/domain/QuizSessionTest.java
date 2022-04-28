@@ -26,6 +26,8 @@ public class QuizSessionTest {
         final ChoiceType choice = new SingleChoice(Collections.singletonList(new Choice("Answer 1", true)));
 
         final Question question = new Question("Question 1", choice);
+        QuestionId questionId = QuestionId.of(45L);
+        question.setId(questionId);
         List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
 
@@ -33,8 +35,8 @@ public class QuizSessionTest {
         QuizSession session = quiz.start();
 
         // Then
-        assertThat(session.currentQuestion())
-                .isEqualTo(question);
+        assertThat(session.currentQuestionId())
+                .isEqualTo(questionId);
     }
 
     @Test
@@ -119,19 +121,19 @@ public class QuizSessionTest {
         // Given
         Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(3);
         QuizSession session = quiz.start();
-        Question q1 = session.currentQuestion();
+        QuestionId questionId1 = session.currentQuestionId();
         Choice choice1 = new Choice("Answer 1", true);
-        Question q2 = session.currentQuestion();
+        QuestionId questionId2 = session.currentQuestionId();
         Choice choice2 = new Choice("Answer 2", false);
-        Question q3 = session.currentQuestion();
+        QuestionId questionId3 = session.currentQuestionId();
         Choice choice3 = new Choice("Answer 2", false);
         session.respondWith(choice1);
         session.respondWith(choice2);
         session.respondWith(choice3);
         List<Response> responses = List.of(
-                new Response(q1.getId(), q1.isCorrectAnswer(choice1), choice1),
-                new Response(q2.getId(), q2.isCorrectAnswer(choice2), choice2),
-                new Response(q3.getId(), q3.isCorrectAnswer(choice3), choice3));
+                new Response(questionId1, true, choice1),
+                new Response(questionId2, false, choice2),
+                new Response(questionId3, false, choice3));
 
         // When
         final Grade grade = new Grade(responses, 1, 2);
@@ -149,12 +151,12 @@ public class QuizSessionTest {
         QuizSession session = quiz.start();
 
         // When
-        Question q1 = session.currentQuestion();
-        Question q2 = session.currentQuestion();
+        QuestionId questionId1 = session.currentQuestionId();
+        QuestionId questionId2 = session.currentQuestionId();
 
         // Then
-        assertThat(q1)
-                .isEqualTo(q2);
+        assertThat(questionId1)
+                .isEqualTo(questionId2);
     }
 
     @Test
@@ -162,15 +164,15 @@ public class QuizSessionTest {
         // Given
         final Quiz quiz = QuizTestFactory.createQuizWithSingleChoiceQuestions(2);
         final QuizSession session = quiz.start();
-        final Question q1 = session.currentQuestion();
+        final QuestionId questionId1 = session.currentQuestionId();
         session.respondWith(new Choice("text"));
 
         // When
-        final Question q2 = session.currentQuestion();
+        final QuestionId questionId2 = session.currentQuestionId();
 
         // Then
-        assertThat(q1)
-                .isNotEqualTo(q2);
+        assertThat(questionId1)
+                .isNotEqualTo(questionId2);
     }
 
     @Test

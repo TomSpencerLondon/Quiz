@@ -48,8 +48,6 @@ public class QuizControllerIdTest {
         QuizController quizController = new QuizController(quizSessionService, new StubTokenGenerator(), stubQuestionRepository);
         quizController.start();
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-
-        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
         AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
         // when
