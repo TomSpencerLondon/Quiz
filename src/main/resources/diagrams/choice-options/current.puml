@@ -79,7 +79,7 @@ value="Answer 1"
 name="selectedChoice"
 id="selectedChoice1"
 end note
-singleForm -> ctrl : POST /quiz
+singleForm -> ctrl : POST /question
 note left
 selectedChoice=Answer 1
 end note

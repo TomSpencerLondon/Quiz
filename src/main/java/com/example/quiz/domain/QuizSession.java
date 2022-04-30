@@ -98,7 +98,7 @@ public class QuizSession {
     }
 
     public boolean isFinished() {
-        // quiz.isFinished(questionId)
+//         quiz.isLastQuestion(question.getId())
         return responses.size() == questions.size();
     }
 

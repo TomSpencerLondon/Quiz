@@ -71,7 +71,7 @@ value="1"
 name="selectedChoice"
 id="1"
 end note
-singleForm -> ctrl : POST /quiz
+singleForm -> ctrl : POST /question
 note left
 selectedChoice=1
 end note

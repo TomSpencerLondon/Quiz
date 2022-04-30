@@ -11,7 +11,7 @@ entity "MultipleChoice \n <<Value Object>>" as multiple
 entity "SingleChoice \n <<Value Object>>" as single
 entity "Choice \n <<Service>>" as choice
 
-taker -> mvc : GET /quiz
+taker -> mvc : GET /question
 mvc -> ctrl : askQuestion()
 ctrl -> session : question()
 ctrl <-- session

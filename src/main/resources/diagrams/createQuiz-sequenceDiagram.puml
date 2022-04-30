@@ -1,0 +1,34 @@
+@startuml
+title Add Question
+
+actor       TestCreator as creator
+control     QuizEditController  as ctrl
+entity Quiz as quiz
+participant QuizCreator as quizCreator
+participant QuizQuestionFinder as finder
+database QuestionRepository as questionRepo
+database QuizRepository as quizRepo
+
+creator -> ctrl : GET /maker
+ctrl -> questionRepo : findAll()
+ctrl <-- questionRepo : Question[]
+creator <-- ctrl : Question.text[], \n Question.id[]
+
+creator -> ctrl : POST /createQuiz (Quiz.name, QuestionId[])
+ctrl -> quizCreator : createQuiz(Quiz.name, QuestionId[])
+quizCreator -> quiz : <<create>> (name, QuestionId[])
+quizCreator <-- quiz
+quizCreator -> quizRepo : save(Quiz)
+quizCreator <-- quizRepo : Quiz.id + Quiz
+ctrl <-- quizCreator : quizId
+creator <-- ctrl : redirect :/view-quiz?quizId=QUIZ_ID
+
+creator -> ctrl : GET /view-quiz?quizId=QUIZ_ID
+ctrl -> finder : questionsForQuiz(quizId)
+finder -> quizRepo : findById(quizId)
+finder <-- quizRepo : Quiz
+finder -> questionRepo : findByIds(QuestionId[])
+finder <-- questionRepo : Question[]
+ctrl <-- finder : Question[]
+creator <-- ctrl : QuestionView[]
+@enduml

@@ -6,7 +6,7 @@
 <body>
 <div class="flex justify-center">
     <form th:object="${askQuestionForm}"
-          th:action="@{/quiz}"
+          th:action="@{/question}"
           method="post">
         <input type="hidden" th:value="${token}" name="token">
         <div>

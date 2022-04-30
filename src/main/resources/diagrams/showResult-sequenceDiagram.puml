@@ -10,7 +10,7 @@ entity "QuizSession \n <<Entity>>" as session
 entity "Response \n <<Value Object>>" as response
 entity "Grade \n <<Value Object>>" as grade
 
-taker -> mvc : POST /quiz
+taker -> mvc : POST /question
 mvc -> ctrl : questionResponse \n (AskSingleQuestionForm)
 ctrl -> choice : <<create>>
 ctrl <-- choice

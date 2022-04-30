@@ -8,7 +8,7 @@ entity "Choice \n <<Value Object>>" as choice
 entity "QuizSession \n <<Entity>>" as session
 entity "Response \n <<Value Object>>" as response
 
-taker -> mvc : POST /quiz
+taker -> mvc : POST /question
 mvc -> ctrl : questionResponse \n (AskSingleQuestionForm)
 ctrl -> choice : <<create>>
 ctrl <-- choice
@@ -16,5 +16,5 @@ ctrl -> session : respondWith(Choice)
 session -> response : <<create>>
 session <-- response
 ctrl <-- session
-taker <-- ctrl : GET /quiz
+taker <-- ctrl : GET /question
 @enduml

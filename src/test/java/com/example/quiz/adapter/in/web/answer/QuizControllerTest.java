@@ -158,7 +158,7 @@ public class QuizControllerTest {
 
         // then
         assertThat(redirect)
-                .isEqualTo("redirect:/quiz?token=stub-id-1");
+                .isEqualTo("redirect:/question?token=stub-id-1");
     }
 
     @Test
@@ -191,8 +191,8 @@ public class QuizControllerTest {
 
         // then
         assertThat(start1)
-                .isEqualTo("redirect:/quiz?token=stub-id-1");
+                .isEqualTo("redirect:/question?token=stub-id-1");
         assertThat(start2)
-                .isEqualTo("redirect:/quiz?token=stub-id-2");
+                .isEqualTo("redirect:/question?token=stub-id-2");
     }
 }

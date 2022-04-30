@@ -2,10 +2,12 @@
 
 ## Current Feature
 - 🚧 Overall goal: get rid of Iterator from QuizSession + get rid of questions aswell
-- 🚧 TestSessionConfiguration - line 34 (add quizSession to the InMemoryQuizSessionRepository
 - 🚧 QuizSession will need to know current question
+    [] Not iterate fixed set of questions - QuizSession asks Quiz what is next Question after QuizSession#currentQuestion
+    - QuizSession points to specific Quiz
 - 🚧 Create a stub QuizSession which returns a known id for the currentQuizSessionId method
 - ✅ Remove usages of deprecated method QuizSession#currentQuestion()
+- Response Repository needs deleting
 
 #### UML - event storming
 - Movie ticket, theatre, show, seat... how model - domain modeling

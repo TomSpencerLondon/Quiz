@@ -10,6 +10,9 @@ public class AskQuestionForm {
     // make this a list of integers to reuse the class for single and multiple choice
     private long[] selectedChoices;
 
+    // could move the transformation to a separate service that has a
+    // reference to the QuestionRepository
+    // this would then be AskQuestionForm from(QuestionId questionId)
     public static AskQuestionForm from(Question question) {
         final AskQuestionForm askQuestionForm = new AskQuestionForm();
         askQuestionForm.setQuestion(question.text());

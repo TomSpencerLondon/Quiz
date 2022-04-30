@@ -12,6 +12,7 @@ public class Quiz {
                                .map(Question::getId).toList();
     }
 
+    @Deprecated
     public List<Question> questions() {
         return questions;
     }

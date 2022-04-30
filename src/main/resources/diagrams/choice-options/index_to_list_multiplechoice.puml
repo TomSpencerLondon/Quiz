@@ -71,7 +71,7 @@ selectedChoice=1
 selectedChoice=2
 
 end note
-multipleForm -> ctrl : POST /quiz
+multipleForm -> ctrl : POST /question
 note left
 selectedChoice=1
 selectedChoice=2
