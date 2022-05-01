@@ -3,6 +3,8 @@ package com.example.quiz.adapter.in.web.edit;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionId;
+import com.example.quiz.domain.QuizId;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -75,8 +78,12 @@ public class QuizEditController {
 
     @PostMapping("/create-quiz")
     public String createQuiz(Model model) {
-        String quizId = "QUIZ_ID";
-        return "redirect:/quiz?quizId=" + quizId;
+        QuestionId questionId = QuestionId.of(45L);
+        List<QuestionId> questionIds = new ArrayList<>();
+        questionIds.add(questionId);
+        QuizId quizId = quizCreator.createQuiz("Quiz name", questionIds);
+
+        return "redirect:/quiz?quizId=" + quizId.id();
     }
 
     @GetMapping("/quiz")

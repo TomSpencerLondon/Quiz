@@ -1,6 +1,7 @@
 package com.example.quiz;
 
 import com.example.quiz.application.QuizCreator;
+import com.example.quiz.application.port.InMemoryQuizRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class QuizEditConfiguration {
     @Bean
     public QuizCreator quizCreator() {
-        return new QuizCreator();
+        return new QuizCreator(new InMemoryQuizRepository());
     }
 }

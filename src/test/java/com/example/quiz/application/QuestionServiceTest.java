@@ -36,7 +36,7 @@ class QuestionServiceTest {
         ChoiceType singleChoiceResult = new SingleChoice(choices);
         Question questionResult = new Question("Question 1",
                 singleChoiceResult);
-        questionResult.setId(QuestionId.of(1L));
+        questionResult.setId(QuestionId.of(0L));
 
         // Assert
         assertThat(questions)

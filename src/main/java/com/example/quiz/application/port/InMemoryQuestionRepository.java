@@ -14,7 +14,7 @@ public class InMemoryQuestionRepository implements
         QuestionRepository {
 
     private final Map<QuestionId, Question> questions = new ConcurrentHashMap<>();
-    private final AtomicLong counter = new AtomicLong(1);
+    private final AtomicLong counter = new AtomicLong();
 
     @Override
     public Question save(Question question) {

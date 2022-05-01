@@ -53,7 +53,7 @@ class QuizSessionTransformerTest {
     void quizSessionToQuizSessionDbo() {
         // given
         Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question.setId(QuestionId.of(1L));
+        question.setId(QuestionId.of(0L));
         Choice choice = question.choices().get(0);
         QuizSession quizSession = createQuizSession(choice, question);
         QuizSessionDbo expected = createQuizSessionDbo(choice, question);
@@ -69,20 +69,20 @@ class QuizSessionTransformerTest {
 
     private QuizSessionDbo createQuizSessionDbo(Choice choice, Question question) {
         QuizSessionDbo expected = new QuizSessionDbo();
-        expected.setId(1L);
+        expected.setId(0L);
         expected.setToken("stub-token-1");
         ResponseDbo responseDbo = new ResponseDbo();
         responseDbo.setQuestionId(question.getId().id());
         responseDbo.setChoiceIds(Set.of(choice.getId().id()));
         expected.setResponses(List.of(responseDbo));
         expected.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
-        expected.setCurrentQuestionId(1L);
+        expected.setCurrentQuestionId(0L);
         return expected;
     }
 
     private QuizSession createQuizSession(Choice choice1, Question question) {
         QuizSession expected = new QuizSession();
-        expected.setId(QuizSessionId.of(1L));
+        expected.setId(QuizSessionId.of(0L));
         expected.setToken("stub-token-1");
         expected.setQuestion(question);
         expected.addResponse(new Response(question.getId(), question.isCorrectAnswer(choice1), choice1));
