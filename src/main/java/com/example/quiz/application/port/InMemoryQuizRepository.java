@@ -21,4 +21,9 @@ public class InMemoryQuizRepository implements QuizRepository {
         return quiz;
     }
 
+    @Override
+    public List<Quiz> findAll() {
+        return quizList;
+    }
+
 }

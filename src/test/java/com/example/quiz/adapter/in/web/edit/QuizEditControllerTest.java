@@ -3,7 +3,9 @@ package com.example.quiz.adapter.in.web.edit;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.application.QuizCreator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizRepository;
 import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.application.port.QuizRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class QuizEditControllerTest {
 
     private static final QuizCreator DUMMY_QUIZ_CREATOR = null;
+    private static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
 
     @Test
     void viewQuestionsCreatesModelWithQuestions() {
@@ -55,6 +58,20 @@ public class QuizEditControllerTest {
     }
 
 
+    @Test
+    void createQuizResultsInQuizAddedAndRedirects() {
+        QuestionService questionService = new QuestionService(DUMMY_QUESTION_REPOSITORY);
+        QuizRepository quizRepository = new InMemoryQuizRepository();
 
+        QuizCreator quizCreator = new QuizCreator(quizRepository);
+        QuizEditController quizController = new QuizEditController(questionService, quizCreator);
 
+        Model model = new ConcurrentModel();
+        final String redirectPage = quizController.createQuiz(model);
+
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/quiz?quizId=0");
+        assertThat(quizRepository.findAll())
+                .hasSize(1);
+    }
 }
