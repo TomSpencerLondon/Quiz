@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +18,11 @@ import java.util.List;
 public class QuizEditController {
 
     private final QuestionService questionService;
+    private final QuizCreator quizCreator;
 
-    public QuizEditController(QuestionService questionService) {
+    public QuizEditController(QuestionService questionService, QuizCreator quizCreator) {
         this.questionService = questionService;
+        this.quizCreator = quizCreator;
     }
 
     @PostMapping("/add-question")

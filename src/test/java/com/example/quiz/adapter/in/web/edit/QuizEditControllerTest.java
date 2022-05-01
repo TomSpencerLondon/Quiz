@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.QuizCreator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import org.junit.jupiter.api.Test;
@@ -13,11 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizEditControllerTest {
 
+    private static final QuizCreator DUMMY_QUIZ_CREATOR = null;
+
     @Test
     void viewQuestionsCreatesModelWithQuestions() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
         QuestionService questionService = new QuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(questionService);
+        QuizEditController quizController = new QuizEditController(questionService, DUMMY_QUIZ_CREATOR);
 
         final Model model = new ConcurrentModel();
         final String viewName = quizController.viewQuestions(model);
@@ -32,7 +35,7 @@ public class QuizEditControllerTest {
     void addQuestionResultsInQuestionAddedAndRedirects() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
         QuestionService questionService = new QuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(questionService);
+        QuizEditController quizController = new QuizEditController(questionService, DUMMY_QUIZ_CREATOR);
 
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
