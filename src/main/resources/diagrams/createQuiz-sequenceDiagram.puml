@@ -14,7 +14,7 @@ ctrl -> questionRepo : findAll()
 ctrl <-- questionRepo : Question[]
 creator <-- ctrl : Question.text[], \n Question.id[]
 
-creator -> ctrl : POST /createQuiz (Quiz.name, QuestionId[])
+creator -> ctrl : POST /create-quiz (Quiz.name, QuestionId[])
 ctrl -> quizCreator : createQuiz(Quiz.name, QuestionId[])
 quizCreator -> quiz : <<create>> (name, QuestionId[])
 quizCreator <-- quiz
@@ -23,7 +23,7 @@ quizCreator <-- quizRepo : Quiz.id + Quiz
 ctrl <-- quizCreator : quizId
 creator <-- ctrl : redirect :/view-quiz?quizId=QUIZ_ID
 
-creator -> ctrl : GET /view-quiz?quizId=QUIZ_ID
+creator -> ctrl : GET /quiz?quizId=QUIZ_ID
 ctrl -> finder : questionsForQuiz(quizId)
 finder -> quizRepo : findById(quizId)
 finder <-- quizRepo : Quiz

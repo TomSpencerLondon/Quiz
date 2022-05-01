@@ -69,4 +69,15 @@ public class QuizEditController {
 
         return "fragments/form-fragments :: choice-input";
     }
+
+    @PostMapping("/create-quiz")
+    public String createQuiz(Model model) {
+        String quizId = "QUIZ_ID";
+        return "redirect:/quiz?quizId=" + quizId;
+    }
+
+    @GetMapping("/quiz")
+    public String quiz(Model model, @RequestParam(value = "quizId", defaultValue = "") String quizId) {
+        return "quiz";
+    }
 }

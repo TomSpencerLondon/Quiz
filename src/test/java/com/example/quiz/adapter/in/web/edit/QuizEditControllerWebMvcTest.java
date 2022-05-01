@@ -72,4 +72,18 @@ public class QuizEditControllerWebMvcTest {
                .andExpect(model().attribute("index", Matchers.is(2)));
     }
 
+    @Test
+    void postCreateQuizExists() throws Exception {
+        mockMvc.perform(
+                post("/create-quiz")
+        ).andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void getQuizExists() throws Exception {
+        mockMvc.perform(
+                get("/quiz?quizId=QUIZ_ID")
+        ).andExpect(status().isOk());
+    }
+
 }
