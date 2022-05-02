@@ -119,6 +119,13 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- WebJars -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>showdown</artifactId>
+            <version>1.9.1</version>
+        </dependency>
     </dependencies>
 
     <build>
