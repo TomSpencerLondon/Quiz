@@ -88,4 +88,10 @@ public class QuizEditControllerWebMvcTest {
         ).andExpect(status().isOk());
     }
 
+    @Test
+    void makerShowsListOfQuestionsToSelectForQuiz() throws Exception {
+        mockMvc.perform(
+                get("/maker")
+        ).andExpect(status().isOk());
+    }
 }

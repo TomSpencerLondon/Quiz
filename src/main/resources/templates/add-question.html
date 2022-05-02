@@ -87,9 +87,8 @@
             </button>
         </div>
     </form>
-
+    <!-- TODO: refactor using https://hyperscript.org/comparison/#fetch-and-insert -->
     <script th:inline="javascript">
-
         var converter = new showdown.Converter();
         var textAreaElement = document.getElementById("question-text");
         textAreaElement.addEventListener("input", function (event) {

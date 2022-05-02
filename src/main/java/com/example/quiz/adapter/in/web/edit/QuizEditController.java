@@ -90,4 +90,9 @@ public class QuizEditController {
     public String quiz(Model model, @RequestParam(value = "quizId", defaultValue = "") String quizId) {
         return "quiz";
     }
+
+    @GetMapping("/maker")
+    public String maker(Model model) {
+        return "maker";
+    }
 }
