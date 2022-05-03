@@ -74,4 +74,9 @@ public class QuizEditControllerTest {
         assertThat(quizRepository.findAll())
                 .hasSize(1);
     }
+
+    @Test
+    void makerShowsAllQuestions() {
+
+    }
 }

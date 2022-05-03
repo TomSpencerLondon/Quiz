@@ -69,7 +69,7 @@
             </div>
             <div id="choice-input-form-list">
                 <div th:each="choice, stat : *{choices}">
-                    <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count})"></div>
+                    <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count}, ${addQuestionForm.choices.length})"></div>
                 </div>
             </div>
             <div class="flex justify-end mb-3">
@@ -100,7 +100,6 @@
 
         var addChoiceButton = document.getElementById("add-new-choice");
         addChoiceButton.addEventListener("click", function (event) {
-            console.log(event);
             addExtraChoice();
         });
 
@@ -122,6 +121,15 @@
             html = html.trim();
             template.innerHTML = "<div>" + html + "</div>";
             return template.content.firstChild;
+        }
+
+        function deleteChoice(choiceNumber) {
+            var choiceForDeletion = document.getElementById("choice-input-" + choiceNumber);
+            choiceForDeletion.parentElement.removeChild(choiceForDeletion);
+
+            var questionForm = document.getElementById("question-form");
+            var count = questionForm.getAttribute("data-question-form-count");
+            questionForm.setAttribute("data-question-form-count", parseInt(count) - 1);
         }
     </script>
 </div>

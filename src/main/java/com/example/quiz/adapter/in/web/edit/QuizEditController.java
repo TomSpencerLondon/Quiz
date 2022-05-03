@@ -48,7 +48,18 @@ public class QuizEditController {
 
     @GetMapping("/add-question")
     public String showAddQuestion(Model model) {
-        model.addAttribute("addQuestionForm", new AddQuestionForm());
+
+        AddQuestionForm addQuestionForm = new AddQuestionForm();
+        // TODO: Make the number of default choices configurable
+        // Use application.properties - to configure this value
+        // The value must be nonnull and greater than zero
+        // number of default choices
+        // validation - needs to be positive and not zero
+        // zero looks bad + not negative
+        // Springboot wont start if validation fails
+        // @value
+        addQuestionForm.setChoices(new ChoiceForm[]{new ChoiceForm(),new ChoiceForm(),new ChoiceForm()});
+        model.addAttribute("addQuestionForm", addQuestionForm);
         return "add-question";
     }
 
@@ -93,6 +104,8 @@ public class QuizEditController {
 
     @GetMapping("/maker")
     public String maker(Model model) {
+        List<Question> allQuestions = questionService.findAll();
+        model.addAttribute("questions", allQuestions);
         return "maker";
     }
 }

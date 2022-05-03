@@ -17,16 +17,12 @@ public class AddQuestionForm {
     private @Valid ChoiceForm[] choices;
 
     public AddQuestionForm() {
-        this.choices = new ChoiceForm[]{new ChoiceForm(), new ChoiceForm(), new ChoiceForm(), new ChoiceForm()};
+        this.choices = new ChoiceForm[]{};
     }
 
     public AddQuestionForm(String text, String choiceType, ChoiceForm... choiceForms) {
         this.text = text;
-        this.choices = new ChoiceForm[4];
-        this.choices[0] = choiceForms[0];
-        this.choices[1] = choiceForms[1];
-        this.choices[2] = choiceForms[2];
-        this.choices[3] = choiceForms[3];
+        this.choices = choiceForms;
         this.choiceType = choiceType;
     }
 
