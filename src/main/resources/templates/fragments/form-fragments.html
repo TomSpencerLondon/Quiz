@@ -13,7 +13,7 @@
     <input type="checkbox" th:field="*{__${fieldNameCorrectAnswer}__}"/>
     <input type="text" th:field="*{__${fieldNameChoiceText}__}"
            class="mb-0 appearance-none w-11/12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-    <span th:attr="onclick=|deleteChoice('${index}')|"  th:if="${index != 1}" class="w-1/12 text-red-700"><i class="fa fa-minus-circle delete-choice-button" th:data-choice-index="${index}" aria-hidden="true"></i></span>
+    <span th:attr="onclick=|openDeleteModal('${index}')|"  th:if="${index != 1}" class="w-1/12 text-red-700"><i class="fa fa-minus-circle delete-choice-button" th:data-choice-index="${index}" aria-hidden="true"></i></span>
     <p class="text-red-700 mb-2 text-xs font-bold uppercase" th:if="${hasErrors}" th:errors="*{__${fieldNameChoiceText}__}"></p>
 </div>
 </html>
