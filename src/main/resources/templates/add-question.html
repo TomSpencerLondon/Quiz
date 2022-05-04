@@ -86,126 +86,138 @@
             </button>
         </div>
     </form>
-
-    <div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center" id="delete-modal-overlay">
-        <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
-            <div class="flex justify-between items-center">
-                <h4 class="text-lg font-bold">Confirm Delete?</h4>
-                <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
-                     th:attr="onclick=|closeDeleteModal()|"
-                     fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clip-rule="evenodd"></path>
-                </svg>
-            </div>
-            <div class="mt-2 text-sm">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
-            </div>
-            <div class="mt-3 flex justify-end space-x-3">
-                <button th:attr="onclick=|closeDeleteModal()|"
-                        class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">Cancel
-                </button>
-                <button class="px-3 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center" id="not-permitted-modal-overlay">
-        <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
-            <div class="flex justify-between items-center">
-                <h4 class="text-lg font-bold">Not Permitted</h4>
-                <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
-                     th:attr="onclick=|closeNotPermittedModal()|"
-                     fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clip-rule="evenodd"></path>
-                </svg>
-            </div>
-            <div class="mt-2 text-sm">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
-            </div>
-            <div class="mt-3 flex justify-end space-x-3">
-                <button th:attr="onclick=|closeNotPermittedModal()|"
-                        class="px-3 py-1 bg-indigo-600 rounded hover:bg-indigo-400 hover:bg-opacity-50 text-slate-300 hover:text-white font-bold">Cancel
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TODO: refactor using https://hyperscript.org/comparison/#fetch-and-insert -->
-    <script th:inline="javascript">
-        var converter = new showdown.Converter();
-        var textAreaElement = document.getElementById("question-text");
-        textAreaElement.addEventListener("input", function (event) {
-            var rawMarkDown = event.target.value;
-            var convertedHtml = converter.makeHtml(rawMarkDown);
-            var previewArea = document.getElementById("question-text-preview");
-            previewArea.innerHTML = convertedHtml;
-        });
-
-        var addChoiceButton = document.getElementById("add-new-choice");
-        addChoiceButton.addEventListener("click", function (event) {
-            addExtraChoice();
-        });
-
-        function addExtraChoice() {
-            var questionForm = document.getElementById("question-form");
-            var count = questionForm.getAttribute("data-question-form-count");
-            var choiceInputFormList = document.getElementById("choice-input-form-list");
-
-            fetch(`/add-choice?index=${count}`)
-                    .then(response => response.text())
-                    .then(fragment => {
-                        choiceInputFormList.appendChild(htmlToElement(fragment));
-                        questionForm.setAttribute('data-question-form-count', parseInt(count) + 1);
-                    });
-        }
-
-        function htmlToElement(html) {
-            var template = document.createElement('template');
-            html = html.trim();
-            template.innerHTML = "<div>" + html + "</div>";
-            return template.content.firstChild;
-        }
-
-        function openDeleteModal(choiceNumber) {
-            var questionForm = document.getElementById("question-form");
-            var count = questionForm.getAttribute("data-question-form-count");
-
-            if (parseInt(count) == parseInt(choiceNumber)) {
-                const deleteModalOverlay = document.querySelector('#delete-modal-overlay');
-                deleteModalOverlay.classList.toggle('hidden');
-                deleteModalOverlay.classList.toggle('flex');
-            }else {
-                const notPermittedModalOverlay = document.querySelector('#not-permitted-modal-overlay');
-                notPermittedModalOverlay.classList.toggle('hidden');
-                notPermittedModalOverlay.classList.toggle('flex');
-            }
-        }
-
-        function closeNotPermittedModal() {
-            const overlay = document.querySelector('#not-permitted-modal-overlay');
-            overlay.classList.toggle('hidden');
-            overlay.classList.toggle('flex');
-        }
-
-        function closeDeleteModal() {
-            const overlay = document.querySelector('#delete-modal-overlay');
-            overlay.classList.toggle('hidden');
-            overlay.classList.toggle('flex');
-        }
-
-        function deleteChoice(choiceNumber) {
-            var choiceForDeletion = document.getElementById("choice-input-" + choiceNumber);
-            choiceForDeletion.parentElement.removeChild(choiceForDeletion);
-
-            var questionForm = document.getElementById("question-form");
-            var count = questionForm.getAttribute("data-question-form-count");
-            questionForm.setAttribute("data-question-form-count", parseInt(count) - 1);
-        }
-    </script>
 </div>
+
+<div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center h-screen"
+     id="delete-modal-overlay" th:data-delete-choice-index="${0}">
+    <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
+        <div class="flex justify-between items-center">
+            <h4 class="text-lg font-bold">Confirm Delete?</h4>
+            <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
+                 th:attr="onclick=|closeDeleteModal()|"
+                 fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+            </svg>
+        </div>
+        <div class="mt-2 text-sm">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
+        </div>
+        <div class="mt-3 flex justify-end space-x-3">
+            <button th:attr="onclick=|closeDeleteModal()|"
+                    class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">Cancel
+            </button>
+            <button id="delete-choice-button"
+                    th:attr="onclick=|deleteChoice()|"
+                    class="px-3 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center" id="not-permitted-modal-overlay">
+    <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
+        <div class="flex justify-between items-center">
+            <h4 class="text-lg font-bold">Not Permitted</h4>
+            <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
+                 th:attr="onclick=|closeNotPermittedModal()|"
+                 fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+            </svg>
+        </div>
+        <div class="mt-2 text-sm">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
+        </div>
+        <div class="mt-3 flex justify-end space-x-3">
+            <button th:attr="onclick=|closeNotPermittedModal()|"
+                    class="px-3 py-1 bg-indigo-600 rounded hover:bg-indigo-400 hover:bg-opacity-50 text-slate-300 hover:text-white font-bold">Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<!-- TODO: refactor using https://hyperscript.org/comparison/#fetch-and-insert -->
+<script th:inline="javascript">
+    var converter = new showdown.Converter();
+    var textAreaElement = document.getElementById("question-text");
+    textAreaElement.addEventListener("input", function (event) {
+        var rawMarkDown = event.target.value;
+        var convertedHtml = converter.makeHtml(rawMarkDown);
+        var previewArea = document.getElementById("question-text-preview");
+        previewArea.innerHTML = convertedHtml;
+    });
+
+    var addChoiceButton = document.getElementById("add-new-choice");
+    addChoiceButton.addEventListener("click", function (event) {
+        addExtraChoice();
+    });
+
+    function addExtraChoice() {
+        var questionForm = document.getElementById("question-form");
+        var count = questionForm.getAttribute("data-question-form-count");
+        var choiceInputFormList = document.getElementById("choice-input-form-list");
+
+        fetch(`/add-choice?index=${count}`)
+                .then(response => response.text())
+                .then(fragment => {
+                    choiceInputFormList.appendChild(htmlToElement(fragment));
+                    questionForm.setAttribute('data-question-form-count', parseInt(count) + 1);
+                });
+    }
+
+    function htmlToElement(html) {
+        var template = document.createElement('template');
+        html = html.trim();
+        template.innerHTML = "<div>" + html + "</div>";
+        return template.content.firstChild;
+    }
+
+    function openDeleteModal(choiceNumber) {
+        window.scrollTo(0, 0);
+        document.body.style.overflowY = 'hidden';
+        var questionForm = document.getElementById("question-form");
+        var count = questionForm.getAttribute("data-question-form-count");
+
+        if (parseInt(count) == parseInt(choiceNumber)) {
+            const deleteModalOverlay = document.querySelector('#delete-modal-overlay');
+            deleteModalOverlay.classList.toggle('hidden');
+            deleteModalOverlay.classList.toggle('flex');
+            deleteModalOverlay.setAttribute("data-delete-choice-index", choiceNumber);
+        }else {
+            const notPermittedModalOverlay = document.querySelector('#not-permitted-modal-overlay');
+            notPermittedModalOverlay.classList.toggle('hidden');
+            notPermittedModalOverlay.classList.toggle('flex');
+        }
+    }
+
+    function closeNotPermittedModal() {
+        const overlay = document.querySelector('#not-permitted-modal-overlay');
+        overlay.classList.toggle('hidden');
+        overlay.classList.toggle('flex');
+        document.body.style.overflowY = "scroll";
+    }
+
+    function closeDeleteModal() {
+        const overlay = document.querySelector('#delete-modal-overlay');
+        overlay.classList.toggle('hidden');
+        overlay.classList.toggle('flex');
+        document.body.style.overflowY = "scroll";
+    }
+
+    function deleteChoice() {
+        const deleteModalOverlay = document.querySelector('#delete-modal-overlay');
+        var choiceNumber = deleteModalOverlay.getAttribute("data-delete-choice-index");
+        var choiceForDeletion = document.getElementById("choice-input-" + choiceNumber);
+        choiceForDeletion.parentElement.removeChild(choiceForDeletion);
+
+        var questionForm = document.getElementById("question-form");
+        var count = questionForm.getAttribute("data-question-form-count");
+        questionForm.setAttribute("data-question-form-count", parseInt(count) - 1);
+        deleteModalOverlay.classList.toggle('hidden');
+        deleteModalOverlay.classList.toggle('flex');
+        document.body.style.overflowY = "scroll";
+    }
+</script>
 </body>
 </html>
