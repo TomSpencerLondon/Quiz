@@ -116,4 +116,13 @@ public class QuizEditController {
         model.addAttribute("questions", allQuestions);
         return "maker";
     }
+
+    @GetMapping("/convert-to-markdown")
+    public String convertToMarkDown(Model model, @RequestParam(value = "text", defaultValue = "") String text) {
+        model.addAttribute("output", text);
+        // Find markdown library in Java
+        // Pass text to library to generate html
+        // return html (ideally not template)
+        return "hello";
+    }
 }
