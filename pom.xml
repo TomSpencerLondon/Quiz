@@ -121,25 +121,16 @@
         </dependency>
 
         <!-- WebJars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+
         <!-- showdown -->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>showdown</artifactId>
             <version>1.9.1</version>
-        </dependency>
-
-        <!-- hyperscript -->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>hyperscript</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-
-        <!-- htmx -->
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>htmx.org</artifactId>
-            <version>1.7.0</version>
         </dependency>
     </dependencies>
 
@@ -154,7 +145,6 @@
 
     <reporting>
         <plugins>
-
             <!-- http://mojo.codehaus.org/versions-maven-plugin/version-rules.html -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
