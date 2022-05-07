@@ -5,6 +5,7 @@ import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizId;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,8 @@ public class QuizEditController {
 
     private final QuestionService questionService;
     private final QuizCreator quizCreator;
+    @Value("${add-questions-base-number-of-choices}")
+    private int baseNumberOfChoices;
 
     public QuizEditController(QuestionService questionService, QuizCreator quizCreator) {
         this.questionService = questionService;
@@ -58,7 +61,12 @@ public class QuizEditController {
         // zero looks bad + not negative
         // Springboot wont start if validation fails
         // @value
-        addQuestionForm.setChoices(new ChoiceForm[]{new ChoiceForm(),new ChoiceForm(),new ChoiceForm()});
+        ChoiceForm[] choices = new ChoiceForm[baseNumberOfChoices];
+        for (int i = 0; i < baseNumberOfChoices; i++) {
+            choices[i] = new ChoiceForm();
+        }
+
+        addQuestionForm.setChoices(choices);
         model.addAttribute("addQuestionForm", addQuestionForm);
         return "add-question";
     }
