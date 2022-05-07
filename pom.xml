@@ -143,6 +143,13 @@
             <artifactId>hyperscript.org</artifactId>
             <version>0.8.1</version>
         </dependency>
+
+        <!-- Java parsing markdown to html -->
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.18.1</version>
+        </dependency>
     </dependencies>
 
     <build>
