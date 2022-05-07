@@ -94,4 +94,10 @@ public class QuizEditControllerWebMvcTest {
                 get("/maker")
         ).andExpect(status().isOk());
     }
+
+    @Test
+    void givenMarkdownConvertsToHtml() throws Exception {
+        mockMvc.perform(get("/convert-markdown?text=%23%20Hello"))
+               .andExpect(status().isOk());
+    }
 }

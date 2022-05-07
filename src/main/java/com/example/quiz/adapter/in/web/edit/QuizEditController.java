@@ -6,6 +6,7 @@ import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizId;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -117,13 +119,10 @@ public class QuizEditController {
         return "maker";
     }
 
-    @GetMapping("/convert-to-markdown")
-    public String convertToMarkDown(Model model, @RequestParam(value = "text", defaultValue = "") String text) {
-        model.addAttribute("output", text);
-        // Find markdown library in Java
-        // Pass text to library to generate html
-        // return html (ideally not template)
-
-        return "hello";
+    @GetMapping(value = "/convert-markdown", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public String convertMarkDown(@RequestParam(value = "text", defaultValue = "") String text) {
+        MarkdownParser markdownParser = new MarkdownParser();
+        return markdownParser.parse(text);
     }
 }

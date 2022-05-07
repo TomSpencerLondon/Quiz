@@ -58,7 +58,7 @@
             </label>
             <div class="flex">
                 <div class="w-1/2 mr-4">
-                 <textarea hx-trigger="input" hx-get="/convert-to-markdown" hx-target="#question-text-preview" type="text" id="question-text" th:field="*{text}" rows="10" cols="30"
+                 <textarea hx-trigger="input" hx-get="/convert-markdown" hx-target="#question-text-preview" type="text" id="question-text" th:field="*{text}" rows="10" cols="30"
                            class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
                 </div>
                 <div class="w-1/2">
@@ -139,15 +139,6 @@
 </div>
 <!-- TODO: refactor using https://hyperscript.org/comparison/#fetch-and-insert -->
 <script th:inline="javascript">
-    // var converter = new showdown.Converter();
-    // var textAreaElement = document.getElementById("question-text");
-    // textAreaElement.addEventListener("input", function (event) {
-    //     var rawMarkDown = event.target.value;
-    //     var convertedHtml = converter.makeHtml(rawMarkDown);
-    //     var previewArea = document.getElementById("question-text-preview");
-    //     previewArea.innerHTML = convertedHtml;
-    // });
-
     var addChoiceButton = document.getElementById("add-new-choice");
     addChoiceButton.addEventListener("click", function (event) {
         addExtraChoice();

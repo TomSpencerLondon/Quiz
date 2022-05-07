@@ -6,11 +6,17 @@ import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.QuizRepository;
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.ChoiceId;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.SingleChoice;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +24,7 @@ public class QuizEditControllerTest {
 
     private static final QuizCreator DUMMY_QUIZ_CREATOR = null;
     private static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
+    private static final QuestionService DUMMY_QUESTION_SERVICE = null;
 
     @Test
     void viewQuestionsCreatesModelWithQuestions() {
@@ -77,6 +84,30 @@ public class QuizEditControllerTest {
 
     @Test
     void makerShowsAllQuestions() {
+        InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+        Question singleChoiceQuestion = new Question(
+                "Question 1",
+                new SingleChoice(
+                        List.of(
+                                new Choice(ChoiceId.of(1L), "Answer 1", true),
+                                new Choice(ChoiceId.of(2L), "Answer 2", false),
+                                new Choice(ChoiceId.of(3L), "Answer 2", false),
+                                new Choice(ChoiceId.of(4L), "Answer 2", false)
+                        )));
 
+        questionRepository.save(singleChoiceQuestion);
+        QuestionService questionService = new QuestionService(questionRepository);
+        QuizRepository quizRepository = new InMemoryQuizRepository();
+
+        QuizCreator quizCreator = new QuizCreator(quizRepository);
+        QuizEditController quizController = new QuizEditController(questionService, quizCreator);
+
+        Model model = new ConcurrentModel();
+        quizController.maker(model);
+
+        List<Question> questions = (List<Question>) model.getAttribute("questions");
+
+        assertThat(questions)
+                .containsExactly(singleChoiceQuestion);
     }
 }
