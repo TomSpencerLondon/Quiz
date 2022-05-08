@@ -70,6 +70,7 @@ public class QuizEditController {
 
         addQuestionForm.setChoices(choices);
         model.addAttribute("addQuestionForm", addQuestionForm);
+        model.addAttribute("totalCount", baseNumberOfChoices);
         return "add-question";
     }
 
@@ -85,16 +86,16 @@ public class QuizEditController {
         return "view-questions";
     }
 
-    @GetMapping("/add-choice")
-    public String addChoice(Model model, @RequestParam("index") int index) {
-        int nextIndex = index + 1;
-        model.addAttribute("fieldNameChoiceText", "dummy.choices[" + index + "].choice");
-        model.addAttribute("fieldNameCorrectAnswer", "dummy.choices[" + index + "].correctAnswer");
-        model.addAttribute("hasErrors", false);
-        model.addAttribute("index", nextIndex);
-        model.addAttribute("dummy", new DummyQuestionChoices(nextIndex));
+    @PostMapping("/add-choice")
+    public String addChoice(@RequestParam("index") int index) {
+        baseNumberOfChoices = index + 1;
+        return "redirect:/add-question";
+    }
 
-        return "fragments/form-fragments :: choice-input";
+    @PostMapping("/delete-choice")
+    public String deleteChoice(@RequestParam("index") int index) {
+        baseNumberOfChoices = index - 1;
+        return "redirect:/add-question";
     }
 
     @PostMapping("/create-quiz")
@@ -124,5 +125,15 @@ public class QuizEditController {
     public String convertMarkDown(@RequestParam(value = "text", defaultValue = "") String text) {
         MarkdownParser markdownParser = new MarkdownParser();
         return markdownParser.parse(text);
+    }
+
+    @GetMapping("/show-modal")
+    public String showModal(Model model, @RequestParam("index") int index, @RequestParam("count") int count) {
+        model.addAttribute("totalCount", count);
+        if (index == count) {
+            return "delete-modal";
+        } else {
+            return "not-permitted-modal";
+        }
     }
 }

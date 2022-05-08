@@ -110,4 +110,5 @@ public class QuizEditControllerTest {
         assertThat(questions)
                 .containsExactly(singleChoiceQuestion);
     }
+
 }
