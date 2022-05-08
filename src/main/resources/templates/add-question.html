@@ -92,23 +92,5 @@
     </form>
 </div>
 <div id="modals-here"></div>
-
-<!-- TODO: refactor using https://hyperscript.org/comparison/#fetch-and-insert -->
-<script th:inline="javascript">
-    function closeNotPermittedModal() {
-        const overlay = document.querySelector('#not-permitted-modal-overlay');
-        overlay.classList.toggle('hidden');
-        overlay.classList.toggle('flex');
-        document.body.style.overflowY = "scroll";
-    }
-
-    function closeDeleteModal() {
-        const overlay = document.querySelector('#delete-modal-overlay');
-        overlay.classList.toggle('hidden');
-        overlay.classList.toggle('flex');
-        document.body.style.overflowY = "scroll";
-    }
-
-</script>
 </body>
 </html>

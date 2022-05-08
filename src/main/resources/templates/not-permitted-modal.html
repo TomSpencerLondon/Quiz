@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <h4 class="text-lg font-bold">Not Permitted</h4>
             <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
-                 th:attr="onclick=|closeNotPermittedModal()|"
+                 _="on click set document.body.style.overflowY to 'scroll' toggle .hidden on #not-permitted-modal-overlay toggle .flex on #not-permitted-modal-overlay end"
                  fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
                       d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -14,7 +14,8 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
         </div>
         <div class="mt-3 flex justify-end space-x-3">
-            <button th:attr="onclick=|closeNotPermittedModal()|"
+            <button
+                    _="on click set document.body.style.overflowY to 'scroll' toggle .hidden on #not-permitted-modal-overlay toggle .flex on #not-permitted-modal-overlay end"
                     class="px-3 py-1 bg-indigo-600 rounded hover:bg-indigo-400 hover:bg-opacity-50 text-slate-300 hover:text-white font-bold">Cancel
             </button>
         </div>

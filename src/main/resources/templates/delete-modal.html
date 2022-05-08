@@ -15,7 +15,8 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, sunt.</p>
         </div>
         <div class="mt-3 flex justify-end space-x-3">
-            <button th:attr="onclick=|closeDeleteModal()|"
+            <button
+                    _="on click set document.body.style.overflowY to 'scroll' toggle .hidden on #delete-modal-overlay toggle .flex on #delete-modal-overlay end"
                     class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">Cancel
             </button>
             <button id="delete-choice-button"
