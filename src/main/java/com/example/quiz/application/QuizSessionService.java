@@ -2,6 +2,7 @@ package com.example.quiz.application;
 
 import com.example.quiz.application.port.QuizSessionRepository;
 import com.example.quiz.domain.QuizSession;
+import com.example.quiz.domain.QuizSessionNotFound;
 
 public class QuizSessionService {
     private QuizService quizService;
@@ -14,7 +15,7 @@ public class QuizSessionService {
     }
 
     public QuizSession findSessionByToken(String token) {
-        return quizSessionRepository.findByToken(token);
+        return quizSessionRepository.findByToken(token).orElseThrow(QuizSessionNotFound::new);
     }
 
     public void startSessionWithToken(String token) {

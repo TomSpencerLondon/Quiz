@@ -1,7 +1,6 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.application.QuestionService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,9 +68,8 @@ public class QuizEditControllerWebMvcTest {
     @WithMockUser(username = "tom")
     void shouldIncrementFormIndexByOne() throws Exception {
         mockMvc.perform(
-                       get("/add-choice?index=1")
-               ).andExpect(status().isOk())
-               .andExpect(model().attribute("index", Matchers.is(2)));
+                post("/add-choice?index=1")
+        ).andExpect(status().is3xxRedirection());
     }
 
     @Test

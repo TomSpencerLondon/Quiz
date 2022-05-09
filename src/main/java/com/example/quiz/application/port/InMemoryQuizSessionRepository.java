@@ -5,6 +5,7 @@ import com.example.quiz.domain.QuizSessionId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryQuizSessionRepository implements QuizSessionRepository {
@@ -21,10 +22,7 @@ public class InMemoryQuizSessionRepository implements QuizSessionRepository {
         return quizSession;
     }
 
-    public QuizSession findByToken(String token) {
-        return quizSessionList.stream()
-                              .filter(q -> token.equals(q.getToken()))
-                              .findFirst()
-                              .get();
+    public Optional<QuizSession> findByToken(String token) {
+        return quizSessionList.stream().filter(q -> token.equals(q.getToken())).findFirst();
     }
 }
