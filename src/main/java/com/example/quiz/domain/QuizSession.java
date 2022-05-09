@@ -18,6 +18,7 @@ public class QuizSession {
     private final List<Response> responses;
     private Question question;
     private String token;
+    private QuestionId currentQuestionId;
 
     // for testing purposes
     public QuizSession() {
@@ -34,6 +35,7 @@ public class QuizSession {
         }
         questionIterator = questions.iterator();
         question = questionIterator.next();
+        currentQuestionId = question.getId();
         responses = new ArrayList<>();
     }
 
@@ -41,6 +43,14 @@ public class QuizSession {
         this.quizSessionId = quizSessionId;
         this.token = token;
         this.question = question;
+        this.responses = responses;
+        this.startedAt = startedAt;
+    }
+
+    public QuizSession(QuizSessionId quizSessionId, String token, QuestionId currentQuestionId, List<Response> responses, ZonedDateTime startedAt) {
+        this.quizSessionId = quizSessionId;
+        this.token = token;
+        this.currentQuestionId = currentQuestionId;
         this.responses = responses;
         this.startedAt = startedAt;
     }
@@ -67,7 +77,7 @@ public class QuizSession {
     }
 
     public QuestionId currentQuestionId() {
-        return question.getId();
+        return currentQuestionId;
     }
 
     public void respondWith(long... choiceIds) {
@@ -83,6 +93,7 @@ public class QuizSession {
         Response response = new Response(question.getId(), isCorrect, choices);
         responses.add(response);
         question = nextQuestion();
+        currentQuestionId = question.getId();
     }
 
     private Question nextQuestion() {

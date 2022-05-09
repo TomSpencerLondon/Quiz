@@ -28,13 +28,13 @@ public class QuizSessionTransformer {
                                                  .map(responseTransformer::toResponse)
                                                  .toList();
         ZonedDateTime startedAt = quizSessionDbo.getStartedAt();
-        return new QuizSession(quizSessionId, token, question, responses, startedAt);
+        return new QuizSession(quizSessionId, token, question.getId(), responses, startedAt);
     }
 
     QuizSessionDbo toQuizSessionDbo(QuizSession quizSession) {
         QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
         quizSessionDbo.setId(quizSession.getId().id());
-        quizSessionDbo.setCurrentQuestionId(quizSession.getQuestion().getId().id());
+        quizSessionDbo.setCurrentQuestionId(quizSession.currentQuestionId().id());
         quizSessionDbo.setToken(quizSession.getToken());
         quizSessionDbo.setStartedAt(quizSession.getStartedAt());
 

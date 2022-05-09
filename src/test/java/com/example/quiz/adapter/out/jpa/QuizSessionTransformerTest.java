@@ -46,6 +46,7 @@ class QuizSessionTransformerTest {
 
         assertThat(quizSession)
                 .usingRecursiveComparison()
+                .ignoringFields("question")
                 .isEqualTo(expected);
     }
 
@@ -83,6 +84,6 @@ class QuizSessionTransformerTest {
     private QuizSession createQuizSession(Choice choice1, Question question) {
         List<Response> responses = List.of(new Response(question.getId(), question.isCorrectAnswer(choice1), choice1));
         ZonedDateTime startedAt = ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC);
-        return new QuizSession(QuizSessionId.of(0L), "stub-token-1", question, responses, startedAt);
+        return new QuizSession(QuizSessionId.of(0L), "stub-token-1", question.getId(), responses, startedAt);
     }
 }
