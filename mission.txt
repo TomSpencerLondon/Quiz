@@ -9,6 +9,15 @@
 - ✅ Remove usages of deprecated method QuizSession#currentQuestion()
 - Response Repository needs deleting
 
+### Current tasks (9/5/22)
+1. Delete questions() from Quiz
+    - QuizSession(Quiz quiz) constructor uses questions()
+2. Delete getQuestion() from QuizSession
+    - replace its use in QuizSessionTransformer#toQuizSessionDbo to questionId()
+    - add questionId() to QuizSession
+3. Delete setQuestion(Question question) from QuizSession
+    - Not use question when use QuizSession constructor (replace with questionId)
+
 #### UML - event storming
 - Movie ticket, theatre, show, seat... how model - domain modeling
 - ECommerce - twist system sell something different
