@@ -25,9 +25,7 @@ public class QuizAPIController {
     public List<QuestionView> getAllQuestions() {
         final List<Question> questions = questionService.findAll();
 
-        final List<QuestionView> questionViews = questions.stream()
-                                                          .map(QuestionView::of)
-                                                          .toList();
+        final List<QuestionView> questionViews = questions.stream().map(QuestionView::of).toList();
 
         return questionViews;
     }

@@ -37,10 +37,17 @@
                         </th>
                     </tr>
                     </thead>
-                    <tr th:each="question : ${questions}">
-                        <td th:text="${question.text}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            Question Text
+                    <tr th:each="question, iter : ${questions}">
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:id="'view-question-text-' + ${iter.index}">
                         </td>
+                        <script th:inline="javascript">
+                            var text = [[${question.text}]];
+                            var index = [[${iter.index}]];
+                            var converter = new showdown.Converter();
+                            var questionArea = document.getElementById("view-question-text-" + index);
+                            var convertedHtml = converter.makeHtml(text);
+                            questionArea.innerHTML = convertedHtml;
+                        </script>
                         <td th:each="choice, stat : ${question.choices}" th:text="${choice}" th:unless="${stat.index > 3}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             Choice #[[ ${stat.index} ]]
                         </td>
