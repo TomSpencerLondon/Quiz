@@ -6,7 +6,6 @@ import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizId;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,12 +52,14 @@ public class QuizEditController {
 
     @GetMapping("/add-question")
     public String showAddQuestion(Model model) {
-        String totalCount = (String) model.asMap().get("totalCount");
+        Integer totalCount = (Integer) model.asMap().get("totalCount");
         AddQuestionForm addQuestionForm;
-        if (!StringUtils.isEmpty(totalCount)) {
-            addQuestionForm = new AddQuestionForm(Integer.parseInt(totalCount));
+        if (totalCount == null) {
+            Integer baseNumberOfChoices = choiceCountConfig.getBaseNumberOfChoices();
+            addQuestionForm = new AddQuestionForm(baseNumberOfChoices);
+            model.addAttribute("totalCount", baseNumberOfChoices);
         }else {
-            addQuestionForm = new AddQuestionForm(choiceCountConfig.getBaseNumberOfChoices());
+            addQuestionForm = new AddQuestionForm(totalCount);
         }
 
         model.addAttribute("addQuestionForm", addQuestionForm);

@@ -71,19 +71,6 @@
                     <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count}, ${totalCount})"></div>
                 </div>
             </div>
-            <div class="flex justify-end mb-3">
-                <div>
-                    <button type="button"
-                            id="add-new-choice"
-                            hx-trigger="click"
-                            th:attr="hx-post=|/add-choice?index=${totalCount}|"
-                            hx-target="#quiz"
-                            hx-swap="outerHTML"
-                            class="shadow mt-3 bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
-                        <i class="fa fa-plus" aria-hidden="true"></i>Add new choice
-                    </button>
-                </div>
-            </div>
             <button data-modal-toggle="popup-modal" type="submit"
                     class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
                 Create
