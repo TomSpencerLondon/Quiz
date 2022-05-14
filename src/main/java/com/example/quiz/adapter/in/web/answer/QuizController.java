@@ -56,6 +56,8 @@ public class QuizController {
     @PostMapping("/question")
     public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "token") String token) {
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
+        // Could get question - from quizSession.currentQuestionId()
+        // use questionId in respondWith()
         quizSession.respondWith(askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished()) {
             return "redirect:/result?token=" + token;

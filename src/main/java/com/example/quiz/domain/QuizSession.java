@@ -28,23 +28,17 @@ public class QuizSession {
     }
 
     public QuizSession(Quiz quiz) {
+        // delete these references
         questions = quiz.questions();
-
         if (questions.isEmpty()) {
             throw new IllegalArgumentException();
         }
         questionIterator = questions.iterator();
         question = questionIterator.next();
+
+        // get questionId from first element in questionIds list in Quiz
         currentQuestionId = question.getId();
         responses = new ArrayList<>();
-    }
-
-    public QuizSession(QuizSessionId quizSessionId, String token, Question question, List<Response> responses, ZonedDateTime startedAt) {
-        this.quizSessionId = quizSessionId;
-        this.token = token;
-        this.question = question;
-        this.responses = responses;
-        this.startedAt = startedAt;
     }
 
     public QuizSession(QuizSessionId quizSessionId, String token, QuestionId currentQuestionId, List<Response> responses, ZonedDateTime startedAt) {
@@ -63,11 +57,6 @@ public class QuizSession {
         responses.add(response);
     }
 
-    @Deprecated
-    public Question getQuestion() {
-        return question;
-    }
-
     public String getToken() {
         return token;
     }
@@ -80,8 +69,11 @@ public class QuizSession {
         return currentQuestionId;
     }
 
+    // add question as parameter
     public void respondWith(long... choiceIds) {
         List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
+
+        // This is harder - no question +
         Choice[] selectedChoices = question.choices().stream()
                                            .filter(c -> choiceIdList.contains(c.getId().id()))
                                            .toArray(Choice[]::new);
@@ -90,6 +82,8 @@ public class QuizSession {
 
     public void respondWith(Choice... choices) {
         boolean isCorrect = question.isCorrectAnswer(choices);
+        // Why are we checking if question is correct at Response creation?
+        // Response will have to query for a question
         Response response = new Response(question.getId(), isCorrect, choices);
         responses.add(response);
         question = nextQuestion();

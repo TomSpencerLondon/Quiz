@@ -20,6 +20,15 @@ public class AddQuestionForm {
         this.choices = new ChoiceForm[]{};
     }
 
+    public AddQuestionForm(int count) {
+        ChoiceForm[] choiceForms = new ChoiceForm[count];
+        for (int i = 0; i < count; i++) {
+            choiceForms[i] = new ChoiceForm();
+        }
+
+        this.choices = choiceForms;
+    }
+
     public AddQuestionForm(String text, String choiceType, ChoiceForm... choiceForms) {
         this.text = text;
         this.choices = choiceForms;

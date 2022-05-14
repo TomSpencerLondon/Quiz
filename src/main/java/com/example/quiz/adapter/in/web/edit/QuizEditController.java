@@ -1,12 +1,12 @@
 package com.example.quiz.adapter.in.web.edit;
 
+import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
 import com.example.quiz.application.QuestionService;
 import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizId;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -25,12 +25,12 @@ public class QuizEditController {
 
     private final QuestionService questionService;
     private final QuizCreator quizCreator;
-    @Value("${add-questions-base-number-of-choices}")
-    private int baseNumberOfChoices;
+    private ChoiceCountConfig choiceCountConfig;
 
-    public QuizEditController(QuestionService questionService, QuizCreator quizCreator) {
+    public QuizEditController(QuestionService questionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig) {
         this.questionService = questionService;
         this.quizCreator = quizCreator;
+        this.choiceCountConfig = choiceCountConfig;
     }
 
     @PostMapping("/add-question")
@@ -53,49 +53,38 @@ public class QuizEditController {
 
     @GetMapping("/add-question")
     public String showAddQuestion(Model model) {
-
-        AddQuestionForm addQuestionForm = new AddQuestionForm();
-        // TODO: Make the number of default choices configurable
-        // Use application.properties - to configure this value
-        // The value must be nonnull and greater than zero
-        // number of default choices
-        // validation - needs to be positive and not zero
-        // zero looks bad + not negative
-        // Springboot wont start if validation fails
-        // @value
-        ChoiceForm[] choices = new ChoiceForm[baseNumberOfChoices];
-        for (int i = 0; i < baseNumberOfChoices; i++) {
-            choices[i] = new ChoiceForm();
+        String totalCount = (String) model.asMap().get("totalCount");
+        AddQuestionForm addQuestionForm;
+        if (!StringUtils.isEmpty(totalCount)) {
+            addQuestionForm = new AddQuestionForm(Integer.parseInt(totalCount));
+        }else {
+            addQuestionForm = new AddQuestionForm(choiceCountConfig.getBaseNumberOfChoices());
         }
 
-        addQuestionForm.setChoices(choices);
         model.addAttribute("addQuestionForm", addQuestionForm);
-        model.addAttribute("totalCount", baseNumberOfChoices);
         return "add-question";
+    }
+
+    @PostMapping("/add-choice")
+    public String addChoice(@RequestParam("index") int index, RedirectAttributes redirectAttrs) {
+        redirectAttrs.addFlashAttribute("totalCount", index + 1);
+        return "redirect:/add-question";
+    }
+
+    @PostMapping("/delete-choice")
+    public String deleteChoice(@RequestParam("index") int index, RedirectAttributes redirectAttrs) {
+        redirectAttrs.addFlashAttribute("totalCount", index - 1);
+        return "redirect:/add-question";
     }
 
     @GetMapping("/view-questions")
     public String viewQuestions(Model model) {
         final List<Question> questions = questionService.findAll();
 
-        final List<QuestionView> questionViews = questions.stream()
-                                                          .map(QuestionView::of)
-                                                          .toList();
+        final List<QuestionView> questionViews = questions.stream().map(QuestionView::of).toList();
 
         model.addAttribute("questions", questionViews);
         return "view-questions";
-    }
-
-    @PostMapping("/add-choice")
-    public String addChoice(@RequestParam("index") int index) {
-        baseNumberOfChoices = index + 1;
-        return "redirect:/add-question";
-    }
-
-    @PostMapping("/delete-choice")
-    public String deleteChoice(@RequestParam("index") int index) {
-        baseNumberOfChoices = index - 1;
-        return "redirect:/add-question";
     }
 
     @PostMapping("/create-quiz")
@@ -120,20 +109,4 @@ public class QuizEditController {
         return "maker";
     }
 
-    @GetMapping(value = "/convert-markdown", produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
-    public String convertMarkDown(@RequestParam(value = "text", defaultValue = "") String text) {
-        MarkdownParser markdownParser = new MarkdownParser();
-        return markdownParser.parse(text);
-    }
-
-    @GetMapping("/show-modal")
-    public String showModal(Model model, @RequestParam("index") int index, @RequestParam("count") int count) {
-        model.addAttribute("totalCount", count);
-        if (index == count) {
-            return "delete-modal";
-        } else {
-            return "not-permitted-modal";
-        }
-    }
 }

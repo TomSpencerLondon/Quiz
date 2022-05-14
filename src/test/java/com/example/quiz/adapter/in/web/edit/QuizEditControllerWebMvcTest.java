@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.in.web.edit;
 
+import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
 import com.example.quiz.application.QuestionService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ public class QuizEditControllerWebMvcTest {
 
     @MockBean
     QuestionService questionService;
+
+    @MockBean
+    ChoiceCountConfig choiceCountConfig;
 
     @Test
     @WithMockUser(username = "tom")
@@ -91,11 +95,5 @@ public class QuizEditControllerWebMvcTest {
         mockMvc.perform(
                 get("/maker")
         ).andExpect(status().isOk());
-    }
-
-    @Test
-    void givenMarkdownConvertsToHtml() throws Exception {
-        mockMvc.perform(get("/convert-markdown?text=%23%20Hello"))
-               .andExpect(status().isOk());
     }
 }
