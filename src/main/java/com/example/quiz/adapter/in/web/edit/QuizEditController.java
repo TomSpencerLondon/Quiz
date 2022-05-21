@@ -6,6 +6,7 @@ import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
 import com.example.quiz.domain.QuizId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -25,6 +27,10 @@ public class QuizEditController {
     private final QuestionService questionService;
     private final QuizCreator quizCreator;
     private ChoiceCountConfig choiceCountConfig;
+
+    @Autowired
+    SpringTemplateEngine templateEngine;
+
 
     public QuizEditController(QuestionService questionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig) {
         this.questionService = questionService;
@@ -52,24 +58,24 @@ public class QuizEditController {
 
     @GetMapping("/add-question")
     public String showAddQuestion(Model model) {
-        Integer totalCount = (Integer) model.asMap().get("totalCount");
-        AddQuestionForm addQuestionForm;
-        if (totalCount == null) {
-            Integer baseNumberOfChoices = choiceCountConfig.getBaseNumberOfChoices();
-            addQuestionForm = new AddQuestionForm(baseNumberOfChoices);
-            model.addAttribute("totalCount", baseNumberOfChoices);
-        }else {
-            addQuestionForm = new AddQuestionForm(totalCount);
-        }
-
+        Integer baseNumberOfChoices = choiceCountConfig.getBaseNumberOfChoices();
+        AddQuestionForm addQuestionForm = new AddQuestionForm(baseNumberOfChoices);
+        model.addAttribute("totalCount", baseNumberOfChoices);
         model.addAttribute("addQuestionForm", addQuestionForm);
         return "add-question";
     }
 
-    @PostMapping("/add-choice")
-    public String addChoice(@RequestParam("index") int index, RedirectAttributes redirectAttrs) {
-        redirectAttrs.addFlashAttribute("totalCount", index + 1);
-        return "redirect:/add-question";
+    @GetMapping(value = "/add-choice")
+    public String addChoice(Model model, @RequestParam("index") int index) {
+        int nextIndex = index + 1;
+        model.addAttribute("fieldNameChoiceText", "dummy.choices[" + index + "].choice");
+        model.addAttribute("fieldNameCorrectAnswer", "dummy.choices[" + index + "].correctAnswer");
+        model.addAttribute("hasErrors", false);
+        model.addAttribute("index", nextIndex);
+        model.addAttribute("dummy", new DummyQuestionChoices(nextIndex));
+        model.addAttribute("totalCount", nextIndex);
+
+        return "fragments/form-fragments :: another-choice-input";
     }
 
     @PostMapping("/delete-choice")

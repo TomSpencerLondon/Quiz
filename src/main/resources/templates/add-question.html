@@ -4,7 +4,7 @@
     <div th:replace="fragments/header-fragments :: header-input('Text Input Form')"></div>
 </head>
 <body>
-<div class="max-w-screen-md mx-auto p-5" id="quiz">
+<div class="max-w-screen-md mx-auto p-5">
     <div class="text-center mb-16">
         <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
             Quiz
@@ -14,7 +14,7 @@
         </h3>
     </div>
     <form action="#"
-          th:data-question-form-count="${totalCount}" id="question-form"
+          th:data-question-form-count="${addQuestionForm.choices.length}" id="question-form"
           th:action="@{/add-question}" th:object="${addQuestionForm}" method="post"
           class="w-full">
         <div>
@@ -58,8 +58,8 @@
             </label>
             <div class="flex">
                 <div class="w-1/2 mr-4">
-             <textarea type="text" id="question-text" th:field="*{text}" rows="10" cols="30"
-                       class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
+                 <textarea type="text" id="question-text" th:field="*{text}" rows="10" cols="30"
+                           class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></textarea>
                 </div>
                 <div class="w-1/2">
                     <div id="question-text-preview"
@@ -68,17 +68,18 @@
             </div>
             <div id="choice-input-form-list">
                 <div th:each="choice, stat : *{choices}">
-                    <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count}, ${totalCount})"></div>
+                    <div th:replace="fragments/form-fragments :: choice-input('choices[__${stat.index}__].choice', 'choices[__${stat.index}__].correctAnswer', ${#fields.hasErrors('choices[__${stat.index}__].choice')}, ${stat.count}, ${addQuestionForm.choices.length})"></div>
                 </div>
             </div>
+        </div>
+        <div class="flex justify-end">
             <button data-modal-toggle="popup-modal" type="submit"
-                    class="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Create
             </button>
         </div>
     </form>
 </div>
-<div id="modals-here"></div>
 <script th:inline="javascript">
     var converter = new showdown.Converter();
     var textAreaElement = document.getElementById("question-text");
@@ -88,6 +89,31 @@
         var previewArea = document.getElementById("question-text-preview");
         previewArea.innerHTML = convertedHtml;
     });
+
+    // var addChoiceButton = document.getElementById("add-new-choice");
+    // addChoiceButton.addEventListener("click", function (event) {
+    //     addExtraChoice();
+    // });
+    //
+    // function addExtraChoice() {
+    //     var questionForm = document.getElementById("question-form");
+    //     var count = questionForm.getAttribute("data-question-form-count");
+    //     var choiceInputFormList = document.getElementById("choice-input-form-list");
+    //
+    //     fetch(`/add-choice?index=${count}`)
+    //             .then(response => response.text())
+    //             .then(fragment => {
+    //                 choiceInputFormList.appendChild(htmlToElement(fragment));
+    //                 questionForm.setAttribute('data-question-form-count', parseInt(count) + 1);
+    //             });
+    // }
+    //
+    // function htmlToElement(html) {
+    //     var template = document.createElement('template');
+    //     html = html.trim();
+    //     template.innerHTML = "<div>" + html + "</div>";
+    //     return template.content.firstChild;
+    // }
 
 </script>
 </body>
