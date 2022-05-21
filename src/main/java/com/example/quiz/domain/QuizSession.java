@@ -27,6 +27,7 @@ public class QuizSession {
         responses = new ArrayList<>();
     }
 
+    @Deprecated
     public QuizSession(Quiz quiz) {
         // delete these references
         questions = quiz.questions();

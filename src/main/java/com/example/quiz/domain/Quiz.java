@@ -3,10 +3,11 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class Quiz {
+
+    @Deprecated // We want to use questionIds instead of questions
     private List<Question> questions;
     private String quizName;
     private QuizId quizId;
-
     private List<QuestionId> questionIds;
 
     public void setId(QuizId id) {
@@ -49,5 +50,9 @@ public class Quiz {
     public boolean isLastQuestion(QuestionId questionId) {
         int index = questionIds.indexOf(questionId);
         return index == questionIds.size() - 1;
+    }
+
+    public QuestionId firstQuestion() {
+        return questionIds.get(0);
     }
 }

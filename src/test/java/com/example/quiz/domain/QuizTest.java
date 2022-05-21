@@ -39,6 +39,21 @@ public class QuizTest {
     }
 
     @Test
+    void givenQuizWithQuestionsReturnsFirstQuestionWhenAsked() {
+        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question1.setId(QuestionId.of(54L));
+        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        question2.setId(QuestionId.of(66L));
+        List<Question> questions = List.of(question1, question2);
+        Quiz quiz = new Quiz(questions);
+
+        QuestionId questionId = quiz.firstQuestion();
+
+        assertThat(questionId)
+                .isEqualTo(question1.getId());
+    }
+
+    @Test
     void givenQuizHasANextQuestionWhenAskedForNextQuestionQuizReturnsNextQuestion() {
         Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question1.setId(QuestionId.of(54L));
