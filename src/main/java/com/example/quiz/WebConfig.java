@@ -15,6 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
-        return CorsFilterConfiguration.simpleCorsFilter(List.of("http://localhost:63342"));
+        return CorsFilterConfiguration.simpleCorsFilter(
+                List.of(
+                        "http://localhost:63342",
+                        "http://localhost:4200"
+                )
+        );
     }
 }
