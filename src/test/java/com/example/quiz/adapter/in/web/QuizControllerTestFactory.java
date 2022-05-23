@@ -16,7 +16,7 @@ public class QuizControllerTestFactory {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(singleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         return new QuizController(quizSessionService, stubIdGenerator, inMemoryQuestionRepository);
     }
@@ -26,7 +26,7 @@ public class QuizControllerTestFactory {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(multipleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         return new QuizController(quizSessionService, stubIdGenerator, inMemoryQuestionRepository);
     }

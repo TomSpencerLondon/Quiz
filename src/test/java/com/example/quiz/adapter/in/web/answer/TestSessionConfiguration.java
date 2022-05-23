@@ -20,7 +20,7 @@ class TestSessionConfiguration {
     @Primary
     @Bean
     QuizSessionService createTestQuizSessionService(QuizService quizService) {
-        return new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        return new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
     }
 
     @Primary

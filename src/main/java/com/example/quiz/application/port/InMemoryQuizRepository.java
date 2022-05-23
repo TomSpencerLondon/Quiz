@@ -5,6 +5,7 @@ import com.example.quiz.domain.QuizId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryQuizRepository implements QuizRepository {
@@ -24,6 +25,13 @@ public class InMemoryQuizRepository implements QuizRepository {
     @Override
     public List<Quiz> findAll() {
         return quizList;
+    }
+
+    @Override
+    public Optional<Quiz> findById(QuizId quizId) {
+        return quizList.stream()
+                .filter(q -> q.getId().equals(quizId))
+                .findFirst();
     }
 
 }

@@ -16,6 +16,7 @@ public class SingleChoiceQuestionTestFactory {
                                 new Choice(ChoiceId.of(3L), "Answer 2", false),
                                 new Choice(ChoiceId.of(4L), "Answer 2", false)
                         )));
+        question.setId(QuestionId.of(1L));
         return question;
     }
 

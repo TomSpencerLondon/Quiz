@@ -18,6 +18,7 @@ public class QuizSession {
     private final List<Response> responses;
     private Question question;
     private String token;
+    private QuizId quizId;
     private QuestionId currentQuestionId;
 
     // for testing purposes
@@ -25,6 +26,13 @@ public class QuizSession {
         questionIterator = null;
         questions = null;
         responses = new ArrayList<>();
+    }
+
+    public QuizSession(QuestionId questionId, String token, QuizId quizId) {
+        this.currentQuestionId = questionId;
+        this.token = token;
+        this.quizId = quizId;
+        this.responses = new ArrayList<>();
     }
 
     @Deprecated
@@ -42,6 +50,7 @@ public class QuizSession {
         responses = new ArrayList<>();
     }
 
+    @Deprecated
     public QuizSession(QuizSessionId quizSessionId, String token, QuestionId currentQuestionId, List<Response> responses, ZonedDateTime startedAt) {
         this.quizSessionId = quizSessionId;
         this.token = token;
@@ -66,6 +75,10 @@ public class QuizSession {
         this.token = token;
     }
 
+    public QuizId getQuizId() {
+        return quizId;
+    }
+
     public QuestionId currentQuestionId() {
         return currentQuestionId;
     }
@@ -79,6 +92,19 @@ public class QuizSession {
                                            .filter(c -> choiceIdList.contains(c.getId().id()))
                                            .toArray(Choice[]::new);
         respondWith(selectedChoices);
+    }
+
+    public void respondWith(Question question, Quiz quiz, long... choiceIds) {
+        List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
+
+        // This is harder - no question +
+        Choice[] selectedChoices = question.choices().stream()
+                                           .filter(c -> choiceIdList.contains(c.getId().id()))
+                                           .toArray(Choice[]::new);
+        boolean correctAnswer = question.isCorrectAnswer(selectedChoices);
+        Response response = new Response(question.getId(), correctAnswer, selectedChoices);
+        responses.add(response);
+        currentQuestionId = quiz.nextQuestionAfter(question.getId());
     }
 
     public void respondWith(Choice... choices) {
@@ -99,10 +125,14 @@ public class QuizSession {
 
         return question;
     }
-
+    @Deprecated
     public boolean isFinished() {
 //         quiz.isLastQuestion(question.getId())
         return responses.size() == questions.size();
+    }
+
+    public boolean isFinished(Quiz quiz) {
+        return quiz.isLastQuestion(currentQuestionId);
     }
 
     public int correctResponsesCount() {
@@ -135,5 +165,9 @@ public class QuizSession {
 
     public QuizSessionId getId() {
         return quizSessionId;
+    }
+
+    public QuizId quizId() {
+        return quizId;
     }
 }

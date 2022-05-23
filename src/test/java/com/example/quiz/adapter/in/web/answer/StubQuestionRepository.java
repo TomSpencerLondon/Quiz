@@ -21,7 +21,7 @@ public class StubQuestionRepository implements QuestionRepository {
 
     @Override
     public Optional<Question> findById(QuestionId questionId) {
-        Question question = new Question("Q1", new SingleChoice(List.of(new Choice(ChoiceId.of(54L), "C1", true))));
+        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question.setId(questionId);
         return Optional.of(question);
     }
