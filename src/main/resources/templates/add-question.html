@@ -80,6 +80,11 @@
         </div>
     </form>
 </div>
+<style>
+    #choice-input-form-list :not(div:last-child) span {
+        display: none;
+    }
+</style>
 <script th:inline="javascript">
     var converter = new showdown.Converter();
     var textAreaElement = document.getElementById("question-text");

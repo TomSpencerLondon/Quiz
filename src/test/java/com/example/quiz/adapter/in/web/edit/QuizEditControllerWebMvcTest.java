@@ -72,8 +72,8 @@ public class QuizEditControllerWebMvcTest {
     @WithMockUser(username = "tom")
     void shouldIncrementFormIndexByOne() throws Exception {
         mockMvc.perform(
-                post("/add-choice?index=1")
-        ).andExpect(status().is3xxRedirection());
+                get("/add-choice?index=1")
+        ).andExpect(status().isOk());
     }
 
     @Test
