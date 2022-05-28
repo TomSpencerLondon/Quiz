@@ -3,10 +3,12 @@ package com.example.quiz.adapter.in.web.answer;
 import com.example.quiz.adapter.in.web.QuizControllerTestFactory;
 import com.example.quiz.application.QuizService;
 import com.example.quiz.application.QuizSessionService;
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.application.port.*;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.QuizSession;
+import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
+import com.example.quiz.domain.factories.QuizTestFactory;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
@@ -24,13 +26,15 @@ public class QuizControllerTest {
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
         // given
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
-        final Model model = new ConcurrentModel();
-        quizController.start();
+        quizController.start(0L);
 
         // when
-        quizController.askQuestion(model, "stub-id-1");
+        final Model model = new ConcurrentModel();
+        String templateName = quizController.askQuestion(model, "stub-id-1");
 
         // then
+        assertThat(templateName)
+                .isEqualTo("single-choice");
         final AskQuestionForm askQuestion = (AskQuestionForm) model.getAttribute("askQuestionForm");
         assertThat(askQuestion.getQuestion())
                 .isEqualTo("Question 1");
@@ -42,10 +46,16 @@ public class QuizControllerTest {
         StubQuestionRepository stubQuestionRepository = new StubQuestionRepository();
         Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
         QuizService quizService = new QuizService(stubQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, DUMMY_QUESTION_REPOSITORY);
-        quizController.start();
+        QuizSessionService quizSessionService =
+                new QuizSessionService(
+                        quizService,
+                        new InMemoryQuizSessionRepository(),
+                        QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion),
+                        stubIdGenerator);
+
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
+        quizController.start(0L);
         AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
         // when
@@ -64,11 +74,12 @@ public class QuizControllerTest {
         StubQuestionRepository stubQuestionRepository = new StubQuestionRepository();
         Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
         QuizService quizService = new QuizService(stubQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuizRepository quizRepository = QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
         final Model model = new ConcurrentModel();
-        quizController.start();
+        quizController.start(0L);
         quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
@@ -87,7 +98,7 @@ public class QuizControllerTest {
         // given
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
-        quizController.start();
+        quizController.start(0L);
 
         // when
         AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -110,7 +121,7 @@ public class QuizControllerTest {
         // Given
         final QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
         final Model model = new ConcurrentModel();
-        quizController.start();
+        quizController.start(0L);
         quizController.askQuestion(model, "stub-id-1");
 
         // When
@@ -127,11 +138,14 @@ public class QuizControllerTest {
         StubQuestionRepository stubQuestionRepository = new StubQuestionRepository();
         Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
         QuizService quizService = new QuizService(stubQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        Quiz quiz = new Quiz("Quiz 1", List.of(singleChoiceQuestion.getId()));
+        quizRepository.save(quiz);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
         QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
         ConcurrentModel model = new ConcurrentModel();
-        quizController.start();
+        quizController.start(0L);
         quizController.askQuestion(model, "stub-id-1");
         AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
@@ -154,7 +168,7 @@ public class QuizControllerTest {
         QuizController quizController = QuizControllerTestFactory.createAndStartQuizControllerWithOneSingleChoiceQuestion();
 
         // when
-        String redirect = quizController.start();
+        String redirect = quizController.start(0L);
 
         // then
         assertThat(redirect)
@@ -164,8 +178,9 @@ public class QuizControllerTest {
     @Test
     void multipleChoiceQuestionReturnsMultipleChoicePage() {
         QuizController quizController = QuizControllerTestFactory.createAndStartChoiceQuizControllerWithOneMultipleChoiceQuestion();
+        quizController.start(0L);
+
         ConcurrentModel model = new ConcurrentModel();
-        quizController.start();
         String redirect = quizController.askQuestion(model, "stub-id-1");
 
         assertThat(redirect)
@@ -177,17 +192,16 @@ public class QuizControllerTest {
     @Test
     void askQuestionPullsQuestionFromSessionBasedOnId() {
         // given
-        Question singleChoiceQuestion = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        inMemoryQuestionRepository.save(singleChoiceQuestion);
-        QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository());
+        QuestionRepository questionRepository = new InMemoryQuestionRepository();
+        Question savedQuestion = questionRepository.save(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion());
+        QuizService quizService = new QuizService(questionRepository);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, DUMMY_QUESTION_REPOSITORY);
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, questionRepository);
 
         // when
-        String start1 = quizController.start();
-        String start2 = quizController.start();
+        String start1 = quizController.start(0L);
+        String start2 = quizController.start(0L);
 
         // then
         assertThat(start1)
@@ -195,4 +209,25 @@ public class QuizControllerTest {
         assertThat(start2)
                 .isEqualTo("redirect:/question?token=stub-id-2");
     }
+
+    @Test
+    void startWithQuizIdCreatesSessionWithSameQuizId() {
+        Question multipleChoiceQuestion = MultipleChoiceQuestionTestFactory.multipleChoiceQuestion();
+        QuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
+        inMemoryQuestionRepository.save(multipleChoiceQuestion);
+        QuizService quizService = new QuizService(inMemoryQuestionRepository);
+        QuizRepository quizRepository = new InMemoryQuizRepository();
+        Quiz savedQuiz = quizRepository.save(QuizTestFactory.createQuizWithSingleChoiceQuestion());
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
+        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, inMemoryQuestionRepository);
+
+        quizController.start(savedQuiz.getId().id());
+
+        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
+        assertThat(sessionByToken.currentQuestionId())
+                .isEqualTo(savedQuiz.firstQuestion());
+    }
+
+
 }

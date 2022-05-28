@@ -3,10 +3,7 @@ package com.example.quiz.adapter.in.web.answer;
 import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.TokenGenerator;
-import com.example.quiz.domain.Grade;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionId;
-import com.example.quiz.domain.QuizSession;
+import com.example.quiz.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +38,8 @@ public class QuizController {
 
         // need to return optional here + orElseThrow()
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
-        if (quizSession.isFinished()) {
+        Quiz quiz = quizSessionService.findQuizById(quizSession.getQuizId());
+        if (quizSession.isFinished(quiz)) {
             return "redirect:/result?token=" + token;
         }
 
@@ -58,8 +56,12 @@ public class QuizController {
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
         // Could get question - from quizSession.currentQuestionId()
         // use questionId in respondWith()
-        quizSession.respondWith(askQuestionForm.getSelectedChoices());
-        if (quizSession.isFinished()) {
+        QuestionId questionId = quizSession.currentQuestionId();
+        Question question = questionRepository.findById(questionId).orElseThrow(QuestionNotFound::new);
+        Quiz quiz = quizSessionService.findQuizById(quizSession.quizId());
+
+        quizSession.respondWith(question, quiz, askQuestionForm.getSelectedChoices());
+        if (quizSession.isFinished(quiz)) {
             return "redirect:/result?token=" + token;
         }
         return "redirect:/question?token=" + token;
@@ -76,10 +78,13 @@ public class QuizController {
         return "result";
     }
 
+    // Add QuizId
     @PostMapping("/start")
-    public String start() {
-        String token = tokenGenerator.token();
-        quizSessionService.startSessionWithToken(token);
+    public String start(@RequestParam(value = "quizId", defaultValue = "") long id) {
+//        String token = tokenGenerator.token();
+//        // use QuizId in startSession
+//        quizSessionService.startSessionWithToken(token);
+        String token = quizSessionService.createQuizSession(QuizId.of(id));
         return "redirect:/question?token=" + token;
     }
 
