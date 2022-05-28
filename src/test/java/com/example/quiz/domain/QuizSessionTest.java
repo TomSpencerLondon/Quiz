@@ -50,7 +50,7 @@ public class QuizSessionTest {
         session.respondWith(new Choice("Answer 1"));
 
         // Then
-        assertThat(session.isFinished())
+        assertThat(session.isFinished(quiz))
                 .isTrue();
     }
 
@@ -65,7 +65,7 @@ public class QuizSessionTest {
         session.respondWith(new Choice("Answer 2"));
 
         // Then
-        assertThat(session.isFinished())
+        assertThat(session.isFinished(quiz))
                 .isFalse();
     }
 
@@ -80,7 +80,7 @@ public class QuizSessionTest {
         session.respondWith(new Choice("Answer 2"));
 
         // Then
-        assertThat(session.isFinished())
+        assertThat(session.isFinished(quiz))
                 .isTrue();
     }
 

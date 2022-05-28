@@ -101,11 +101,16 @@ public class QuizControllerIdTest {
     @Test
     void askQuestionRedirectsToResultForTheFinishedSession() {
         // given
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
+        Quiz quiz = quizRepository.save(new Quiz(List.of(question)));
+
         InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
-        quizSessionRepository.save(new FinishedQuizSession("finished"));
-        quizSessionRepository.save(new UnfinishedQuizSession("unfinished"));
+        quizSessionRepository.save(new FinishedQuizSessionStub(QuestionId.of(0L), "finished", quiz.getId()));
+        quizSessionRepository.save(new UnfinishedQuizSessionStub("unfinished"));
         QuizService quizService = new QuizService(new InMemoryQuestionRepository());
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository, null, null);
+
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository, quizRepository, null);
 
         QuizController quizController = new QuizController(quizSessionService, DUMMY_TOKEN_GENERATOR, DUMMY_QUESTION_REPOSITORY);
 

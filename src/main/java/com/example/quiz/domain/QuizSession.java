@@ -125,14 +125,9 @@ public class QuizSession {
 
         return question;
     }
-    @Deprecated
-    public boolean isFinished() {
-//         quiz.isLastQuestion(question.getId())
-        return responses.size() == questions.size();
-    }
 
     public boolean isFinished(Quiz quiz) {
-        return quiz.isLastQuestion(currentQuestionId);
+        return responses.size() == quiz.questionCount();
     }
 
     public int correctResponsesCount() {

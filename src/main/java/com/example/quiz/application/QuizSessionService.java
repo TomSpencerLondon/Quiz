@@ -35,7 +35,8 @@ public class QuizSessionService {
     }
 
     public String createQuizSession(QuizId quizId) {
-        Quiz quiz = quizRepository.findById(quizId).orElseThrow(QuizNotFound::new);
+        Quiz quiz = quizRepository.findById(quizId)
+                                  .orElseThrow(() -> new QuizNotFound("Could not find quizId of " + quizId));
         QuestionId questionId = quiz.firstQuestion();
         String token = tokenGenerator.token();
         QuizSession quizSession = new QuizSession(questionId, token, quizId);

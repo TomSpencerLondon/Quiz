@@ -18,6 +18,8 @@ public class Quiz {
         return quizId;
     }
 
+    // We want Quiz to have questionIds not Questions
+    @Deprecated
     public Quiz(List<Question> questions) {
         this.questions = questions;
         questionIds = questions.stream()
@@ -54,5 +56,9 @@ public class Quiz {
 
     public QuestionId firstQuestion() {
         return questionIds.get(0);
+    }
+
+    public int questionCount() {
+        return questionIds.size();
     }
 }
