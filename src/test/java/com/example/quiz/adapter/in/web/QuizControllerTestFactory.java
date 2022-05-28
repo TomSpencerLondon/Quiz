@@ -15,15 +15,26 @@ import java.util.List;
 
 public class QuizControllerTestFactory {
     public static QuizController createAndStartQuizControllerWithOneSingleChoiceQuestion() {
+        QuestionRepository questionRepository = createQuestionRepositoryWithSingleChoiceQuestion();
+        QuizService quizService = new QuizService(questionRepository);
+        QuizRepository quizRepository = createQuizRepositoryWithOneQuizWith(questionRepository.findAll().get(0));
+        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
+
+        QuizSessionService quizSessionService =
+                new QuizSessionService(
+                        quizService,
+                        new InMemoryQuizSessionRepository(),
+                        quizRepository,
+                        stubIdGenerator);
+        return new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+    }
+
+    @NotNull
+    public static QuestionRepository createQuestionRepositoryWithSingleChoiceQuestion() {
         Question singleChoiceQuestion = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        Question savedQuestion = questionRepository.save(singleChoiceQuestion);
-        QuizService quizService = new QuizService(questionRepository);
-        QuizRepository quizRepository = createQuizRepositoryWithOneQuizWith(savedQuestion);
-
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
-        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        return new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+        questionRepository.save(singleChoiceQuestion);
+        return questionRepository;
     }
 
     @NotNull

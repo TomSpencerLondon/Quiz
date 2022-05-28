@@ -46,13 +46,13 @@ class QuizControllerWebMvcTest {
     @Test
     void postStartExists() throws Exception {
         mockMvc.perform(
-                post("/start?quizId=1")
+                post("/start?quizId=0")
         ).andExpect(status().is3xxRedirection());
     }
 
     @Test
     void getForAskQuestionShouldBeOk() throws Exception {
-        mockMvc.perform(post("/start?quizId=1"));
+        mockMvc.perform(post("/start?quizId=0"));
         mockMvc.perform(get("/question?token=stub-id-1"))
                .andExpect(status().isOk());
     }
