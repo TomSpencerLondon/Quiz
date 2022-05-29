@@ -13,11 +13,11 @@
     <input type="checkbox" th:field="*{__${fieldNameCorrectAnswer}__}"/>
     <input type="text" th:field="*{__${fieldNameChoiceText}__}"
            class="mb-0 appearance-none w-11/12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-    <span hx-trigger="click" th:attr="hx-post=|/delete-choice?index=${totalCount}|" th:unless="${index < totalCount}"
+    <span hx-trigger="click" th:attr="hx-post=|/edit/delete-choice?index=${totalCount}|" th:unless="${index < totalCount}"
           hx-target="#quiz" hx-swap="outerHTML" class="w-1/12 text-red-700 text-xs">
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
     </span>
-    <span hx-trigger="click" th:attr="hx-get=|/add-choice?index=${totalCount}|" th:unless="${index < totalCount}"
+    <span hx-trigger="click" th:attr="hx-get=|/edit/add-choice?index=${totalCount}|" th:unless="${index < totalCount}"
           hx-target="#choice-input-form-list" hx-swap="beforeend" class="w-1/12 text-indigo-700 text-xs">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
     </span>
@@ -36,11 +36,11 @@
     <input type="checkbox" th:field="*{__${fieldNameCorrectAnswer}__}"/>
     <input type="text" th:field="*{__${fieldNameChoiceText}__}"
            class="mb-0 appearance-none w-11/12 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-    <span hx-trigger="click" th:attr="hx-post=|/delete-choice?index=${totalCount}|,hx-target=|#choice-input-${index}|" th:unless="${index < totalCount}"
+    <span hx-trigger="click" th:attr="hx-post=|/edit/delete-choice?index=${totalCount}|,hx-target=|#choice-input-${index}|" th:unless="${index < totalCount}"
           hx-swap="outerHTML" class="w-1/12 text-red-700 text-xs">
                 <i class="fa fa-minus-circle" aria-hidden="true"></i>
             </span>
-    <span hx-trigger="click" th:attr="hx-get=|/add-choice?index=${totalCount}|" th:unless="${index < totalCount}"
+    <span hx-trigger="click" th:attr="hx-get=|/edit/add-choice?index=${totalCount}|" th:unless="${index < totalCount}"
           hx-target="#choice-input-form-list" hx-swap="beforeend"
           class="w-1/12 text-indigo-700 text-xs">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>

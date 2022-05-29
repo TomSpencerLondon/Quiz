@@ -7,6 +7,7 @@ import java.util.List;
 
 public class QuizTestFactory {
 
+    @Deprecated
     public static Quiz createQuizWithSingleChoiceQuestions(int count) {
         List<Choice> choices = List.of(
                 new Choice("Answer 1", true)
@@ -22,10 +23,12 @@ public class QuizTestFactory {
         return new Quiz(questions);
     }
 
+    @Deprecated
     public static Quiz createQuizWithSingleChoiceQuestion() {
         Question question = new Question(
                 "Question 1",
-                new SingleChoice(List.of(new Choice("Correct Answer", true), new Choice("Wrong Answer", false))));
+                new SingleChoice(List.of(new Choice("Correct Answer", true),
+                                new Choice("Wrong Answer", false))));
         List<Question> questions = List.of(question);
         Quiz quiz = new Quiz(questions);
         return quiz;

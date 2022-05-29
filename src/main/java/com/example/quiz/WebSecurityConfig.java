@@ -15,17 +15,17 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/edit/*").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+            .formLogin().permitAll()
                 .and()
-                .csrf().disable()
-                .logout().permitAll()
+            .csrf().disable()
+            .logout().permitAll()
                 .and()
-                .cors();
+            .cors();
     }
 
     @Bean
@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 User.withDefaultPasswordEncoder()
                     .username("tom")
                     .password("password")
-                    .roles("USER")
+                    .roles("ADMIN")
                     .build();
 
         return new InMemoryUserDetailsManager(user);

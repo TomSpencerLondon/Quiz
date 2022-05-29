@@ -39,7 +39,7 @@ public class QuizEditController {
         this.choiceCountConfig = choiceCountConfig;
     }
 
-    @PostMapping("/add-question")
+    @PostMapping("/edit/add-question")
     public String addQuestion(@Valid AddQuestionForm addQuestionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-question";
@@ -54,10 +54,10 @@ public class QuizEditController {
             }
         }
 
-        return "redirect:/add-question";
+        return "redirect:/edit/add-question";
     }
 
-    @GetMapping("/add-question")
+    @GetMapping("/edit/add-question")
     public String showAddQuestion(Model model) {
         Integer baseNumberOfChoices = choiceCountConfig.getBaseNumberOfChoices();
         AddQuestionForm addQuestionForm = new AddQuestionForm(baseNumberOfChoices);
@@ -66,7 +66,7 @@ public class QuizEditController {
         return "add-question";
     }
 
-    @GetMapping(value = "/add-choice")
+    @GetMapping(value = "/edit/add-choice")
     public String addChoice(Model model, @RequestParam("index") int index) {
         int nextIndex = index + 1;
         model.addAttribute("fieldNameChoiceText", "dummy.choices[" + index + "].choice");
@@ -79,12 +79,12 @@ public class QuizEditController {
         return "fragments/form-fragments :: another-choice-input";
     }
 
-    @PostMapping("/delete-choice")
+    @PostMapping("/edit/delete-choice")
     public ResponseEntity<Void> deleteChoice(@RequestParam("index") int index) {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @GetMapping("/view-questions")
+    @GetMapping("/edit/view-questions")
     public String viewQuestions(Model model) {
         final List<Question> questions = questionService.findAll();
 
@@ -94,7 +94,7 @@ public class QuizEditController {
         return "view-questions";
     }
 
-    @PostMapping("/create-quiz")
+    @PostMapping("/edit/create-quiz")
     public String createQuiz(Model model) {
         QuestionId questionId = QuestionId.of(45L);
         List<QuestionId> questionIds = new ArrayList<>();
@@ -104,12 +104,12 @@ public class QuizEditController {
         return "redirect:/quiz?quizId=" + quizId.id();
     }
 
-    @GetMapping("/quiz")
+    @GetMapping("/edit/quiz")
     public String quiz(Model model, @RequestParam(value = "quizId", defaultValue = "") String quizId) {
         return "quiz";
     }
 
-    @GetMapping("/maker")
+    @GetMapping("/edit/maker")
     public String maker(Model model) {
         List<Question> allQuestions = questionService.findAll();
         model.addAttribute("questions", allQuestions);

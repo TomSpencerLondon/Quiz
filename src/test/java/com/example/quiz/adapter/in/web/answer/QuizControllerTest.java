@@ -6,10 +6,11 @@ import com.example.quiz.application.QuizSessionService;
 import com.example.quiz.application.port.*;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.Quiz;
+import com.example.quiz.domain.QuizId;
 import com.example.quiz.domain.QuizSession;
 import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
-import com.example.quiz.domain.factories.QuizTestFactory;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -213,21 +214,43 @@ public class QuizControllerTest {
     @Test
     void startWithQuizIdCreatesSessionWithSameQuizId() {
         Question multipleChoiceQuestion = MultipleChoiceQuestionTestFactory.multipleChoiceQuestion();
-        QuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        inMemoryQuestionRepository.save(multipleChoiceQuestion);
-        QuizService quizService = new QuizService(inMemoryQuestionRepository);
+        QuestionRepository questionRepository = new InMemoryQuestionRepository();
+        Question savedQuestion = questionRepository.save(multipleChoiceQuestion);
+        QuizService quizService = new QuizService(questionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
-        Quiz savedQuiz = quizRepository.save(QuizTestFactory.createQuizWithSingleChoiceQuestion());
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        quizRepository.save(
+                new Quiz("Test Quiz", List.of(savedQuestion.getId())));
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, inMemoryQuestionRepository);
+        QuizSessionService quizSessionService = createQuizSessionService(quizService, quizRepository, stubIdGenerator);
+        QuizController quizController = createQuizController(questionRepository, stubIdGenerator, quizSessionService);
+        // Objects needed for executing and asserting
+        // 1. QuizController
+        // 2. QuizSessionService
+        // 3. Quiz Repository
 
-        quizController.start(savedQuiz.getId().id());
+        QuizId savedQuizId = quizRepository.findAll().get(0).getId();
+        quizController.start(savedQuizId.id());
 
         QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        assertThat(sessionByToken.currentQuestionId())
-                .isEqualTo(savedQuiz.firstQuestion());
+        assertThat(sessionByToken.quizId())
+                .isEqualTo(savedQuizId);
     }
 
+    @NotNull
+    private QuizSessionService createQuizSessionService(QuizService quizService, QuizRepository quizRepository, StubTokenGenerator stubIdGenerator) {
+        QuizSessionService quizSessionService =
+                new QuizSessionService(
+                        quizService,
+                        new InMemoryQuizSessionRepository(),
+                        quizRepository,
+                        stubIdGenerator);
+        return quizSessionService;
+    }
 
+    @NotNull
+    private QuizController createQuizController(QuestionRepository questionRepository, StubTokenGenerator stubIdGenerator, QuizSessionService quizSessionService) {
+        QuizController quizController =
+                new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+        return quizController;
+    }
 }

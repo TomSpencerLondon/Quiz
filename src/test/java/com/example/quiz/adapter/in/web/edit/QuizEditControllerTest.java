@@ -61,7 +61,7 @@ public class QuizEditControllerTest {
         final String redirectPage = quizController.addQuestion(addQuestionForm, bindingResult);
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/add-question");
+                .isEqualTo("redirect:/edit/add-question");
         assertThat(questionRepository.findAll())
                 .hasSize(1);
     }

@@ -32,9 +32,9 @@ public class QuizEditControllerWebMvcTest {
     ChoiceCountConfig choiceCountConfig;
 
     @Test
-    @WithMockUser(username = "tom")
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void addQuestionRedirects() throws Exception {
-        mockMvc.perform(post("/add-question")
+        mockMvc.perform(post("/edit/add-question")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("text", "Q1")
@@ -51,49 +51,52 @@ public class QuizEditControllerWebMvcTest {
     }
 
     @Test
-    @WithMockUser(username = "tom")
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void shouldHaveFormObjectInModel() throws Exception {
         mockMvc.perform(
-                       get("/add-question")
+                       get("/edit/add-question")
                ).andExpect(view().name("add-question"))
                .andExpect(model().attributeExists("addQuestionForm"))
                .andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "tom")
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void shouldShowAllQuestions() throws Exception {
         mockMvc.perform(
-                get("/view-questions")
+                get("/edit/view-questions")
         ).andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "tom")
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void shouldIncrementFormIndexByOne() throws Exception {
         mockMvc.perform(
-                get("/add-choice?index=1")
+                get("/edit/add-choice?index=1")
         ).andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void postCreateQuizExists() throws Exception {
         mockMvc.perform(
-                post("/create-quiz")
+                post("/edit/create-quiz")
         ).andExpect(status().is3xxRedirection());
     }
 
     @Test
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void getQuizExists() throws Exception {
         mockMvc.perform(
-                get("/quiz?quizId=QUIZ_ID")
+                get("/edit/quiz?quizId=QUIZ_ID")
         ).andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "tom", roles = {"ADMIN"})
     void makerShowsListOfQuestionsToSelectForQuiz() throws Exception {
         mockMvc.perform(
-                get("/maker")
+                get("/edit/maker")
         ).andExpect(status().isOk());
     }
 }
