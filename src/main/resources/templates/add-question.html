@@ -15,7 +15,7 @@
     </div>
     <form action="#"
           th:data-question-form-count="${addQuestionForm.choices.length}" id="question-form"
-          th:action="@{/add-question}" th:object="${addQuestionForm}" method="post"
+          th:action="@{/edit/add-question}" th:object="${addQuestionForm}" method="post"
           class="w-full">
         <div>
             <input type="radio"

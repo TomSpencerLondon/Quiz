@@ -26,7 +26,7 @@ public class QuizControllerTestFactory {
                         new InMemoryQuizSessionRepository(),
                         quizRepository,
                         stubIdGenerator);
-        return new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+        return new QuizController(quizSessionService, questionRepository);
     }
 
     @NotNull
@@ -50,6 +50,6 @@ public class QuizControllerTestFactory {
         QuizService quizService = new QuizService(questionRepository);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
-        return new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+        return new QuizController(quizSessionService, questionRepository);
     }
 }

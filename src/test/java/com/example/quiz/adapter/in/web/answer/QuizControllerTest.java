@@ -55,7 +55,7 @@ public class QuizControllerTest {
                         QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion),
                         stubIdGenerator);
 
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
+        QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         quizController.start(0L);
         AskQuestionForm askQuestionForm = AskQuestionForm.from(singleChoiceQuestion);
 
@@ -78,7 +78,7 @@ public class QuizControllerTest {
         QuizRepository quizRepository = QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
+        QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         final Model model = new ConcurrentModel();
         quizController.start(0L);
         quizController.askQuestion(model, "stub-id-1");
@@ -144,7 +144,7 @@ public class QuizControllerTest {
         quizRepository.save(quiz);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, stubQuestionRepository);
+        QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         ConcurrentModel model = new ConcurrentModel();
         quizController.start(0L);
         quizController.askQuestion(model, "stub-id-1");
@@ -198,7 +198,7 @@ public class QuizControllerTest {
         QuizService quizService = new QuizService(questionRepository);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
-        QuizController quizController = new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+        QuizController quizController = new QuizController(quizSessionService, questionRepository);
 
         // when
         String start1 = quizController.start(0L);
@@ -250,7 +250,7 @@ public class QuizControllerTest {
     @NotNull
     private QuizController createQuizController(QuestionRepository questionRepository, StubTokenGenerator stubIdGenerator, QuizSessionService quizSessionService) {
         QuizController quizController =
-                new QuizController(quizSessionService, stubIdGenerator, questionRepository);
+                new QuizController(quizSessionService, questionRepository);
         return quizController;
     }
 }
