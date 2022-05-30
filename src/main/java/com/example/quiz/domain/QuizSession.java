@@ -83,17 +83,6 @@ public class QuizSession {
         return currentQuestionId;
     }
 
-    // add question as parameter
-    public void respondWith(long... choiceIds) {
-        List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
-
-        // This is harder - no question +
-        Choice[] selectedChoices = question.choices().stream()
-                                           .filter(c -> choiceIdList.contains(c.getId().id()))
-                                           .toArray(Choice[]::new);
-        respondWith(selectedChoices);
-    }
-
     public void respondWith(Question question, Quiz quiz, long... choiceIds) {
         List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
 
@@ -105,16 +94,6 @@ public class QuizSession {
         Response response = new Response(question.getId(), correctAnswer, selectedChoices);
         responses.add(response);
         currentQuestionId = quiz.nextQuestionAfter(question.getId());
-    }
-
-    public void respondWith(Choice... choices) {
-        boolean isCorrect = question.isCorrectAnswer(choices);
-        // Why are we checking if question is correct at Response creation?
-        // Response will have to query for a question
-        Response response = new Response(question.getId(), isCorrect, choices);
-        responses.add(response);
-        question = nextQuestion();
-        currentQuestionId = question.getId();
     }
 
     private Question nextQuestion() {
