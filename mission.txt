@@ -8,6 +8,7 @@
 - 🚧 Create a stub QuizSession which returns a known id for the currentQuizSessionId method
 - ✅ Remove usages of deprecated method QuizSession#currentQuestion()
 - Response Repository needs deleting
+- Delete @Deprecated QuizSession strctor and edit QuizSessionTransformer
 
 ### Current tasks (9/5/22)
 1. Delete questions() from Quiz
