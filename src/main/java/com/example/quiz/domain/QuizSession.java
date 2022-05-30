@@ -36,21 +36,6 @@ public class QuizSession {
     }
 
     @Deprecated
-    public QuizSession(Quiz quiz) {
-        // delete these references
-        questions = quiz.questions();
-        if (questions.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        questionIterator = questions.iterator();
-        question = questionIterator.next();
-
-        // get questionId from first element in questionIds list in Quiz
-        currentQuestionId = question.getId();
-        responses = new ArrayList<>();
-    }
-
-    @Deprecated
     public QuizSession(QuizSessionId quizSessionId, String token, QuestionId currentQuestionId, List<Response> responses, ZonedDateTime startedAt) {
         this.quizSessionId = quizSessionId;
         this.token = token;
@@ -61,10 +46,6 @@ public class QuizSession {
 
     public List<Response> responses() {
         return responses;
-    }
-
-    public void addResponse(Response response) {
-        responses.add(response);
     }
 
     public String getToken() {
@@ -94,15 +75,6 @@ public class QuizSession {
         Response response = new Response(question.getId(), correctAnswer, selectedChoices);
         responses.add(response);
         currentQuestionId = quiz.nextQuestionAfter(question.getId());
-    }
-
-    private Question nextQuestion() {
-        // quiz.nextQuestionAfter(questionId)
-        if (questionIterator.hasNext()) {
-            return questionIterator.next();
-        }
-
-        return question;
     }
 
     public boolean isFinished(Quiz quiz) {

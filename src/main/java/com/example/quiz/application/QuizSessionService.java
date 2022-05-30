@@ -27,13 +27,6 @@ public class QuizSessionService {
         return quizRepository.findById(quizId).orElseThrow(QuizNotFound::new);
     }
 
-    @Deprecated
-    public void startSessionWithToken(String token) {
-        quizSession = quizService.createQuiz().start();
-        quizSession.setToken(token);
-        quizSessionRepository.save(quizSession);
-    }
-
     public String createQuizSession(QuizId quizId) {
         Quiz quiz = quizRepository.findById(quizId)
                                   .orElseThrow(() -> new QuizNotFound("Could not find quizId of " + quizId));

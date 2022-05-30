@@ -40,11 +40,6 @@ public class Quiz {
         return questionIds;
     }
 
-    @Deprecated
-    public QuizSession start() {
-        return new QuizSession(this);
-    }
-
     public QuestionId nextQuestionAfter(QuestionId questionId) {
         int index = questionIds.indexOf(questionId);
         // if index < 0 throw error
