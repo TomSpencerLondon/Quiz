@@ -36,6 +36,10 @@ public class Quiz {
         return questions;
     }
 
+    public List<QuestionId> questionIds() {
+        return questionIds;
+    }
+
     public QuizSession start() {
         return new QuizSession(this);
     }

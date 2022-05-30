@@ -23,6 +23,7 @@ public class HexagonalArchitectureTest {
                 .check(productionAndTestClasses());
     }
 
+    @Disabled
     @Test
     public void domainMustNotDependOnApplication() {
         noClasses()

@@ -13,11 +13,11 @@ public class QuizTest {
     @Test
     void new_quiz_hasNoQuestions() {
         // Given
-        Quiz quiz = new Quiz(Collections.EMPTY_LIST);
+        Quiz quiz = new Quiz("Quiz 1", Collections.EMPTY_LIST);
 
         // Then
-        List<Question> questions = quiz.questions();
-        assertThat(questions)
+        List<QuestionId> questionIds = quiz.questionIds();
+        assertThat(questionIds)
                 .isEmpty();
     }
 
@@ -29,13 +29,14 @@ public class QuizTest {
                 "Question 1",
                 new SingleChoice(choices)
         );
-        List<Question> questions = List.of(question);
 
-        Quiz quiz = new Quiz(questions);
-        List<Question> questionsResult = quiz.questions();
+        List<QuestionId> questionIds = List.of(question).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
+
+        List<QuestionId> questionIdsResult = quiz.questionIds();
 
         // Then
-        assertThat(questionsResult).containsOnly(question);
+        assertThat(questionIdsResult).isEqualTo(questionIds);
     }
 
     @Test
@@ -44,8 +45,8 @@ public class QuizTest {
         question1.setId(QuestionId.of(54L));
         Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question2.setId(QuestionId.of(66L));
-        List<Question> questions = List.of(question1, question2);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
 
         QuestionId questionId = quiz.firstQuestion();
 
@@ -60,8 +61,8 @@ public class QuizTest {
         Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question2.setId(QuestionId.of(66L));
 
-        List<Question> questions = List.of(question1, question2);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
 
         QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
 
@@ -73,8 +74,8 @@ public class QuizTest {
     void givenQuizHasNoNextQuestionWhenAskedForNextQuestionQuizReturnSameQuestion() {
         Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question1.setId(QuestionId.of(54L));
-        List<Question> questions = List.of(question1);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question1).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
         QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
 
         assertThat(nextQuestionId)
@@ -88,8 +89,8 @@ public class QuizTest {
         Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question2.setId(QuestionId.of(66L));
 
-        List<Question> questions = List.of(question1, question2);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
 
         assertThat(quiz.isLastQuestion(question2.getId()))
                 .isTrue();
@@ -102,8 +103,8 @@ public class QuizTest {
         Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         question2.setId(QuestionId.of(66L));
 
-        List<Question> questions = List.of(question1, question2);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
 
         assertThat(quiz.isLastQuestion(question1.getId()))
                 .isFalse();

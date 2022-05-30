@@ -22,10 +22,15 @@ public class QuizSessionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(question);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
+
+
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        Quiz quiz = quizRepository.save(new Quiz("Quiz 1", List.of(question.getId())));
+
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
 
         // When
-        quizSessionService.startSessionWithToken("stub-id-1");
+        quizSessionService.createQuizSession(quiz.getId());
 
         // Then
         QuizSession savedSession = quizSessionService.findSessionByToken("stub-id-1");
@@ -40,15 +45,16 @@ public class QuizSessionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(question);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        Quiz quiz = quizRepository.save(new Quiz("Quiz 1", List.of(question.getId())));
+        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
 
         // When
-        String id = "stub-id-1";
-        quizSessionService.startSessionWithToken(id);
+        String token = quizSessionService.createQuizSession(quiz.getId());
 
         // Then
-        QuizSession quizSession = quizSessionService.findSessionByToken("stub-id-1");
-        assertThat(quizSession.getToken()).isEqualTo(id);
+        QuizSession quizSession = quizSessionService.findSessionByToken(token);
+        assertThat(quizSession.getToken()).isEqualTo(token);
     }
 
     @Test

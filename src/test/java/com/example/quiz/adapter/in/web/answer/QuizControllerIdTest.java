@@ -49,8 +49,9 @@ public class QuizControllerIdTest {
         Question singleChoiceQuestion = stubQuestionRepository.findAll().get(0);
         QuizService quizService = new QuizService(stubQuestionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
-        List<Question> questions = List.of(singleChoiceQuestion);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(singleChoiceQuestion)
+                                           .stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
         quizRepository.save(quiz);
         QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
         QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
@@ -103,7 +104,9 @@ public class QuizControllerIdTest {
         // given
         InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
         Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        Quiz quiz = quizRepository.save(new Quiz(List.of(question)));
+        List<QuestionId> questionIds = List.of(question)
+                                           .stream().map(Question::getId).toList();
+        Quiz quiz = quizRepository.save(new Quiz("Quiz 1", questionIds));
 
         InMemoryQuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
         quizSessionRepository.save(new FinishedQuizSessionStub(QuestionId.of(0L), "finished", quiz.getId()));
@@ -121,7 +124,6 @@ public class QuizControllerIdTest {
         assertThat(redirect)
                 .isEqualTo("redirect:/result?token=finished");
     }
-
 
 
 }

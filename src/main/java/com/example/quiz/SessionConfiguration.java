@@ -23,8 +23,8 @@ public class SessionConfiguration {
         final Question question = new Question("Question 1",
                 new SingleChoice(List.of(new Choice("Answer 1", true))));
         question.setId(QuestionId.of(1L));
-        List<Question> questions = List.of(question);
-        quizRepository.save(new Quiz(questions));
+        List<QuestionId> questionIds = List.of(question.getId());
+        quizRepository.save(new Quiz("Quiz 1", questionIds));
         return new QuizSessionService(
                 quizService,
                 new InMemoryQuizSessionRepository(),

@@ -20,7 +20,9 @@ public class QuizTestFactory {
             q.setId(QuestionId.of((long) i));
             questions.add(q);
         }
-        return new Quiz(questions);
+
+        List<QuestionId> questionIds = questions.stream().map(Question::getId).toList();
+        return new Quiz("Quiz 1", questionIds);
     }
 
     @Deprecated
@@ -29,8 +31,8 @@ public class QuizTestFactory {
                 "Question 1",
                 new SingleChoice(List.of(new Choice("Correct Answer", true),
                                 new Choice("Wrong Answer", false))));
-        List<Question> questions = List.of(question);
-        Quiz quiz = new Quiz(questions);
+        List<QuestionId> questionIds = List.of(question).stream().map(Question::getId).toList();
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
         return quiz;
     }
 }
