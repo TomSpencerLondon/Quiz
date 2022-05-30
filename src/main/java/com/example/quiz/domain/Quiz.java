@@ -40,6 +40,7 @@ public class Quiz {
         return questionIds;
     }
 
+    @Deprecated
     public QuizSession start() {
         return new QuizSession(this);
     }
