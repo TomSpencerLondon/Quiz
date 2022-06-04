@@ -35,7 +35,7 @@ public class QuizController {
 
         // need to return optional here + orElseThrow()
         QuizSession quizSession = quizSessionService.findSessionByToken(token);
-        Quiz quiz = quizSessionService.findQuizById(quizSession.getQuizId());
+        Quiz quiz = quizSessionService.findQuizById(quizSession.quizId());
         if (quizSession.isFinished(quiz)) {
             return "redirect:/result?token=" + token;
         }

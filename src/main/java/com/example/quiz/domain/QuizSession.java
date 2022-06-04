@@ -56,6 +56,7 @@ public class QuizSession {
         this.token = token;
     }
 
+    @Deprecated
     public QuizId getQuizId() {
         return quizId;
     }
@@ -115,5 +116,31 @@ public class QuizSession {
 
     public QuizId quizId() {
         return quizId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuizSession that = (QuizSession) o;
+
+        return quizSessionId != null ? quizSessionId.equals(that.quizSessionId) : that.quizSessionId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return quizSessionId != null ? quizSessionId.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "QuizSession{" +
+                " quizSessionId=" + quizSessionId +
+                ", responses=" + responses +
+                ", token='" + token + '\'' +
+                ", quizId=" + quizId +
+                ", currentQuestionId=" + currentQuestionId +
+                '}';
     }
 }
