@@ -1,19 +1,13 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 module.exports = {
-    purge: [
-        './src/main/resources/templates/**/*.html'
-    ],
-    darkMode: false, // or 'media' or 'class'
+    content: ['./src/main/resources/templates/**/*.html'],
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
-        }
-    },
-    variants: {
-        extend: {},
+        },
     },
     plugins: [
         require('@tailwindcss/forms'),
@@ -26,5 +20,5 @@ module.exports = {
                 'ol,ul': {listStyleType: 'revert'}
             })
         })
-    ]
+    ],
 };

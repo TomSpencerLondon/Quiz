@@ -3,7 +3,7 @@
       lang="en">
 <th:block th:fragment="header-input(title)">
     <meta charset="UTF-8">
-    <title>[[${title}]]</title>
+    <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/css/application.css}" href="../static/css/application.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"></script>
     <script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
