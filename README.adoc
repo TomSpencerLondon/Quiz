@@ -69,41 +69,41 @@ https://github.com/jitterted/quizdown
 
 == CRC Diagram
 
-image::https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150639932-a91ef97d-8af8-44a7-802d-49bf33ed5777.png[]
 
 == Class Diagram
-image::https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150657074-43c1a264-efb0-4e28-a4ff-a2050258c61c.png[]
 
 == Sequence Diagrams
 
-image::https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150699808-65f490cb-8018-42ac-a049-8d99cb5f9ea9.png[]
 
-image::https://user-images.githubusercontent.com/27693622/154843182-412bae9a-485f-46b5-b19a-db4a7aff4140.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/154843182-412bae9a-485f-46b5-b19a-db4a7aff4140.png[]
 
-image::https://user-images.githubusercontent.com/27693622/150698726-f11a8e5a-cf9b-413f-b038-ca88811df73b.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150698726-f11a8e5a-cf9b-413f-b038-ca88811df73b.png[]
 
-image::https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150699135-19559c40-adfb-4a62-bce8-89959655c392.png[]
 
-image::https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/150699647-cba6c338-97b2-43a3-b5d7-1c143c5dc68b.png[]
 
-image::https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/154844920-747373d7-aebe-48a0-88c3-b75f87011217.png[]
 
 == Design for Multiple and Single Choice Questions
-image::https://user-images.githubusercontent.com/27693622/155522088-a98e19fd-049c-4bee-88cb-0355c1a01560.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/155522088-a98e19fd-049c-4bee-88cb-0355c1a01560.png[]
 == AskSingleChoice |
-image::https://user-images.githubusercontent.com/27693622/155892934-5cbec524-5e69-4599-aca7-3db57df4d572.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/155892934-5cbec524-5e69-4599-aca7-3db57df4d572.png[]
 == AskMultipleChoice
-image::https://user-images.githubusercontent.com/27693622/155892935-0ada1222-76bb-4289-9dae-787428d4a425.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/155892935-0ada1222-76bb-4289-9dae-787428d4a425.png[]
 == ChoiceFormFactory
-image::https://user-images.githubusercontent.com/27693622/155892937-92fdda25-9eed-4b99-bdaf-26a8c5aa5e43.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/155892937-92fdda25-9eed-4b99-bdaf-26a8c5aa5e43.png[]
 
 == Database Diagram
 
-image::https://user-images.githubusercontent.com/27693622/162573740-9754afc6-5892-42ff-a761-2df7d587b06d.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/162573740-9754afc6-5892-42ff-a761-2df7d587b06d.png[]
 
 == Class Diagram (aim)
 
-image::https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d3-41ba-9bed-7158ba3dcd24.png[Tux,700,700]
+image::https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d3-41ba-9bed-7158ba3dcd24.png[]
 
 == Getting started
 
