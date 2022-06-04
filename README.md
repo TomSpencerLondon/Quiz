@@ -68,9 +68,14 @@ https://github.com/jitterted/quizdown
 ##### Class Diagram (aim)
 ![classDiagram](https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d3-41ba-9bed-7158ba3dcd24.png)
 
-#### Running Tailwind:
+##### Getting started
 
-Use:
-https://tailwindcss.com/blog/standalone-cli
-and run:
-./tailwindcss -o ./src/main/resources/static/css/application.css --watch 
+1. Run mvn verify to download all dependencies to your local repository.
+
+2. Copy src/main/resources/application-local.properties.example to src/main/resources/application-local.properties
+
+3. Start the application from your IDE using the local profile.
+
+4. Run npm run build && npm run watch in a separate terminal window to have Live Reload. (If you like to have less output in the terminal window, run npm run --silent build && npm run --silent watch)
+
+5. Access the application at http://localhost:3000
