@@ -50,7 +50,6 @@ public class QuizControllerTest {
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
         QuizSessionService quizSessionService =
                 new QuizSessionService(
-                        quizService,
                         new InMemoryQuizSessionRepository(),
                         QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion),
                         stubIdGenerator);
@@ -77,7 +76,7 @@ public class QuizControllerTest {
         QuizService quizService = new QuizService(stubQuestionRepository);
         QuizRepository quizRepository = QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(singleChoiceQuestion);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
         QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         final Model model = new ConcurrentModel();
         quizController.start(0L);
@@ -143,7 +142,7 @@ public class QuizControllerTest {
         Quiz quiz = new Quiz("Quiz 1", List.of(singleChoiceQuestion.getId()));
         quizRepository.save(quiz);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
         QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         ConcurrentModel model = new ConcurrentModel();
         quizController.start(0L);
@@ -197,7 +196,7 @@ public class QuizControllerTest {
         Question savedQuestion = questionRepository.save(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion());
         QuizService quizService = new QuizService(questionRepository);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
 
         // when
@@ -221,7 +220,7 @@ public class QuizControllerTest {
         quizRepository.save(
                 new Quiz("Test Quiz", List.of(savedQuestion.getId())));
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = createQuizSessionService(quizService, quizRepository, stubIdGenerator);
+        QuizSessionService quizSessionService = createQuizSessionService(quizRepository, stubIdGenerator);
         QuizController quizController = createQuizController(questionRepository, stubIdGenerator, quizSessionService);
         // Objects needed for executing and asserting
         // 1. QuizController
@@ -237,10 +236,9 @@ public class QuizControllerTest {
     }
 
     @NotNull
-    private QuizSessionService createQuizSessionService(QuizService quizService, QuizRepository quizRepository, StubTokenGenerator stubIdGenerator) {
+    private QuizSessionService createQuizSessionService(QuizRepository quizRepository, StubTokenGenerator stubIdGenerator) {
         QuizSessionService quizSessionService =
                 new QuizSessionService(
-                        quizService,
                         new InMemoryQuizSessionRepository(),
                         quizRepository,
                         stubIdGenerator);

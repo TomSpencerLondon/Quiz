@@ -45,6 +45,6 @@ public class QuizSessionServiceBuilder {
         quizId = quiz.getId();
 
         quizSessionRepository = new InMemoryQuizSessionRepository();
-        return new QuizSessionService(quizService, quizSessionRepository, quizRepository, new StubTokenGenerator());
+        return new QuizSessionService(quizSessionRepository, quizRepository, new StubTokenGenerator());
     }
 }

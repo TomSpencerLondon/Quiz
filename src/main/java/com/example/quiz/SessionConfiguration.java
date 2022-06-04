@@ -18,7 +18,7 @@ public class SessionConfiguration {
     }
 
     @Bean
-    public QuizSessionService createQuizSessionService(QuizService quizService) {
+    public QuizSessionService createQuizSessionService() {
         QuizRepository quizRepository = new InMemoryQuizRepository();
         final Question question = new Question("Question 1",
                 new SingleChoice(List.of(new Choice("Answer 1", true))));
@@ -26,7 +26,6 @@ public class SessionConfiguration {
         List<QuestionId> questionIds = List.of(question.getId());
         quizRepository.save(new Quiz("Quiz 1", questionIds));
         return new QuizSessionService(
-                quizService,
                 new InMemoryQuizSessionRepository(),
                 quizRepository,
                 new ReadableTokenGenerator());

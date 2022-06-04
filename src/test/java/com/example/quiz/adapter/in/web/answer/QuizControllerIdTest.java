@@ -28,7 +28,7 @@ public class QuizControllerIdTest {
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
         quizRepository.save(QuizTestFactory.createQuizWithSingleChoiceQuestion());
-        QuizSessionService quizSessionService1 = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionService quizSessionService1 = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
         QuizSessionService quizSessionService = quizSessionService1;
         QuizController quizController = new QuizController(quizSessionService, DUMMY_QUESTION_REPOSITORY);
         quizController.start(0L);
@@ -53,7 +53,7 @@ public class QuizControllerIdTest {
                                            .stream().map(Question::getId).toList();
         Quiz quiz = new Quiz("Quiz 1", questionIds);
         quizRepository.save(quiz);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
         QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         quizController.start(0L);
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
@@ -78,7 +78,7 @@ public class QuizControllerIdTest {
         QuizService quizService = new QuizService(stubQuestionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
         quizRepository.save(QuizTestFactory.createQuizWithSingleChoiceQuestion());
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
         QuizController quizController = new QuizController(quizSessionService, stubQuestionRepository);
         quizController.start(0L);
         quizController.start(0L);
@@ -113,7 +113,7 @@ public class QuizControllerIdTest {
         quizSessionRepository.save(new UnfinishedQuizSessionStub("unfinished"));
         QuizService quizService = new QuizService(new InMemoryQuestionRepository());
 
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, quizSessionRepository, quizRepository, null);
+        QuizSessionService quizSessionService = new QuizSessionService(quizSessionRepository, quizRepository, null);
 
         QuizController quizController = new QuizController(quizSessionService, DUMMY_QUESTION_REPOSITORY);
 

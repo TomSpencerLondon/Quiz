@@ -21,10 +21,10 @@ class TestSessionConfiguration {
 
     @Primary
     @Bean
-    QuizSessionService createTestQuizSessionService(QuizService quizService) {
+    QuizSessionService createTestQuizSessionService() {
         QuestionRepository questionRepository = QuizControllerTestFactory.createQuestionRepositoryWithSingleChoiceQuestion();
         QuizRepository quizRepository = QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(questionRepository.findAll().get(0));
-        return new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        return new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
     }
 
     @Primary

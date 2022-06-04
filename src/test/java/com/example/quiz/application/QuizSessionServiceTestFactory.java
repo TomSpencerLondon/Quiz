@@ -11,7 +11,7 @@ public class QuizSessionServiceTestFactory {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(singleChoiceQuestion);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), null, null);
         return quizSessionService;
     }
 }

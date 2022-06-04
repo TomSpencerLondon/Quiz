@@ -41,7 +41,7 @@ public class QuizSessionServiceTest {
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         inMemoryQuestionRepository.save(question);
         QuizService quizService = new QuizService(inMemoryQuestionRepository);
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), null, null);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), null, null);
 
         assertThatThrownBy(() -> quizSessionService.findSessionByToken("stub-id-1"))
                 .isInstanceOf(QuizSessionNotFound.class);

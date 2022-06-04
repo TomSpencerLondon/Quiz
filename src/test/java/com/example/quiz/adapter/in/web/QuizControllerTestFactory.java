@@ -22,7 +22,6 @@ public class QuizControllerTestFactory {
 
         QuizSessionService quizSessionService =
                 new QuizSessionService(
-                        quizService,
                         new InMemoryQuizSessionRepository(),
                         quizRepository,
                         stubIdGenerator);
@@ -49,7 +48,7 @@ public class QuizControllerTestFactory {
         Question savedQuestion = questionRepository.save(MultipleChoiceQuestionTestFactory.multipleChoiceQuestion());
         QuizService quizService = new QuizService(questionRepository);
         StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = new QuizSessionService(quizService, new InMemoryQuizSessionRepository(), createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), createQuizRepositoryWithOneQuizWith(savedQuestion), stubIdGenerator);
         return new QuizController(quizSessionService, questionRepository);
     }
 }
