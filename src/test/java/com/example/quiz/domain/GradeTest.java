@@ -42,7 +42,8 @@ class GradeTest {
         Question q1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         Question q2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
         Question q3 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        Response r1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestionCorrectResponse(q1);
+        Choice choice = new Choice(ChoiceId.of(1L), "Answer 1", true);
+        Response r1 = new Response(q1.getId(), q1.isCorrectAnswer(choice), choice);
         Response r2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestionIncorrectResponse(q2);
         Response r3 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestionIncorrectResponse(q3);
 

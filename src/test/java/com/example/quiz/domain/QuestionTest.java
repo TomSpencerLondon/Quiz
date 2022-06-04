@@ -9,7 +9,7 @@ class QuestionTest {
     @Test
     void questionWithSingleChoiceIsSingleChoice() {
         // Given
-        final Question question = new QuestionBuilder().withSingleChoice().build();
+        final Question question = new QuestionBuilder().withDefaultSingleChoice().build();
 
         // Then
         assertThat(question.isSingleChoice())
@@ -20,7 +20,7 @@ class QuestionTest {
     void singleChoiceWithCorrectAnswerReturnsTrue() {
         // Given
         final Question question = new QuestionBuilder()
-                .withSingleChoice()
+                .withDefaultSingleChoice()
                 .build();
 
         // Then

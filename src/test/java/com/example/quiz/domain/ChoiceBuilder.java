@@ -27,7 +27,7 @@ public class ChoiceBuilder {
     }
 
     private void addChoice(boolean isCorrect) {
-        choices.add(new Choice("Answer " + choiceCounter, isCorrect));
+        choices.add(new Choice(ChoiceId.of(choiceCounter), "Answer " + choiceCounter, isCorrect));
         choiceCounter++;
     }
 }

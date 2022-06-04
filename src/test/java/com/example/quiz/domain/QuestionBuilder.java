@@ -3,15 +3,28 @@ package com.example.quiz.domain;
 import java.util.List;
 
 public class QuestionBuilder {
+    private QuestionId questionId;
     private ChoiceType choiceType;
 
-    public QuestionBuilder withSingleChoice() {
-        choiceType = new SingleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", false), new Choice("Answer 3", false)));
+    public QuestionBuilder() {
+        questionId = QuestionId.of(1L);
+    }
+
+    public QuestionBuilder withDefaultSingleChoice() {
+        choiceType = new SingleChoice(new ChoiceBuilder()
+                .withCorrectChoice()
+                .withIncorrectChoice()
+                .withIncorrectChoice()
+                .asList());
         return this;
     }
 
     public QuestionBuilder withDefaultMultipleChoice() {
-        return withMultipleChoice(List.of(new Choice("Answer 1", true), new Choice("Answer 2", true), new Choice("Answer 3", false)));
+        return withMultipleChoice(new ChoiceBuilder()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .withIncorrectChoice()
+                .asList());
     }
 
     public QuestionBuilder withMultipleChoice(List<Choice> choices) {
@@ -22,6 +35,12 @@ public class QuestionBuilder {
     public Question build() {
         final Question question = new Question("Question 1",
                 choiceType);
+        question.setId(questionId);
         return question;
+    }
+
+    public QuestionBuilder withQuestionId(long id) {
+        questionId = QuestionId.of(id);
+        return this;
     }
 }

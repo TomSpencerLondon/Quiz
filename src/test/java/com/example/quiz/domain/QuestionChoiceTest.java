@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CorrectAnswerTest {
+public class QuestionChoiceTest {
 
     @Test
     void knowsOneAnswer() {

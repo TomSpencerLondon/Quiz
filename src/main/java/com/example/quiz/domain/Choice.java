@@ -5,6 +5,7 @@ public class Choice {
     private final String text;
     private final boolean isCorrect;
 
+    @Deprecated
     public Choice(String text) {
         this.text = text;
         this.isCorrect = false;
