@@ -6,9 +6,9 @@ import com.example.quiz.application.port.TokenGenerator;
 import com.example.quiz.domain.*;
 
 public class QuizSessionService {
-    private QuizSessionRepository quizSessionRepository;
-    private QuizRepository quizRepository;
-    private TokenGenerator tokenGenerator;
+    private final QuizSessionRepository quizSessionRepository;
+    private final QuizRepository quizRepository;
+    private final TokenGenerator tokenGenerator;
 
     public QuizSessionService(QuizSessionRepository quizSessionRepository, QuizRepository quizRepository, TokenGenerator tokenGenerator) {
         this.quizSessionRepository = quizSessionRepository;
