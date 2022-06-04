@@ -8,54 +8,77 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MultipleChoiceTest {
     @Test
-    void isCorrectReturnsFalseIfOnlyOneChoice() {
+    void questionWithMultipleChoiceIsNotSingleChoice() {
         // Given
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", true),
-                new Choice("Answer 2", true),
-                new Choice("Answer 3", false));
-
-        // When
-        MultipleChoice multipleChoice = new MultipleChoice(choices);
+        final Question question = new QuestionBuilder()
+                .withDefaultMultipleChoice()
+                .build();
 
         // Then
-        boolean result = multipleChoice.isCorrect(new Choice("Answer 1", true));
-        assertThat(result)
+        assertThat(question.isSingleChoice())
                 .isFalse();
     }
 
     @Test
-    void isCorrectReturnsTrueIfCalledWithAllCorrectChoices() {
+    void isCorrectReturnsFalseIfOnlyOneChoice() {
         // Given
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", true),
-                new Choice("Answer 2", true),
-                new Choice("Answer 3", false));
+        List<Choice> choices = new ChoiceBuilder()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .withIncorrectChoice()
+                .asList();
 
         // When
         MultipleChoice multipleChoice = new MultipleChoice(choices);
 
         // Then
-        boolean result = multipleChoice.isCorrect(new Choice("Answer 1", true), new Choice("Answer 2", true));
-        assertThat(result)
+        Choice[] incompleteAnswer = new ChoiceBuilder()
+                .withCorrectChoice()
+                .asArray();
+        assertThat(multipleChoice.isCorrect(incompleteAnswer))
+                .isFalse();
+    }
+
+    @Test
+    void multipleChoiceQuestionWithAllCorrectAnswersIsCorrectAnswer() {
+        // Given
+        List<Choice> choices = new ChoiceBuilder()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .withIncorrectChoice()
+                .asList();
+
+        final Question question = new QuestionBuilder()
+                .withMultipleChoice(choices)
+                .build();
+
+        // Then
+        Choice[] correctChoices = new ChoiceBuilder()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .asArray();
+        assertThat(question.isCorrectAnswer(correctChoices))
                 .isTrue();
     }
 
     @Test
-    void isCorrectReturnsFalseIfCorrectChoicesDontMatch() {
+    void isInCorrectIfCorrectChoicesDontMatch() {
         // Given
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", false),
-                new Choice("Answer 2", true),
-                new Choice("Answer 3", true));
+        List<Choice> choices = new ChoiceBuilder()
+                .withIncorrectChoice()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .asList();
 
         // When
         MultipleChoice multipleChoice = new MultipleChoice(choices);
 
         // Then
-        boolean result = multipleChoice.isCorrect(new Choice("Answer 1", true),
-                new Choice("Answer 2", true));
-        assertThat(result)
+        Choice[] wrongAnswer = new ChoiceBuilder()
+                .withCorrectChoice()
+                .withCorrectChoice()
+                .asArray();
+        assertThat(multipleChoice.isCorrect(wrongAnswer))
                 .isFalse();
     }
 }
