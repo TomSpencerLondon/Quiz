@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.in.api;
 
-import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.CreateQuestionService;
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.SingleChoice;
@@ -28,11 +28,11 @@ class QuizAPIControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    QuestionService questionService;
+    CreateQuestionService createQuestionService;
 
     @Test
     void shouldExposeQuizResourceWithoutAuthentication() throws Exception {
-        when(questionService.findAll())
+        when(createQuestionService.findAll())
                 .thenReturn(List.of(new Question("Q1",
                         new SingleChoice(
                                 List.of(new Choice("Q1A1", true),

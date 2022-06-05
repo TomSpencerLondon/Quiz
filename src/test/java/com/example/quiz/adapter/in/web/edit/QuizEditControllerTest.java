@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.CreateQuestionService;
 import com.example.quiz.application.QuizCreator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizRepository;
@@ -25,14 +25,14 @@ public class QuizEditControllerTest {
 
     private static final QuizCreator DUMMY_QUIZ_CREATOR = null;
     private static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
-    private static final QuestionService DUMMY_QUESTION_SERVICE = null;
+    private static final CreateQuestionService DUMMY_QUESTION_SERVICE = null;
     private static final ChoiceCountConfig DUMMY_CHOICE_COUNT_CONFIG = null;
 
     @Test
     void viewQuestionsCreatesModelWithQuestions() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        QuestionService questionService = new QuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(questionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
+        CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
+        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
 
         final Model model = new ConcurrentModel();
         final String viewName = quizController.viewQuestions(model);
@@ -46,8 +46,8 @@ public class QuizEditControllerTest {
     @Test
     void addQuestionResultsInQuestionAddedAndRedirects() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        QuestionService questionService = new QuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(questionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
+        CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
+        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
 
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
@@ -69,11 +69,11 @@ public class QuizEditControllerTest {
 
     @Test
     void createQuizResultsInQuizAddedAndRedirects() {
-        QuestionService questionService = new QuestionService(DUMMY_QUESTION_REPOSITORY);
+        CreateQuestionService createQuestionService = new CreateQuestionService(DUMMY_QUESTION_REPOSITORY);
         QuizRepository quizRepository = new InMemoryQuizRepository();
 
         QuizCreator quizCreator = new QuizCreator(quizRepository);
-        QuizEditController quizController = new QuizEditController(questionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
 
         Model model = new ConcurrentModel();
         final String redirectPage = quizController.createQuiz(model);
@@ -98,11 +98,11 @@ public class QuizEditControllerTest {
                         )));
 
         questionRepository.save(singleChoiceQuestion);
-        QuestionService questionService = new QuestionService(questionRepository);
+        CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
 
         QuizCreator quizCreator = new QuizCreator(quizRepository);
-        QuizEditController quizController = new QuizEditController(questionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
 
         Model model = new ConcurrentModel();
         quizController.maker(model);

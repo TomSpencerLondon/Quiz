@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.CreateQuestionService;
 import com.example.quiz.application.QuizCreator;
 import com.example.quiz.domain.Question;
 import com.example.quiz.domain.QuestionId;
@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 public class QuizEditController {
 
-    private final QuestionService questionService;
+    private final CreateQuestionService createQuestionService;
     private final QuizCreator quizCreator;
     private ChoiceCountConfig choiceCountConfig;
 
@@ -33,8 +33,8 @@ public class QuizEditController {
     SpringTemplateEngine templateEngine;
 
 
-    public QuizEditController(QuestionService questionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig) {
-        this.questionService = questionService;
+    public QuizEditController(CreateQuestionService createQuestionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig) {
+        this.createQuestionService = createQuestionService;
         this.quizCreator = quizCreator;
         this.choiceCountConfig = choiceCountConfig;
     }
@@ -45,7 +45,7 @@ public class QuizEditController {
             return "add-question";
         }
         try {
-            questionService.add(addQuestionForm);
+            createQuestionService.add(addQuestionForm);
         } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
             ObjectError error = new ObjectError("Error", e.getMessage());
             bindingResult.addError(error);
@@ -86,7 +86,7 @@ public class QuizEditController {
 
     @GetMapping("/edit/view-questions")
     public String viewQuestions(Model model) {
-        final List<Question> questions = questionService.findAll();
+        final List<Question> questions = createQuestionService.findAll();
 
         final List<QuestionView> questionViews = questions.stream().map(QuestionView::of).toList();
 
@@ -111,7 +111,7 @@ public class QuizEditController {
 
     @GetMapping("/edit/maker")
     public String maker(Model model) {
-        List<Question> allQuestions = questionService.findAll();
+        List<Question> allQuestions = createQuestionService.findAll();
         model.addAttribute("questions", allQuestions);
         return "maker";
     }

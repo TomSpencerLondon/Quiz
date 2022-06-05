@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.application.QuestionService;
+import com.example.quiz.application.CreateQuestionService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class QuizEditControllerWebMvcTest {
     MockMvc mockMvc;
 
     @MockBean
-    QuestionService questionService;
+    CreateQuestionService createQuestionService;
 
     @MockBean
     ChoiceCountConfig choiceCountConfig;

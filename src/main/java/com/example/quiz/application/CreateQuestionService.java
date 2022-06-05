@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class QuestionService {
+public class CreateQuestionService {
     private QuestionRepository questionRepository;
 
     @Autowired
-    public QuestionService(QuestionRepository questionRepository) {
+    public CreateQuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 

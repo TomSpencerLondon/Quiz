@@ -10,13 +10,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class QuestionServiceTest {
+class CreateQuestionServiceTest {
 
     @Test
     void givenSingleChoiceQuestionFormThenSavesSingleChoiceQuestionInRepository() {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        QuestionService questionService = new QuestionService(inMemoryQuestionRepository);
+        CreateQuestionService createQuestionService = new CreateQuestionService(inMemoryQuestionRepository);
         String questionText = "Question 1";
         ChoiceForm correctChoiceForm = new ChoiceForm("Answer 1", true);
         ChoiceForm choiceForm1 = new ChoiceForm("Answer 2", false);
@@ -26,7 +26,7 @@ class QuestionServiceTest {
         AddQuestionForm singleChoiceQuestionForm = new AddQuestionForm(questionText, "single", correctChoiceForm, choiceForm1, choiceForm2, choiceForm3);
 
         // Act
-        questionService.add(singleChoiceQuestionForm);
+        createQuestionService.add(singleChoiceQuestionForm);
         List<Question> questions = inMemoryQuestionRepository.findAll();
         List<Choice> choices = List.of(
                 new Choice("Answer 1", true),
@@ -47,7 +47,7 @@ class QuestionServiceTest {
     void givenMultipleChoiceQuestionFormThenSavesMultipleChoiceQuestionInRepository() {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        QuestionService questionService = new QuestionService(inMemoryQuestionRepository);
+        CreateQuestionService createQuestionService = new CreateQuestionService(inMemoryQuestionRepository);
         String questionText = "Question 1";
         ChoiceForm correct1 = new ChoiceForm("Answer 1", true);
         ChoiceForm correct2 = new ChoiceForm("Answer 2", true);
@@ -62,7 +62,7 @@ class QuestionServiceTest {
         );
 
         // Act
-        questionService.add(multipleChoiceQuestionForm);
+        createQuestionService.add(multipleChoiceQuestionForm);
 
         // Assert
         Question actualQuestion = inMemoryQuestionRepository.findAll().get(0);
