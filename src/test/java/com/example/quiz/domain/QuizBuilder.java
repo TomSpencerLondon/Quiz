@@ -10,9 +10,15 @@ import java.util.stream.Stream;
 public class QuizBuilder {
     List<QuestionId> questionIds = new ArrayList<>();
     QuizRepository questionRepository = new InMemoryQuizRepository();
+    private QuizId quizId;
 
     public QuizBuilder withQuestions(Question... questions) {
         this.questionIds.addAll(Stream.of(questions).map(Question::getId).toList());
+        return this;
+    }
+
+    public QuizBuilder withId(long id) {
+        this.quizId = QuizId.of(id);
         return this;
     }
 
@@ -21,6 +27,8 @@ public class QuizBuilder {
     }
 
     public Quiz build() {
-        return new Quiz("Quiz 1", questionIds);
+        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        quiz.setId(quizId);
+        return quiz;
     }
 }

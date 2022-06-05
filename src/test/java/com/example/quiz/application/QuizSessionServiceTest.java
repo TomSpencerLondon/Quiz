@@ -1,12 +1,11 @@
 package com.example.quiz.application;
 
+import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.InMemoryQuizRepository;
 import com.example.quiz.application.port.InMemoryQuizSessionRepository;
 import com.example.quiz.application.port.QuizSessionRepository;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuizId;
-import com.example.quiz.domain.QuizSession;
-import com.example.quiz.domain.QuizSessionNotFound;
+import com.example.quiz.domain.*;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
@@ -69,5 +68,26 @@ public class QuizSessionServiceTest {
                 .usingRecursiveComparison()
                 .ignoringFields("quizSessionId")
                 .isEqualTo(expected);
+    }
+
+    @Test
+    void givenNoQuizThrowQuizNotFound() {
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), new InMemoryQuizRepository(), new StubTokenGenerator());
+
+        assertThatThrownBy(() -> quizSessionService.findQuizById(QuizId.of(1L)))
+                .isInstanceOf(QuizNotFound.class);
+    }
+
+    @Test
+    void givenQuizFindsById() {
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
+        Quiz quiz = new QuizBuilder().withId(1L).withQuestions(question).build();
+        quizRepository.save(quiz);
+        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+
+        Quiz result = quizSessionService.findQuizById(QuizId.of(1L));
+        assertThat(result)
+                .isEqualTo(quiz);
     }
 }
