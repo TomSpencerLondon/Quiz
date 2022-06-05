@@ -45,6 +45,9 @@ public class QuizEditController {
             return "add-question";
         }
         try {
+            // Transform addQuestionForm to String, numbers and domain objects
+            // using new adapter.in.web.QuestionService
+            // then use add in createQuestionService
             createQuestionService.add(addQuestionForm);
         } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
             ObjectError error = new ObjectError("Error", e.getMessage());
