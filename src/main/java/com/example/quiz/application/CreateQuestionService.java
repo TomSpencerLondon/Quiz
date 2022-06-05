@@ -39,6 +39,9 @@ public class CreateQuestionService {
         }
     }
 
+    public Question add(Question question) {
+        return questionRepository.save(question);
+    }
 
     private List<Choice> extractChoicesFrom(List<ChoiceForm> choices) {
         return choices.stream().map(c -> new Choice(c.getChoice(), c.isCorrectAnswer())).toList();

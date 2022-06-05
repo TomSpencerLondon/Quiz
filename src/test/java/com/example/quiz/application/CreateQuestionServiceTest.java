@@ -1,9 +1,10 @@
 package com.example.quiz.application;
 
-import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
-import com.example.quiz.adapter.in.web.edit.ChoiceForm;
 import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.*;
+import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.ChoiceBuilder;
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,30 +18,17 @@ class CreateQuestionServiceTest {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         CreateQuestionService createQuestionService = new CreateQuestionService(inMemoryQuestionRepository);
-        String questionText = "Question 1";
-        ChoiceForm correctChoiceForm = new ChoiceForm("Answer 1", true);
-        ChoiceForm choiceForm1 = new ChoiceForm("Answer 2", false);
-        ChoiceForm choiceForm2 = new ChoiceForm("Answer 3", false);
-        ChoiceForm choiceForm3 = new ChoiceForm("Answer 4", false);
 
-        AddQuestionForm singleChoiceQuestionForm = new AddQuestionForm(questionText, "single", correctChoiceForm, choiceForm1, choiceForm2, choiceForm3);
-
+        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
         // Act
-        createQuestionService.add(singleChoiceQuestionForm);
+        createQuestionService.add(question);
         List<Question> questions = inMemoryQuestionRepository.findAll();
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", true),
-                new Choice("Answer 2", false),
-                new Choice("Answer 3", false),
-                new Choice("Answer 4", false));
-        ChoiceType singleChoiceResult = new SingleChoice(choices);
-        Question questionResult = new Question("Question 1",
-                singleChoiceResult);
-        questionResult.setId(QuestionId.of(0L));
+
+        Question expected = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
 
         // Assert
         assertThat(questions)
-                .containsExactly(questionResult);
+                .containsExactly(expected);
     }
 
     @Test
@@ -48,37 +36,24 @@ class CreateQuestionServiceTest {
         // Arrange
         InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
         CreateQuestionService createQuestionService = new CreateQuestionService(inMemoryQuestionRepository);
-        String questionText = "Question 1";
-        ChoiceForm correct1 = new ChoiceForm("Answer 1", true);
-        ChoiceForm correct2 = new ChoiceForm("Answer 2", true);
-        ChoiceForm choice3 = new ChoiceForm("Answer 3", false);
-        ChoiceForm choice4 = new ChoiceForm("Answer 4", false);
 
-        AddQuestionForm multipleChoiceQuestionForm = new AddQuestionForm(questionText,
-                "multiple", correct1,
-                correct2,
-                choice3,
-                choice4
-        );
+        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultMultipleChoice().build();
 
         // Act
-        createQuestionService.add(multipleChoiceQuestionForm);
+        createQuestionService.add(question);
 
         // Assert
         Question actualQuestion = inMemoryQuestionRepository.findAll().get(0);
         assertThat(actualQuestion.isSingleChoice())
                 .isFalse();
-        assertThat(actualQuestion.isCorrectAnswer(new Choice("Answer 1", true), new Choice("Answer 2", true)))
+        Choice[] choices = new ChoiceBuilder().withCorrectChoice().withCorrectChoice().asArray();
+        assertThat(actualQuestion.isCorrectAnswer(choices))
                 .isTrue();
         assertThat(actualQuestion.text())
-                .isEqualTo(questionText);
+                .isEqualTo(question.text());
+        List<Choice> expected = new ChoiceBuilder().withCorrectChoice().withCorrectChoice().withIncorrectChoice().asList();
         assertThat(actualQuestion.choices())
                 .usingRecursiveComparison()
-                .ignoringFields("id")
-                .isEqualTo(List.of(
-                        new Choice("Answer 1", true),
-                        new Choice("Answer 2", true),
-                        new Choice("Answer 3", false),
-                        new Choice("Answer 4", false)));
+                .isEqualTo(expected);
     }
 }

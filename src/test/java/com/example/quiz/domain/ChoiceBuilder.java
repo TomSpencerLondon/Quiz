@@ -9,12 +9,22 @@ public class ChoiceBuilder {
     private int choiceCounter = 1;
 
     public ChoiceBuilder withCorrectChoice() {
-        addChoice(true);
+        addChoice(ChoiceId.of(choiceCounter), true);
+        return this;
+    }
+
+    public ChoiceBuilder withCorrectChoiceWithoutId() {
+        addChoice(null, true);
         return this;
     }
 
     public ChoiceBuilder withIncorrectChoice() {
-        addChoice(false);
+        addChoice(ChoiceId.of(choiceCounter), false);
+        return this;
+    }
+
+    public ChoiceBuilder withIncorrectChoiceWithoutId() {
+        addChoice(null, false);
         return this;
     }
 
@@ -26,8 +36,8 @@ public class ChoiceBuilder {
         return choices.toArray(Choice[]::new);
     }
 
-    private void addChoice(boolean isCorrect) {
-        choices.add(new Choice(ChoiceId.of(choiceCounter), "Answer " + choiceCounter, isCorrect));
+    private void addChoice(ChoiceId id, boolean isCorrect) {
+        choices.add(new Choice(id, "Answer " + choiceCounter, isCorrect));
         choiceCounter++;
     }
 }
