@@ -23,6 +23,11 @@ public class QuestionBuilder {
         return this;
     }
 
+    public QuestionBuilder withSingleChoice(List<Choice> choices) {
+        choiceType = new SingleChoice(choices);
+        return this;
+    }
+
     public QuestionBuilder withDefaultMultipleChoice() {
         return withMultipleChoice(new ChoiceBuilder()
                 .withCorrectChoice()
