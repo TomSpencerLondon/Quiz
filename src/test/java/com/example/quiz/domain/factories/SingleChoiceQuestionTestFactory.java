@@ -20,15 +20,6 @@ public class SingleChoiceQuestionTestFactory {
         return question;
     }
 
-    public static Response createSingleChoiceQuestionCorrectResponse(Question question) {
-        Choice choice = new Choice(ChoiceId.of(1L), "Answer 1", true);
-        return new Response(question.getId(), question.isCorrectAnswer(choice), choice);
-    }
-
-    public static Response createSingleChoiceQuestionIncorrectResponse(Question question) {
-        Choice choice = new Choice(ChoiceId.of(1L), "Answer 2", false);
-        return new Response(question.getId(), question.isCorrectAnswer(choice), choice);
-    }
 
     public static Question create(
             String questionText,

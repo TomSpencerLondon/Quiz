@@ -1,10 +1,14 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.application.port.QuestionRepository;
+
 import java.util.List;
 
 public class QuestionBuilder {
     private QuestionId questionId;
     private ChoiceType choiceType;
+    private QuestionRepository questionRepository = new InMemoryQuestionRepository();
 
     public QuestionBuilder() {
         questionId = QuestionId.of(1L);
@@ -37,6 +41,10 @@ public class QuestionBuilder {
                 choiceType);
         question.setId(questionId);
         return question;
+    }
+
+    public Question save() {
+        return questionRepository.save(build());
     }
 
     public QuestionBuilder withQuestionId(long id) {

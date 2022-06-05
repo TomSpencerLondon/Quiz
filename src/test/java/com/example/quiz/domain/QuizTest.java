@@ -1,11 +1,11 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static java.util.Collections.EMPTY_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizTest {
@@ -13,7 +13,7 @@ public class QuizTest {
     @Test
     void new_quiz_hasNoQuestions() {
         // Given
-        Quiz quiz = new Quiz("Quiz 1", Collections.EMPTY_LIST);
+        Quiz quiz = new Quiz("Quiz 1", EMPTY_LIST);
 
         // Then
         List<QuestionId> questionIds = quiz.questionIds();
@@ -24,13 +24,14 @@ public class QuizTest {
     @Test
     void new_quiz_hasOneQuestion() {
         // Given
-        List<Choice> choices = List.of(new Choice("Answer 1", true), new Choice("Answer 2", false));
-        final Question question = new Question(
-                "Question 1",
-                new SingleChoice(choices)
-        );
+        Question question = new QuestionBuilder()
+                .withQuestionId(1L)
+                .withDefaultSingleChoice()
+                .build();
 
-        List<QuestionId> questionIds = List.of(question).stream().map(Question::getId).toList();
+        List<QuestionId> questionIds = Stream.of(question)
+                                             .map(Question::getId)
+                                             .toList();
         Quiz quiz = new Quiz("Quiz 1", questionIds);
 
         List<QuestionId> questionIdsResult = quiz.questionIds();
@@ -41,12 +42,15 @@ public class QuizTest {
 
     @Test
     void givenQuizWithQuestionsReturnsFirstQuestionWhenAsked() {
-        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question1.setId(QuestionId.of(54L));
-        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question2.setId(QuestionId.of(66L));
-        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        Question question1 = new QuestionBuilder()
+                .withQuestionId(1L)
+                .withDefaultSingleChoice()
+                .build();
+        Question question2 = new QuestionBuilder()
+                .withQuestionId(66L)
+                .withDefaultSingleChoice()
+                .build();
+        Quiz quiz = new Quiz("Quiz 1", Stream.of(question1, question2).map(Question::getId).toList());
 
         QuestionId questionId = quiz.firstQuestion();
 
@@ -56,13 +60,16 @@ public class QuizTest {
 
     @Test
     void givenQuizHasANextQuestionWhenAskedForNextQuestionQuizReturnsNextQuestion() {
-        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question1.setId(QuestionId.of(54L));
-        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question2.setId(QuestionId.of(66L));
+        Question question1 = new QuestionBuilder()
+                .withQuestionId(54L)
+                .withDefaultSingleChoice()
+                .build();
+        Question question2 = new QuestionBuilder()
+                .withQuestionId(66L)
+                .withDefaultSingleChoice()
+                .build();
 
-        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        Quiz quiz = new Quiz("Quiz 1", Stream.of(question1, question2).map(Question::getId).toList());
 
         QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
 
@@ -72,10 +79,11 @@ public class QuizTest {
 
     @Test
     void givenQuizHasNoNextQuestionWhenAskedForNextQuestionQuizReturnSameQuestion() {
-        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question1.setId(QuestionId.of(54L));
-        List<QuestionId> questionIds = List.of(question1).stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        Question question1 = new QuestionBuilder()
+                .withQuestionId(54L)
+                .withDefaultSingleChoice()
+                .build();
+        Quiz quiz = new Quiz("Quiz 1", Stream.of(question1).map(Question::getId).toList());
         QuestionId nextQuestionId = quiz.nextQuestionAfter(question1.getId());
 
         assertThat(nextQuestionId)
@@ -84,13 +92,16 @@ public class QuizTest {
 
     @Test
     void givenLastQuestionIdThenIsLastQuestionIdReturnsTrue() {
-        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question1.setId(QuestionId.of(54L));
-        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question2.setId(QuestionId.of(66L));
+        Question question1 = new QuestionBuilder()
+                .withQuestionId(54L)
+                .withDefaultSingleChoice()
+                .build();
+        Question question2 = new QuestionBuilder()
+                .withQuestionId(66L)
+                .withDefaultSingleChoice()
+                .build();
 
-        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        Quiz quiz = new Quiz("Quiz 1", Stream.of(question1, question2).map(Question::getId).toList());
 
         assertThat(quiz.isLastQuestion(question2.getId()))
                 .isTrue();
@@ -98,13 +109,16 @@ public class QuizTest {
 
     @Test
     void givenQuizWithTwoQuestionsWhenIsLastWithFirstQuestionIdReturnsFalse() {
-        Question question1 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question1.setId(QuestionId.of(54L));
-        Question question2 = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question2.setId(QuestionId.of(66L));
+        Question question1 = new QuestionBuilder()
+                .withQuestionId(54L)
+                .withDefaultSingleChoice()
+                .build();
+        Question question2 = new QuestionBuilder()
+                .withQuestionId(66L)
+                .withDefaultSingleChoice()
+                .build();
 
-        List<QuestionId> questionIds = List.of(question1, question2).stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
+        Quiz quiz = new Quiz("Quiz 1", Stream.of(question1, question2).map(Question::getId).toList());
 
         assertThat(quiz.isLastQuestion(question1.getId()))
                 .isFalse();
