@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com</groupId>
+        <artifactId>quiz</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.example</groupId>
+    <artifactId>spring-practice</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>spring-practice</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <!-- maven plugins -->
+        <frontend-maven-plugin.version>1.10.0</frontend-maven-plugin.version>
+        <frontend-maven-plugin.nodeVersion>v16.13.1</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>8.1.2</frontend-maven-plugin.npmVersion>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>1.17.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>frontend</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>0.23.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.kkuegler</groupId>
+            <artifactId>human-readable-ids-java</artifactId>
+            <version>0.1.1</version>
+        </dependency>
+
+        <!-- D A T A B A S E -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WebJars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+            <version>0.50</version>
+        </dependency>
+
+        <!-- showdown -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>htmx.org</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>hyperscript.org</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+
+        <!-- Java parsing markdown to html -->
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.18.1</version>
+        </dependency>
+
+        <!-- configuration properties -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Apache commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.1</version>
+        </dependency>
+
+        <!-- Glue code spring thymeleaf and htmx -->
+        <dependency>
+            <groupId>io.github.wimdeblauwe</groupId>
+            <artifactId>htmx-spring-boot-thymeleaf</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+<!--        <profile>-->
+<!--            <activation>-->
+<!--                <activeByDefault>false</activeByDefault>-->
+<!--            </activation>-->
+<!--            <id>local</id>-->
+<!--            <build>-->
+<!--                <resources>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources</directory>-->
+<!--                        <excludes>-->
+<!--                            <exclude>**/*.html</exclude>-->
+<!--                            <exclude>**/*.css</exclude>-->
+<!--                            <exclude>**/*.js</exclude>-->
+<!--                            <exclude>**/*.svg</exclude>-->
+<!--                        </excludes>-->
+<!--                    </resource>-->
+<!--                </resources>-->
+<!--                <pluginManagement>-->
+<!--                    <plugins>-->
+<!--                        <plugin>-->
+<!--                            <groupId>com.github.eirslett</groupId>-->
+<!--                            <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                            <version>${frontend-maven-plugin.version}</version>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <id>install-frontend-tooling</id>-->
+<!--                                    <goals>-->
+<!--                                        <goal>install-node-and-npm</goal>-->
+<!--                                    </goals>-->
+<!--                                    <configuration>-->
+<!--                                        <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>-->
+<!--                                        <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>-->
+<!--                                    </configuration>-->
+<!--                                </execution>-->
+<!--                                <execution>-->
+<!--                                    <id>run-npm-install</id>-->
+<!--                                    <goals>-->
+<!--                                        <goal>npm</goal>-->
+<!--                                    </goals>-->
+<!--                                </execution>-->
+<!--                                <execution>-->
+<!--                                    <id>run-build</id>-->
+<!--                                    <goals>-->
+<!--                                        <goal>npm</goal>-->
+<!--                                    </goals>-->
+<!--                                    <configuration>-->
+<!--                                        <arguments>run build</arguments>-->
+<!--                                    </configuration>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
+<!--                    </plugins>-->
+<!--                </pluginManagement>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.springframework.boot</groupId>-->
+<!--                        <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                    </plugin>-->
+<!--                    <plugin>-->
+<!--                        <groupId>com.github.eirslett</groupId>-->
+<!--                        <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <!-- http://mojo.codehaus.org/versions-maven-plugin/version-rules.html -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.8.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+                <configuration>
+                    <processDependencyManagementTransitive>false</processDependencyManagementTransitive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

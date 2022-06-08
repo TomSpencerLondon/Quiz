@@ -1,0 +1,89 @@
+@startuml
+title Relationships - Class Diagram
+
+namespace QuizAggregate {
+    class Quiz {
+      - Long id
+      - String name
+      - LocalDateTime version
+      - List<QuestionId> questionIds
+      + QuestionId firstQuestionId()
+      + nextQuestionAfter(QuestionId questionId)
+      + isLastQuestion(QuestionId questionId)
+    }
+
+    Quiz -> QuizSessionAggregate.Grade : <<creates>>
+    note bottom of Quiz: Not sure where to put grade creation yet
+}
+
+namespace ApplicationLayer {
+    class QuizSessionFactory {
+        + createQuizSession(Quiz quiz)
+    }
+    QuizSessionFactory -> QuizSessionAggregate.QuizSession : <<creates>>
+}
+
+
+namespace QuizSessionAggregate {
+    class QuizSession <<Entity>> {
+      - Long id
+      - List<Response> responses
+      - String token
+      - Question currentQuestion
+      + Grade grade()
+      + Question currentQuestion()
+      + boolean isFinished()
+      + int correctResponsescount()
+      + int incorrectResponsescount()
+      + void respondWith(Choice)
+    }
+    class Response <<Value Object>> {
+      - Long id
+      - Long questionId
+      - Set<Long> choiceIds
+      + boolean isCorrect()
+    }
+
+    class Grade <<Value Object>> {
+      + int percent()
+      + int correct()
+      + int incorrect()
+    }
+
+    QuizSession -down-> Response : <<creates>>
+}
+
+namespace QuestionAggregate {
+    class Question <<Value Object>> {
+      - Long id
+      - String text
+      + Long getId()
+      + void setId()
+      + String text()
+      + List<Choice> choices()
+      + boolean isSingleChoice()
+      + boolean isCorrectAnswer(Choice[])
+    }
+
+    class SingleChoice {
+      + List<Choice> choices()
+      + boolean isCorrect(Choice)
+    }
+
+    class MultipleChoice <<Value Object>> {
+      + List<Choice> choices()
+    }
+
+    class Choice <<Value Object>> {
+      - Long id
+      + String text()
+      + boolean isCorrect()
+    }
+
+    Question <-down- SingleChoice
+    Question <-down- MultipleChoice
+    SingleChoice <-down- Choice
+    MultipleChoice <-down- Choice
+}
+
+@enduml

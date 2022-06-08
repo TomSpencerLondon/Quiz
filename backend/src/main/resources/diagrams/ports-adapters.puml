@@ -1,0 +1,22 @@
+@startuml
+<style>
+    hexagon {
+        rotate(90deg)
+    }
+</style>
+hexagon "Domain" {
+    hexagon "Core Domain" #yellow {
+            card QuizSession {
+            }
+
+            card Quiz {
+            }
+            card Question {
+            }
+
+            card Choice {
+            }
+    }
+}
+
+@enduml

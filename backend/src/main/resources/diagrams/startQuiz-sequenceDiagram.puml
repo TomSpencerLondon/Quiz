@@ -1,0 +1,48 @@
+@startuml
+title Start New QuizSession
+
+actor  TestTaker as taker
+box "Inbound Adapter" #lightblue
+control QuizController  as ctrl
+endbox
+box "Application" #orange
+participant QuizSessionCreator as creator
+participant QuestionFinder as finder
+endbox
+box "Domain" #lightyellow
+entity QuizSession as session
+endbox
+box "Outbound Adapter" #violet
+database QuizRepository as quizRepo
+database QuizSessionRepository as sessionRepo
+database QuestionRepository as questionRepo
+endbox
+taker -> ctrl : GET /quizzes
+ctrl -> quizRepo : findAll()
+ctrl <-- quizRepo : Quiz[]
+taker <-- ctrl : Quiz.name[] \n Quiz.id[]
+
+taker -> ctrl : POST (quizId)
+ctrl -> creator : createSession(quizId)
+creator -> quizRepo : findById(quizId)
+creator <-- quizRepo : Quiz
+creator -> session : create(quizId, Quiz.firstQuestion)
+creator <-- session
+creator -> sessionRepo : save(session)
+creator <-- sessionRepo : session(now has id)
+ctrl <-- creator : sessionToken
+taker <-- ctrl : redirect :/quiz (sessionToken)
+
+taker -> ctrl : GET /quiz?sessionToken
+ctrl -> finder : findCurrentQuestionForSession(sessionToken)
+finder -> sessionRepo : findById(sessionToken)
+finder <-- sessionRepo : session.currentQuestionId
+finder -> questionRepo : findById(currentQuestionId)
+finder <-- questionRepo : question
+ctrl <-- finder : question
+
+taker <-- ctrl : questionWithChoices \n sessionToken
+
+taker -> ctrl : POST /quiz?sessionToken \n choiceSelections
+
+@enduml

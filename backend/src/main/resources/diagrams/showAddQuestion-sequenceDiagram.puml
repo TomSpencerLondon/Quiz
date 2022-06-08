@@ -1,0 +1,15 @@
+@startuml
+title Show Add Question
+
+actor       TestCreator as creator
+boundary    SpringMVC   as mvc
+control     EditController  as ctrl
+participant AddQuestionForm as form
+
+creator -> mvc : GET /add-question
+mvc -> ctrl : showAddQuestion()
+ctrl -> form : create
+ctrl <-- form
+creator <-- ctrl
+@enduml
+

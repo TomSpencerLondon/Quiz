@@ -1,0 +1,32 @@
+@startuml
+circle HTTP
+frame "WebApplication" {
+[Controller] -r-> [View]
+}
+cloud "Inside The Hexagon" {
+frame "Application" {
+    component QuestionService
+    node "Core Domain" {
+        [SingleChoice] -r-> [Choice]
+        QuestionService -> [Question]
+    }
+
+    QuestionService -d-> [Quiz Repository]
+    database "In Memory Adapter" {
+        [In Memory Quiz Repository] ..up..> [Quiz Repository]
+    }
+
+}
+}
+
+database "DB Adapter"{
+    [DB Quiz Repository] ..up..> [Quiz Repository]
+    frame "DTO" {
+        [QuizData]
+    }
+}
+
+HTTP -down-> Controller
+Controller -down-> QuestionService
+QuestionService -r-> SingleChoice
+@enduml
