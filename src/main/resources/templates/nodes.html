@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="fragments/header-fragments :: header-input('Nodes')"></div>
+    <style>
+        #line {
+            border: black solid 2px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+    fetch('/api/questions')
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById('container');
+                container.classList.add("mx-auto", "px-4", "sm:px-8");
+                for (item of data) {
+                    let question = document.createElement('h2');
+                    question.innerHTML = item.text;
+                    container.appendChild(question);
+
+                    let choices = document.createElement('ul');
+                    for (choice_text of item.choices) {
+                        let choice = document.createElement('li');
+                        choice.innerHTML = choice_text;
+                        choices.appendChild(choice);
+                    }
+
+                    container.appendChild(choices);
+
+                    let answer = document.createElement('div');
+                    answer.innerHTML = item.answer;
+                    container.appendChild(answer);
+
+                    let line = document.createElement('div');
+                    line.setAttribute('id', 'line');
+                    container.append(line);
+                }
+            });
+</script>
+</body>
+</html>

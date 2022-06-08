@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="fragments/header-fragments :: header-input('Template')"></div>
+    <style>
+        #line {
+            border: black solid 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="mx-auto px-4 sm:px-8"></div>
+
+    <script>
+        fetch('api/questions')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '';
+
+                    for (item of data) {
+                        html += `<h2>${item.text}</h2><ul>`;
+
+                        for (choice of item.choices) {
+                            html += `<li>${choice}</li>`
+                        }
+
+                        html += `</ul><h3>${item.answer}</h3><div id="line"></div>`
+                    }
+                    document.getElementById('container').innerHTML = html;
+                });
+    </script>
+</body>
+</html>
