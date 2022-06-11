@@ -14,4 +14,9 @@ public class JavascriptController {
     public String getNodes() {
         return "nodes";
     }
+
+    @GetMapping("/form-submission")
+    public String formSubmission() {
+        return "form-submission";
+    }
 }

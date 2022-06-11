@@ -9,17 +9,19 @@ import java.util.Arrays;
 
 public class ChoiceValidator implements ConstraintValidator<CorrectAnswer, AddQuestionForm> {
     @Override
-    public void initialize(CorrectAnswer constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
-
-    @Override
     public boolean isValid(AddQuestionForm addQuestionForm, ConstraintValidatorContext constraintValidatorContext) {
         long count = Arrays.stream(addQuestionForm.getChoices())
                            .filter(ChoiceForm::isCorrectAnswer)
-                           .map(ChoiceForm::getChoice)
                            .count();
-        if (tooManyForSingleChoice(addQuestionForm, count) || tooFewForMultipleChoice(addQuestionForm, count)) {
+        constraintValidatorContext.disableDefaultConstraintViolation();
+
+        if (tooManyForSingleChoice(addQuestionForm, count)){
+            constraintValidatorContext.buildConstraintViolationWithTemplate(
+                    String.format("%d for single choice", count)).addConstraintViolation();
+            return false;
+        } else if (tooFewForMultipleChoice(addQuestionForm, count)) {
+            constraintValidatorContext.buildConstraintViolationWithTemplate(
+                    String.format("%d for multiple choice", count)).addConstraintViolation();
             return false;
         }
         return true;

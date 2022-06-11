@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -49,17 +50,31 @@ class QuizAPIControllerTest {
     @Test
     void shouldAllowQuizCreationForAnonymousUser() throws Exception {
         this.mockMvc.perform(post("/api/questions")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(
                         """
-                                    {
-                                      "text": "How do you create a form",
-                                      "answerDbo": "Use html knowledge",
-                                      "choice1": "Give up!",
-                                      "choice2": "Go to bed!",
-                                      "choice3": "Go for a walk",
-                                      "choice4": "Use html knowledge"
-                                    }
-                                """
+                                {
+                                  "choiceType": "single",
+                                  "text": "Question 1 - Hello",
+                                  "choices": [
+                                  {
+                                    "choice": "Answer 1",
+                                    "correctAnswer": true
+                                  },
+                                  {
+                                    "choice": "Answer 2",
+                                    "correctAnswer": false
+                                  },
+                                  {
+                                    "choice": "Answer 3",
+                                    "correctAnswer": false
+                                  },
+                                  {
+                                    "choice": "Answer 4",
+                                    "correctAnswer": false
+                                  }
+                                  ]
+                                }"""
                 )
         ).andExpect(status().isCreated());
     }

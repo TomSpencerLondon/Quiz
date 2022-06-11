@@ -1,0 +1,52 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        #line {
+            border: black solid 2px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    const data = {
+        "choiceType": "single",
+        "text": "Question 1 - Hello",
+        "choices": [
+            {
+                "choice": "Answer 1",
+                "correctAnswer": true
+            },
+            {
+                "choice": "Answer 2",
+                "correctAnswer": false
+            },
+            {
+                "choice": "Answer 3",
+                "correctAnswer": false
+            },
+            {
+                "choice": "Answer 4",
+                "correctAnswer": false
+            }
+        ]
+    };
+
+    fetch('/api/questions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+</script>
+</body>
+</html>
