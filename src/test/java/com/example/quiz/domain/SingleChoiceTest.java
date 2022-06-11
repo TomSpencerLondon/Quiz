@@ -11,7 +11,9 @@ class SingleChoiceTest {
     @Test
     void questionWithSingleChoiceIsSingleChoice() {
         // Given
-        final Question question = new QuestionBuilder().withDefaultSingleChoice().build();
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
 
         // Then
         assertThat(question.isSingleChoice())
@@ -21,7 +23,7 @@ class SingleChoiceTest {
     @Test
     void singleChoiceQuestionWithCorrectAnswerReturnsTrue() {
         // Given
-        final Question question = new QuestionBuilder()
+        Question question = new QuestionBuilder()
                 .withDefaultSingleChoice()
                 .build();
 
@@ -36,14 +38,16 @@ class SingleChoiceTest {
     @Test
     void isCorrectReturnsTrueIfCorrectChoice() {
         // Given
-        List<Choice> choices = new ChoiceBuilder()
+        ChoiceBuilder choiceBuilder = new ChoiceBuilder();
+        List<Choice> choices = choiceBuilder
                 .withCorrectChoice()
                 .withIncorrectChoice()
-                .withIncorrectChoice().asList();
+                .withIncorrectChoice()
+                .asList();
         SingleChoice singleChoice = new SingleChoice(choices);
 
         // Then
-        boolean result = singleChoice.isCorrect(new Choice("Answer 1", true));
+        boolean result = singleChoice.isCorrect(choiceBuilder.anyCorrectChoice());
         assertThat(result)
                 .isTrue();
     }
@@ -51,14 +55,16 @@ class SingleChoiceTest {
     @Test
     void isCorrectReturnsFalseIfIncorrectChoice() {
         // Given
-        List<Choice> choices = new ChoiceBuilder()
+        ChoiceBuilder choiceBuilder = new ChoiceBuilder();
+        List<Choice> choices = choiceBuilder
                 .withCorrectChoice()
                 .withIncorrectChoice()
-                .withIncorrectChoice().asList();
+                .withIncorrectChoice()
+                .asList();
         ChoiceType singleChoice = new SingleChoice(choices);
 
         // Then
-        boolean result = singleChoice.isCorrect(new Choice("Answer 2", true));
+        boolean result = singleChoice.isCorrect(choiceBuilder.anyIncorrectChoice());
         assertThat(result)
                 .isFalse();
     }
@@ -69,11 +75,12 @@ class SingleChoiceTest {
         List<Choice> choices = new ChoiceBuilder()
                 .withCorrectChoice()
                 .withIncorrectChoice()
-                .withIncorrectChoice().asList();
+                .withIncorrectChoice()
+                .asList();
         ChoiceType singleChoice = new SingleChoice(choices);
 
         // Then
-        assertThatThrownBy(() -> singleChoice.isCorrect(new Choice("Answer 1", true), new Choice("Answer 2", true)))
+        assertThatThrownBy(() -> singleChoice.isCorrect(choices.get(0), choices.get(1)))
                 .isInstanceOf(TooManyCorrectChoicesSelected.class);
     }
 }

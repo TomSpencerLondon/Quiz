@@ -1,7 +1,11 @@
 package com.example.quiz.domain;
 
+import static java.util.function.Predicate.not;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 public class ChoiceBuilder {
 
@@ -39,5 +43,20 @@ public class ChoiceBuilder {
     private void addChoice(ChoiceId id, boolean isCorrect) {
         choices.add(new Choice(id, "Answer " + choiceCounter, isCorrect));
         choiceCounter++;
+    }
+
+    public Choice anyCorrectChoice() {
+        return anyChoiceMatching(Choice::isCorrect);
+    }
+
+    public Choice anyIncorrectChoice() {
+        return anyChoiceMatching(not(Choice::isCorrect));
+    }
+
+    private Choice anyChoiceMatching(Predicate<Choice> predicate) {
+        return choices.stream()
+                      .filter(predicate)
+                      .findAny()
+                      .orElseThrow(NoSuchElementException::new);
     }
 }
