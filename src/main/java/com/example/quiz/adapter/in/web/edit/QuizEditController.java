@@ -48,8 +48,8 @@ public class QuizEditController {
             // Transform addQuestionForm to String, numbers and domain objects
             // using new adapter.in.web.QuestionService
             // then use add in createQuestionService
-            QuestionService questionService = new QuestionService();
-            Question question = questionService.transform(addQuestionForm);
+            QuestionFactory questionFactory = new QuestionFactory();
+            Question question = questionFactory.transform(addQuestionForm);
             createQuestionService.add(question);
         } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
             ObjectError error = new ObjectError("Error", e.getMessage());

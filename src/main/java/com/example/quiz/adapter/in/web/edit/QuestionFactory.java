@@ -5,7 +5,7 @@ import com.example.quiz.domain.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuestionService {
+public class QuestionFactory {
     public Question transform(AddQuestionForm addQuestionForm) {
         List<ChoiceForm> choiceForms = Arrays.stream(addQuestionForm.getChoices())
                                              .toList();
