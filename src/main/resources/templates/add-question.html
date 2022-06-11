@@ -13,8 +13,7 @@
             Add a <span class="text-indigo-600">Question</span>
         </h3>
     </div>
-    <form action="#"
-          th:data-question-form-count="${addQuestionForm.choices.length}" id="question-form"
+    <form th:data-question-form-count="${addQuestionForm.choices.length}" id="question-form"
           th:action="@{/edit/add-question}" th:object="${addQuestionForm}" method="post"
           class="w-full">
         <div>
