@@ -1,5 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
+import com.example.quiz.domain.QuizId;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -13,6 +15,7 @@ public class QuizSessionDbo {
     private ZonedDateTime startedAt;
     private String token;
     Long currentQuestionId;
+    private Long quizId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "session_id")
@@ -56,6 +59,14 @@ public class QuizSessionDbo {
 
     public void setResponses(List<ResponseDbo> responses) {
         this.responses = responses;
+    }
+
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public Long getQuizId() {
+        return quizId;
     }
 
     @Override

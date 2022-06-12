@@ -2,7 +2,6 @@ package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.*;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,16 +27,22 @@ class QuizSessionTransformerTest {
     @Test
     void quizSessionDboToQuizSession() {
         // given
-        Choice choice1 = new Choice(ChoiceId.of(1L), "C1", true);
-        Choice choice2 = new Choice(ChoiceId.of(2L), "C2", false);
-        SingleChoice singleChoice = new SingleChoice(List.of(
-                choice1,
-                choice2
-        ));
-        Question question = new Question("Q1", singleChoice);
-        questionRepository.save(question);
-        QuizSession expected = createQuizSession(choice1, question);
-        QuizSessionDbo quizSessionDbo = createQuizSessionDbo(choice1, question);
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        Question question = questionBuilder
+                .withQuestionRepository(questionRepository)
+                .withDefaultSingleChoice().save();
+        Quiz quiz = new QuizBuilder().withQuestions(question).save();
+        QuizSession expected = new QuizSessionBuilder()
+                .withId(1L)
+                .withQuiz(quiz)
+                .withQuestion(question).build();
+
+        QuizSessionDbo quizSessionDbo = new QuizSessionDboBuilder()
+                .withId(1L)
+                .withToken("stub-token-1")
+                .withQuizId(quiz.getId())
+                .withCurrentQuestionId(question.getId())
+                .build();
 
         // when
         QuizSession quizSession = quizSessionTransformer.toQuizSession(quizSessionDbo);
@@ -53,11 +58,32 @@ class QuizSessionTransformerTest {
     @Test
     void quizSessionToQuizSessionDbo() {
         // given
-        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question.setId(QuestionId.of(0L));
-        Choice choice = question.choices().get(0);
-        QuizSession quizSession = createQuizSession(choice, question);
-        QuizSessionDbo expected = createQuizSessionDbo(choice, question);
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        Question question = questionBuilder
+                .withQuestionId(0L)
+                .withDefaultSingleChoice()
+                .save();
+
+        Quiz quiz = new QuizBuilder().withQuestions(question).save();
+        QuizSession quizSession = new QuizSessionBuilder()
+                .withId(1L)
+                .withQuestion(question)
+                .withQuiz(quiz)
+                .build();
+
+        quizSession.respondWith(question, quiz, questionBuilder.correctChoiceForQuestion().id());
+
+        Response response = new ResponseBuilder()
+                .withQuestion(question)
+                .withCorrectChoice().build();
+
+        QuizSessionDbo expected = new QuizSessionDboBuilder()
+                .withId(1L)
+                .withQuizId(quiz.getId())
+                .withToken("stub-token-1")
+                .withCurrentQuestionId(question.getId())
+                .withResponse(response)
+                .build();
 
         // when
         QuizSessionDbo quizSessionDbo = quizSessionTransformer.toQuizSessionDbo(quizSession);

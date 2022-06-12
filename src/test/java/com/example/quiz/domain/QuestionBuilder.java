@@ -80,6 +80,11 @@ public class QuestionBuilder {
         return questionChoiceMatching(not(Choice::isCorrect));
     }
 
+    public QuestionBuilder withQuestionRepository(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+        return this;
+    }
+
     private ChoiceId questionChoiceMatching(Predicate<Choice> predicate) {
         return savedQuestion.choices()
                             .stream()

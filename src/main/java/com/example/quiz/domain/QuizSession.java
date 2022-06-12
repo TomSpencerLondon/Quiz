@@ -28,8 +28,8 @@ public class QuizSession {
         responses = new ArrayList<>();
     }
 
-    public QuizSession(QuestionId questionId, String token, QuizId quizId) {
-        this.currentQuestionId = questionId;
+    public QuizSession(QuestionId currentQuestionId, String token, QuizId quizId) {
+        this.currentQuestionId = currentQuestionId;
         this.token = token;
         this.quizId = quizId;
         this.responses = new ArrayList<>();

@@ -20,15 +20,14 @@ public class QuizSessionTransformer {
         QuizSessionId quizSessionId = QuizSessionId.of(quizSessionDbo.getId());
         String token = quizSessionDbo.getToken();
         Long currentQuestionId = quizSessionDbo.getCurrentQuestionId();
-        Question question = questionRepository
-                .findById(QuestionId.of(currentQuestionId))
-                .orElseThrow();
         List<Response> responses = quizSessionDbo.getResponses()
                                                  .stream()
                                                  .map(responseTransformer::toResponse)
                                                  .toList();
         ZonedDateTime startedAt = quizSessionDbo.getStartedAt();
-        return new QuizSession(quizSessionId, token, question.getId(), responses, startedAt);
+        QuizSession quizSession = new QuizSession(QuestionId.of(currentQuestionId), token, QuizId.of(quizSessionDbo.getQuizId()));
+        quizSession.setId(quizSessionId);
+        return quizSession;
     }
 
     QuizSessionDbo toQuizSessionDbo(QuizSession quizSession) {
@@ -37,6 +36,7 @@ public class QuizSessionTransformer {
         quizSessionDbo.setCurrentQuestionId(quizSession.currentQuestionId().id());
         quizSessionDbo.setToken(quizSession.getToken());
         quizSessionDbo.setStartedAt(quizSession.getStartedAt());
+        quizSessionDbo.setQuizId(quizSession.quizId().id());
 
         List<ResponseDbo> responseDbos = quizSession
                 .responses()
