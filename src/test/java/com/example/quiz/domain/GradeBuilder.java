@@ -3,6 +3,7 @@ package com.example.quiz.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
 
@@ -48,5 +49,21 @@ public class GradeBuilder {
         return Math.toIntExact(responses.stream()
                                         .filter(isCorrect)
                                         .count());
+    }
+
+    public GradeBuilder withCorrectResponseFor(Question question) {
+        Choice[] choices = question.choices().stream()
+                                   .filter(Choice::isCorrect)
+                                   .toArray(Choice[]::new);
+        responses.add(new Response(question.getId(), true, choices));
+        return this;
+    }
+
+    public GradeBuilder withIncorrectResponseFor(Question question) {
+        Choice[] choices = question.choices().stream()
+                                   .filter(not(Choice::isCorrect))
+                                   .toArray(Choice[]::new);
+        responses.add(new Response(question.getId(), false, choices));
+        return this;
     }
 }

@@ -18,4 +18,5 @@ public class QuizEditConfiguration {
     public CreateQuestionService createQuestionService(QuestionRepository questionRepository) {
         return new CreateQuestionService(questionRepository);
     }
+
 }

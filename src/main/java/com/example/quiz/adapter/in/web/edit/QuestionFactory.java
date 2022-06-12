@@ -5,6 +5,9 @@ import com.example.quiz.domain.*;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class QuestionFactory {
     public Question transform(AddQuestionForm addQuestionForm) {
         List<ChoiceForm> choiceForms = Arrays.stream(addQuestionForm.getChoices())

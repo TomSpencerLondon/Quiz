@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class QuizBuilder {
     List<QuestionId> questionIds = new ArrayList<>();
-    QuizRepository questionRepository = new InMemoryQuizRepository();
+    QuizRepository quizRepository = new InMemoryQuizRepository();
     private QuizId quizId;
 
     public QuizBuilder withQuestions(Question... questions) {
@@ -23,7 +23,7 @@ public class QuizBuilder {
     }
 
     public Quiz save() {
-        return questionRepository.save(build());
+        return quizRepository.save(build());
     }
 
     public Quiz build() {

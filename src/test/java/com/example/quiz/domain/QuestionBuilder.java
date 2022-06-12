@@ -1,11 +1,16 @@
 package com.example.quiz.domain;
 
+import static java.util.function.Predicate.not;
+
 import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.QuestionRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 public class QuestionBuilder {
+    private Question savedQuestion;
     private QuestionId questionId;
     private ChoiceType choiceType;
     private QuestionRepository questionRepository = new InMemoryQuestionRepository();
@@ -49,11 +54,38 @@ public class QuestionBuilder {
     }
 
     public Question save() {
-        return questionRepository.save(build());
+        savedQuestion = questionRepository.save(build());
+        return savedQuestion;
     }
 
     public QuestionBuilder withQuestionId(long id) {
         questionId = QuestionId.of(id);
         return this;
+    }
+
+    public ChoiceId firstChoiceIdForQuestion() {
+        Choice choice = savedQuestion
+                .choices()
+                .stream()
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+        return choice.getId();
+    }
+
+    public ChoiceId correctChoiceForQuestion() {
+        return questionChoiceMatching(Choice::isCorrect);
+    }
+
+    public ChoiceId incorrectChoiceForQuestion() {
+        return questionChoiceMatching(not(Choice::isCorrect));
+    }
+
+    private ChoiceId questionChoiceMatching(Predicate<Choice> predicate) {
+        return savedQuestion.choices()
+                            .stream()
+                            .filter(predicate)
+                            .map(Choice::getId)
+                            .findFirst()
+                            .orElseThrow(NoSuchElementException::new);
     }
 }

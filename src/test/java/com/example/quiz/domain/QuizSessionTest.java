@@ -1,13 +1,8 @@
 package com.example.quiz.domain;
 
 import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.InMemoryQuizRepository;
 import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.application.port.QuizRepository;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,9 +17,9 @@ public class QuizSessionTest {
                         .withQuestionId(45L)
                         .withDefaultSingleChoice()
                         .build());
-        List<QuestionId> questionIds = Stream.of(question).map(Question::getId).toList();
-        QuizRepository quizRepository = new InMemoryQuizRepository();
-        Quiz quiz = quizRepository.save(new Quiz("Quiz 1", questionIds));
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question)
+                .save();
 
         // When
         QuizSession session = new QuizSession(question.getId(), "stub-1", quiz.getId());
@@ -38,7 +33,8 @@ public class QuizSessionTest {
 //  testTakerCanCheckIfSessionWithOneQuestionIsFinished
     void givenQuizWithOneQuestionWhenQuestionIsAnsweredSessionIsFinished() {
         // Given
-        Question question = new QuestionBuilder()
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        Question question = questionBuilder
                 .withQuestionId(7L)
                 .withDefaultSingleChoice()
                 .save();
@@ -48,7 +44,7 @@ public class QuizSessionTest {
         QuizSession session = new QuizSessionBuilder().withQuestion(question).withQuiz(quiz).build();
 
         // when
-        session.respondWith(question, quiz, question.choices().get(0).getId().id());
+        session.respondWith(question, quiz, questionBuilder.firstChoiceIdForQuestion().id());
 
         // Then
         assertThat(session.isFinished(quiz))
@@ -58,11 +54,13 @@ public class QuizSessionTest {
     @Test
     void quizWithThreeQuestionsWhenAnsweringTwoQuestionsSessionIsNotFinished() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question2 = new QuestionBuilder()
+        QuestionBuilder questionBuilder2 = new QuestionBuilder();
+        Question question2 = questionBuilder2
                 .withQuestionId(2L)
                 .withDefaultSingleChoice()
                 .save();
@@ -71,12 +69,17 @@ public class QuizSessionTest {
                 .withDefaultSingleChoice()
                 .save();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question1, question2, question3)
+                .build();
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question1)
+                .withQuiz(quiz)
+                .build();
 
         // when
-        session.respondWith(question1, quiz, question1.choices().get(0).getId().id());
-        session.respondWith(question2, quiz, question2.choices().get(0).getId().id());
+        session.respondWith(question1, quiz, questionBuilder1.firstChoiceIdForQuestion().id());
+        session.respondWith(question2, quiz, questionBuilder2.firstChoiceIdForQuestion().id());
 
         // Then
         assertThat(session.isFinished(quiz))
@@ -86,27 +89,34 @@ public class QuizSessionTest {
     @Test
     void testTakerCanCheckIfSessionWithThreeQuestionsIsFinishedAfterThirdQuestion() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question2 = new QuestionBuilder()
+        QuestionBuilder questionBuilder2 = new QuestionBuilder();
+        Question question2 = questionBuilder2
                 .withQuestionId(2L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question3 = new QuestionBuilder()
+        QuestionBuilder questionBuilder3 = new QuestionBuilder();
+        Question question3 = questionBuilder3
                 .withQuestionId(3L)
                 .withDefaultSingleChoice()
                 .save();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question1, question2, question3)
+                .build();
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question1)
+                .withQuiz(quiz)
+                .build();
 
         // when
-        session.respondWith(question1, quiz, question1.choices().get(0).getId().id());
-        session.respondWith(question2, quiz, question2.choices().get(0).getId().id());
-        session.respondWith(question3, quiz, question2.choices().get(0).getId().id());
-
+        session.respondWith(question1, quiz, questionBuilder1.firstChoiceIdForQuestion().id());
+        session.respondWith(question2, quiz, questionBuilder2.firstChoiceIdForQuestion().id());
+        session.respondWith(question3, quiz, questionBuilder3.firstChoiceIdForQuestion().id());
 
         // Then
         assertThat(session.isFinished(quiz))
@@ -116,26 +126,34 @@ public class QuizSessionTest {
     @Test
     void grade_gives_number_of_correct_responses_for_Session() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question2 = new QuestionBuilder()
+        QuestionBuilder questionBuilder2 = new QuestionBuilder();
+        Question question2 = questionBuilder2
                 .withQuestionId(2L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question3 = new QuestionBuilder()
+        QuestionBuilder questionBuilder3 = new QuestionBuilder();
+        Question question3 = questionBuilder3
                 .withQuestionId(3L)
                 .withDefaultSingleChoice()
                 .save();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question1, question2, question3)
+                .build();
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question1)
+                .withQuiz(quiz)
+                .build();
 
         // when
-        session.respondWith(question1, quiz, question1.choices().get(0).getId().id());
-        session.respondWith(question2, quiz, question2.choices().get(1).getId().id());
-        session.respondWith(question3, quiz, question2.choices().get(2).getId().id());
+        session.respondWith(question1, quiz, questionBuilder1.correctChoiceForQuestion().id());
+        session.respondWith(question2, quiz, questionBuilder2.incorrectChoiceForQuestion().id());
+        session.respondWith(question3, quiz, questionBuilder3.incorrectChoiceForQuestion().id());
 
         // Then
         assertThat(session.correctResponsesCount())
@@ -145,27 +163,34 @@ public class QuizSessionTest {
     @Test
     void counts_incorrect_responses() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question2 = new QuestionBuilder()
+        QuestionBuilder questionBuilder2 = new QuestionBuilder();
+        Question question2 = questionBuilder2
                 .withQuestionId(2L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question3 = new QuestionBuilder()
+        QuestionBuilder questionBuilder3 = new QuestionBuilder();
+        Question question3 = questionBuilder3
                 .withQuestionId(3L)
                 .withDefaultSingleChoice()
                 .save();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
-
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question1, question2, question3)
+                .build();
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question1)
+                .withQuiz(quiz)
+                .build();
 
         // when
-        session.respondWith(question1, quiz, question1.choices().get(0).getId().id());
-        session.respondWith(question2, quiz, question2.choices().get(1).getId().id());
-        session.respondWith(question3, quiz, question2.choices().get(2).getId().id());
+        session.respondWith(question1, quiz, questionBuilder1.incorrectChoiceForQuestion().id());
+        session.respondWith(question2, quiz, questionBuilder2.incorrectChoiceForQuestion().id());
+        session.respondWith(question3, quiz, questionBuilder3.correctChoiceForQuestion().id());
 
         // Then
         assertThat(session.incorrectResponsesCount())
@@ -175,44 +200,42 @@ public class QuizSessionTest {
     @Test
     void calculatesGradeForFinishedTest() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question2 = new QuestionBuilder()
+        QuestionBuilder questionBuilder2 = new QuestionBuilder();
+        Question question2 = questionBuilder2
                 .withQuestionId(2L)
                 .withDefaultSingleChoice()
                 .save();
-        Question question3 = new QuestionBuilder()
+        QuestionBuilder questionBuilder3 = new QuestionBuilder();
+        Question question3 = questionBuilder3
                 .withQuestionId(3L)
                 .withDefaultSingleChoice()
                 .save();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
-
-        QuestionId questionId1 = session.currentQuestionId();
-        Choice choice1 = question1.choices().get(0);
-        QuestionId questionId2 = session.currentQuestionId();
-        Choice choice2 = question2.choices().get(1);
-        QuestionId questionId3 = session.currentQuestionId();
-        Choice choice3 = question3.choices().get(1);
-        session.respondWith(question1, quiz, choice1.getId().id());
-        session.respondWith(question2, quiz, choice2.getId().id());
-        session.respondWith(question3, quiz, choice3.getId().id());
-
-        List<Response> responses = List.of(
-                new Response(questionId1, true, choice1),
-                new Response(questionId2, false, choice2),
-                new Response(questionId3, false, choice3));
+        Quiz quiz = new QuizBuilder()
+                .withQuestions(question1, question2, question3)
+                .build();
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question1).withQuiz(quiz).build();
 
         // When
-        final Grade grade = new Grade(responses, 1, 2);
+        session.respondWith(question1, quiz, questionBuilder1.correctChoiceForQuestion().id());
+        session.respondWith(question2, quiz, questionBuilder2.incorrectChoiceForQuestion().id());
+        session.respondWith(question3, quiz, questionBuilder3.incorrectChoiceForQuestion().id());
 
         // Then
+        Grade expectedGrade = new GradeBuilder()
+                .withCorrectResponseFor(question1)
+                .withIncorrectResponseFor(question2)
+                .withIncorrectResponseFor(question3)
+                .build();
         final Grade result = session.grade();
         assertThat(result)
-                .isEqualTo(grade);
+                .isEqualTo(expectedGrade);
     }
 
     @Test
@@ -246,7 +269,8 @@ public class QuizSessionTest {
     @Test
     void quizWithTwoQuestionsWhenResponseToFirstQuestionThenSecondQuestionIsCurrent() {
         // Given
-        Question question1 = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question1 = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
@@ -262,14 +286,7 @@ public class QuizSessionTest {
         Quiz quiz = new QuizBuilder().withQuestions(question1, question2, question3).build();
         QuizSession session = new QuizSessionBuilder().withQuestion(question1).withQuiz(quiz).build();
         final QuestionId questionId1 = session.currentQuestionId();
-        long[] choiceIds = question1
-                .choices()
-                .stream()
-                .filter(Choice::isCorrect)
-                .map(Choice::getId)
-                .mapToLong(ChoiceId::id).toArray();
-
-        session.respondWith(question1, quiz, choiceIds);
+        session.respondWith(question1, quiz, questionBuilder1.firstChoiceIdForQuestion().id());
 
         // When
         final QuestionId questionId2 = session.currentQuestionId();
@@ -282,21 +299,21 @@ public class QuizSessionTest {
     @Test
     void respondWithChoiceThenResponseHasSelectedChoice() {
         // Given
-        Question question = new QuestionBuilder()
+        QuestionBuilder questionBuilder1 = new QuestionBuilder();
+        Question question = questionBuilder1
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .save();
 
         Quiz quiz = new QuizBuilder().withQuestions(question).build();
         QuizSession session = new QuizSessionBuilder().withQuestion(question).withQuiz(quiz).build();
+        Choice choice = question.choices().get(0);
 
         // When
-        Choice choice = question.choices().get(1);
-        session.respondWith(question, quiz, choice.getId().id());
+        session.respondWith(question, quiz, questionBuilder1.firstChoiceIdForQuestion().id());
 
         // Then
         assertThat(session.responses().get(0).choices())
                 .containsExactly(choice);
-
     }
 }

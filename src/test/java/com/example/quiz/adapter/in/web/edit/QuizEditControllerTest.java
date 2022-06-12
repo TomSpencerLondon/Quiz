@@ -32,7 +32,7 @@ public class QuizEditControllerTest {
     void viewQuestionsCreatesModelWithQuestions() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG, new QuestionFactory());
 
         final Model model = new ConcurrentModel();
         final String viewName = quizController.viewQuestions(model);
@@ -47,7 +47,7 @@ public class QuizEditControllerTest {
     void addQuestionResultsInQuestionAddedAndRedirects() {
         QuestionRepository questionRepository = new InMemoryQuestionRepository();
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
-        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG, new QuestionFactory());
 
         final AddQuestionForm addQuestionForm = new AddQuestionForm(
                 "question",
@@ -73,7 +73,7 @@ public class QuizEditControllerTest {
         QuizRepository quizRepository = new InMemoryQuizRepository();
 
         QuizCreator quizCreator = new QuizCreator(quizRepository);
-        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG, new QuestionFactory());
 
         Model model = new ConcurrentModel();
         final String redirectPage = quizController.createQuiz(model);
@@ -102,7 +102,7 @@ public class QuizEditControllerTest {
         QuizRepository quizRepository = new InMemoryQuizRepository();
 
         QuizCreator quizCreator = new QuizCreator(quizRepository);
-        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG);
+        QuizEditController quizController = new QuizEditController(createQuestionService, quizCreator, DUMMY_CHOICE_COUNT_CONFIG, new QuestionFactory());
 
         Model model = new ConcurrentModel();
         quizController.maker(model);

@@ -27,16 +27,18 @@ public class QuizEditController {
 
     private final CreateQuestionService createQuestionService;
     private final QuizCreator quizCreator;
+    private final QuestionFactory questionFactory;
     private ChoiceCountConfig choiceCountConfig;
 
     @Autowired
     SpringTemplateEngine templateEngine;
 
 
-    public QuizEditController(CreateQuestionService createQuestionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig) {
+    public QuizEditController(CreateQuestionService createQuestionService, QuizCreator quizCreator, ChoiceCountConfig choiceCountConfig, QuestionFactory questionFactory) {
         this.createQuestionService = createQuestionService;
         this.quizCreator = quizCreator;
         this.choiceCountConfig = choiceCountConfig;
+        this.questionFactory = questionFactory;
     }
 
     @PostMapping("/edit/add-question")
@@ -45,10 +47,7 @@ public class QuizEditController {
             return "add-question";
         }
         try {
-            // Transform addQuestionForm to String, numbers and domain objects
-            // using new adapter.in.web.QuestionService
-            // then use add in createQuestionService
-            QuestionFactory questionFactory = new QuestionFactory();
+            // TODO: Transform addQuestionForm to String, numbers and domain objects
             Question question = questionFactory.transform(addQuestionForm);
             createQuestionService.add(question);
         } catch (NoCorrectChoiceSelected | TooManyCorrectChoicesSelected e) {
