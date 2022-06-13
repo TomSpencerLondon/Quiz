@@ -2,13 +2,15 @@ package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.Question;
 
+import com.example.quiz.domain.QuestionId;
+import com.tngtech.archunit.base.Optional;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class QuestionDboBuilder {
     private String text;
-    AtomicLong choiceId = new AtomicLong(1);
     private List<ChoiceDbo> choiceDbos;
     private ChoiceType choiceType;
     private Question question;
@@ -23,7 +25,7 @@ public class QuestionDboBuilder {
                     ChoiceDbo choiceDbo = new ChoiceDbo();
                     choiceDbo.setChoiceText(c.text());
                     choiceDbo.setCorrect(c.isCorrect());
-                    choiceDbo.setId(choiceId.getAndIncrement());
+                    choiceDbo.setId(Optional.ofNullable(c.getId()).map(i -> i.id()).orElse(null));
                     return choiceDbo;
                 }).collect(Collectors.toList());
         this.choiceType = question.isSingleChoice() ? ChoiceType.SINGLE : ChoiceType.MULTIPLE;
@@ -35,7 +37,7 @@ public class QuestionDboBuilder {
         QuestionDbo questionDbo = new QuestionDbo();
         questionDbo.setChoices(choiceDbos);
         questionDbo.setText(text);
-        questionDbo.setId(question.getId().id());
+        questionDbo.setId(Optional.ofNullable(question.getId()).map(QuestionId::id).orElse(null));
         questionDbo.setChoiceType(choiceType);
         return questionDbo;
     }

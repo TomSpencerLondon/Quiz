@@ -16,7 +16,6 @@ public class QuestionBuilder {
     private QuestionRepository questionRepository = new InMemoryQuestionRepository();
 
     public QuestionBuilder() {
-        questionId = QuestionId.of(1L);
     }
 
     public QuestionBuilder withDefaultSingleChoice() {
@@ -24,6 +23,15 @@ public class QuestionBuilder {
                 .withCorrectChoice()
                 .withIncorrectChoice()
                 .withIncorrectChoice()
+                .asList());
+        return this;
+    }
+
+    public QuestionBuilder withDefaultSingleChoiceWithoutIds() {
+        choiceType = new SingleChoice(new ChoiceBuilder()
+                .withCorrectChoiceWithoutId()
+                .withIncorrectChoiceWithoutId()
+                .withIncorrectChoiceWithoutId()
                 .asList());
         return this;
     }
@@ -39,6 +47,15 @@ public class QuestionBuilder {
                 .withCorrectChoice()
                 .withIncorrectChoice()
                 .asList());
+    }
+
+    public QuestionBuilder withDefaultMultipleChoiceWithoutIds() {
+        choiceType = new MultipleChoice(new ChoiceBuilder()
+                .withCorrectChoiceWithoutId()
+                .withCorrectChoiceWithoutId()
+                .withIncorrectChoiceWithoutId()
+                .asList());
+        return this;
     }
 
     public QuestionBuilder withMultipleChoice(List<Choice> choices) {
