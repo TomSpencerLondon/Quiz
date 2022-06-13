@@ -20,6 +20,7 @@ public class QuizSessionTransformer {
         QuizSessionId quizSessionId = QuizSessionId.of(quizSessionDbo.getId());
         String token = quizSessionDbo.getToken();
         Long currentQuestionId = quizSessionDbo.getCurrentQuestionId();
+        // TODO: Decide what to do with responses and started at - do we add them to the QuizSession
         List<Response> responses = quizSessionDbo.getResponses()
                                                  .stream()
                                                  .map(responseTransformer::toResponse)

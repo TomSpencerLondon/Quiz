@@ -93,23 +93,4 @@ class QuizSessionTransformerTest {
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
     }
-
-    private QuizSessionDbo createQuizSessionDbo(Choice choice, Question question) {
-        QuizSessionDbo expected = new QuizSessionDbo();
-        expected.setId(0L);
-        expected.setToken("stub-token-1");
-        ResponseDbo responseDbo = new ResponseDbo();
-        responseDbo.setQuestionId(question.getId().id());
-        responseDbo.setChoiceIds(Set.of(choice.getId().id()));
-        expected.setResponses(List.of(responseDbo));
-        expected.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
-        expected.setCurrentQuestionId(0L);
-        return expected;
-    }
-
-    private QuizSession createQuizSession(Choice choice1, Question question) {
-        List<Response> responses = List.of(new Response(question.getId(), question.isCorrectAnswer(choice1), choice1));
-        ZonedDateTime startedAt = ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC);
-        return new QuizSession(QuizSessionId.of(0L), "stub-token-1", question.getId(), responses, startedAt);
-    }
 }
