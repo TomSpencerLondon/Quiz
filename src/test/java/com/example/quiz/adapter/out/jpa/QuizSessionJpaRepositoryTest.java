@@ -1,5 +1,6 @@
 package com.example.quiz.adapter.out.jpa;
 
+import com.example.quiz.domain.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,11 @@ class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
     @Test
     void savesAndRetrievesAQuizSessionWithNoResponses() {
         // Given
-        QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
-        quizSessionDbo.setCurrentQuestionId(2L);
-        quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
-        quizSessionDbo.setToken("stub-1");
-        quizSessionDbo.setResponses(Collections.emptyList());
+        QuizSessionDbo quizSessionDbo = new QuizSessionDboBuilder()
+                .withCurrentQuestionId(QuestionId.of(2L))
+                .withDefaultStartedAt()
+                .withToken("stub-1")
+                .build();
 
         // When
         QuizSessionDbo savedSession = quizSessionJpaRepository.save(quizSessionDbo);
@@ -43,15 +44,24 @@ class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
     @Test
     void saveAndRetrieveAQuizSessionWithMultipleResponses() {
         // Given
-        QuizSessionDbo quizSessionDbo = new QuizSessionDbo();
-        quizSessionDbo.setCurrentQuestionId(2L);
-        quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
-        quizSessionDbo.setToken("stub-1");
-        ResponseDbo responseDbo1 = new ResponseDbo();
-        responseDbo1.setChoiceIds(Set.of(1L, 2L));
-        ResponseDbo responseDbo2 = new ResponseDbo();
-        responseDbo2.setChoiceIds(Set.of(3L, 4L));
-        quizSessionDbo.setResponses(List.of(responseDbo1, responseDbo2));
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .withQuestionId(1L).build();
+        Response response1 = new ResponseBuilder()
+                .withQuestion(question)
+                .withCorrectChoice()
+                .build();
+        Response response2 = new ResponseBuilder()
+                .withQuestion(question)
+                .withCorrectChoice()
+                .build();
+        QuizSessionDbo quizSessionDbo = new QuizSessionDboBuilder()
+                .withCurrentQuestionId(question.getId())
+                .withDefaultStartedAt()
+                .withToken("stub-1")
+                .withResponse(response1)
+                .withResponse(response2)
+                .build();
 
         // When
         QuizSessionDbo savedSession = quizSessionJpaRepository.save(quizSessionDbo);

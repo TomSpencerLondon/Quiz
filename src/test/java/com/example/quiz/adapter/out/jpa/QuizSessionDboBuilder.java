@@ -2,6 +2,8 @@ package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.*;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -49,4 +51,10 @@ public class QuizSessionDboBuilder {
         quizSessionDbo.setQuizId(quizId.id());
         return this;
     }
+
+    public QuizSessionDboBuilder withDefaultStartedAt() {
+        quizSessionDbo.setStartedAt(ZonedDateTime.of(2022, 3, 10, 5, 10, 0, 0, ZoneOffset.UTC));
+        return this;
+    }
+
 }
