@@ -2,6 +2,7 @@ package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.Choice;
 import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionBuilder;
 import com.example.quiz.domain.SingleChoice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -35,12 +36,9 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
         // given
         final QuestionRepositoryJpaAdapter questionRepositoryJpaAdapter =
                 new QuestionRepositoryJpaAdapter(questionJpaRepository, questionTransformer);
-        Question question = new Question("Q1",
-                new SingleChoice(
-                        List.of(new Choice("Q1A1", true),
-                                new Choice("Q1A2", false),
-                                new Choice("Q1A3", false),
-                                new Choice("Q1A4", false))));
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
 
         // when
         final Question savedQuestion = questionRepositoryJpaAdapter.save(question);
@@ -57,16 +55,13 @@ public class QuestionRepositoryJpaAdapterTest implements TestContainerConfigurat
         // given
         final QuestionRepositoryJpaAdapter questionRepositoryJpaAdapter =
                 new QuestionRepositoryJpaAdapter(questionJpaRepository, questionTransformer);
-        Question question1 = new Question("Q1",
-                new SingleChoice(List.of(new Choice("Q1A1", true),
-                        new Choice("Q1A2"),
-                        new Choice("Q1A3"),
-                        new Choice("Q1A4"))));
-        Question question2 = new Question("Q2",
-                new SingleChoice(List.of(new Choice("Q2A1", true),
-                        new Choice("Q2A2"),
-                        new Choice("Q2A3"),
-                        new Choice("Q2A4"))));
+
+        Question question1 = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
+        Question question2 = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
 
         // when
         questionRepositoryJpaAdapter.save(question1);

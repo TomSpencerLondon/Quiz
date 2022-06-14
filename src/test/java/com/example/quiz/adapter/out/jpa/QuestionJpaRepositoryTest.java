@@ -1,5 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionBuilder;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,29 +43,28 @@ public class QuestionJpaRepositoryTest {
     @Test
     void stores_and_retrieves_Questions() {
         // given
-        QuestionDbo question = new QuestionDbo();
-        question.setText("Q1");
-        question.setChoiceType(ChoiceType.SINGLE);
-        ChoiceDbo choiceDbo = new ChoiceDbo();
-        choiceDbo.setChoiceText("choice 2");
-        choiceDbo.setCorrect(true);
-        question.setChoices(List.of(choiceDbo));
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoiceWithoutIds()
+                .build();
+        QuestionDbo questionDbo = new QuestionDboBuilder()
+                .from(question)
+                .build();
 
         // when
-        QuestionDbo savedQuestion = questionJpaRepository.save(question);
+        QuestionDbo savedQuestion = questionJpaRepository.save(questionDbo);
 
         // then
         assertThat(savedQuestion.getId())
                 .isNotNull()
                 .isGreaterThanOrEqualTo(0);
         Optional<QuestionDbo> foundQuestion = questionJpaRepository
-                .findByText("Q1");
+                .findByText("Question 1");
         assertThat(foundQuestion)
                 .isPresent();
         assertThat(foundQuestion.get().getChoiceType())
                 .isEqualTo(ChoiceType.SINGLE);
         List<ChoiceDbo> choices = foundQuestion.get().getChoices();
         assertThat(choices.get(0).getChoiceText())
-                .isEqualTo("choice 2");
+                .isEqualTo("Answer 1");
     }
 }
