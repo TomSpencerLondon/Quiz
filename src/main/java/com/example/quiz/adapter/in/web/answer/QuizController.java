@@ -42,7 +42,7 @@ public class QuizController {
 
         QuestionId questionId = quizSession.currentQuestionId();
         Question question = questionRepository.findById(questionId).orElseThrow();
-        final AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
         model.addAttribute("token", token);
         return templateFor(question);
