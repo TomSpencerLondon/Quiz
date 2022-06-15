@@ -19,20 +19,4 @@ public class SingleChoiceQuestionTestFactory {
         question.setId(QuestionId.of(1L));
         return question;
     }
-
-
-    public static Question create(
-            String questionText,
-            String choice1,
-            String choice2,
-            String choice3,
-            String choice4) {
-        return new Question(
-                questionText,
-                new SingleChoice(List.of(
-                        new Choice(ChoiceId.of(1L), choice1, true),
-                        new Choice(ChoiceId.of(2L), choice2, false),
-                        new Choice(ChoiceId.of(3L), choice3, false),
-                        new Choice(ChoiceId.of(4L), choice4, false))));
-    }
 }

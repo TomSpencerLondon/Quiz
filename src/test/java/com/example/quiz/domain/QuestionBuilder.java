@@ -110,4 +110,8 @@ public class QuestionBuilder {
                             .findFirst()
                             .orElseThrow(NoSuchElementException::new);
     }
+
+    public QuestionRepository questionRepository() {
+        return this.questionRepository;
+    }
 }

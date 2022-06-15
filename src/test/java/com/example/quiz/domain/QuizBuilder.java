@@ -13,7 +13,7 @@ public class QuizBuilder {
     private QuizId quizId;
 
     public QuizBuilder withQuestions(Question... questions) {
-        this.questionIds.addAll(Stream.of(questions).map(Question::getId).toList());
+        this.questionIds = new ArrayList<>(Stream.of(questions).map(Question::getId).toList());
         return this;
     }
 
@@ -30,5 +30,9 @@ public class QuizBuilder {
         Quiz quiz = new Quiz("Quiz 1", questionIds);
         quiz.setId(quizId);
         return quiz;
+    }
+
+    public QuizRepository quizRepository() {
+        return this.quizRepository;
     }
 }

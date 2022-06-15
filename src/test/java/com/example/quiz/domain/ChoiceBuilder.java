@@ -11,6 +11,7 @@ public class ChoiceBuilder {
 
     private final List<Choice> choices = new ArrayList<>();
     private int choiceCounter = 1;
+    private Choice choice;
 
     public ChoiceBuilder withCorrectChoice() {
         addChoice(ChoiceId.of(choiceCounter), true);
@@ -40,8 +41,13 @@ public class ChoiceBuilder {
         return choices.toArray(Choice[]::new);
     }
 
+    public Choice build() {
+        return choice;
+    }
+
     private void addChoice(ChoiceId id, boolean isCorrect) {
-        choices.add(new Choice(id, "Answer " + choiceCounter, isCorrect));
+        choice = new Choice(id, "Answer " + choiceCounter, isCorrect);
+        choices.add(choice);
         choiceCounter++;
     }
 

@@ -8,24 +8,6 @@ import java.util.List;
 public class QuizTestFactory {
 
     @Deprecated
-    public static Quiz createQuizWithSingleChoiceQuestions(int count) {
-        List<Choice> choices = List.of(
-                new Choice("Answer 1", true)
-        );
-        ChoiceType choice = new SingleChoice(choices);
-
-        List<Question> questions = new ArrayList<>();
-        for (int i = 1; i <= count; i++) {
-            Question q = new Question("Question " + i, choice);
-            q.setId(QuestionId.of((long) i));
-            questions.add(q);
-        }
-
-        List<QuestionId> questionIds = questions.stream().map(Question::getId).toList();
-        return new Quiz("Quiz 1", questionIds);
-    }
-
-    @Deprecated
     public static Quiz createQuizWithSingleChoiceQuestion() {
         Question question = new Question(
                 "Question 1",

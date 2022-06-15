@@ -1,12 +1,10 @@
 package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.Question;
-
 import com.example.quiz.domain.QuestionId;
 import com.tngtech.archunit.base.Optional;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class QuestionDboBuilder {

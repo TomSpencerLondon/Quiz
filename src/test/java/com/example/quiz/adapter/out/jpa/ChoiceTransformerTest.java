@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.Choice;
+import com.example.quiz.domain.ChoiceBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,14 +12,16 @@ class ChoiceTransformerTest {
     @Test
     void choiceToChoiceDboTransformsCorrectly() {
         // given
-        Choice choice = new Choice("choice 2", true);
+        Choice choice = new ChoiceBuilder()
+                .withCorrectChoice()
+                .build();
 
         // when
         ChoiceDbo choiceDbo = choiceTransformer.toChoiceDbo(choice);
 
         // then
         assertThat(choiceDbo.getChoiceText())
-                .isEqualTo("choice 2");
+                .isEqualTo("Answer 1");
         assertThat(choiceDbo.isCorrect())
                 .isTrue();
     }
@@ -26,10 +29,11 @@ class ChoiceTransformerTest {
     @Test
     void choiceDboToChoiceTransformsCorrectly() {
         // given
-        ChoiceDbo choiceDbo = new ChoiceDbo();
-        choiceDbo.setId(1L);
-        choiceDbo.setChoiceText("choice 1");
-        choiceDbo.setCorrect(true);
+        ChoiceDbo choiceDbo = new ChoiceDboBuilder()
+                .withId(1L)
+                .withText("choice 1")
+                .withCorrect(true)
+                .build();
 
         // when
         Choice choice = choiceTransformer.toChoice(choiceDbo);
