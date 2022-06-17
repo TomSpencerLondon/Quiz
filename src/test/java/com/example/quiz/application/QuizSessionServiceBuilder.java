@@ -2,10 +2,7 @@ package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
 import com.example.quiz.application.port.*;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
-import com.example.quiz.domain.QuizId;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+import com.example.quiz.domain.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -13,14 +10,15 @@ import java.util.List;
 public class QuizSessionServiceBuilder {
     private QuizId quizId;
     private QuizSessionRepository quizSessionRepository;
+    private QuizRepository quizRepository;
     private Quiz quiz;
 
     public QuizId quizId() {
-        return quizId;
+        return quiz().getId();
     }
 
     public Quiz quiz() {
-        return quiz;
+        return quizRepository.findAll().get(0);
     }
 
     public QuizSessionRepository quizSessionRepository() {
@@ -30,15 +28,13 @@ public class QuizSessionServiceBuilder {
     public QuizSessionServiceBuilder() {
     }
 
-    @NotNull QuizSessionService build() {
-        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        questionRepository.save(question);
-        QuizRepository quizRepository = new InMemoryQuizRepository();
-        quiz = quizRepository.save(new Quiz("Quiz 1", List.of(question.getId())));
-        quizId = quiz.getId();
-
+    public QuizSessionService build() {
         quizSessionRepository = new InMemoryQuizSessionRepository();
         return new QuizSessionService(quizSessionRepository, quizRepository, new StubTokenGenerator());
+    }
+
+    public QuizSessionServiceBuilder withQuizRepository(QuizRepository quizRepository) {
+        this.quizRepository = quizRepository;
+        return this;
     }
 }

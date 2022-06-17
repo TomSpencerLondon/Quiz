@@ -78,8 +78,8 @@ public class QuizControllerIdTest {
         QuizRepository quizRepository = quizBuilder.quizRepository();
         QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(0L);
-        quizController.start(0L);
+        quizController.start(1L);
+        quizController.start(1L);
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 

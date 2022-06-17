@@ -1,5 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
+import com.example.quiz.domain.Question;
+import com.example.quiz.domain.QuestionBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,52 +12,52 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class AddQuestionFormTest {
     @Test
     void transformsChoicesIntoListOfStrings() {
-        final AddQuestionForm addQuestionForm = new AddQuestionForm(
-                "question",
-                "single", new ChoiceForm("a1", true),
-                new ChoiceForm("a2", false),
-                new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false));
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
+
+        AddQuestionForm addQuestionForm = new AddQuestionFormBuilder()
+                .withQuestion(question)
+                .build();
 
         List<String> choices = addQuestionForm.transformToChoices();
 
         assertThat(choices)
                 .containsExactly(
-                        "a1",
-                        "a2",
-                        "a3",
-                        "a4"
+                        "Answer 1",
+                        "Answer 2",
+                        "Answer 3"
                 );
     }
 
     @Test
     void transformToCorrectChoicesForSingleChoice() {
-        final AddQuestionForm addQuestionForm = new AddQuestionForm(
-                "question",
-                "single", new ChoiceForm("a1", true),
-                new ChoiceForm("a2", false),
-                new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false));
+        Question question = new QuestionBuilder()
+                .withDefaultSingleChoice()
+                .build();
+        AddQuestionForm addQuestionForm = new AddQuestionFormBuilder()
+                .withQuestion(question)
+                .build();
 
         List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
 
         assertThat(correctChoices)
-                .containsExactly("a1");
+                .containsExactly("Answer 1");
     }
 
     @Test
     void transformToCorrectChoicesForMultipleChoice() {
-        final AddQuestionForm addQuestionForm = new AddQuestionForm(
-                "question",
-                "multiple", new ChoiceForm("a1", true),
-                new ChoiceForm("a2", true),
-                new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false));
+        Question question = new QuestionBuilder()
+                .withDefaultMultipleChoice()
+                .build();
+        AddQuestionForm addQuestionForm = new AddQuestionFormBuilder()
+                .withQuestion(question)
+                .build();
 
         List<String> correctChoices = addQuestionForm.transformToCorrectChoices();
 
         assertThat(correctChoices)
-                .containsExactly("a1", "a2");
+                .containsExactly("Answer 1", "Answer 2");
     }
 
     @Test

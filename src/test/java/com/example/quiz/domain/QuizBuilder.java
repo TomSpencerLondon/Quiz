@@ -5,12 +5,14 @@ import com.example.quiz.application.port.QuizRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 public class QuizBuilder {
     List<QuestionId> questionIds = new ArrayList<>();
     QuizRepository quizRepository = new InMemoryQuizRepository();
     private QuizId quizId;
+    private AtomicLong quizIdGenerator = new AtomicLong(1);
 
     public QuizBuilder withQuestions(Question... questions) {
         this.questionIds = new ArrayList<>(Stream.of(questions).map(Question::getId).toList());
@@ -23,7 +25,11 @@ public class QuizBuilder {
     }
 
     public Quiz save() {
-        return quizRepository.save(build());
+        Quiz quiz = build();
+        if (quiz.getId() == null) {
+            quiz.setId(QuizId.of(quizIdGenerator.getAndIncrement()));
+        }
+        return quizRepository.save(quiz);
     }
 
     public Quiz build() {

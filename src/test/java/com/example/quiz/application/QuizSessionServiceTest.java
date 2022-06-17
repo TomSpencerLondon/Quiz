@@ -1,10 +1,7 @@
 package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.InMemoryQuizRepository;
-import com.example.quiz.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.application.port.QuizSessionRepository;
+import com.example.quiz.application.port.*;
 import com.example.quiz.domain.*;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.junit.jupiter.api.Test;
@@ -19,8 +16,12 @@ public class QuizSessionServiceTest {
     @Test
     void startNewSessionCreatesNewQuizSession() {
         // Given
+        Question question = new QuestionBuilder().withDefaultSingleChoice().build();
+        QuizBuilder quizBuilder = new QuizBuilder();
+        quizBuilder.withQuestions(question).save();
+        QuizRepository quizRepository = quizBuilder.quizRepository();
         QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
-        QuizSessionService quizSessionService = quizSessionServiceBuilder.build();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder.withQuizRepository(quizRepository).build();
 
         // When
         String token = quizSessionService.createQuizSession(quizSessionServiceBuilder.quizId());
@@ -49,10 +50,15 @@ public class QuizSessionServiceTest {
     @Test
     void givenQuizIdCreatesNewQuizSessionLinkedToQuiz() {
         // Given
+        Question question = new QuestionBuilder().withDefaultSingleChoice().build();
+        QuizBuilder quizBuilder = new QuizBuilder();
+        quizBuilder.withQuestions(question).save();
+        QuizRepository quizRepository = quizBuilder.quizRepository();
         QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
-        QuizSessionService quizSessionService = quizSessionServiceBuilder.build();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder.withQuizRepository(quizRepository).build();
         QuizSessionRepository quizSessionRepository = quizSessionServiceBuilder
                 .quizSessionRepository();
+
         QuizId quizId = quizSessionServiceBuilder.quizId();
 
         // When

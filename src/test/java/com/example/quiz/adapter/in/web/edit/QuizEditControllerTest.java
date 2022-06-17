@@ -7,10 +7,7 @@ import com.example.quiz.application.port.InMemoryQuestionRepository;
 import com.example.quiz.application.port.InMemoryQuizRepository;
 import com.example.quiz.application.port.QuestionRepository;
 import com.example.quiz.application.port.QuizRepository;
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.ChoiceId;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -45,16 +42,15 @@ public class QuizEditControllerTest {
 
     @Test
     void addQuestionResultsInQuestionAddedAndRedirects() {
-        QuestionRepository questionRepository = new InMemoryQuestionRepository();
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        Question question = questionBuilder.withDefaultSingleChoice().build();
+        QuestionRepository questionRepository = questionBuilder.questionRepository();
+
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
         QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG, new QuestionFactory());
-
-        final AddQuestionForm addQuestionForm = new AddQuestionForm(
-                "question",
-                "single", new ChoiceForm("a1", true),
-                new ChoiceForm("a2", false),
-                new ChoiceForm("a3", false),
-                new ChoiceForm("a4", false));
+        AddQuestionForm addQuestionForm = new AddQuestionFormBuilder()
+                .withQuestion(question)
+                .build();
 
         BindingResult bindingResult = new BeanPropertyBindingResult("objectName", "error");
 
@@ -86,18 +82,10 @@ public class QuizEditControllerTest {
 
     @Test
     void makerShowsAllQuestions() {
-        InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
-        Question singleChoiceQuestion = new Question(
-                "Question 1",
-                new SingleChoice(
-                        List.of(
-                                new Choice(ChoiceId.of(1L), "Answer 1", true),
-                                new Choice(ChoiceId.of(2L), "Answer 2", false),
-                                new Choice(ChoiceId.of(3L), "Answer 2", false),
-                                new Choice(ChoiceId.of(4L), "Answer 2", false)
-                        )));
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        Question singleChoiceQuestion = questionBuilder.withDefaultSingleChoice().save();
+        QuestionRepository questionRepository = questionBuilder.questionRepository();
 
-        questionRepository.save(singleChoiceQuestion);
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();
 
