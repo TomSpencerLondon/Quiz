@@ -15,8 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerTest {
 
-    public static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
-
     @Test
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
         // given
