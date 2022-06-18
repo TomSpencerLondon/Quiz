@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.*;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -39,9 +39,9 @@ public class QuizSessionDboBuilder {
         ResponseDbo responseDbo = new ResponseDbo();
         responseDbo.setQuestionId(currentQuestionId.id());
         Set<Long> choiceIds = response.choices()
-                                    .stream()
-                                    .map(Choice::getId)
-                                    .mapToLong(ChoiceId::id).boxed().collect(Collectors.toSet());
+                                      .stream()
+                                      .map(Choice::getId)
+                                      .mapToLong(ChoiceId::id).boxed().collect(Collectors.toSet());
         responseDbo.setChoiceIds(choiceIds);
         responseDboList.add(responseDbo);
         return this;

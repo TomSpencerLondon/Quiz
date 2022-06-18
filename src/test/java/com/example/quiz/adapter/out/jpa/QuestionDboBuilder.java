@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionId;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
 import com.tngtech.archunit.base.Optional;
 
 import java.util.List;

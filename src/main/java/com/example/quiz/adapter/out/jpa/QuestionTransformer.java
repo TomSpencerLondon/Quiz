@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class QuestionTransformer {
         return questionDbo;
     }
 
-    private com.example.quiz.domain.ChoiceType choiceType(QuestionDbo questionDbo, List<Choice> choices) {
+    private com.example.quiz.hexagon.domain.ChoiceType choiceType(QuestionDbo questionDbo, List<Choice> choices) {
         return questionDbo.getChoiceType().equals(ChoiceType.SINGLE) ?
                 new SingleChoice(choices) : new MultipleChoice(choices);
     }

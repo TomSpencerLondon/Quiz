@@ -1,9 +1,9 @@
 package com.example.quiz.adapter.in.api;
 
-import com.example.quiz.application.CreateQuestionService;
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.SingleChoice;
+import com.example.quiz.hexagon.application.CreateQuestionService;
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.SingleChoice;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -1,9 +1,12 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.Grade;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.Response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
 

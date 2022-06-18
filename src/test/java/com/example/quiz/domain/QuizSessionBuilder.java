@@ -1,7 +1,11 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.application.port.QuizSessionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.hexagon.application.port.QuizSessionRepository;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.Quiz;
+import com.example.quiz.hexagon.domain.QuizSession;
+import com.example.quiz.hexagon.domain.QuizSessionId;
 
 public class QuizSessionBuilder {
     private String token = "stub-token-1";

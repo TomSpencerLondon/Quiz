@@ -1,9 +1,9 @@
 package com.example.quiz.domain.factories;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.ChoiceId;
-import com.example.quiz.domain.MultipleChoice;
-import com.example.quiz.domain.Question;
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.ChoiceId;
+import com.example.quiz.hexagon.domain.MultipleChoice;
+import com.example.quiz.hexagon.domain.Question;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

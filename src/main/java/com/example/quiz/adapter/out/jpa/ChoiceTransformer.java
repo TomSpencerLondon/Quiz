@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.ChoiceId;
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.ChoiceId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

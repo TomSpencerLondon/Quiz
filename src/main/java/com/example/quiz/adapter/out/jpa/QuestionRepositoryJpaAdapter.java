@@ -1,8 +1,8 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionId;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

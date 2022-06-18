@@ -1,13 +1,14 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.application.CreateQuestionService;
-import com.example.quiz.application.QuizCreator;
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.InMemoryQuizRepository;
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.application.port.QuizRepository;
+import com.example.quiz.hexagon.application.CreateQuestionService;
+import com.example.quiz.hexagon.application.QuizCreator;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.application.port.QuizRepository;
 import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -22,7 +23,6 @@ public class QuizEditControllerTest {
 
     private static final QuizCreator DUMMY_QUIZ_CREATOR = null;
     private static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
-    private static final CreateQuestionService DUMMY_QUESTION_SERVICE = null;
     private static final ChoiceCountConfig DUMMY_CHOICE_COUNT_CONFIG = null;
 
     @Test

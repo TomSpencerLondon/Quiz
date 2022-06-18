@@ -1,14 +1,13 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
 import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.Quiz;
+import com.example.quiz.hexagon.domain.QuizSession;
+import com.example.quiz.hexagon.domain.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

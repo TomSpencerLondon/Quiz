@@ -1,8 +1,7 @@
 package com.example.quiz.domain.factories;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuizTestFactory {

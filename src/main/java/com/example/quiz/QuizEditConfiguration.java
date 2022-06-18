@@ -1,9 +1,9 @@
 package com.example.quiz;
 
-import com.example.quiz.application.CreateQuestionService;
-import com.example.quiz.application.QuizCreator;
-import com.example.quiz.application.port.InMemoryQuizRepository;
-import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.hexagon.application.CreateQuestionService;
+import com.example.quiz.hexagon.application.QuizCreator;
+import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

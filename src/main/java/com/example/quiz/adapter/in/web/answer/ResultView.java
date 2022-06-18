@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.Grade;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.domain.Grade;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.domain.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;

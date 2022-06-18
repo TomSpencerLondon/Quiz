@@ -1,5 +1,9 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

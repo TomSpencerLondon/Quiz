@@ -2,11 +2,11 @@ package com.example.quiz.adapter.in.web;
 
 import com.example.quiz.adapter.in.web.answer.QuizController;
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
-import com.example.quiz.application.QuizService;
-import com.example.quiz.application.QuizSessionService;
-import com.example.quiz.application.port.*;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.Quiz;
+import com.example.quiz.hexagon.application.QuizService;
+import com.example.quiz.hexagon.application.QuizSessionService;
+import com.example.quiz.hexagon.application.port.*;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.Quiz;
 import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 import org.jetbrains.annotations.NotNull;

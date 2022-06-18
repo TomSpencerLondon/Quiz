@@ -2,6 +2,9 @@ package com.example.quiz.domain;
 
 import static java.util.function.Predicate.not;
 
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.ChoiceId;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

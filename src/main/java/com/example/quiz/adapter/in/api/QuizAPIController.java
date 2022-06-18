@@ -2,8 +2,8 @@ package com.example.quiz.adapter.in.api;
 
 import com.example.quiz.adapter.in.web.edit.AddQuestionForm;
 import com.example.quiz.adapter.in.web.edit.QuestionView;
-import com.example.quiz.application.CreateQuestionService;
-import com.example.quiz.domain.Question;
+import com.example.quiz.hexagon.application.CreateQuestionService;
+import com.example.quiz.hexagon.domain.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,7 +1,5 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.QuizId;
-
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.List;

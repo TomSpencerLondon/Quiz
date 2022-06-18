@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.domain.Question;
+import com.example.quiz.hexagon.domain.Question;
 
 import java.util.List;
 

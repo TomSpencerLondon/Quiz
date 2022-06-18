@@ -1,9 +1,16 @@
 package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
-import com.example.quiz.application.port.*;
 import com.example.quiz.domain.*;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+import com.example.quiz.hexagon.application.QuizService;
+import com.example.quiz.hexagon.application.QuizSessionService;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.hexagon.application.port.QuizRepository;
+import com.example.quiz.hexagon.application.port.QuizSessionRepository;
+import com.example.quiz.hexagon.domain.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

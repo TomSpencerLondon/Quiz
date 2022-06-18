@@ -1,9 +1,8 @@
 package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.domain.Question;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

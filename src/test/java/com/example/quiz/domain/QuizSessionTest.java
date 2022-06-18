@@ -1,7 +1,8 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.domain.*;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

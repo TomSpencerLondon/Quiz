@@ -1,8 +1,10 @@
 package com.example.quiz.application;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.domain.Question;
+import com.example.quiz.hexagon.application.QuizService;
+import com.example.quiz.hexagon.application.QuizSessionService;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
 
 public class QuizSessionServiceTestFactory {

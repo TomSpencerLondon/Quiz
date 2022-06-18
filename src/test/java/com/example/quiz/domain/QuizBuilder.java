@@ -1,7 +1,12 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.application.port.InMemoryQuizRepository;
-import com.example.quiz.application.port.QuizRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
+import com.example.quiz.hexagon.application.port.QuizRepository;
+
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.Quiz;
+import com.example.quiz.hexagon.domain.QuizId;
 
 import java.util.ArrayList;
 import java.util.List;

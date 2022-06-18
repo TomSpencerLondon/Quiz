@@ -1,5 +1,7 @@
 package com.example.quiz.domain;
 
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.Question;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

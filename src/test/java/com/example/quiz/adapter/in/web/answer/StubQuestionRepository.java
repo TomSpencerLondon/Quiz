@@ -1,8 +1,10 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
 
 import java.util.List;
 import java.util.Optional;

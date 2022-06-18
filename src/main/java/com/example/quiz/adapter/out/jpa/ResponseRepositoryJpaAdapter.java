@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.application.port.ResponseRepository;
-import com.example.quiz.domain.Response;
+import com.example.quiz.hexagon.application.port.ResponseRepository;
+import com.example.quiz.hexagon.domain.Response;
 
 public class ResponseRepositoryJpaAdapter implements ResponseRepository {
     private final ResponseTransformer responseTransformer;

@@ -1,7 +1,6 @@
 package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.hexagon.domain.Question;
 
 public class AddQuestionFormBuilder {
 

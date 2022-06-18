@@ -1,11 +1,11 @@
 package com.example.quiz.adapter.in.web.edit;
 
 import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.application.CreateQuestionService;
-import com.example.quiz.application.QuizCreator;
-import com.example.quiz.domain.Question;
-import com.example.quiz.domain.QuestionId;
-import com.example.quiz.domain.QuizId;
+import com.example.quiz.hexagon.application.CreateQuestionService;
+import com.example.quiz.hexagon.application.QuizCreator;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.QuizId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

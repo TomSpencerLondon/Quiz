@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.Choice;
+import com.example.quiz.hexagon.domain.Choice;
 import com.example.quiz.domain.ChoiceBuilder;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package com.example.quiz.adapter.out.web.humanreadable;
 
-import com.example.quiz.application.port.TokenGenerator;
+import com.example.quiz.hexagon.application.port.TokenGenerator;
 import com.github.kkuegler.HumanReadableIdGenerator;
 import com.github.kkuegler.PermutationBasedHumanReadableIdGenerator;
 

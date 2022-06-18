@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.application.QuizCreator;
-import com.example.quiz.application.port.InMemoryQuizRepository;
+import com.example.quiz.hexagon.application.QuizCreator;
+import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;

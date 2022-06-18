@@ -1,8 +1,8 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.application.QuizSessionService;
-import com.example.quiz.application.port.QuestionRepository;
-import com.example.quiz.domain.*;
+import com.example.quiz.hexagon.application.QuizSessionService;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+import com.example.quiz.hexagon.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

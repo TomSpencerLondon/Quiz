@@ -2,8 +2,10 @@ package com.example.quiz.domain;
 
 import static java.util.function.Predicate.not;
 
-import com.example.quiz.application.port.InMemoryQuestionRepository;
-import com.example.quiz.application.port.QuestionRepository;
+import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
+
+import com.example.quiz.hexagon.domain.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;

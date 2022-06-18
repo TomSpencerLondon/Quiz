@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.domain.Choice;
-import com.example.quiz.domain.Question;
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.Question;
 
 import java.util.Arrays;
 import java.util.List;

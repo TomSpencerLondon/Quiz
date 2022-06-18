@@ -1,11 +1,9 @@
 package com.example.quiz.adapter.out.jpa;
 
 import com.example.quiz.domain.*;
-import com.example.quiz.domain.factories.MultipleChoiceQuestionTestFactory;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
