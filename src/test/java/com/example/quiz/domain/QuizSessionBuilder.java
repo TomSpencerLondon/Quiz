@@ -52,29 +52,4 @@ public class QuizSessionBuilder {
     public QuizSessionRepository quizSessionRepository() {
         return quizSessionRepository;
     }
-
-    public QuizSessionBuilder asFinished() {
-        quizSession = new QuizSession() {
-
-            @Override
-            public String getToken() {
-                return "finished";
-            }
-
-            @Override
-            public QuizSessionId getId() {
-                return QuizSessionId.of(1L);
-            }
-
-            @Override
-            public boolean isFinished(Quiz quiz) {
-                return true;
-            }
-        };
-
-        quizSessionRepository.save(quizSession);
-
-
-        return this;
-    }
 }

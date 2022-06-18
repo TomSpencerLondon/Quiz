@@ -1,7 +1,8 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.domain.QuizBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
-import com.example.quiz.domain.*;
 import com.example.quiz.hexagon.application.port.*;
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.QuestionId;
@@ -104,25 +105,13 @@ public class QuizControllerIdTest {
     @Test
     void askQuestionRedirectsToResultForTheFinishedSession() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withQuestionId(5L).withDefaultSingleChoice().save();
-        Question question2 = questionBuilder.withQuestionId(6L).withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz1 = quizBuilder.withQuestions(question, question2).save();
-        Quiz quiz2 = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        QuizSessionBuilder quizSessionBuilder = new QuizSessionBuilder();
-        quizSessionBuilder.withQuiz(quiz1).withQuestion(question).withToken("unfinished").save();
-        quizSessionBuilder.withQuiz(quiz2).withQuestion(question).withToken("finished").save();
-        QuizSessionRepository quizSessionRepository = quizSessionBuilder.quizSessionRepository();
-        QuizSessionService quizSessionService = new QuizSessionService(quizSessionRepository, quizRepository, null);
-        QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.askQuestion(new ConcurrentModel(), "finished");
-        AskQuestionForm askQuestionForm = new AskQuestionForm();
-        askQuestionForm.setSelectedChoices(questionBuilder.correctChoiceForQuestion().id());
-        askQuestionForm.setQuestion(question.text());
-        quizController.questionResponse(askQuestionForm, "finished");
+        QuizSessionService quizSessionService = new QuizSessionService(null, null, null) {
+            @Override
+            public boolean isFinished(String token) {
+                return true;
+            }
+        };
+        QuizController quizController = new QuizController(quizSessionService, null);
 
         // when
         String redirect = quizController.askQuestion(new ConcurrentModel(), "finished");
@@ -131,6 +120,4 @@ public class QuizControllerIdTest {
         assertThat(redirect)
                 .isEqualTo("redirect:/result?token=finished");
     }
-
-
 }

@@ -33,4 +33,10 @@ public class QuizSessionService {
         quizSessionRepository.save(quizSession);
         return token;
     }
+
+    public boolean isFinished(String token) {
+        QuizSession quizSession = findSessionByToken(token);
+        Quiz quiz = findQuizById(quizSession.quizId());
+        return quizSession.isFinished(quiz);
+    }
 }

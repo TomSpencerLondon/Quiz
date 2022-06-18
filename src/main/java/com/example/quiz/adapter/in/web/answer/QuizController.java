@@ -33,14 +33,15 @@ public class QuizController {
             return "redirect:/";
         }
 
-        // need to return optional here + orElseThrow()
-        QuizSession quizSession = quizSessionService.findSessionByToken(token);
-        Quiz quiz = quizSessionService.findQuizById(quizSession.quizId());
-        if (quizSession.isFinished(quiz)) {
+        if (quizSessionService.isFinished(token)) {
             return "redirect:/result?token=" + token;
         }
 
-        QuestionId questionId = quizSession.currentQuestionId();
+        // refactor - feature envy - cohere method
+        // 1. Extract method
+        // 2. Introduce parameter - for target of move
+        // 3. Move method - F6
+        QuestionId questionId = quizSessionService.findSessionByToken(token).currentQuestionId();
         Question question = questionRepository.findById(questionId).orElseThrow();
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
@@ -57,6 +58,7 @@ public class QuizController {
         Question question = questionRepository.findById(questionId).orElseThrow(QuestionNotFound::new);
         Quiz quiz = quizSessionService.findQuizById(quizSession.quizId());
 
+        // Why have to pass quiz to respondWith? - quizSession already knows about the quiz
         quizSession.respondWith(question, quiz, askQuestionForm.getSelectedChoices());
         if (quizSession.isFinished(quiz)) {
             return "redirect:/result?token=" + token;
