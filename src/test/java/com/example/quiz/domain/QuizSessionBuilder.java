@@ -8,8 +8,8 @@ public class QuizSessionBuilder {
     private Question question;
     private Quiz quiz;
     private QuizSessionId quizSessionId;
-    QuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
-    private QuizSession savedQuizSession;
+    private QuizSessionRepository quizSessionRepository = new InMemoryQuizSessionRepository();
+    private QuizSession quizSession;
 
     public QuizSessionBuilder withQuestion(Question question) {
         this.question = question;
@@ -35,8 +35,9 @@ public class QuizSessionBuilder {
     }
 
     public QuizSession save() {
-        savedQuizSession = quizSessionRepository.save(build());
-        return savedQuizSession;
+        QuizSession build = build();
+        quizSession = quizSessionRepository.save(build);
+        return quizSession;
     }
 
     public QuizSessionBuilder withToken(String token) {
@@ -46,5 +47,30 @@ public class QuizSessionBuilder {
 
     public QuizSessionRepository quizSessionRepository() {
         return quizSessionRepository;
+    }
+
+    public QuizSessionBuilder asFinished() {
+        quizSession = new QuizSession() {
+
+            @Override
+            public String getToken() {
+                return "finished";
+            }
+
+            @Override
+            public QuizSessionId getId() {
+                return QuizSessionId.of(1L);
+            }
+
+            @Override
+            public boolean isFinished(Quiz quiz) {
+                return true;
+            }
+        };
+
+        quizSessionRepository.save(quizSession);
+
+
+        return this;
     }
 }

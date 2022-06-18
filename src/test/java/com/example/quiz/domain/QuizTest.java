@@ -13,7 +13,7 @@ public class QuizTest {
     @Test
     void new_quiz_hasNoQuestions() {
         // Given
-        Quiz quiz = new Quiz("Quiz 1", EMPTY_LIST);
+        Quiz quiz = new QuizBuilder().build();
 
         // Then
         List<QuestionId> questionIds = quiz.questionIds();

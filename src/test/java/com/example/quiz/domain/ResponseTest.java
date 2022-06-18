@@ -13,7 +13,7 @@ class ResponseTest {
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .build();
-        Choice choice = new Choice("Answer 1", true);
+        Choice choice = new ChoiceBuilder().withCorrectChoice().build();
 
         // When
         Response response = new Response(QuestionId.of(1L), singleChoiceQuestion.isCorrectAnswer(choice), choice);
@@ -30,7 +30,7 @@ class ResponseTest {
                 .withQuestionId(1L)
                 .withDefaultSingleChoice()
                 .build();
-        Choice choice = new Choice("Answer 2", false);
+        Choice choice = new ChoiceBuilder().withIncorrectChoice().build();
 
         // When
         Response response = new Response(singleChoiceQuestion.getId(), singleChoiceQuestion.isCorrectAnswer(choice), choice);
