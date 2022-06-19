@@ -2,7 +2,10 @@ package com.example.quiz.adapter.in.web.answer;
 
 import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
-import com.example.quiz.hexagon.domain.*;
+import com.example.quiz.hexagon.domain.Grade;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.QuizId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,16 +54,11 @@ public class QuizController {
 
     @PostMapping("/question")
     public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "token") String token) {
-        QuizSession quizSession = quizSessionService.findSessionByToken(token);
-        // Could get question - from quizSession.currentQuestionId()
-        // use questionId in respondWith()
-        QuestionId questionId = quizSession.currentQuestionId();
-        Question question = questionRepository.findById(questionId).orElseThrow(QuestionNotFound::new);
-        Quiz quiz = quizSessionService.findQuizById(quizSession.quizId());
+        long[] selectedChoices = askQuestionForm.getSelectedChoices();
 
-        // Why have to pass quiz to respondWith? - quizSession already knows about the quiz
-        quizSession.respondWith(question, quiz, askQuestionForm.getSelectedChoices());
-        if (quizSession.isFinished(quiz)) {
+        quizSessionService.respondWith(token, selectedChoices, questionRepository);
+
+        if (quizSessionService.isFinished(token)) {
             return "redirect:/result?token=" + token;
         }
         return "redirect:/question?token=" + token;

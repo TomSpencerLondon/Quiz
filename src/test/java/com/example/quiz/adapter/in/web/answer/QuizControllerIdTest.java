@@ -1,38 +1,32 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.domain.QuizBuilder;
+import com.example.quiz.application.QuizSessionServiceBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
-import com.example.quiz.hexagon.application.port.*;
-import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.hexagon.domain.QuestionId;
-import com.example.quiz.hexagon.domain.Quiz;
+import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.domain.QuizSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class QuizControllerIdTest {
 
     public static final QuestionRepository DUMMY_QUESTION_REPOSITORY = null;
-    public static final TokenGenerator DUMMY_TOKEN_GENERATOR = null;
 
     @Test
     void askQuestionWithoutIdThenRedirectsToStart() {
         // given
-        Question question = new QuestionBuilder().withDefaultSingleChoice().save();
-        QuizRepository quizRepository = new InMemoryQuizRepository();
-        Quiz quiz = new QuizBuilder()
-                .withQuestions(question)
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(42L)
+                .withQuizSession()
                 .build();
-        quizRepository.save(quiz);
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
-        QuizController quizController = new QuizController(quizSessionService, DUMMY_QUESTION_REPOSITORY);
-        quizController.start(0L);
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
+        QuizController quizController = new QuizController(quizSessionService, questionRepository);
+
+        quizController.start(42L);
         final Model model = new ConcurrentModel();
 
         // when
@@ -46,23 +40,20 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForSingleQuizSessionAddsResponse() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizRepository quizRepository = new InMemoryQuizRepository();
-        List<QuestionId> questionIds = List.of(question)
-                                           .stream().map(Question::getId).toList();
-        Quiz quiz = new Quiz("Quiz 1", questionIds);
-        quizRepository.save(quiz);
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(43L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(0L);
+        quizController.start(43L);
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(quizSessionServiceBuilder.question());
 
         // when
-        long selectedChoiceId = question.choices().get(1).getId().id();
-        askQuestionForm.setSelectedChoices(selectedChoiceId);
+        askQuestionForm.setSelectedChoices(quizSessionServiceBuilder.correctChoicesForQuestion());
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
@@ -74,23 +65,21 @@ public class QuizControllerIdTest {
     @Test
     void answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession() {
         // given
-
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().withQuestionId(1L).save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(55L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(1L);
-        quizController.start(1L);
+        quizController.start(55L);
+        quizController.start(55L);
         quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
-        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(quizSessionServiceBuilder.question());
 
         // when
-        long selectedChoiceId = question.choices().get(1).getId().id();
-        askQuestionForm.setSelectedChoices(selectedChoiceId);
+        askQuestionForm.setSelectedChoices(quizSessionServiceBuilder.correctChoicesForQuestion());
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then

@@ -1,18 +1,24 @@
 package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
+import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.domain.QuizBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
-import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.hexagon.application.port.QuizRepository;
-import com.example.quiz.hexagon.application.port.QuizSessionRepository;
-import com.example.quiz.hexagon.domain.Quiz;
-import com.example.quiz.hexagon.domain.QuizId;
+import com.example.quiz.hexagon.application.port.*;
+import com.example.quiz.hexagon.domain.*;
 
 public class QuizSessionServiceBuilder {
-    private QuizId quizId;
     private QuizSessionRepository quizSessionRepository;
     private QuizRepository quizRepository;
-    private Quiz quiz;
+    private QuestionRepository questionRepository;
+    private Question question;
+    private QuizSession quizSession;
+
+    public QuizSessionServiceBuilder() {
+        quizSessionRepository = new InMemoryQuizSessionRepository();
+        quizRepository = new InMemoryQuizRepository();
+        questionRepository = new InMemoryQuestionRepository();
+    }
 
     public QuizId quizId() {
         return quiz().getId();
@@ -22,20 +28,57 @@ public class QuizSessionServiceBuilder {
         return quizRepository.findAll().get(0);
     }
 
+    public Question question() {
+        return question;
+    }
+
     public QuizSessionRepository quizSessionRepository() {
         return quizSessionRepository;
     }
 
-    public QuizSessionServiceBuilder() {
+    public QuizSessionService build() {
+        return new QuizSessionService(quizSessionRepository, quizRepository, new StubTokenGenerator());
     }
 
-    public QuizSessionService build() {
-        quizSessionRepository = new InMemoryQuizSessionRepository();
-        return new QuizSessionService(quizSessionRepository, quizRepository, new StubTokenGenerator());
+    public QuizSessionServiceBuilder withQuizSession() {
+        quizSession = new QuizSession(question.getId(), "stub-id-1", quiz().getId());
+        quizSessionRepository.save(quizSession);
+        return this;
     }
 
     public QuizSessionServiceBuilder withQuizRepository(QuizRepository quizRepository) {
         this.quizRepository = quizRepository;
         return this;
+    }
+
+    public QuizSessionServiceBuilder withSingleChoiceQuestion() {
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        question = questionRepository.save(questionBuilder.withDefaultSingleChoice().build());
+        return this;
+    }
+
+    public QuizSessionServiceBuilder withMultipleChoiceQuestion() {
+        QuestionBuilder questionBuilder = new QuestionBuilder();
+        question = questionRepository.save(questionBuilder.withDefaultMultipleChoice().save());
+        return this;
+    }
+
+    public QuizSessionServiceBuilder withQuiz(long quizId) {
+        Quiz quiz = new QuizBuilder().withId(quizId).withQuestions(question).build();
+        quizRepository.save(quiz);
+        return this;
+    }
+
+    public QuestionRepository questionRepository() {
+        return questionRepository;
+    }
+
+    public long[] correctChoicesForQuestion() {
+        return question.choices()
+                       .stream()
+                       .filter(Choice::isCorrect)
+                       .map(Choice::getId)
+                       .mapToLong(ChoiceId::id)
+                       .toArray();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.quiz.hexagon.application;
 
+import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.application.port.QuizRepository;
 import com.example.quiz.hexagon.application.port.QuizSessionRepository;
 import com.example.quiz.hexagon.application.port.TokenGenerator;
@@ -38,5 +39,17 @@ public class QuizSessionService {
         QuizSession quizSession = findSessionByToken(token);
         Quiz quiz = findQuizById(quizSession.quizId());
         return quizSession.isFinished(quiz);
+    }
+
+    public void respondWith(String token, long[] selectedChoices, QuestionRepository questionRepository) {
+        QuizSession quizSession = findSessionByToken(token);
+        // Could get question - from quizSession.currentQuestionId()
+        // use questionId in respondWith()
+        QuestionId questionId = quizSession.currentQuestionId();
+        Question question = questionRepository.findById(questionId).orElseThrow(QuestionNotFound::new);
+        Quiz quiz = findQuizById(quizSession.quizId());
+        // Why have to pass quiz to respondWith?
+        // - quizSession already knows about the quiz
+        quizSession.respondWith(question, quiz, selectedChoices);
     }
 }

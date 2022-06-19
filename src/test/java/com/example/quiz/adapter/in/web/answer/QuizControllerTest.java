@@ -1,15 +1,9 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.application.QuizSessionServiceBuilder;
-import com.example.quiz.domain.*;
-import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
+import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
-import com.example.quiz.hexagon.application.port.QuizRepository;
 import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.hexagon.domain.Quiz;
-import com.example.quiz.hexagon.domain.QuizId;
-import com.example.quiz.hexagon.domain.QuizSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -23,21 +17,16 @@ public class QuizControllerTest {
     @Test
     void afterQuizStartedAskForQuestionReturnsFirstQuestion() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withQuestionId(1L).withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-
-        QuizSessionService quizSessionService =
-                new QuizSessionService(
-                        new InMemoryQuizSessionRepository(),
-                        quizRepository,
-                        stubIdGenerator);
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(76L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(1L);
+
+        quizController.start(76L);
 
         // when
         final Model model = new ConcurrentModel();
@@ -54,22 +43,19 @@ public class QuizControllerTest {
     @Test
     void storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        QuizSessionService quizSessionService = new QuizSessionService(
-                        new InMemoryQuizSessionRepository(),
-                        quizRepository,
-                        new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(73L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(1L);
-        AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
+        quizController.start(73L);
+        AskQuestionForm askQuestionForm = AskQuestionForm.from(quizSessionServiceBuilder.question());
 
         // when
-        askQuestionForm.setSelectedChoices(questionBuilder.correctChoiceForQuestion().id());
+        askQuestionForm.setSelectedChoices(quizSessionServiceBuilder.correctChoicesForQuestion());
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
@@ -80,23 +66,22 @@ public class QuizControllerTest {
     @Test
     void afterRespondingToLastQuestionShowsResults() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-
-        StubTokenGenerator stubIdGenerator = new StubTokenGenerator();
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, stubIdGenerator);
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(55L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
         final Model model = new ConcurrentModel();
-        quizController.start(1L);
+        quizController.start(55L);
         quizController.askQuestion(model, "stub-id-1");
+        Question question = quizSessionServiceBuilder.question();
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
         // when
-        askQuestionForm.setSelectedChoices(questionBuilder.correctChoiceForQuestion().id());
+        askQuestionForm.setSelectedChoices(quizSessionServiceBuilder.correctChoicesForQuestion());
         String redirectPage = quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
@@ -106,20 +91,17 @@ public class QuizControllerTest {
 
     @Test
     void afterQuestionResponseResultViewHasQuestion() {
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withQuestionId(1L).withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        QuizSessionService quizSessionService =
-                new QuizSessionService(
-                        new InMemoryQuizSessionRepository(),
-                        quizRepository,
-                        new StubTokenGenerator());
-        final QuizController quizController = new QuizController(quizSessionService, questionRepository);
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(34L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
+        QuizController quizController = new QuizController(quizSessionService, questionRepository);
+
         final Model model = new ConcurrentModel();
-        quizController.start(quiz.getId().id());
+        quizController.start(34L);
 
         // when
         AskQuestionForm askQuestionForm = new AskQuestionForm();
@@ -140,21 +122,17 @@ public class QuizControllerTest {
     @Test
     void askQuestionTwiceGoesToSamePage() {
         // Given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withQuestionId(1L).withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(34L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
+        QuizController quizController = new QuizController(quizSessionService, questionRepository);
 
-        QuizSessionService quizSessionService =
-                new QuizSessionService(
-                        new InMemoryQuizSessionRepository(),
-                        quizRepository,
-                        new StubTokenGenerator());
-        final QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        final Model model = new ConcurrentModel();
-        quizController.start(quiz.getId().id());
+        quizController.start(34L);
+        ConcurrentModel model = new ConcurrentModel();
         quizController.askQuestion(model, "stub-id-1");
 
         // When
@@ -168,27 +146,26 @@ public class QuizControllerTest {
     @Test
     void askingQuestionOnAFinishedQuizReturnsResult() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(34L)
+                .withQuizSession()
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        ConcurrentModel model = new ConcurrentModel();
-        quizController.start(quiz.getId().id());
-        quizController.askQuestion(model, "stub-id-1");
+
+
+        Question question = quizSessionServiceBuilder.question();
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
 
 
         // when
-        askQuestionForm.setSelectedChoices(questionBuilder.correctChoiceForQuestion().id());
+        askQuestionForm.setSelectedChoices(quizSessionServiceBuilder.correctChoicesForQuestion());
         quizController.questionResponse(askQuestionForm, "stub-id-1");
 
         // then
-        String redirectPage = quizController.askQuestion(model, "stub-id-1");
+        String redirectPage = quizController.askQuestion(new ConcurrentModel(), "stub-id-1");
         assertThat(redirectPage)
                 .isEqualTo("redirect:/result?token=stub-id-1");
     }
@@ -197,22 +174,17 @@ public class QuizControllerTest {
     @Test
     void afterStartCreateSessionAndRedirectToQuiz() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-
-        QuizSessionService quizSessionService =
-                new QuizSessionService(
-                        new InMemoryQuizSessionRepository(),
-                        quizRepository,
-                        new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(34L)
+                .build();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
 
+
         // when
-        String redirect = quizController.start(quiz.getId().id());
+        String redirect = quizController.start(34L);
 
         // then
         assertThat(redirect)
@@ -221,16 +193,14 @@ public class QuizControllerTest {
 
     @Test
     void multipleChoiceQuestionReturnsMultipleChoicePage() {
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultMultipleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withMultipleChoiceQuestion()
+                .withQuiz(34L)
+                .build();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        quizController.start(quiz.getId().id());
+        quizController.start(34L);
 
         ConcurrentModel model = new ConcurrentModel();
         String redirect = quizController.askQuestion(model, "stub-id-1");
@@ -242,44 +212,24 @@ public class QuizControllerTest {
     }
 
     @Test
-    void askQuestionPullsQuestionFromSessionBasedOnId() {
+    void whenStartSameQuizTwiceGetTwoDifferentSessionTokens() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-        QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
+        QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
+        QuestionRepository questionRepository = quizSessionServiceBuilder.questionRepository();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withSingleChoiceQuestion()
+                .withQuiz(34L)
+                .build();
         QuizController quizController = new QuizController(quizSessionService, questionRepository);
 
         // when
-        String start1 = quizController.start(quiz.getId().id());
-        String start2 = quizController.start(quiz.getId().id());
+        String start1 = quizController.start(34L);
+        String start2 = quizController.start(34L);
 
         // then
         assertThat(start1)
                 .isEqualTo("redirect:/question?token=stub-id-1");
         assertThat(start2)
                 .isEqualTo("redirect:/question?token=stub-id-2");
-    }
-
-    @Test
-    void startWithQuizIdCreatesSessionWithSameQuizId() {
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder.withDefaultMultipleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        Quiz quiz = quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
-
-        QuizSessionService quizSessionService = new QuizSessionServiceBuilder().withQuizRepository(quizRepository).build();
-        QuizController quizController = new QuizController(quizSessionService, questionRepository);
-        QuizId savedQuizId = quiz.getId();
-        quizController.start(savedQuizId.id());
-
-        QuizSession sessionByToken = quizSessionService.findSessionByToken("stub-id-1");
-        assertThat(sessionByToken.quizId())
-                .isEqualTo(savedQuizId);
     }
 }
