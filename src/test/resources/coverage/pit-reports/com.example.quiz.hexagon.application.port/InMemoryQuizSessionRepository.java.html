@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>InMemoryQuizSessionRepository.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.example.quiz.hexagon.application.port;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.example.quiz.hexagon.domain.QuizSession;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.example.quiz.hexagon.domain.QuizSessionId;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Optional;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.atomic.AtomicLong;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class InMemoryQuizSessionRepository implements QuizSessionRepository {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    List&#60;QuizSession&#62; quizSessionList = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private AtomicLong counter = new AtomicLong();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public QuizSession save(QuizSession quizSession) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_17'/>
+17
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_17'>1</a>
+<span>
+1. save : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (quizSession.getId() == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_18'/>
+18
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_18'>1</a>
+<span>
+1. save : removed call to com/example/quiz/hexagon/domain/QuizSession::setId &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            quizSession.setId(QuizSessionId.of(counter.getAndIncrement()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        quizSessionList.add(quizSession);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_22'/>
+22
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_22'>1</a>
+<span>
+1. save : replaced return value with null for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::save &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return quizSession;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Optional&#60;QuizSession&#62; findByToken(String token) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_26'/>
+26
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_26'>3</a>
+<span>
+1. findByToken : replaced return value with Optional.empty for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::findByToken &rarr; KILLED<br/>
+2. lambda$findByToken$0 : replaced boolean return with false for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::lambda$findByToken$0 &rarr; KILLED<br/>
+3. lambda$findByToken$0 : replaced boolean return with true for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::lambda$findByToken$0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return quizSessionList.stream().filter(q -&#62; token.equals(q.getToken())).findFirst();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@75de7009_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@75de7009_17'>17</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_17'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>save<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@75de7009_18'>18</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_18'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>save<br/><b>Killed by : </b>none</span></span> removed call to com/example/quiz/hexagon/domain/QuizSession::setId &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@75de7009_22'>22</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_22'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>save<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::save &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@75de7009_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@75de7009_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findByToken<br/><b>Killed by : </b>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:startNewSessionCreatesNewQuizSession()]</span></span> replaced return value with Optional.empty for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::findByToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$findByToken$0<br/><b>Killed by : </b>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:startNewSessionCreatesNewQuizSession()]</span></span> replaced boolean return with false for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::lambda$findByToken$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$findByToken$0<br/><b>Killed by : </b>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession()]</span></span> replaced boolean return with true for com/example/quiz/hexagon/application/port/InMemoryQuizSessionRepository::lambda$findByToken$0 &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterQuestionResponseResultViewHasQuestion()] (6 ms)</li><li>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:givenQuizIdCreatesNewQuizSessionLinkedToQuiz()] (5 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:askingQuestionOnAFinishedQuizReturnsResult()] (9 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:askQuestionWithoutIdThenRedirectsToStart()] (8 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:multipleChoiceQuestionReturnsMultipleChoicePage()] (6 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterQuizStartedAskForQuestionReturnsFirstQuestion()] (9 ms)</li><li>com.example.ChoiceValidatorTest.[engine:junit-jupiter]/[class:com.example.ChoiceValidatorTest]/[method:shouldAllowMultiplechoiceWithAtLeastTwoCorrectAnswers()] (13 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:askQuestionTwiceGoesToSamePage()] (8 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:postStartExists()] (43 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:whenStartSameQuizTwiceGetTwoDifferentSessionTokens()] (8 ms)</li><li>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:startNewSessionCreatesNewQuizSession()] (3 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:questionEndpointExists()] (72 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer()] (5 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterStartCreateSessionAndRedirectToQuiz()] (7 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:answerQuestionForSingleQuizSessionAddsResponse()] (11 ms)</li><li>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:givenNoQuizThrowsQuizSessionNotFoundException()] (3 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession()] (4 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterRespondingToLastQuestionShowsResults()] (6 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:getForAskQuestionShouldBeOk()] (153 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:resultEndPointExists()] (39 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.7.3
+
+</body>
+</html>

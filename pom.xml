@@ -192,9 +192,6 @@
             <configuration>
                 <failWhenNoMutations>false</failWhenNoMutations>
                 <timestampedReports>false</timestampedReports>
-                <excludedTestClasses>
-                    <param>com.example.quiz.adapter.out.jpa.*</param>
-                </excludedTestClasses>
                 <targetClasses>
                     <param>com.example.*</param>
                 </targetClasses>

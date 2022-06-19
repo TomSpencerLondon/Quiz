@@ -1,6 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.*;
+import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.domain.ResponseBuilder;
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.QuestionId;
 import com.example.quiz.hexagon.domain.Response;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("integration")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class QuizSessionJpaRepositoryTest implements TestContainerConfiguration {
+class QuizSessionJpaRepositoryTest extends TestContainerConfiguration {
 
     @Autowired
     QuizSessionJpaRepository quizSessionJpaRepository;

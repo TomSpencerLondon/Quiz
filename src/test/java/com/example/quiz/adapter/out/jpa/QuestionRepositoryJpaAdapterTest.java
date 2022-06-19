@@ -1,7 +1,7 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.hexagon.domain.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 @Tag("integration")
-public class QuestionRepositoryJpaAdapterTest implements TestContainerConfiguration {
+public class QuestionRepositoryJpaAdapterTest extends TestContainerConfiguration {
 
     @Autowired
     QuestionJpaRepository questionJpaRepository;
