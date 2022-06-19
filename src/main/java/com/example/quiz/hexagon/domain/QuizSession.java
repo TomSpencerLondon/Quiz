@@ -1,30 +1,24 @@
 package com.example.quiz.hexagon.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import static java.util.function.Predicate.not;
 
 public class QuizSession {
-
-    private Iterator<Question> questionIterator;
-    private List<Question> questions;
     private QuizSessionId quizSessionId;
     private ZonedDateTime startedAt;
-
     private final List<Response> responses;
-    private Question question;
     private String token;
     private QuizId quizId;
     private QuestionId currentQuestionId;
 
     // for testing purposes
     public QuizSession() {
-        questionIterator = null;
-        questions = null;
         responses = new ArrayList<>();
     }
 
@@ -56,26 +50,24 @@ public class QuizSession {
         this.token = token;
     }
 
-    @Deprecated
-    public QuizId getQuizId() {
-        return quizId;
-    }
-
     public QuestionId currentQuestionId() {
         return currentQuestionId;
     }
 
     public void respondWith(Question question, Quiz quiz, long... choiceIds) {
-        List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
-
-        // This is harder - no question +
-        Choice[] selectedChoices = question.choices().stream()
-                                           .filter(c -> choiceIdList.contains(c.getId().id()))
-                                           .toArray(Choice[]::new);
+        Choice[] selectedChoices = selectedChoicesForQuestion(question, choiceIds);
         boolean correctAnswer = question.isCorrectAnswer(selectedChoices);
         Response response = new Response(question.getId(), correctAnswer, selectedChoices);
         responses.add(response);
         currentQuestionId = quiz.nextQuestionAfter(question.getId());
+    }
+
+    @NotNull
+    private Choice[] selectedChoicesForQuestion(Question question, long[] choiceIds) {
+        List<Long> choiceIdList = Arrays.stream(choiceIds).boxed().toList();
+        return question.choices().stream()
+                       .filter(c -> choiceIdList.contains(c.getId().id()))
+                       .toArray(Choice[]::new);
     }
 
     public boolean isFinished(Quiz quiz) {

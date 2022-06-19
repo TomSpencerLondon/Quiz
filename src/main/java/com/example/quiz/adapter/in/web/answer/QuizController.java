@@ -4,7 +4,6 @@ import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.domain.Grade;
 import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.hexagon.domain.QuestionId;
 import com.example.quiz.hexagon.domain.QuizId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,12 +39,7 @@ public class QuizController {
             return "redirect:/result?token=" + token;
         }
 
-        // refactor - feature envy - cohere method
-        // 1. Extract method
-        // 2. Introduce parameter - for target of move
-        // 3. Move method - F6
-        QuestionId questionId = quizSessionService.findSessionByToken(token).currentQuestionId();
-        Question question = questionRepository.findById(questionId).orElseThrow();
+        Question question = quizSessionService.questionForToken(token, questionRepository);
         AskQuestionForm askQuestionForm = AskQuestionForm.from(question);
         model.addAttribute("askQuestionForm", askQuestionForm);
         model.addAttribute("token", token);
@@ -55,7 +49,6 @@ public class QuizController {
     @PostMapping("/question")
     public String questionResponse(AskQuestionForm askQuestionForm, @RequestParam(value = "token") String token) {
         long[] selectedChoices = askQuestionForm.getSelectedChoices();
-
         quizSessionService.respondWith(token, selectedChoices, questionRepository);
 
         if (quizSessionService.isFinished(token)) {
@@ -75,12 +68,8 @@ public class QuizController {
         return "result";
     }
 
-    // Add QuizId
     @PostMapping("/start")
     public String start(@RequestParam(value = "quizId", defaultValue = "") long id) {
-//        String token = tokenGenerator.token();
-//        // use QuizId in startSession
-//        quizSessionService.startSessionWithToken(token);
         String token = quizSessionService.createQuizSession(QuizId.of(id));
         return "redirect:/question?token=" + token;
     }

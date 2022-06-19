@@ -5,6 +5,7 @@ import com.example.quiz.hexagon.application.port.QuizRepository;
 import com.example.quiz.hexagon.application.port.QuizSessionRepository;
 import com.example.quiz.hexagon.application.port.TokenGenerator;
 import com.example.quiz.hexagon.domain.*;
+import org.jetbrains.annotations.NotNull;
 
 public class QuizSessionService {
     private final QuizSessionRepository quizSessionRepository;
@@ -51,5 +52,11 @@ public class QuizSessionService {
         // Why have to pass quiz to respondWith?
         // - quizSession already knows about the quiz
         quizSession.respondWith(question, quiz, selectedChoices);
+    }
+
+    @NotNull
+    public Question questionForToken(String token, QuestionRepository questionRepository) {
+        QuestionId questionId = findSessionByToken(token).currentQuestionId();
+        return questionRepository.findById(questionId).orElseThrow();
     }
 }
