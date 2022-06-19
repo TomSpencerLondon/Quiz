@@ -114,3 +114,7 @@ image::https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d
 (If you like to have less output in the terminal window, run `npm run --silent build && npm run --silent watch`)
 . Access the application at http://localhost:3000
 5. Access the application at http://localhost:3000
+
+== Test coverage
+image::https://user-images.githubusercontent.com/27693622/174473751-7dd8c018-76aa-47d9-827d-515f282e1f17.png[]
+
