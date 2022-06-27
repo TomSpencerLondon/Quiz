@@ -2,7 +2,6 @@ package com.example.quiz;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,6 @@ public class HexagonalArchitectureTest {
                 .check(productionAndTestClasses());
     }
 
-    @Disabled
     @Test
     public void domainMustNotDependOnApplication() {
         noClasses()
@@ -35,7 +33,6 @@ public class HexagonalArchitectureTest {
                 .check(productionAndTestClasses());
     }
 
-    @Disabled
     @Test
     public void applicationMustNotDependOnAdapters() {
         noClasses()
@@ -44,7 +41,6 @@ public class HexagonalArchitectureTest {
                 .check(productionAndTestClasses());
     }
 
-    @Disabled
     @Test
     public void adaptersMustNotDependOnEachOther() {
         slices().matching("..adapter.*.(*)..")

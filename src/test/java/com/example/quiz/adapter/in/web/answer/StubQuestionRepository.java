@@ -1,8 +1,7 @@
 package com.example.quiz.adapter.in.web.answer;
 
+import com.example.quiz.domain.QuestionBuilder;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
-
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.QuestionId;
 
@@ -18,13 +17,13 @@ public class StubQuestionRepository implements QuestionRepository {
 
     @Override
     public List<Question> findAll() {
-        return List.of(SingleChoiceQuestionTestFactory.createSingleChoiceQuestion());
+        Question question = new QuestionBuilder().withDefaultSingleChoice().build();
+        return List.of(question);
     }
 
     @Override
     public Optional<Question> findById(QuestionId questionId) {
-        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        question.setId(questionId);
+        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
         return Optional.of(question);
     }
 }

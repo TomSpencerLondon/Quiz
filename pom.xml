@@ -198,6 +198,20 @@
                 <targetTests>
                     <param>com.example.*</param>
                 </targetTests>
+                <excludedTestClasses>
+                    <param>
+                        com.example.quiz.HexagonalArchitectureTest
+                    </param>
+                </excludedTestClasses>
+                <excludedClasses>
+                    <param>com.example.quiz.domain.ResponseId</param>
+                </excludedClasses>
+                <excludedMethods>
+                    <param>equals</param>
+                    <param>hashCode</param>
+                    <param>toString</param>
+                </excludedMethods>
+                <reportsDirectory>${project.basedir}/docs/coverage</reportsDirectory>
             </configuration>
         </plugin>
     </plugins>

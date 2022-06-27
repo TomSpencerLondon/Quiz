@@ -32,7 +32,7 @@ public class QuizEditControllerWebMvcTest {
     ChoiceCountConfig choiceCountConfig;
 
     @MockBean
-    QuestionFactory questionFactory;
+    QuestionTransformer questionTransformer;
 
     @Test
     @WithMockUser(username = "tom", roles = {"ADMIN"})

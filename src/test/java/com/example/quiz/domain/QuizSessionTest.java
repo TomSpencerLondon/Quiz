@@ -1,9 +1,9 @@
 package com.example.quiz.domain;
 
-import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
-import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.domain.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,22 +12,15 @@ public class QuizSessionTest {
     @Test
     void sessionStartsWithTheFirstQuestion() {
         // Given
-        QuestionRepository questionRepository = new InMemoryQuestionRepository();
-        Question question = questionRepository
-                .save(new QuestionBuilder()
-                        .withQuestionId(45L)
-                        .withDefaultSingleChoice()
-                        .build());
-        Quiz quiz = new QuizBuilder()
-                .withQuestions(question)
-                .save();
+        Quiz quiz = new Quiz("Quiz 1", List.of(QuestionId.of(1L)));
+        quiz.setId(QuizId.of(65L));
 
         // When
-        QuizSession session = new QuizSession(question.getId(), "stub-1", quiz.getId());
+        QuizSession session = new QuizSession(QuestionId.of(1L), "stub-1", quiz.getId());
 
         // Then
         assertThat(session.currentQuestionId())
-                .isEqualTo(QuestionId.of(45L));
+                .isEqualTo(QuestionId.of(1L));
     }
 
     @Test
@@ -38,11 +31,14 @@ public class QuizSessionTest {
         Question question = questionBuilder
                 .withQuestionId(7L)
                 .withDefaultSingleChoice()
-                .save();
-        Quiz quiz = new QuizBuilder()
-                .withQuestions(question)
-                .save();
-        QuizSession session = new QuizSessionBuilder().withQuestion(question).withQuiz(quiz).build();
+                .build();
+
+        Quiz quiz = new Quiz("Quiz 1", List.of(QuestionId.of(1L)));
+        quiz.setId(QuizId.of(65L));
+        QuizSession session = new QuizSessionBuilder()
+                .withQuestion(question)
+                .withQuiz(quiz)
+                .build();
 
         // when
         session.respondWith(question, quiz, questionBuilder.firstChoiceIdForQuestion().id());

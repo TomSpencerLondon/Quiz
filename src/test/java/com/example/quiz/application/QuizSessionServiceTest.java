@@ -1,11 +1,9 @@
 package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
-import com.example.quiz.domain.*;
-import com.example.quiz.domain.factories.SingleChoiceQuestionTestFactory;
-import com.example.quiz.hexagon.application.QuizService;
+import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.domain.QuizBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
-import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
 import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
 import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
 import com.example.quiz.hexagon.application.port.QuizRepository;
@@ -44,10 +42,6 @@ public class QuizSessionServiceTest {
 
     @Test
     void givenNoQuizThrowsQuizSessionNotFoundException() {
-        Question question = SingleChoiceQuestionTestFactory.createSingleChoiceQuestion();
-        InMemoryQuestionRepository inMemoryQuestionRepository = new InMemoryQuestionRepository();
-        inMemoryQuestionRepository.save(question);
-        QuizService quizService = new QuizService(inMemoryQuestionRepository);
         QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), null, null);
 
         assertThatThrownBy(() -> quizSessionService.findSessionByToken("stub-id-1"))

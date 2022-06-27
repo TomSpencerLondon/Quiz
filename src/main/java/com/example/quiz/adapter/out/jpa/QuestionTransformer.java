@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("jpaQuestionTransformer")
 public class QuestionTransformer {
     private final ChoiceTransformer choiceTransformer;
 

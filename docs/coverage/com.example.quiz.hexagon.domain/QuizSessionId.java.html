@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>QuizSessionId.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.example.quiz.hexagon.domain;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public record QuizSessionId(long id) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static QuizSessionId of(long id) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_5'/>
+5
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_5'>1</a>
+<span>
+1. of : replaced return value with null for com/example/quiz/hexagon/domain/QuizSessionId::of &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new QuizSessionId(id);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return this.getClass().getSimpleName() + &#34;=&#34; + id;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5438fa43_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5438fa43_5'>5</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5438fa43_5'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>of<br/><b>Killed by : </b>com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest]/[method:quizSessionToQuizSessionDbo()]</span></span> replaced return value with null for com/example/quiz/hexagon/domain/QuizSessionId::of &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterQuestionResponseResultViewHasQuestion()] (9 ms)</li><li>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:givenQuizIdCreatesNewQuizSessionLinkedToQuiz()] (10 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:askingQuestionOnAFinishedQuizReturnsResult()] (11 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:askQuestionWithoutIdThenRedirectsToStart()] (5 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:multipleChoiceQuestionReturnsMultipleChoicePage()] (7 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterQuizStartedAskForQuestionReturnsFirstQuestion()] (8 ms)</li><li>com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest]/[method:quizSessionToQuizSessionDbo()] (9 ms)</li><li>com.example.ChoiceValidatorTest.[engine:junit-jupiter]/[class:com.example.ChoiceValidatorTest]/[method:shouldAllowMultiplechoiceWithAtLeastTwoCorrectAnswers()] (19 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:askQuestionTwiceGoesToSamePage()] (7 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:postStartExists()] (42 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:whenStartSameQuizTwiceGetTwoDifferentSessionTokens()] (11 ms)</li><li>com.example.quiz.application.QuizSessionServiceTest.[engine:junit-jupiter]/[class:com.example.quiz.application.QuizSessionServiceTest]/[method:startNewSessionCreatesNewQuizSession()] (5 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:storesFormResponseAnswerInQuizSessionMarkedAsCorrectAnswer()] (11 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterStartCreateSessionAndRedirectToQuiz()] (5 ms)</li><li>com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.out.jpa.QuizSessionTransformerTest]/[method:quizSessionDboToQuizSession()] (8 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:answerQuestionForSingleQuizSessionAddsResponse()] (6 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerIdTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerIdTest]/[method:answerQuestionForFirstOfTwoSessionsAddsResponseToFirstSession()] (6 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerTest]/[method:afterRespondingToLastQuestionShowsResults()] (8 ms)</li><li>com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest.[engine:junit-jupiter]/[class:com.example.quiz.adapter.in.web.answer.QuizControllerWebMvcTest]/[method:getForAskQuestionShouldBeOk()] (71 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.7.3
+
+</body>
+</html>

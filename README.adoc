@@ -117,4 +117,4 @@ image::https://user-images.githubusercontent.com/27693622/162574142-5a0994d0-39d
 
 == Test coverage - https://pitest.org/faq[pitest]
 image::https://user-images.githubusercontent.com/27693622/174474942-ce3c6b70-623e-4f66-8a3e-aaa564be0f60.png[]
-https://htmlpreview.github.io/?https://github.com/TomSpencerLondon/Quiz/blob/main/src/test/resources/coverage/pit-reports/index.html[view reports]
+https://htmlpreview.github.io/?https://github.com/TomSpencerLondon/Quiz/docs/coverage/index.html[view reports]
