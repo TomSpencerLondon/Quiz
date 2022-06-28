@@ -43,7 +43,7 @@ public class QuizEditControllerTest {
     void addQuestionResultsInQuestionAddedAndRedirects() {
         QuestionBuilder questionBuilder = new QuestionBuilder();
         Question question = questionBuilder.withDefaultSingleChoice().build();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
+        InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
 
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
         QuizEditController quizController = new QuizEditController(createQuestionService, DUMMY_QUIZ_CREATOR, DUMMY_CHOICE_COUNT_CONFIG, new QuestionTransformer());
@@ -81,9 +81,9 @@ public class QuizEditControllerTest {
 
     @Test
     void makerShowsAllQuestions() {
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question singleChoiceQuestion = questionBuilder.withDefaultSingleChoice().save();
-        QuestionRepository questionRepository = questionBuilder.questionRepository();
+        Question singleChoiceQuestion = new QuestionBuilder().withDefaultSingleChoice().build();
+        InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository();
+        questionRepository.save(singleChoiceQuestion);
 
         CreateQuestionService createQuestionService = new CreateQuestionService(questionRepository);
         QuizRepository quizRepository = new InMemoryQuizRepository();

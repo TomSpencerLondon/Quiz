@@ -1,21 +1,17 @@
 package com.example.quiz.domain;
 
-import static java.util.function.Predicate.not;
-
-import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
-import com.example.quiz.hexagon.application.port.QuestionRepository;
-
-import com.example.quiz.hexagon.domain.*;
+import com.example.quiz.hexagon.domain.Choice;
+import com.example.quiz.hexagon.domain.ChoiceType;
+import com.example.quiz.hexagon.domain.MultipleChoice;
+import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.SingleChoice;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.function.Predicate;
 
 public class QuestionBuilder {
-    private Question savedQuestion;
     private QuestionId questionId;
     private ChoiceType choiceType;
-    private QuestionRepository questionRepository = new InMemoryQuestionRepository();
 
     public QuestionBuilder() {
     }
@@ -72,48 +68,8 @@ public class QuestionBuilder {
         return question;
     }
 
-    public Question save() {
-        savedQuestion = questionRepository.save(build());
-        return savedQuestion;
-    }
-
     public QuestionBuilder withQuestionId(long id) {
         questionId = QuestionId.of(id);
         return this;
-    }
-
-    public ChoiceId firstChoiceIdForQuestion() {
-        Choice choice = savedQuestion
-                .choices()
-                .stream()
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-        return choice.getId();
-    }
-
-    public ChoiceId correctChoiceForQuestion() {
-        return questionChoiceMatching(Choice::isCorrect);
-    }
-
-    public ChoiceId incorrectChoiceForQuestion() {
-        return questionChoiceMatching(not(Choice::isCorrect));
-    }
-
-    public QuestionBuilder withQuestionRepository(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
-        return this;
-    }
-
-    private ChoiceId questionChoiceMatching(Predicate<Choice> predicate) {
-        return savedQuestion.choices()
-                            .stream()
-                            .filter(predicate)
-                            .map(Choice::getId)
-                            .findFirst()
-                            .orElseThrow(NoSuchElementException::new);
-    }
-
-    public QuestionRepository questionRepository() {
-        return this.questionRepository;
     }
 }

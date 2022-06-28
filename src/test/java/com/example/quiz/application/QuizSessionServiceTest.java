@@ -2,7 +2,6 @@ package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
 import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.domain.QuizBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
 import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
@@ -11,6 +10,7 @@ import com.example.quiz.hexagon.application.port.QuizSessionRepository;
 import com.example.quiz.hexagon.domain.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,12 +21,18 @@ public class QuizSessionServiceTest {
     @Test
     void startNewSessionCreatesNewQuizSession() {
         // Given
-        Question question = new QuestionBuilder().withDefaultSingleChoice().build();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
+        Question question = new QuestionBuilder()
+                .withQuestionId(1L)
+                .withDefaultSingleChoice()
+                .build();
+        QuizRepository quizRepository = new InMemoryQuizRepository();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        quizRepository.save(quiz);
+
         QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
-        QuizSessionService quizSessionService = quizSessionServiceBuilder.withQuizRepository(quizRepository).build();
+        QuizSessionService quizSessionService = quizSessionServiceBuilder
+                .withQuizRepository(quizRepository)
+                .build();
 
         // When
         String token = quizSessionService.createQuizSession(quizSessionServiceBuilder.quizId());
@@ -51,10 +57,11 @@ public class QuizSessionServiceTest {
     @Test
     void givenQuizIdCreatesNewQuizSessionLinkedToQuiz() {
         // Given
-        Question question = new QuestionBuilder().withDefaultSingleChoice().build();
-        QuizBuilder quizBuilder = new QuizBuilder();
-        quizBuilder.withQuestions(question).save();
-        QuizRepository quizRepository = quizBuilder.quizRepository();
+        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
+        quizRepository.save(quiz);
+
         QuizSessionServiceBuilder quizSessionServiceBuilder = new QuizSessionServiceBuilder();
         QuizSessionService quizSessionService = quizSessionServiceBuilder.withQuizRepository(quizRepository).build();
         QuizSessionRepository quizSessionRepository = quizSessionServiceBuilder
@@ -88,8 +95,12 @@ public class QuizSessionServiceTest {
     @Test
     void givenQuizFindsById() {
         InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
-        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
-        Quiz quiz = new QuizBuilder().withId(1L).withQuestions(question).build();
+        Question question = new QuestionBuilder()
+                .withQuestionId(1L)
+                .withDefaultSingleChoice()
+                .build();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        quiz.setId(QuizId.of(1L));
         quizRepository.save(quiz);
         QuizSessionService quizSessionService = new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
 

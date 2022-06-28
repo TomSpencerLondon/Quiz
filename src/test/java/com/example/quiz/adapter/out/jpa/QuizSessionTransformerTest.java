@@ -1,13 +1,14 @@
 package com.example.quiz.adapter.out.jpa;
 
+import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.domain.QuizSessionBuilder;
+import com.example.quiz.domain.ResponseBuilder;
 import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
-import com.example.quiz.domain.*;
-import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.hexagon.domain.Quiz;
-import com.example.quiz.hexagon.domain.QuizSession;
-import com.example.quiz.hexagon.domain.Response;
+import com.example.quiz.hexagon.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,11 +27,11 @@ class QuizSessionTransformerTest {
     @Test
     void quizSessionDboToQuizSession() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder
-                .withQuestionRepository(questionRepository)
-                .withDefaultSingleChoice().save();
-        Quiz quiz = new QuizBuilder().withQuestions(question).save();
+        Question question = new QuestionBuilder()
+                .withQuestionId(1L)
+                .withDefaultSingleChoice().build();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        quiz.setId(QuizId.of(1L));
         QuizSession expected = new QuizSessionBuilder()
                 .withId(1L)
                 .withQuiz(quiz)
@@ -57,20 +58,21 @@ class QuizSessionTransformerTest {
     @Test
     void quizSessionToQuizSessionDbo() {
         // given
-        QuestionBuilder questionBuilder = new QuestionBuilder();
-        Question question = questionBuilder
+        Question question = new QuestionBuilder()
                 .withQuestionId(0L)
                 .withDefaultSingleChoice()
-                .save();
+                .build();
 
-        Quiz quiz = new QuizBuilder().withQuestions(question).save();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        quiz.setId(QuizId.of(1L));
+
         QuizSession quizSession = new QuizSessionBuilder()
                 .withId(1L)
                 .withQuestion(question)
                 .withQuiz(quiz)
                 .build();
 
-        quizSession.respondWith(question, quiz, questionBuilder.correctChoiceForQuestion().id());
+        quizSession.respondWith(question, quiz, question.choices().get(0).getId().id());
 
         Response response = new ResponseBuilder()
                 .withQuestion(question)

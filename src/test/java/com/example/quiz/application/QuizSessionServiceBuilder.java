@@ -2,10 +2,11 @@ package com.example.quiz.application;
 
 import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
 import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.domain.QuizBuilder;
 import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.*;
 import com.example.quiz.hexagon.domain.*;
+
+import java.util.List;
 
 public class QuizSessionServiceBuilder {
     private QuizSessionRepository quizSessionRepository;
@@ -59,12 +60,13 @@ public class QuizSessionServiceBuilder {
 
     public QuizSessionServiceBuilder withMultipleChoiceQuestion() {
         QuestionBuilder questionBuilder = new QuestionBuilder();
-        question = questionRepository.save(questionBuilder.withDefaultMultipleChoice().save());
+        question = questionRepository.save(questionBuilder.withDefaultMultipleChoice().build());
         return this;
     }
 
     public QuizSessionServiceBuilder withQuiz(long quizId) {
-        Quiz quiz = new QuizBuilder().withId(quizId).withQuestions(question).build();
+        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
+        quiz.setId(QuizId.of(quizId));
         quizRepository.save(quiz);
         return this;
     }

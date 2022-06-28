@@ -5,6 +5,7 @@ import com.example.quiz.hexagon.domain.QuestionId;
 import com.example.quiz.hexagon.domain.Quiz;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -15,7 +16,7 @@ public class QuizTest {
     @Test
     void new_quiz_hasNoQuestions() {
         // Given
-        Quiz quiz = new QuizBuilder().build();
+        Quiz quiz = new Quiz("Quiz 1", Collections.emptyList());
 
         // Then
         List<QuestionId> questionIds = quiz.questionIds();
