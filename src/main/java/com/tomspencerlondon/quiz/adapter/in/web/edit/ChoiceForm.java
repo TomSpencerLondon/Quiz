@@ -2,15 +2,15 @@ package com.tomspencerlondon.quiz.adapter.in.web.edit;
 
 import javax.validation.constraints.NotBlank;
 
-public class ChoiceForm {
+class ChoiceForm {
     @NotBlank
     private String choice;
     private boolean correctAnswer;
 
-    public ChoiceForm() {
+    ChoiceForm() {
     }
 
-    public ChoiceForm(String choice, boolean correctAnswer) {
+    ChoiceForm(String choice, boolean correctAnswer) {
         this.choice = choice;
         this.correctAnswer = correctAnswer;
     }

@@ -1,14 +1,12 @@
 package com.tomspencerlondon.quiz.adapter.in.web.edit;
 
-import com.tomspencerlondon.CorrectAnswer;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Stream;
 
 @CorrectAnswer
-public class AddQuestionForm {
+class AddQuestionForm {
 
     @NotBlank
     private String text;
@@ -16,11 +14,11 @@ public class AddQuestionForm {
     private String choiceType;
     private @Valid ChoiceForm[] choices;
 
-    public AddQuestionForm() {
+    AddQuestionForm() {
         this.choices = new ChoiceForm[]{};
     }
 
-    public AddQuestionForm(int count) {
+    AddQuestionForm(int count) {
         ChoiceForm[] choiceForms = new ChoiceForm[count];
         for (int i = 0; i < count; i++) {
             choiceForms[i] = new ChoiceForm();
@@ -29,7 +27,7 @@ public class AddQuestionForm {
         this.choices = choiceForms;
     }
 
-    public AddQuestionForm(String text, String choiceType, ChoiceForm... choiceForms) {
+    AddQuestionForm(String text, String choiceType, ChoiceForm... choiceForms) {
         this.text = text;
         this.choices = choiceForms;
         this.choiceType = choiceType;

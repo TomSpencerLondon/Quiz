@@ -1,13 +1,10 @@
 package com.tomspencerlondon.quiz.adapter.in.api;
 
-import com.tomspencerlondon.CorrectAnswer;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Stream;
 
-@CorrectAnswer
 public class AddQuestionRequest {
 
     @NotBlank

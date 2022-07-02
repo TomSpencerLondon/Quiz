@@ -1,4 +1,4 @@
-package com.tomspencerlondon;
+package com.tomspencerlondon.quiz.adapter.in.web.edit;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

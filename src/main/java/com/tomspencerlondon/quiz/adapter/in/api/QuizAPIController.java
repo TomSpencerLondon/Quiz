@@ -1,6 +1,5 @@
 package com.tomspencerlondon.quiz.adapter.in.api;
 
-import com.tomspencerlondon.quiz.adapter.in.web.edit.QuestionView;
 import com.tomspencerlondon.quiz.hexagon.application.CreateQuestionService;
 import com.tomspencerlondon.quiz.hexagon.domain.Question;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,9 @@ public class QuizAPIController {
     }
 
     @GetMapping("/api/questions")
-    public List<QuestionView> getAllQuestions() {
+    public List<QuestionResponse> getAllQuestions() {
         final List<Question> questions = createQuestionService.findAll();
-
-        final List<QuestionView> questionViews = questions.stream().map(QuestionView::of).toList();
-
-        return questionViews;
+        return questions.stream().map(QuestionResponse::of).toList();
     }
 
     @PostMapping("/api/questions")

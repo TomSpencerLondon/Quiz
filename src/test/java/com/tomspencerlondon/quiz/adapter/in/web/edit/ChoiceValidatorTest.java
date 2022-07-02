@@ -1,7 +1,5 @@
-package com.tomspencerlondon;
+package com.tomspencerlondon.quiz.adapter.in.web.edit;
 
-import com.tomspencerlondon.quiz.adapter.in.web.edit.AddQuestionForm;
-import com.tomspencerlondon.quiz.adapter.in.web.edit.ChoiceForm;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintValidatorContext;

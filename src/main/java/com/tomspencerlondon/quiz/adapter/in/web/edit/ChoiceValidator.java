@@ -1,7 +1,4 @@
-package com.tomspencerlondon;
-
-import com.tomspencerlondon.quiz.adapter.in.web.edit.AddQuestionForm;
-import com.tomspencerlondon.quiz.adapter.in.web.edit.ChoiceForm;
+package com.tomspencerlondon.quiz.adapter.in.web.edit;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
