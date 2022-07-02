@@ -1,13 +1,14 @@
 package com.example.quiz.adapter.in.web.edit;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.domain.QuestionBuilder;
-import org.junit.jupiter.api.Test;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 class AddQuestionFormTest {
     @Test

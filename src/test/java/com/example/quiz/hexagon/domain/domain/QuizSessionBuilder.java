@@ -1,4 +1,4 @@
-package com.example.quiz.domain;
+package com.example.quiz.hexagon.domain.domain;
 
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.Quiz;

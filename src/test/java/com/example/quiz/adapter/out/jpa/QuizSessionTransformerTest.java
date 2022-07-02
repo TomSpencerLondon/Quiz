@@ -1,10 +1,10 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.domain.QuizSessionBuilder;
-import com.example.quiz.domain.ResponseBuilder;
 import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
 import com.example.quiz.hexagon.domain.*;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
+import com.example.quiz.hexagon.domain.domain.QuizSessionBuilder;
+import com.example.quiz.hexagon.domain.domain.ResponseBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

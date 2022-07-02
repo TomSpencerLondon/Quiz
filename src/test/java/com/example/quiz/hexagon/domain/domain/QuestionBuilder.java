@@ -1,11 +1,6 @@
-package com.example.quiz.domain;
+package com.example.quiz.hexagon.domain.domain;
 
-import com.example.quiz.hexagon.domain.Choice;
-import com.example.quiz.hexagon.domain.ChoiceType;
-import com.example.quiz.hexagon.domain.MultipleChoice;
-import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.hexagon.domain.QuestionId;
-import com.example.quiz.hexagon.domain.SingleChoice;
+import com.example.quiz.hexagon.domain.*;
 
 import java.util.List;
 

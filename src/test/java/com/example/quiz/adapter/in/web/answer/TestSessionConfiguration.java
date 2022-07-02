@@ -1,14 +1,11 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.domain.QuestionBuilder;
 import com.example.quiz.hexagon.application.QuizService;
 import com.example.quiz.hexagon.application.QuizSessionService;
-import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
-import com.example.quiz.hexagon.application.port.InMemoryQuizSessionRepository;
-import com.example.quiz.hexagon.application.port.QuestionRepository;
-import com.example.quiz.hexagon.application.port.TokenGenerator;
+import com.example.quiz.hexagon.application.port.*;
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.Quiz;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;

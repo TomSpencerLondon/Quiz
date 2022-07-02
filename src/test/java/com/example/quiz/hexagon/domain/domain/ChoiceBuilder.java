@@ -1,6 +1,4 @@
-package com.example.quiz.domain;
-
-import static java.util.function.Predicate.not;
+package com.example.quiz.hexagon.domain.domain;
 
 import com.example.quiz.hexagon.domain.Choice;
 import com.example.quiz.hexagon.domain.ChoiceId;
@@ -9,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
+
+import static java.util.function.Predicate.not;
 
 public class ChoiceBuilder {
 

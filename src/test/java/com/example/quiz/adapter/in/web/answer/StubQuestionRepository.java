@@ -1,9 +1,9 @@
 package com.example.quiz.adapter.in.web.answer;
 
-import com.example.quiz.domain.QuestionBuilder;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.QuestionId;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,5 @@
 package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
 import com.example.quiz.hexagon.application.CreateQuestionService;
 import com.example.quiz.hexagon.application.QuizCreator;
 import com.example.quiz.hexagon.domain.Question;

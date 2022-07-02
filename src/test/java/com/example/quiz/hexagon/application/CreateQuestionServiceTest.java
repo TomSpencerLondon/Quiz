@@ -1,11 +1,10 @@
-package com.example.quiz.application;
+package com.example.quiz.hexagon.application;
 
-import com.example.quiz.hexagon.application.CreateQuestionService;
 import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
 import com.example.quiz.hexagon.domain.Choice;
-import com.example.quiz.domain.ChoiceBuilder;
 import com.example.quiz.hexagon.domain.Question;
-import com.example.quiz.domain.QuestionBuilder;
+import com.example.quiz.hexagon.domain.domain.ChoiceBuilder;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

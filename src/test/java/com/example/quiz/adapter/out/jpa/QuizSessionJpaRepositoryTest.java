@@ -1,10 +1,10 @@
 package com.example.quiz.adapter.out.jpa;
 
-import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.domain.ResponseBuilder;
 import com.example.quiz.hexagon.domain.Question;
 import com.example.quiz.hexagon.domain.QuestionId;
 import com.example.quiz.hexagon.domain.Response;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
+import com.example.quiz.hexagon.domain.domain.ResponseBuilder;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

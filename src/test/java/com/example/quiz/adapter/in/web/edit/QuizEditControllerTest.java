@@ -1,7 +1,5 @@
 package com.example.quiz.adapter.in.web.edit;
 
-import com.example.quiz.adapter.out.web.initialChoiceCount.ChoiceCountConfig;
-import com.example.quiz.domain.QuestionBuilder;
 import com.example.quiz.hexagon.application.CreateQuestionService;
 import com.example.quiz.hexagon.application.QuizCreator;
 import com.example.quiz.hexagon.application.port.InMemoryQuestionRepository;
@@ -9,6 +7,7 @@ import com.example.quiz.hexagon.application.port.InMemoryQuizRepository;
 import com.example.quiz.hexagon.application.port.QuestionRepository;
 import com.example.quiz.hexagon.application.port.QuizRepository;
 import com.example.quiz.hexagon.domain.Question;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;

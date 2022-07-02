@@ -1,6 +1,4 @@
-package com.example.quiz.adapter.in.web.answer;
-
-import com.example.quiz.hexagon.application.port.TokenGenerator;
+package com.example.quiz.hexagon.application.port;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

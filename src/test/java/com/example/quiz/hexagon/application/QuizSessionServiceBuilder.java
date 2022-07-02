@@ -1,10 +1,8 @@
-package com.example.quiz.application;
+package com.example.quiz.hexagon.application;
 
-import com.example.quiz.adapter.in.web.answer.StubTokenGenerator;
-import com.example.quiz.domain.QuestionBuilder;
-import com.example.quiz.hexagon.application.QuizSessionService;
 import com.example.quiz.hexagon.application.port.*;
 import com.example.quiz.hexagon.domain.*;
+import com.example.quiz.hexagon.domain.domain.QuestionBuilder;
 
 import java.util.List;
 

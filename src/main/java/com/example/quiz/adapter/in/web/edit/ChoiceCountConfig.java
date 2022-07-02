@@ -1,4 +1,4 @@
-package com.example.quiz.adapter.out.web.initialChoiceCount;
+package com.example.quiz.adapter.in.web.edit;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
