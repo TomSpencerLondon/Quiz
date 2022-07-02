@@ -12,12 +12,12 @@
         <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>spring-practice</artifactId>
+    <groupId>com.tomspencerlondon</groupId>
+    <artifactId>quiz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>spring-practice</name>
-    <description>Demo project for Spring Boot</description>
+    <name>quiz</name>
+    <description>Quiz Application</description>
 
     <properties>
         <java.version>17</java.version>
@@ -193,18 +193,18 @@
                 <failWhenNoMutations>false</failWhenNoMutations>
                 <timestampedReports>false</timestampedReports>
                 <targetClasses>
-                    <param>com.example.*</param>
+                    <param>com.tomspencerlondon.*</param>
                 </targetClasses>
                 <targetTests>
-                    <param>com.example.*</param>
+                    <param>com.tomspencerlondon.*</param>
                 </targetTests>
                 <excludedTestClasses>
                     <param>
-                        com.example.quiz.HexagonalArchitectureTest
+                        com.tomspencerlondon.quiz.HexagonalArchitectureTest
                     </param>
                 </excludedTestClasses>
                 <excludedClasses>
-                    <param>com.example.quiz.domain.ResponseId</param>
+                    <param>com.tomspencerlondon.quiz.domain.ResponseId</param>
                 </excludedClasses>
                 <excludedMethods>
                     <param>equals</param>
