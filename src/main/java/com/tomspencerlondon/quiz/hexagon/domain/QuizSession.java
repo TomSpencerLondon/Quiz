@@ -55,9 +55,18 @@ public class QuizSession {
     }
 
     public void respondWith(Question question, Quiz quiz, long... choiceIds) {
-        Choice[] selectedChoices = selectedChoicesForQuestion(question, choiceIds);
+        List<ChoiceId> choiceIdList = Arrays.stream(choiceIds)
+                                            .boxed()
+                                            .map(ChoiceId::new)
+                                            .toList();
+
+        // This is harder - no question +
+        Choice[] selectedChoices = question.choices()
+                                           .stream()
+                                           .filter(c -> choiceIdList.contains(c.getId()))
+                                           .toArray(Choice[]::new);
         boolean correctAnswer = question.isCorrectAnswer(selectedChoices);
-        Response response = new Response(question.getId(), correctAnswer, selectedChoices);
+        Response response = new Response(question.getId(), correctAnswer, choiceIdList);
         responses.add(response);
         currentQuestionId = quiz.nextQuestionAfter(question.getId());
     }

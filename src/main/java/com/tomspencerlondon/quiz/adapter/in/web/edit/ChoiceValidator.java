@@ -27,6 +27,6 @@ public class ChoiceValidator implements ConstraintValidator<CorrectAnswer, AddQu
     }
 
     private boolean tooManyForSingleChoice(AddQuestionForm addQuestionForm, long count) {
-        return (count < 1L || count > 1L) && addQuestionForm.getChoiceType().equals("single");
+        return (count != 1) && addQuestionForm.getChoiceType().equals("single");
     }
 }

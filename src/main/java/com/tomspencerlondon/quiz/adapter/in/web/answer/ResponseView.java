@@ -16,10 +16,16 @@ public class ResponseView {
 
     public static ResponseView from(Response response, QuestionRepository questionRepository) {
         ResponseView responseView = new ResponseView();
-        responseView.chosenAnswers = response.choices().stream().map(Choice::text).toList();
         Question question = questionRepository
                 .findById(response.questionId())
                 .orElseThrow();
+
+        responseView.chosenAnswers = question.choices()
+                                             .stream()
+                                             .filter(choice -> response.choiceIds().contains(choice.getId()))
+                                             .map(Choice::text)
+                                             .toList();
+
 
         responseView.questionView = QuestionView.of(question);
         responseView.correctlyAnswered = response.isCorrect();

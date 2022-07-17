@@ -300,7 +300,7 @@ public class QuizSessionTest {
         session.respondWith(question, quiz, question.choices().get(0).getId().id());
 
         // Then
-        assertThat(session.responses().get(0).choices())
-                .containsExactly(choice);
+        assertThat(session.responses().get(0).choiceIds())
+                .containsExactly(choice.getId());
     }
 }

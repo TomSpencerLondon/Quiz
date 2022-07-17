@@ -1,10 +1,7 @@
 package com.tomspencerlondon.quiz.adapter.out.jpa;
 
 import com.tomspencerlondon.quiz.hexagon.application.port.QuestionRepository;
-import com.tomspencerlondon.quiz.hexagon.domain.Choice;
-import com.tomspencerlondon.quiz.hexagon.domain.Question;
-import com.tomspencerlondon.quiz.hexagon.domain.QuestionId;
-import com.tomspencerlondon.quiz.hexagon.domain.Response;
+import com.tomspencerlondon.quiz.hexagon.domain.*;
 
 import java.util.List;
 import java.util.Set;
@@ -20,11 +17,8 @@ public class ResponseTransformer {
     public ResponseDbo toResponseDbo(Response response) {
         ResponseDbo responseDbo = new ResponseDbo();
         responseDbo.setQuestionId(response.questionId().id());
-        Set<Long> choiceIds = response
-                .choices()
-                .stream()
-                .map(choice -> choice.getId().id())
-                .collect(Collectors.toSet());
+        Set<Long> choiceIds = response.choiceIds()
+                .stream().map(ChoiceId::id).collect(Collectors.toSet());
         responseDbo.setChoiceIds(choiceIds);
 
         return responseDbo;

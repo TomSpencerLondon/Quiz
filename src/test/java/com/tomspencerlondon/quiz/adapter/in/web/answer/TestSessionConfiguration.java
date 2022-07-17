@@ -1,5 +1,6 @@
 package com.tomspencerlondon.quiz.adapter.in.web.answer;
 
+import com.tomspencerlondon.quiz.adapter.in.web.QuizControllerTestFactory;
 import com.tomspencerlondon.quiz.hexagon.application.QuizService;
 import com.tomspencerlondon.quiz.hexagon.application.QuizSessionService;
 import com.tomspencerlondon.quiz.hexagon.application.port.*;
@@ -23,10 +24,8 @@ class TestSessionConfiguration {
     @Primary
     @Bean
     QuizSessionService createTestQuizSessionService() {
-        Question question = new QuestionBuilder().withQuestionId(1L).withDefaultSingleChoice().build();
-        Quiz quiz = new Quiz("Quiz 1", List.of(question.getId()));
-        InMemoryQuizRepository quizRepository = new InMemoryQuizRepository();
-        quizRepository.save(quiz);
+        QuestionRepository questionRepository = QuestionRepositoryFactory.createQuestionRepositoryWithSingleChoiceQuestion();
+        QuizRepository quizRepository = QuizControllerTestFactory.createQuizRepositoryWithOneQuizWith(questionRepository.findAll().get(0));
         return new QuizSessionService(new InMemoryQuizSessionRepository(), quizRepository, new StubTokenGenerator());
     }
 

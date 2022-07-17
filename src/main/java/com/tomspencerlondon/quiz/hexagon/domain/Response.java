@@ -7,12 +7,20 @@ public class Response {
     private ResponseId id;
     private QuestionId questionId;
     private boolean isCorrect;
-    private final List<Choice> choices;
+    private List<ChoiceId> choiceIds;
+    private List<Choice> choices;
 
+    @Deprecated
     public Response(QuestionId questionId, boolean isCorrect, Choice... choices) {
         this.questionId = questionId;
         this.isCorrect = isCorrect;
         this.choices = List.of(choices);
+    }
+
+    public Response(QuestionId questionId, boolean isCorrect, List<ChoiceId> choiceIds) {
+        this.questionId = questionId;
+        this.isCorrect = isCorrect;
+        this.choiceIds = choiceIds;
     }
 
     public ResponseId getId() {
@@ -27,8 +35,13 @@ public class Response {
         return isCorrect;
     }
 
+    @Deprecated
     public List<Choice> choices() {
         return choices;
+    }
+
+    public List<ChoiceId> choiceIds() {
+        return choiceIds;
     }
 
     public QuestionId questionId() {
