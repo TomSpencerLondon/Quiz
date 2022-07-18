@@ -19,7 +19,7 @@
     "watch:serve": "browser-sync start --proxy localhost:8083 --files \"target/classes/templates\" \"target/classes/static\""
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.10",
+    "@babel/cli": "^7.18.9",
     "@babel/core": "^7.17.12",
     "@tailwindcss/forms": "^0.5.2",
     "autoprefixer": "^10.4.7",
